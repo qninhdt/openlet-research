@@ -1,0 +1,3521 @@
+{
+  "source_metrics": {
+    "reclor": {
+      "n_samples": 88,
+      "total_gt_questions": 88,
+      "total_pred_questions": 1496,
+      "avg_bleu": 0.16865589316171462,
+      "avg_rouge": 0.3908136950395063,
+      "avg_cosine": 0.67794113911011,
+      "avg_bleurt": 0.42786561155861075,
+      "mauve": 0.6676723552646191,
+      "fbd": 32.39337241540565
+    }
+  },
+  "detailed_results": [
+    {
+      "id": 201,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The reasoning in the argument is flawed because the argument",
+            "correct": 0,
+            "options": [
+              "ignores the fact that in a family business, paying family members low wages may itself reduce the family's prosperity",
+              "presumes, without providing justification, that family members are willing to work for low wages in a family business because they believe that doing so promotes the family's prosperity",
+              "ignores the fact that businesses that achieve high levels of customer satisfaction are often profitable even if they pay high wages",
+              "presumes, without providing justification, that only businesses with low general operating expenses can succeed"
+            ]
+          },
+          "gt_text": "The reasoning in the argument is flawed because the argument ignores the fact that in a family business, paying family members low wages may itself reduce the family's prosperity",
+          "matched_pred_idx": 13,
+          "matched_pred_question": {
+            "content": "What is the flaw in the argument?",
+            "options": [
+              "It assumes that lower wages directly cause higher profits without considering other factors.",
+              "It confuses correlation with causation.",
+              "It uses a biased sample (only family businesses).",
+              "It ignores the possibility of non-family businesses being profitable."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "What is the flaw in the argument? It assumes that lower wages directly cause higher profits without considering other factors.",
+          "scores": {
+            "bleu4": 0.01786336545684448,
+            "rougeL": 0.3103448275862069,
+            "cosine_sim": 0.7053103446960449,
+            "bleurt": 0.4856278896331787
+          }
+        }
+      ]
+    },
+    {
+      "id": 202,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "If the statements above are true, which of the following must also be true on the basis of them?",
+            "correct": 0,
+            "options": [
+              "People who are helped by business courses in solving management problems also have managerial talent.",
+              "Those people who have never taken business courses are unable to solve management problems when such problems arise.",
+              "People who lack managerial talent are more likely to take business courses than are people who have managerial talent.",
+              "People who are already skilled at solving management problems are unlikely to benefit from business courses."
+            ]
+          },
+          "gt_text": "If the statements above are true, which of the following must also be true on the basis of them? People who are helped by business courses in solving management problems also have managerial talent.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "NECESSARY ASSUMPTION",
+            "options": [
+              "Business courses are the only way for talented individuals to acquire management ideas.",
+              "All business courses are equally effective for solving management problems.",
+              "People without talent can still benefit from business courses.",
+              "Successful managers never face management problems."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "NECESSARY ASSUMPTION Business courses are the only way for talented individuals to acquire management ideas.",
+          "scores": {
+            "bleu4": 0.02317238019728122,
+            "rougeL": 0.20408163265306123,
+            "cosine_sim": 0.6064943075180054,
+            "bleurt": 0.3502260744571686
+          }
+        }
+      ]
+    },
+    {
+      "id": 203,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 204,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 205,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Trent's argument assumes that",
+            "correct": 2,
+            "options": [
+              "dinosaurs in the neighborhood of an asteroid impact but not within the zone of direct impact would have survived such an impact",
+              "dust from the impact of an asteroid on the Earth would not have had any cooling effect on the climate",
+              "no more than one large asteroid struck the Earth during the period when the dinosaurs were becoming extinct",
+              "any collision of an asteroid with the Earth would have occurred on a land area rather than an ocean"
+            ]
+          },
+          "gt_text": "Trent's argument assumes that no more than one large asteroid struck the Earth during the period when the dinosaurs were becoming extinct",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "What is the main conclusion of Selena's argument?",
+            "options": [
+              "The asteroid impact caused the extinction of the dinosaurs.",
+              "The crater is located in Mexico.",
+              "The dust layer provides evidence of an impact.",
+              "The extinction took many years."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "What is the main conclusion of Selena's argument? The asteroid impact caused the extinction of the dinosaurs.",
+          "scores": {
+            "bleu4": 0.028510942935265994,
+            "rougeL": 0.2926829268292683,
+            "cosine_sim": 0.69493567943573,
+            "bleurt": 0.37235337495803833
+          }
+        }
+      ]
+    },
+    {
+      "id": 206,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most weakens the argument?",
+            "correct": 0,
+            "options": [
+              "The people who are the most likely to take sleeping pills rather than practice behavior modification techniques are those who have previously had the most trouble falling asleep.",
+              "People who do not take sleeping pills spend at least as many total hours asleep each night as do the people who take sleeping pills.",
+              "Most people who have trouble falling asleep and who use behavior modification techniques fall asleep more slowly than do most people who have no trouble falling asleep.",
+              "The people who are the most likely to practice behavior modification techniques rather than take sleeping pills are those who prefer not to use drugs if other treatments are available."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most weakens the argument? The people who are the most likely to take sleeping pills rather than practice behavior modification techniques are those who have previously had the most trouble falling asleep.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "The behavior modification group had more severe chronic insomnia than the sleeping pill group.",
+              "Participants in the sleeping pill group were allowed to use other sleep aids during the study.",
+              "The study was funded by a company that produces behavior modification programs.",
+              "The behavior modification techniques were developed by a renowned sleep specialist."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? The behavior modification group had more severe chronic insomnia than the sleeping pill group.",
+          "scores": {
+            "bleu4": 0.2555528537308274,
+            "rougeL": 0.4923076923076924,
+            "cosine_sim": 0.7995579242706299,
+            "bleurt": 0.4467693567276001
+          }
+        }
+      ]
+    },
+    {
+      "id": 207,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most helps to resolve the apparent discrepancy presented above?",
+            "correct": 1,
+            "options": [
+              "The public would not support the military action unless it was known that the parliament supported the action.",
+              "In the parliamentary leader's nation, it is the constitutional prerogative of the parliament, not of the prime minister, to initiate foreign military action.",
+              "The UN Security Council cannot legally commit the military of a member nation to armed intervention in other countries.",
+              "Members of the parliament traditionally are more closely attuned to public sentiment, especially with regard to military action, than are prime ministers."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most helps to resolve the apparent discrepancy presented above? In the parliamentary leader's nation, it is the constitutional prerogative of the parliament, not of the prime minister, to initiate foreign military action.",
+          "matched_pred_idx": 8,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most help to resolve the apparent discrepancy in the information above?",
+            "options": [
+              "The parliament's support for the intervention is independent of the prime minister's actions.",
+              "The prime minister's promise to commit troops was the sole reason for the resolution.",
+              "The UN Security Council's authorization was the only factor influencing the parliament's decision.",
+              "The parliament's condemnation of the prime minister was a direct response to the intervention's success."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most help to resolve the apparent discrepancy in the information above? The parliament's support for the intervention is independent of the prime minister's actions.",
+          "scores": {
+            "bleu4": 0.3332923755423947,
+            "rougeL": 0.6216216216216216,
+            "cosine_sim": 0.6592544913291931,
+            "bleurt": 0.51727294921875
+          }
+        }
+      ]
+    },
+    {
+      "id": 208,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The argument above assumes which of the following?",
+            "correct": 0,
+            "options": [
+              "Without the incentives offered by federal income tax laws, at least some wealthy individuals would not donate as much money to charitable and educational institutions as they otherwise would have.",
+              "The primary reason for not adopting the proposed change in the federal income tax laws cited above is to protect wealthy individuals from having to pay higher taxes.",
+              "Money contributed by individuals who make their donations because of provisions in the federal tax laws provides the only source of funding for many charitable and educational institutions.",
+              "Income tax laws should be changed to make donations to charitable and educational institutions the only permissible deductions from taxable income."
+            ]
+          },
+          "gt_text": "The argument above assumes which of the following? Without the incentives offered by federal income tax laws, at least some wealthy individuals would not donate as much money to charitable and educational institutions as they otherwise would have.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which one of the following is an assumption required by the argument?",
+            "options": [
+              "Wealthy individuals would significantly reduce their donations to charities if they could no longer deduct them from their taxes.",
+              "The government would increase funding to charitable institutions to offset the loss of tax deductions.",
+              "Most charitable institutions rely solely on tax-deductible donations for their operations.",
+              "Tax deductions are the only factor influencing charitable giving."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is an assumption required by the argument? Wealthy individuals would significantly reduce their donations to charities if they could no longer deduct them from their taxes.",
+          "scores": {
+            "bleu4": 0.13164235883295436,
+            "rougeL": 0.38095238095238093,
+            "cosine_sim": 0.7922425270080566,
+            "bleurt": 0.45317542552948
+          }
+        }
+      ]
+    },
+    {
+      "id": 209,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The argument is vulnerable to criticism on which one of the following grounds?",
+            "correct": 0,
+            "options": [
+              "It gives no indication of either the basis of Mayor Smith's former opposition to nuclear power plant construction or the reasons for her support for the Littletown project.",
+              "It assumes without warrant that the qualities enabling a person to be elected to public office confer on that person a grasp of the scientific principles on which technical decisions are based.",
+              "It fails to establish that a consistent and outspoken opposition is necessarily an informed opposition.",
+              "It overlooks the possibility that not all those who fail to speak out on issues of nuclear power are necessarily opposed to it."
+            ]
+          },
+          "gt_text": "The argument is vulnerable to criticism on which one of the following grounds? It gives no indication of either the basis of Mayor Smith's former opposition to nuclear power plant construction or the reasons for her support for the Littletown project.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which one of the following is an assumption required by the argument?",
+            "options": [
+              "Mayor Smith’s past opposition to nuclear power plants was based on safety concerns.",
+              "The Littletown nuclear power plant is the only one being considered for construction.",
+              "Mayor Smith’s current support for the plant is based on new safety data.",
+              "The public has no other sources of information about nuclear power plant safety."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is an assumption required by the argument? Mayor Smith’s current support for the plant is based on new safety data.",
+          "scores": {
+            "bleu4": 0.15576501283817484,
+            "rougeL": 0.3658536585365853,
+            "cosine_sim": 0.7320279479026794,
+            "bleurt": 0.38120323419570923
+          }
+        }
+      ]
+    },
+    {
+      "id": 210,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following can be properly inferred from the statements above?",
+            "correct": 2,
+            "options": [
+              "Government officials who conceal information without a compelling reason are thereby guilty of an abuse of power.",
+              "Government officials should keep information secret only if doing so does not make it easier for those officials to abuse their power.",
+              "A government official who justifiably keeps a secret should not conceal its existence without having a compelling reason to do so.",
+              "In most cases in which government officials conceal information from the public, they are not justified in doing so."
+            ]
+          },
+          "gt_text": "Which one of the following can be properly inferred from the statements above? government official who justifiably keeps a secret should not conceal its existence without having a compelling reason to do so.",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "Which one of the following most accurately expresses the main conclusion of the argument?",
+            "options": [
+              "Government secrecy should only be used when there is a compelling reason.",
+              "Officials who keep secrets for insubstantial reasons enable abuse.",
+              "The public has a right to know about government secrecy practices.",
+              "Secrecy creates opportunities for abuse of power."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following most accurately expresses the main conclusion of the argument? Government secrecy should only be used when there is a compelling reason.",
+          "scores": {
+            "bleu4": 0.15110741672382147,
+            "rougeL": 0.42857142857142855,
+            "cosine_sim": 0.6625412106513977,
+            "bleurt": 0.4556903839111328
+          }
+        }
+      ]
+    },
+    {
+      "id": 211,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The statements above, if true, best support which of the following as a conclusion?",
+            "correct": 2,
+            "options": [
+              "Computers ought to be designed to break down more quickly than is presently the case.",
+              "Computers utilizing the latest technology represent substantial functional upgrades from earlier computers.",
+              "American consumers are motivated to purchase new computers by some combination of factors other than their current computer's ability to perform basic functions.",
+              "Improved manufacturing techniques have led to computers lasting longer than was possible in the past."
+            ]
+          },
+          "gt_text": "The statements above, if true, best support which of the following as a conclusion? American consumers are motivated to purchase new computers by some combination of factors other than their current computer's ability to perform basic functions.",
+          "matched_pred_idx": 8,
+          "matched_pred_question": {
+            "content": "The apparent discrepancy in the passage can best be resolved by assuming that:",
+            "options": [
+              "Consumers replace computers because they prefer new features over functionality.",
+              "Older computers are more vulnerable to viruses after four years.",
+              "The design lifespan of computers is irrelevant to consumer behavior.",
+              "Manufacturers reduce warranties to encourage replacements."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "The apparent discrepancy in the passage can best be resolved by assuming that: Consumers replace computers because they prefer new features over functionality.",
+          "scores": {
+            "bleu4": 0.08416118660272875,
+            "rougeL": 0.23333333333333334,
+            "cosine_sim": 0.6443306803703308,
+            "bleurt": 0.40769118070602417
+          }
+        }
+      ]
+    },
+    {
+      "id": 212,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following hypotheses best accounts for the findings of the experiment?",
+            "correct": 2,
+            "options": [
+              "The neurons of the brain react less when a subject is trying to recognize patterns than when the subject is doing other kinds of reasoning.",
+              "The energy expenditure of the subjects' brains increases when a design that completes the initially recognized pattern is determined.",
+              "People who are better at abstract pattern recognition have more energy-efficient neural connections.",
+              "The task of completing a given design is more capably performed by athletes, whose energy expenditure is lower when they are at rest."
+            ]
+          },
+          "gt_text": "Which of the following hypotheses best accounts for the findings of the experiment? People who are better at abstract pattern recognition have more energy-efficient neural connections.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "Which one of the following is most strongly supported by the information in the passage?",
+            "options": [
+              "Success in pattern recognition tasks is associated with lower energy expenditure.",
+              "The experiment's results are likely due to the subjects' prior experience.",
+              "The matrix of abstract designs was designed to test specific cognitive functions.",
+              "The experiment's results are not statistically significant."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is most strongly supported by the information in the passage? Success in pattern recognition tasks is associated with lower energy expenditure.",
+          "scores": {
+            "bleu4": 0.04653148282817091,
+            "rougeL": 0.3555555555555555,
+            "cosine_sim": 0.6658390164375305,
+            "bleurt": 0.4360995888710022
+          }
+        }
+      ]
+    },
+    {
+      "id": 213,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following is an assumption that the researcher's argument requires?",
+            "correct": 2,
+            "options": [
+              "Many, if not all, of the scents that have a tendency to reduce susceptibility to illness do so, at least in part, by reducing stress.",
+              "At least some people who use the scent of lavender to induce relaxation and reduce stress are no more susceptible to illness than average.",
+              "Some people who regularly inhale the scent of lavender would otherwise be under enough stress to impair their immune systems.",
+              "Reduced stress diminishes susceptibility to illness only for people who are under enough stress to impair their immune systems to at least some degree."
+            ]
+          },
+          "gt_text": "Which one of the following is an assumption that the researcher's argument requires? Some people who regularly inhale the scent of lavender would otherwise be under enough stress to impair their immune systems.",
+          "matched_pred_idx": 5,
+          "matched_pred_question": {
+            "content": "Which one of the following is an implication of the argument?",
+            "options": [
+              "Lavender scent is the most effective way to reduce stress.",
+              "People who inhale lavender are less likely to get sick.",
+              "Stress is the primary cause of illness.",
+              "The immune system is not affected by stress."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is an implication of the argument? People who inhale lavender are less likely to get sick.",
+          "scores": {
+            "bleu4": 0.18485171889492583,
+            "rougeL": 0.509090909090909,
+            "cosine_sim": 0.7154470682144165,
+            "bleurt": 0.42454206943511963
+          }
+        }
+      ]
+    },
+    {
+      "id": 214,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following is an argumentative strategy employed in the argument?",
+            "correct": 3,
+            "options": [
+              "trying to undermine support for a certain policy by pointing out that factors other than the policy itself could account for the results attributed to that policy",
+              "providing evidence that because the officials charged with enforcing a certain policy often fail to perform their duty that policy is sure to have little effect",
+              "raising a possible objection to a certain policy in order to show that the objection is in fact irrelevant to the particular situation the policy was designed to address",
+              "arguing that a certain policy is bound to fail because an event that is likely to defeat the aim of the policy falls outside the policy's influence"
+            ]
+          },
+          "gt_text": "Which one of the following is an argumentative strategy employed in the argument? arguing that a certain policy is bound to fail because an event that is likely to defeat the aim of the policy falls outside the policy's influence",
+          "matched_pred_idx": 9,
+          "matched_pred_question": {
+            "content": "Which principle is illustrated by the argument?",
+            "options": [
+              "policy’s effectiveness depends on addressing all possible sources of a problem.",
+              "policy’s success is contingent on quarantining all animals.",
+              "policy’s effectiveness is limited by the inability to control wild animals.",
+              "policy’s success is contingent on quarantining imported animals."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which principle is illustrated by the argument? policy’s effectiveness depends on addressing all possible sources of a problem.",
+          "scores": {
+            "bleu4": 0.1731749368093597,
+            "rougeL": 0.3529411764705882,
+            "cosine_sim": 0.6739882230758667,
+            "bleurt": 0.3785572648048401
+          }
+        }
+      ]
+    },
+    {
+      "id": 215,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 216,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, most seriously weakens the theatergoer's argument?",
+            "correct": 1,
+            "options": [
+              "Total sales of all food and beverage items at Megaplex's movie theaters increased by less than five percent last year.",
+              "Total attendance at Megaplex's movie theaters was more than 20 percent higher last year than the year before.",
+              "In a survey to determine pubic response to the change to canola oil, very few of Megapiex's customers said that the change had affected their popcorn-buying habits.",
+              "When it switched from using coconut oil to using canola oil, Megaplex made sure that the chain received a great deal of publicity stressing the health benefits of the change."
+            ]
+          },
+          "gt_text": "Which of the following, if true, most seriously weakens the theatergoer's argument? Total attendance at Megaplex's movie theaters was more than 20 percent higher last year than the year before.",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most strengthen the argument?",
+            "options": [
+              "Megaplex’s sales figures are independently verified by a third party.",
+              "Coconut oil is more expensive than canola oil.",
+              "The oil change coincided with a marketing campaign.",
+              "Customers prefer canola oil for its taste."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most strengthen the argument? Megaplex’s sales figures are independently verified by a third party.",
+          "scores": {
+            "bleu4": 0.1857333148615175,
+            "rougeL": 0.4528301886792453,
+            "cosine_sim": 0.5937296152114868,
+            "bleurt": 0.3384159803390503
+          }
+        }
+      ]
+    },
+    {
+      "id": 217,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, would cast the most serious doubt on the conclusion?",
+            "correct": 0,
+            "options": [
+              "Newspapers and televised news programs have more comprehensive coverage of violent crime than newspapers did in the old days.",
+              "National data show that violent crime is out of control everywhere, not just in the author's city.",
+              "Police records show that people experience more violent crimes in their own neighborhoods than they do outside their neighborhoods.",
+              "News magazines play a more important role today in informing the public about crime than they did in the old days."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, would cast the most serious doubt on the conclusion? Newspapers and televised news programs have more comprehensive coverage of violent crime than newspapers did in the old days.",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "Which one of the following, if assumed, enables the conclusion to be properly inferred?",
+            "options": [
+              "The media's coverage of violent crimes accurately reflects the true crime rate.",
+              "Newspapers in the old days were less reliable than modern ones.",
+              "People who avoid leaving their homes are less likely to be victims of crime.",
+              "The number of violent crimes reported in the media is the same as the number of actual crimes."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if assumed, enables the conclusion to be properly inferred? The media's coverage of violent crimes accurately reflects the true crime rate.",
+          "scores": {
+            "bleu4": 0.2518748238394663,
+            "rougeL": 0.44067796610169496,
+            "cosine_sim": 0.7354424595832825,
+            "bleurt": 0.5667304396629333
+          }
+        }
+      ]
+    },
+    {
+      "id": 218,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "In the conversation, Hernandez responds to Green's objection in which one of the following ways?",
+            "correct": 3,
+            "options": [
+              "by indicating that Green used a phrase ambiguously",
+              "by changing the subject to the size of sales territories",
+              "by criticizing salespeople who wear out their cars in three years",
+              "by explicitly qualifying a premise used earlier"
+            ]
+          },
+          "gt_text": "In the conversation, Hernandez responds to Green's objection in which one of the following ways? by explicitly qualifying a premise used earlier",
+          "matched_pred_idx": 11,
+          "matched_pred_question": {
+            "content": "Which one of the following describes the method of reasoning used in the argument?",
+            "options": [
+              "By analogy.",
+              "By pointing out a contradiction.",
+              "By appealing to authority.",
+              "By presenting a counter-premise."
+            ],
+            "correct": 3,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following describes the method of reasoning used in the argument? By presenting a counter-premise.",
+          "scores": {
+            "bleu4": 0.18813687249646147,
+            "rougeL": 0.380952380952381,
+            "cosine_sim": 0.6423146724700928,
+            "bleurt": 0.33883458375930786
+          }
+        }
+      ]
+    },
+    {
+      "id": 219,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most calls into question the argument made by the companies promoting voice mail?",
+            "correct": 2,
+            "options": [
+              "Unlike calls made to owners of answering machines, all telephone calls made to voicemail subscribers are completed, even if the line called is in use at the time of the call.",
+              "The surge in sales of answering machines occurred shortly after they were first introduced to the electronics market.",
+              "Answering machines enable the customer to hear who is calling before the customer decides whether to answer the telephone, a service voice mail does not provide.",
+              "Once a telephone customer decides to subscribe to voice mail, that customer can cancel the service at any time."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most calls into question the argument made by the companies promoting voice mail? Answering machines enable the customer to hear who is calling before the customer decides whether to answer the telephone, a service voice mail does not provide.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "majority of users find answering machines easier to use despite their lower flexibility.",
+              "Voice mail systems are significantly more expensive to maintain than answering machines.",
+              "Answering machines are being phased out due to government regulations.",
+              "The companies promoting voice mail have a monopoly on telephone services."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? majority of users find answering machines easier to use despite their lower flexibility.",
+          "scores": {
+            "bleu4": 0.15667023260939136,
+            "rougeL": 0.36619718309859156,
+            "cosine_sim": 0.746974527835846,
+            "bleurt": 0.3749066889286041
+          }
+        }
+      ]
+    },
+    {
+      "id": 220,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following most accurately describes the role played in the passage by the claim that nonmarine reptiles have scales?",
+            "correct": 2,
+            "options": [
+              "It is cited as evidence against the claim that the capacity for flight first developed in treedwelling reptiles.",
+              "It weakens the claim that tree-dwelling reptiles were the first kind of reptile to develop the capacity for flight.",
+              "It is cited as evidence against the claim that the capacity for flight first developed in marine reptiles.",
+              "It is cited as evidence against the claim that the capacity for flight first developed in land-dwelling animals."
+            ]
+          },
+          "gt_text": "Which one of the following most accurately describes the role played in the passage by the claim that nonmarine reptiles have scales? It is cited as evidence against the claim that the capacity for flight first developed in marine reptiles.",
+          "matched_pred_idx": 16,
+          "matched_pred_question": {
+            "content": "Which one of the following best describes the role of the statement \"nonmarine reptiles also have scales\" in the argument?",
+            "options": [
+              "It is a premise supporting the conclusion that flight developed in marine reptiles.",
+              "It is a counter-premise weakening the argument that flight developed in marine reptiles.",
+              "It is the main conclusion of the argument.",
+              "It is an intermediate conclusion."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following best describes the role of the statement \"nonmarine reptiles also have scales\" in the argument? It is a counter-premise weakening the argument that flight developed in marine reptiles.",
+          "scores": {
+            "bleu4": 0.2602270307061993,
+            "rougeL": 0.5945945945945946,
+            "cosine_sim": 0.8224772810935974,
+            "bleurt": 0.4930045008659363
+          }
+        }
+      ]
+    },
+    {
+      "id": 221,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, weakens the argument?",
+            "correct": 1,
+            "options": [
+              "Geological evidence indicates that the oceans contained greater amounts of dissolved minerals 3 billion years ago, but not enough to alter their freezing points significantly.",
+              "Geological studies indicate that there is much less methane in Earth's atmosphere today than there was 3 billion years ago.",
+              "Sufficient heat to keep the oceans liquid 3 billion years ago could not have been generated through geological processes such as volcanic activity.",
+              "Because the distance from Earth to the Sun has not changed significantly over the last 3 billion years, the increase in the Sun's luminosity has resulted in more radiation reaching Earth."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, weakens the argument? Geological studies indicate that there is much less methane in Earth's atmosphere today than there was 3 billion years ago.",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "Which one of the following is the main conclusion of the argument?",
+            "options": [
+              "The Sun was only 80 percent as luminous as it is currently 3 billion years ago.",
+              "Greenhouse gases trap heat within Earth's atmosphere.",
+              "The level of carbon dioxide in the atmosphere was significantly higher 3 billion years ago than it is today.",
+              "Geological evidence shows that water rather than ice filled the oceans 3 billion years ago."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is the main conclusion of the argument? The level of carbon dioxide in the atmosphere was significantly higher 3 billion years ago than it is today.",
+          "scores": {
+            "bleu4": 0.33731117716864195,
+            "rougeL": 0.4482758620689655,
+            "cosine_sim": 0.7668837308883667,
+            "bleurt": 0.5465226769447327
+          }
+        }
+      ]
+    },
+    {
+      "id": 222,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The flawed reasoning in which one of the following is most similar to the flawed reasoning in the advertisement?",
+            "correct": 3,
+            "options": [
+              "The nation's voters know that Gomez is the candidate whose policies would be best for the nation. Of ten voters polled, each said that Gomez would be a very popular leader.",
+              "Some of the nation's voters believe that Gomez is the candidate who would be best for the nation. Of the ten voters we surveyed, each agreed that the policies Gomez is committed to would be the best policies for the nation to adopt.",
+              "We know that electing Gomez would be the best course for the nation to follow because, of ten voters we surveyed, each agreed that electing Gomez would help the nation.",
+              "The nation's voters know that electing Gomez would be the best way to help the nation. The ten voters we polled all agreed that the policies Gomez is committed to would help the nation more than any other policies."
+            ]
+          },
+          "gt_text": "The flawed reasoning in which one of the following is most similar to the flawed reasoning in the advertisement? The nation's voters know that electing Gomez would be the best way to help the nation. The ten voters we polled all agreed that the policies Gomez is committed to would help the nation more than any other policies.",
+          "matched_pred_idx": 9,
+          "matched_pred_question": {
+            "content": "Which one of the following principles is best illustrated by the argument?",
+            "options": [
+              "Expert consensus is the most reliable basis for determining the effectiveness of a product.",
+              "product’s effectiveness is determined by its ingredients rather than its marketing.",
+              "The best way to fight cavities is to use a toothpaste with a tartar control formula.",
+              "product’s claims should be supported by independent research."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following principles is best illustrated by the argument? Expert consensus is the most reliable basis for determining the effectiveness of a product.",
+          "scores": {
+            "bleu4": 0.11247505814429272,
+            "rougeL": 0.31683168316831684,
+            "cosine_sim": 0.5158238410949707,
+            "bleurt": 0.3540702760219574
+          }
+        }
+      ]
+    },
+    {
+      "id": 223,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The director' s argument for rejecting the management consultant's proposal is most vulnerable to criticism on which one of the following grounds?",
+            "correct": 3,
+            "options": [
+              "calling something by a less offensive term than the term that is usually used to name that thing",
+              "defining a term by pointing to an atypical example of something to which the term applies",
+              "drawing a conclusion that simply restates one of the premises of the argument",
+              "failing to distinguish two distinct senses of a key term"
+            ]
+          },
+          "gt_text": "The director' s argument for rejecting the management consultant's proposal is most vulnerable to criticism on which one of the following grounds? failing to distinguish two distinct senses of a key term",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "What is the main conclusion of the argument?",
+            "options": [
+              "The company should not implement the consultant’s proposal.",
+              "The company’s policy against exploitation is more important than productivity.",
+              "Reassigning staff to do what they like and do well is exploitative.",
+              "The consultant’s proposal would violate the company’s policy."
+            ],
+            "correct": 3,
+            "type": "General"
+          },
+          "matched_pred_text": "What is the main conclusion of the argument? The consultant’s proposal would violate the company’s policy.",
+          "scores": {
+            "bleu4": 0.12726006586274088,
+            "rougeL": 0.23333333333333334,
+            "cosine_sim": 0.5786560773849487,
+            "bleurt": 0.3394410014152527
+          }
+        }
+      ]
+    },
+    {
+      "id": 224,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most helps to resolve the apparent discrepancy in the information above?",
+            "correct": 1,
+            "options": [
+              "Counterfeiters are generally unaware that the percentage of fake bills in circulation is the lowest it has ever been.",
+              "Government success in removing counterfeit bills from circulation has caused merchants and bank tellers to become lax in checking for counterfeit bills.",
+              "Government information campaigns that teach merchants and bank tellers how to detect counterfeit bills are more effective than ever.",
+              "Governments are continually developing new currency designs with features that are difficult for criminals to counterfeit."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most helps to resolve the apparent discrepancy in the information above? Government success in removing counterfeit bills from circulation has caused merchants and bank tellers to become lax in checking for counterfeit bills.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "The government’s efforts to remove counterfeit bills have significantly reduced the number of counterfeit bills in circulation.",
+              "Counterfeiters are able to pass counterfeit bills because they are not detected by merchants or banks.",
+              "The success of government efforts in removing counterfeit bills is due to increased public awareness campaigns.",
+              "Counterfeiters can pass counterfeit bills only if they are not caught by government authorities."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? The government’s efforts to remove counterfeit bills have significantly reduced the number of counterfeit bills in circulation.",
+          "scores": {
+            "bleu4": 0.22643291055464418,
+            "rougeL": 0.4571428571428572,
+            "cosine_sim": 0.6800240278244019,
+            "bleurt": 0.5544573068618774
+          }
+        }
+      ]
+    },
+    {
+      "id": 225,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following most accurately describes the role played in the argument by the claim that it is unlikely that the world will ever be free of disease?",
+            "correct": 3,
+            "options": [
+              "It is a conclusion that is claimed to follow from the premise that microorganisms are too numerous for medicines to eliminate entirely.",
+              "It is a generalization used to predict the response of microorganisms to the medicines humans use to kill them.",
+              "It is a premise offered in support of the claim that most disease-causing microorganisms are able to evolve immunities to medicines while retaining their ability to infect humans.",
+              "It is a conclusion for which a description of the responses of microorganisms to the medicines designed to cure the diseases they cause is offered as support."
+            ]
+          },
+          "gt_text": "Which one of the following most accurately describes the role played in the argument by the claim that it is unlikely that the world will ever be free of disease? It is a conclusion for which a description of the responses of microorganisms to the medicines designed to cure the diseases they cause is offered as support.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which one of the following is an assumption required by the argument?",
+            "options": [
+              "The evolution of immunities by microorganisms is the only factor preventing disease eradication.",
+              "Most diseases are caused by microorganisms that do not respond to medicines.",
+              "The world has never been free of disease in the past.",
+              "Medicines are the only method available to combat diseases."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is an assumption required by the argument? The evolution of immunities by microorganisms is the only factor preventing disease eradication.",
+          "scores": {
+            "bleu4": 0.0628627454467041,
+            "rougeL": 0.35443037974683544,
+            "cosine_sim": 0.6991223692893982,
+            "bleurt": 0.4187214970588684
+          }
+        }
+      ]
+    },
+    {
+      "id": 226,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, most undermines Danville Winery's response?",
+            "correct": 3,
+            "options": [
+              "Danville Winery, unlike Mourdet Winery, displays its wine's label prominently in advertisements.",
+              "When the bottles are viewed side by side, Danville Winery's bottle is perceptibly taller than Mourdet Winery's.",
+              "Gold is the background color on the label of many of the wines produced by Danville Winery.",
+              "It is common for occasional purchasers to buy a bottle of wine on the basis of a general impression of the most obvious feature of the bottle."
+            ]
+          },
+          "gt_text": "Which of the following, if true, most undermines Danville Winery's response? It is common for occasional purchasers to buy a bottle of wine on the basis of a general impression of the most obvious feature of the bottle.",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "Which one of the following, if assumed, enables the conclusion that many customers will mistakenly buy Danville's wine to be properly inferred?",
+            "options": [
+              "The gold label on Mourdet's bottle is the only distinguishing feature between the two bottles.",
+              "Danville's bottle is sold in a different region.",
+              "The similarity between the bottles is the primary reason for customer confusion.",
+              "Customers who purchase Mourdet's wine are not influenced by price."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if assumed, enables the conclusion that many customers will mistakenly buy Danville's wine to be properly inferred? The similarity between the bottles is the primary reason for customer confusion.",
+          "scores": {
+            "bleu4": 0.1718711850889063,
+            "rougeL": 0.40579710144927544,
+            "cosine_sim": 0.747960090637207,
+            "bleurt": 0.4525301456451416
+          }
+        }
+      ]
+    },
+    {
+      "id": 227,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 228,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, does most to explain the apparently paradoxical outcome?",
+            "correct": 2,
+            "options": [
+              "Before the National Health scheme was introduced, more than 80 percent of all Impanian medical costs were associated with procedures that are now covered by the scheme.",
+              "The proportion of total expenditures within Impania that is spent on health care has declined since the introduction of the National Health scheme.",
+              "Impanians now buy private medical insurance only at times when they expect that they will need care of kinds not available in the National Health scheme.",
+              "The National Health scheme has greatly reduced the number of medical claims handled annually by Impania's private insurers, enabling these firms to reduce overhead costs substantially."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, does most to explain the apparently paradoxical outcome? Impanians now buy private medical insurance only at times when they expect that they will need care of kinds not available in the National Health scheme.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "The national health scheme has led to a significant decrease in the number of people seeking medical care.",
+              "Private insurance companies have reduced their coverage of unusual procedures.",
+              "The cost of common medical procedures has decreased under the national health scheme.",
+              "The national health scheme has increased the availability of generic medications."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? The national health scheme has led to a significant decrease in the number of people seeking medical care.",
+          "scores": {
+            "bleu4": 0.25298976320282557,
+            "rougeL": 0.36619718309859156,
+            "cosine_sim": 0.5173262357711792,
+            "bleurt": 0.4219208359718323
+          }
+        }
+      ]
+    },
+    {
+      "id": 229,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if assumed, enables the conclusion of the argument to be properly drawn?",
+            "correct": 2,
+            "options": [
+              "When a business's short-term and long-term interests conflict, morality alone is rarely the overriding consideration.",
+              "The morally preferable act for a business to execute and the long-term interests of the business seldom conflict.",
+              "A business's long-term interests often provide compelling reasons for executing an act.",
+              "The morally preferable act for a business to execute and the short-term interests of the business usually conflict."
+            ]
+          },
+          "gt_text": "Which one of the following, if assumed, enables the conclusion of the argument to be properly drawn? business's long-term interests often provide compelling reasons for executing an act.",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "Which one of the following, if assumed, enables the conclusion to be properly inferred?",
+            "options": [
+              "Businesses always act in their long-term interest when it conflicts with short-term gain.",
+              "The morally preferable act is always the one that serves the long-term interest.",
+              "Businesses are more likely to act morally when they have a clear long-term goal.",
+              "The conflict between short-term and long-term interests is always resolvable."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if assumed, enables the conclusion to be properly inferred? The morally preferable act is always the one that serves the long-term interest.",
+          "scores": {
+            "bleu4": 0.40283147111355533,
+            "rougeL": 0.5517241379310344,
+            "cosine_sim": 0.7312585115432739,
+            "bleurt": 0.5486786961555481
+          }
+        }
+      ]
+    },
+    {
+      "id": 230,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most helps to reconcile the zoologist's conclusion with the above evidence?",
+            "correct": 1,
+            "options": [
+              "The two government agencies responsible for species preservation are typically under budget and are known for an utter lack of cooperation.",
+              "Unlike today, funding for the preservation of species was essentially nonexistent 15 years ago.",
+              "Over the past 15 years, the salaries of conservationists employed by the government to work on species preservation solutions have increased at a rate twice that of inflation.",
+              "Within the past 15 years, there have been breakthroughs in species demography that allow scientists to identify those species most in need of protection far before they face any real risk of extinction."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most helps to reconcile the zoologist's conclusion with the above evidence? Unlike today, funding for the preservation of species was essentially nonexistent 15 years ago.",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "Which one of the following, if assumed, enables the conclusion to be properly inferred?",
+            "options": [
+              "The funding increase has not kept pace with the growing needs of endangered species.",
+              "The government has prioritized other environmental initiatives over species preservation.",
+              "The zoologist has access to accurate data on species populations.",
+              "The funding increase was distributed evenly across all regions."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if assumed, enables the conclusion to be properly inferred? The funding increase has not kept pace with the growing needs of endangered species.",
+          "scores": {
+            "bleu4": 0.2432749489269565,
+            "rougeL": 0.4912280701754386,
+            "cosine_sim": 0.6844572424888611,
+            "bleurt": 0.45102715492248535
+          }
+        }
+      ]
+    },
+    {
+      "id": 231,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "If Murray and Jane are both sincere in what they say, then it can properly be concluded that they agree that",
+            "correct": 0,
+            "options": [
+              "one or more politicians have accepted gifts from lobbyists",
+              "it is wrong for politicians to accept gifts from lobbyists",
+              "Senator Brandon has accepted gifts from lobbyists",
+              "Senator Brandon should be criticized for accepting gifts from lobbyists"
+            ]
+          },
+          "gt_text": "If Murray and Jane are both sincere in what they say, then it can properly be concluded that they agree that one or more politicians have accepted gifts from lobbyists",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most strengthen Murray's argument?",
+            "options": [
+              "Jane has a history of criticizing only those politicians she personally dislikes.",
+              "Senator Brandon has accepted gifts from lobbyists.",
+              "Jane has criticized other politicians for the same failing.",
+              "Personal dislike is a valid basis for political criticism."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most strengthen Murray's argument? Jane has a history of criticizing only those politicians she personally dislikes.",
+          "scores": {
+            "bleu4": 0.009453947444266444,
+            "rougeL": 0.14545454545454545,
+            "cosine_sim": 0.5888993144035339,
+            "bleurt": 0.2915620803833008
+          }
+        }
+      ]
+    },
+    {
+      "id": 232,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, most seriously weakens the argument above?",
+            "correct": 1,
+            "options": [
+              "The operating costs of the average retail clothing store have remained constant during the last year.",
+              "The cost of processing raw cotton for cloth has increased during the last year.",
+              "The wholesale price of raw wool is typically higher than that of the same volume of raw cotton.",
+              "Changes in retail prices always lag behind changes in wholesale prices."
+            ]
+          },
+          "gt_text": "Which of the following, if true, most seriously weakens the argument above? The cost of processing raw cotton for cloth has increased during the last year.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "The demand for cotton clothing has increased significantly, leading to higher retail prices despite lower material costs.",
+              "Retailers have raised prices due to increased shipping costs.",
+              "The wholesale price of cotton is expected to rise again next month.",
+              "The retail price of cotton clothing has already fallen in some regions."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? The demand for cotton clothing has increased significantly, leading to higher retail prices despite lower material costs.",
+          "scores": {
+            "bleu4": 0.23227909232888339,
+            "rougeL": 0.5454545454545454,
+            "cosine_sim": 0.7862942814826965,
+            "bleurt": 0.47582995891571045
+          }
+        }
+      ]
+    },
+    {
+      "id": 233,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The argument of the scientists who conducted the replication experiments assumes that",
+            "correct": 0,
+            "options": [
+              "the replication experiments were not so likely as the original experiments to be marred by faulty measurements",
+              "the theoretical principles called into question by the originally reported results were themselves based on weak evidence",
+              "the original experiments had not been described in sufficient detail to make an exact replication possible",
+              "the researchers who originally reported the controversial results had themselves observed those results only once"
+            ]
+          },
+          "gt_text": "The argument of the scientists who conducted the replication experiments assumes that the replication experiments were not so likely as the original experiments to be marred by faulty measurements",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which one of the following is an assumption required by the argument?",
+            "options": [
+              "The replication experiments were conducted under identical conditions as the original study.",
+              "The original researchers had no prior history of publishing unreliable data.",
+              "The replication team had access to the original researchers' raw data.",
+              "The original results were published in a peer-reviewed journal."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is an assumption required by the argument? The replication experiments were conducted under identical conditions as the original study.",
+          "scores": {
+            "bleu4": 0.14798464377473977,
+            "rougeL": 0.37735849056603776,
+            "cosine_sim": 0.7453839778900146,
+            "bleurt": 0.43501079082489014
+          }
+        }
+      ]
+    },
+    {
+      "id": 234,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Of the following, which one is the criticism to which the reasoning in the travel agent's argument is most vulnerable?",
+            "correct": 3,
+            "options": [
+              "The argument takes for granted that airlines that are the safest are also the most reliable in documenting their safety.",
+              "The argument draws a general conclusion about how safe passengers are on different airlines on the basis of safety records that are each from too brief a period to adequately justify such a conclusion.",
+              "The argument fails to address adequately the possibility that the average major airline has had a total number of accidents as great as the average low-fare airline has had.",
+              "The argument fails to consider the possibility that long-standing and reliable records documenting an airline's degree of safety may indicate that the airline is unsafe."
+            ]
+          },
+          "gt_text": "Of the following, which one is the criticism to which the reasoning in the travel agent's argument is most vulnerable? The argument fails to consider the possibility that long-standing and reliable records documenting an airline's degree of safety may indicate that the airline is unsafe.",
+          "matched_pred_idx": 12,
+          "matched_pred_question": {
+            "content": "What is the role of the statement \"Major airlines usually have longstanding records reliably indicating their degree of safety\" in the argument?",
+            "options": [
+              "It is a premise supporting the conclusion.",
+              "It is the conclusion of the argument.",
+              "It is a counter-premise.",
+              "It is an intermediate conclusion."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "What is the role of the statement \"Major airlines usually have longstanding records reliably indicating their degree of safety\" in the argument? It is a premise supporting the conclusion.",
+          "scores": {
+            "bleu4": 0.09379280269214652,
+            "rougeL": 0.3291139240506329,
+            "cosine_sim": 0.672028124332428,
+            "bleurt": 0.39545637369155884
+          }
+        }
+      ]
+    },
+    {
+      "id": 235,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following judgments conforms most closely to the principle cited by the columnist?",
+            "correct": 1,
+            "options": [
+              "People who produce depraved movies have the freedom to do so, but that means that they also have the freedom to refrain from doing so.",
+              "There should be no laws restricting what books are published, but publishing books that pander to people with depraved tastes is not thereby morally acceptable.",
+              "The public has the freedom to purchase whatever recordings are produced, but that does not mean that the government may not limit the production of recordings deemed to be depraved.",
+              "One who advocates complete freedom of speech should not criticize others for saying things that he or she believes to exhibit depraved tastes."
+            ]
+          },
+          "gt_text": "Which one of the following judgments conforms most closely to the principle cited by the columnist? There should be no laws restricting what books are published, but publishing books that pander to people with depraved tastes is not thereby morally acceptable.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "Which one of the following is most strongly supported by the information above?",
+            "options": [
+              "The columnist believes that freedom of expression should be limited in certain cases.",
+              "The columnist thinks that financial gain is the only motive for exploiting popular tastes.",
+              "The columnist assumes that exploiting depraved tastes is inherently unethical.",
+              "The columnist’s argument is based on a misunderstanding of freedom of expression."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is most strongly supported by the information above? The columnist assumes that exploiting depraved tastes is inherently unethical.",
+          "scores": {
+            "bleu4": 0.11270306866108522,
+            "rougeL": 0.40625,
+            "cosine_sim": 0.6679787635803223,
+            "bleurt": 0.43246132135391235
+          }
+        }
+      ]
+    },
+    {
+      "id": 236,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "If the statements above are true, each of the following could be true EXCEPT:",
+            "correct": 2,
+            "options": [
+              "The 50 complete sterilizations of the nylon instruments used more energy than did the 50 complete sterilizations of the stainless steel instruments.",
+              "The total cost of 50 complete sterilizations of the stainless steel instruments was greater than the cost of manufacturing the stainless steel instruments.",
+              "More energy was required for each complete sterilization of the nylon instruments than was required to manufacture the nylon instruments.",
+              "More energy was used to produce the stainless steel instruments than was used to produce the nylon instruments."
+            ]
+          },
+          "gt_text": "If the statements above are true, each of the following could be true EXCEPT: More energy was required for each complete sterilization of the nylon instruments than was required to manufacture the nylon instruments.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "Which one of the following is most strongly supported by the information in the passage?",
+            "options": [
+              "Stainless steel instruments require less energy per sterilization than nylon instruments.",
+              "Nylon instruments are more cost-effective in the long run.",
+              "The energy required for sterilization is the same for both materials.",
+              "Stainless steel instruments are more durable."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is most strongly supported by the information in the passage? Stainless steel instruments require less energy per sterilization than nylon instruments.",
+          "scores": {
+            "bleu4": 0.023086436081931613,
+            "rougeL": 0.36923076923076925,
+            "cosine_sim": 0.7392940521240234,
+            "bleurt": 0.41465669870376587
+          }
+        }
+      ]
+    },
+    {
+      "id": 237,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, provides the strongest support for the hypothesis that trace impurities in the iron are essential for the production of Damascus blades?",
+            "correct": 1,
+            "options": [
+              "Almost all the tools used by the contemporary sword maker were updated versions of tools that were used by sword makers over two centuries ago.",
+              "Production of Damascus blades by sword makers of the past ceased abruptly after those sword makers' original source of iron became exhausted.",
+              "There are surface features of every Damascus blade-including the blades produced by the contemporary sword maker-that are unique to that blade.",
+              "Although Damascus blades were renowned for maintaining a sharp edge, the blade made by the contemporary sword maker suggests that they may have maintained their edge less well than blades made using what is now the standard process for making blades."
+            ]
+          },
+          "gt_text": "Which of the following, if true, provides the strongest support for the hypothesis that trace impurities in the iron are essential for the production of Damascus blades? Production of Damascus blades by sword makers of the past ceased abruptly after those sword makers' original source of iron became exhausted.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which one of the following is a necessary assumption for the argument to hold?",
+            "options": [
+              "The contemporary sword maker’s process is identical to the historic method.",
+              "The trace impurities in the iron are the only factor determining the blade’s pattern.",
+              "No other sword makers have attempted to replicate Damascus blades.",
+              "The contemporary sword maker’s blades are indistinguishable from historic ones."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is a necessary assumption for the argument to hold? The trace impurities in the iron are the only factor determining the blade’s pattern.",
+          "scores": {
+            "bleu4": 0.11087212065006974,
+            "rougeL": 0.358974358974359,
+            "cosine_sim": 0.7253417372703552,
+            "bleurt": 0.3872910737991333
+          }
+        }
+      ]
+    },
+    {
+      "id": 238,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Each of the following arguments exhibits flawed reasoning similar to that in the argument above EXCEPT:",
+            "correct": 3,
+            "options": [
+              "Each part of this car is nearly perfectly engineered. Ttherefore this car is nearly perfect, from an engineering point of view.",
+              "Each sentence in this novel is well constructed. Ttherefore this is a well-constructed novel.",
+              "Each brick in this wall is rectangular. Ttherefore this wall is rectangular.",
+              "Each part of this desk is made of metal. Ttherefore this desk is made of metal."
+            ]
+          },
+          "gt_text": "Each of the following arguments exhibits flawed reasoning similar to that in the argument above EXCEPT: Each part of this desk is made of metal. Ttherefore this desk is made of metal.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which one of the following is an assumption required by the argument?",
+            "options": [
+              "The universe is composed entirely of the smallest particles.",
+              "The smallest particles are the only components of the universe.",
+              "The universe's structure is determined by the properties of its components.",
+              "The smallest particles are not simple in structure."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is an assumption required by the argument? The universe's structure is determined by the properties of its components.",
+          "scores": {
+            "bleu4": 0.03660561489632784,
+            "rougeL": 0.2909090909090909,
+            "cosine_sim": 0.4253813624382019,
+            "bleurt": 0.35506582260131836
+          }
+        }
+      ]
+    },
+    {
+      "id": 239,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The editorialist's argument is most vulnerable to criticism on the ground that it",
+            "correct": 3,
+            "options": [
+              "assumes what it is trying to prove",
+              "too hastily reaches a general conclusion on the basis of a few examples",
+              "ignores the fact that some people are mature at age sixteen",
+              "equivocates with respect to a central concept"
+            ]
+          },
+          "gt_text": "The editorialist's argument is most vulnerable to criticism on the ground that it equivocates with respect to a central concept",
+          "matched_pred_idx": 12,
+          "matched_pred_question": {
+            "content": "**ROLE**",
+            "options": [
+              "It is the conclusion.",
+              "It is a premise supporting the conclusion.",
+              "It is a counter-premise.",
+              "It is an intermediate conclusion."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "**ROLE** It is a premise supporting the conclusion.",
+          "scores": {
+            "bleu4": 0.007988739893685173,
+            "rougeL": 0.16666666666666666,
+            "cosine_sim": 0.45901358127593994,
+            "bleurt": 0.18202412128448486
+          }
+        }
+      ]
+    },
+    {
+      "id": 240,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following principles, if valid, most helps to justify the business owner's argument?",
+            "correct": 3,
+            "options": [
+              "If a city has a serious problem, then it should not implement any policy that would aggravate that problem even if the policy would address another serious problem.",
+              "No proposed solution to a city problem should be implemented until the problem has been thoroughly studied.",
+              "Unless a business provides a product or service that is valued by consumers, the business should not be allowed to make use of scarce city resources.",
+              "A law that would disadvantage businesses of a certain type throughout a city should not be used to solve a problem that does not affect most areas of the city."
+            ]
+          },
+          "gt_text": "Which one of the following principles, if valid, most helps to justify the business owner's argument? law that would disadvantage businesses of a certain type throughout a city should not be used to solve a problem that does not affect most areas of the city.",
+          "matched_pred_idx": 8,
+          "matched_pred_question": {
+            "content": "Which one of the following would most effectively resolve the apparent discrepancy in the argument?",
+            "options": [
+              "The food trucks are the main cause of traffic congestion in the city.",
+              "The bill would reduce traffic congestion in the affected area.",
+              "The city council has already implemented similar restrictions in other areas.",
+              "The food trucks are not the main cause of traffic congestion."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following would most effectively resolve the apparent discrepancy in the argument? The bill would reduce traffic congestion in the affected area.",
+          "scores": {
+            "bleu4": 0.09270399153137697,
+            "rougeL": 0.3684210526315789,
+            "cosine_sim": 0.588414192199707,
+            "bleurt": 0.37129640579223633
+          }
+        }
+      ]
+    },
+    {
+      "id": 241,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The statements above, if true, best support which of the following conclusions?",
+            "correct": 1,
+            "options": [
+              "The only solution to the problem of water pollution from fertilizers and pesticides is to take farmland out of production.",
+              "The rules for governmental support of farm prices work against efforts to reduce water pollution.",
+              "Farmers can continue to make a profit by rotating diverse crops, thus reducing costs for chemicals, but not by planting the same crop each year.",
+              "New farming techniques will be developed to make it possible for farmers to reduce the application of fertilizers and pesticides."
+            ]
+          },
+          "gt_text": "The statements above, if true, best support which of the following conclusions? The rules for governmental support of farm prices work against efforts to reduce water pollution.",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "**Strengthen**",
+            "options": [
+              "Farmers who diversify crops receive tax breaks to offset initial losses.",
+              "The government recently increased penalties for water pollution caused by agriculture.",
+              "new law allows farmers to switch crops without losing benefits if they implement sustainable practices.",
+              "Farmers who rotate crops still qualify for benefits if they grow the same crop in consecutive years."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "**Strengthen** The government recently increased penalties for water pollution caused by agriculture.",
+          "scores": {
+            "bleu4": 0.05661993804229389,
+            "rougeL": 0.21621621621621623,
+            "cosine_sim": 0.5631649494171143,
+            "bleurt": 0.336093932390213
+          }
+        }
+      ]
+    },
+    {
+      "id": 242,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following contains questionable reasoning that is most similar to that in the argument above?",
+            "correct": 0,
+            "options": [
+              "L, an accountant, was charged with having embezzled funds from a client. The charge should be ignored, however, because although the records that might reveal this embezzlement have been destroyed, records of L's current clients show clearly that there has never been any embezzlement from them.",
+              "N, a social scientist, was charged with plagiarism. The charge is without foundation because although strong similarities between N's book and the work of another scholar have been discovered, the other scholar's work was written after N's work was published.",
+              "M, a factory supervisor, was accused of failing to enforce safety standards. This accusation should be discussed, because although the identity of the accuser was not revealed, a survey of factory personnel revealed that some violations of the standards have occurred.",
+              "P, a politician, has been accused of failing to protect the public interest. From at least some points of view, however, the accusation will undoubtedly be considered false, because there is clearly disagreement about where the public interest lies."
+            ]
+          },
+          "gt_text": "Which one of the following contains questionable reasoning that is most similar to that in the argument above? L, an accountant, was charged with having embezzled funds from a client. The charge should be ignored, however, because although the records that might reveal this embezzlement have been destroyed, records of L's current clients show clearly that there has never been any embezzlement from them.",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "Which one of the following is the main conclusion of the argument?",
+            "options": [
+              "The original data was not falsified.",
+              "The recent experiments were not falsified.",
+              "The accusation should be dismissed.",
+              "The original data is missing."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is the main conclusion of the argument? The accusation should be dismissed.",
+          "scores": {
+            "bleu4": 0.05083426549772008,
+            "rougeL": 0.24742268041237114,
+            "cosine_sim": 0.6210967898368835,
+            "bleurt": 0.32425808906555176
+          }
+        }
+      ]
+    },
+    {
+      "id": 243,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, most strongly supports the prediction that Vernon's plan will achieve its goal?",
+            "correct": 2,
+            "options": [
+              "Vernon plans to select the independent suppliers it will use on the basis of submitted bids.",
+              "Relatively few manufacturers that start as independent suppliers have been able to expand their business and become direct competitors of the companies they once supplied.",
+              "Attending to certain tasks that Vernon performs relatively inefficiently has taken up much of the time and effort of top managers whose time would have been better spent attending to Vernon's core business.",
+              "Among the parts of its business that Vernon does not plan to outsource are some that require standards of accuracy too high for most independent suppliers to provide at lower cost than Vernon can."
+            ]
+          },
+          "gt_text": "Which of the following, if true, most strongly supports the prediction that Vernon's plan will achieve its goal? Attending to certain tasks that Vernon performs relatively inefficiently has taken up much of the time and effort of top managers whose time would have been better spent attending to Vernon's core business.",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "Which one of the following, if assumed, enables the conclusion to be properly inferred?",
+            "options": [
+              "Vernon’s profits will increase if it reduces its operational expenses.",
+              "Independent suppliers can provide the services at a lower cost than Vernon can.",
+              "Vernon’s current costs for the outsourced services are higher than those of independent suppliers.",
+              "Vernon’s decline in profits is solely due to high production costs."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if assumed, enables the conclusion to be properly inferred? Vernon’s profits will increase if it reduces its operational expenses.",
+          "scores": {
+            "bleu4": 0.09943173372752669,
+            "rougeL": 0.3,
+            "cosine_sim": 0.6020910739898682,
+            "bleurt": 0.35917025804519653
+          }
+        }
+      ]
+    },
+    {
+      "id": 244,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 245,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most strengthens the argument above?",
+            "correct": 1,
+            "options": [
+              "The earth's crust tends to crack whenever there is a sudden change in the pressures affecting it.",
+              "Severe earthquakes are generally caused by cracking of the earth's crust near the earthquake site.",
+              "Asteroid impacts, which did occur at the end of the Ice Age, generally cause severe earthquakes.",
+              "Evidence of severe earthquakes around the time of the end of the Ice Age can be found in parts of northern Canada."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most strengthens the argument above? Severe earthquakes are generally caused by cracking of the earth's crust near the earthquake site.",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most strengthen the argument?",
+            "options": [
+              "The cracks in the Earth's crust were observed in regions where ice had melted.",
+              "The earthquakes in Sweden were the most severe in the region's history.",
+              "The melting of the ice occurred over a period of 10,000 years.",
+              "The Earth's crust is more susceptible to cracks when weight is reduced."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most strengthen the argument? The cracks in the Earth's crust were observed in regions where ice had melted.",
+          "scores": {
+            "bleu4": 0.3595833757626332,
+            "rougeL": 0.5818181818181818,
+            "cosine_sim": 0.6889630556106567,
+            "bleurt": 0.5333893299102783
+          }
+        }
+      ]
+    },
+    {
+      "id": 246,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, best supports the conclusion that mortgage rates in Pleasanton will continue to increase?",
+            "correct": 0,
+            "options": [
+              "Many local businesses in Pleasanton, who were dependent on local residents employed in Middleburg, have been unable to pay the mortgage on the business properties they own.",
+              "Mortgage rates in Middleburg have been steadily increasing over the past year and analysts expect them to continue increasing for some time.",
+              "Many prospective homebuyers in the Pleasanton area, deterred by increased mortgage rates, have decided to purchase homes in other areas.",
+              "There are so few houses in Pleasanton that the banks cannot realize an economy of scale, making mortgage rates unrealistic for most potential homeowners."
+            ]
+          },
+          "gt_text": "Which of the following, if true, best supports the conclusion that mortgage rates in Pleasanton will continue to increase? Many local businesses in Pleasanton, who were dependent on local residents employed in Middleburg, have been unable to pay the mortgage on the business properties they own.",
+          "matched_pred_idx": 8,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most help to resolve the apparent discrepancy in the information above?",
+            "options": [
+              "The banks in Pleasanton have a history of raising mortgage rates in response to increased defaults.",
+              "The closure of factories in Middleburg has led to a significant drop in Pleasanton’s population.",
+              "The banks in Pleasanton are not under pressure from their boards to offset losses.",
+              "The mortgage defaults in Pleasanton are primarily due to factors unrelated to the factory closures."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most help to resolve the apparent discrepancy in the information above? The banks in Pleasanton have a history of raising mortgage rates in response to increased defaults.",
+          "scores": {
+            "bleu4": 0.14055945210979404,
+            "rougeL": 0.3243243243243243,
+            "cosine_sim": 0.7557125091552734,
+            "bleurt": 0.39453721046447754
+          }
+        }
+      ]
+    },
+    {
+      "id": 247,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 248,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The reasoning in the argument is most vulnerable to criticism on the grounds that",
+            "correct": 0,
+            "options": [
+              "the argument, in its attempt to refute one theory of species classification, presupposes the truth of an opposing theory",
+              "the argument confuses a necessary condition for species distinction with a sufficient condition for species distinction",
+              "the argument takes a single fact that is incompatible with a theory as enough to show that theory to be false",
+              "the argument does not explain why sibling species cannot interbreed"
+            ]
+          },
+          "gt_text": "The reasoning in the argument is most vulnerable to criticism on the grounds that the argument, in its attempt to refute one theory of species classification, presupposes the truth of an opposing theory",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "Which one of the following most accurately expresses the main conclusion of the argument?",
+            "options": [
+              "The typological theory of species classification is based on observable physical characteristics.",
+              "Sibling species are indistinguishable in appearance but cannot interbreed.",
+              "The typological theory of species classification is unacceptable.",
+              "The mainstream biological theory of species classification considers sibling species as separate species."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following most accurately expresses the main conclusion of the argument? The typological theory of species classification is unacceptable.",
+          "scores": {
+            "bleu4": 0.08985896953208333,
+            "rougeL": 0.32727272727272727,
+            "cosine_sim": 0.69115149974823,
+            "bleurt": 0.3802146017551422
+          }
+        }
+      ]
+    },
+    {
+      "id": 249,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "If the statements in the passage are correct, which one of the following can be properly concluded from them?",
+            "correct": 2,
+            "options": [
+              "There are actions whose causes cannot be discovered.",
+              "Some psychologists believe that the justification for an action never forms an essential part of its explanation.",
+              "If any human actions are rational, then reasons must sometimes be causes of actions.",
+              "If there are any reasons among the causes of an action, then that action is rational."
+            ]
+          },
+          "gt_text": "If the statements in the passage are correct, which one of the following can be properly concluded from them? If any human actions are rational, then reasons must sometimes be causes of actions.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "Which one of the following is most strongly supported by the passage?",
+            "options": [
+              "The principle of rationality requires that justification be part of an action's explanation.",
+              "Psychologists have disproven the principle of rationality.",
+              "All human actions are irrational.",
+              "Explanations and justifications are the same."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is most strongly supported by the passage? The principle of rationality requires that justification be part of an action's explanation.",
+          "scores": {
+            "bleu4": 0.1521357785335832,
+            "rougeL": 0.3103448275862069,
+            "cosine_sim": 0.6472122669219971,
+            "bleurt": 0.4342934489250183
+          }
+        }
+      ]
+    },
+    {
+      "id": 250,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 251,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most helps to strengthen the argument?",
+            "correct": 0,
+            "options": [
+              "Merchants in the locality responded to the local tax by reducing the price at which they sold cigarettes by 20 cents per pack.",
+              "A substantial number of cigarette smokers in the locality who did not quit smoking during the campaign now smoke less than they did before it began.",
+              "Smokers in the locality had incomes that on average were 25 percent lower than those of nonsmokers.",
+              "Residents of the locality have not increased their use of other tobacco products such as snuff and chewing tobacco since the campaign went into effect."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most helps to strengthen the argument? Merchants in the locality responded to the local tax by reducing the price at which they sold cigarettes by 20 cents per pack.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "The tax on cigarettes was the primary cause of the decline in smoking.",
+              "The advertisements were seen by only 10% of the population.",
+              "The local government had no other public health initiatives during the year.",
+              "The decline in smoking was due to a national health campaign."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? The tax on cigarettes was the primary cause of the decline in smoking.",
+          "scores": {
+            "bleu4": 0.23196765205473946,
+            "rougeL": 0.4411764705882353,
+            "cosine_sim": 0.6379201412200928,
+            "bleurt": 0.4639618992805481
+          }
+        }
+      ]
+    },
+    {
+      "id": 252,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most helps to explain the discrepancy described above?",
+            "correct": 3,
+            "options": [
+              "The new apartments were much more desirable than the existing apartments.",
+              "Rents in some areas close to Brewsterville dropped as a result of the construction of the new apartments .",
+              "A sizeable number of people moved out of the existing apartments while the new apartments were being constructed.",
+              "The new apartments were constructed at the outset of a trend of increasing numbers of people seeking residence in Brewsterville ."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most helps to explain the discrepancy described above? The new apartments were constructed at the outset of a trend of increasing numbers of people seeking residence in Brewsterville .",
+          "matched_pred_idx": 8,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most help to resolve the apparent discrepancy in the information above?",
+            "options": [
+              "The new apartments are not available to existing residents.",
+              "The city has imposed a rent control policy on existing apartments.",
+              "The demand for housing in Brewsterville has increased significantly.",
+              "The new apartments are located in a different neighborhood."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most help to resolve the apparent discrepancy in the information above? The new apartments are not available to existing residents.",
+          "scores": {
+            "bleu4": 0.3141325811626608,
+            "rougeL": 0.5396825396825397,
+            "cosine_sim": 0.714752197265625,
+            "bleurt": 0.45660263299942017
+          }
+        }
+      ]
+    },
+    {
+      "id": 253,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "On the basis of their statements, Jessica and Marcie are committed to disagreeing about the truth of which one of the following?",
+            "correct": 0,
+            "options": [
+              "There is a better way to use the budget surplus than increasing government payments to those who are unemployed.",
+              "Using the budget surplus to increase government payments to those who are unemployed is putting the money to good use.",
+              "The public deserves to have jobs created when there are many people who are unemployed.",
+              "Creating jobs through a public works project will ultimately benefit the public."
+            ]
+          },
+          "gt_text": "On the basis of their statements, Jessica and Marcie are committed to disagreeing about the truth of which one of the following? There is a better way to use the budget surplus than increasing government payments to those who are unemployed.",
+          "matched_pred_idx": 10,
+          "matched_pred_question": {
+            "content": "What is the specific point of disagreement between Jessica and Marcie?",
+            "options": [
+              "Whether the budget surplus should be used for unemployment payments or public works.",
+              "Whether unemployment payments are more cost-effective than public works.",
+              "Whether the government has sufficient funds for both options.",
+              "Whether public works projects are more popular than unemployment payments."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "What is the specific point of disagreement between Jessica and Marcie? Whether the budget surplus should be used for unemployment payments or public works.",
+          "scores": {
+            "bleu4": 0.19050760678051362,
+            "rougeL": 0.40625,
+            "cosine_sim": 0.7907331585884094,
+            "bleurt": 0.4415002465248108
+          }
+        }
+      ]
+    },
+    {
+      "id": 254,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The flawed pattern of reasoning in the argument above is most similar to which of the following?",
+            "correct": 2,
+            "options": [
+              "Crimes involving deception are on the increase at the same time that crimes of violence seem to be decreasing. Law enforcement techniques in the past have focused primarily on the prevention and detection of violent crime. However, it is now clear that new techniques are required to combat crimes such as Internet fraud. Law enforcement agencies will have to focus on recruiting, hiring, and training a larger proportion of computer literate officers if they hope to keep up with modern criminals.",
+              "Most states carefully regulate the possession of exotic wild animals as pets. Specially trained officers often raid illicit breeding operations and seize proscribed animals such as chimpanzees and tigers. Although these species are capable of becoming dangerous, individuals are still drawn to them as pets. The fact that their possession is unlawful is an inadequate deterrent. Since prohibitions on ownership are clearly not eliminating the black market in exotic species, the focus should turn to education of the public regarding the dangers of such pets.",
+              "Wildlife biologists report that the population of the Northern Rock Fish is reaching dangerously low levels. The decrease in population is attributed to over fishing by unethical anglers who ignore laws regulating the size and number of the species that may be taken from rivers and streams. Poachers know that there are insufficient numbers of enforcement officers to create a credible threat of apprehension. It is obvious to authorities that the only way to save the species is to implement a total ban on the fishing of Northern Rock Fish immediately.",
+              "When surveyed in prison, the majority of convicted violent criminals report that they have made decisions during their criminal careers to avoid at least one potential victim because of fears that the potential victim might be armed. Even when the criminals themselves are armed, they tend to prefer unarmed victims. Add to this the fact that statistics reveal that complete bans on private weapons in some jurisdictions have failed to eliminate violent crime and the fact that many jurisdictions with a high proportion of private weapon ownership enjoy a very low crime rate, and one may conclude that public policy should favor the private ownership of weapons."
+            ]
+          },
+          "gt_text": "The flawed pattern of reasoning in the argument above is most similar to which of the following? Wildlife biologists report that the population of the Northern Rock Fish is reaching dangerously low levels. The decrease in population is attributed to over fishing by unethical anglers who ignore laws regulating the size and number of the species that may be taken from rivers and streams. Poachers know that there are insufficient numbers of enforcement officers to create a credible threat of apprehension. It is obvious to authorities that the only way to save the species is to implement a total ban on the fishing of Northern Rock Fish immediately.",
+          "matched_pred_idx": 15,
+          "matched_pred_question": {
+            "content": "Which one of the following has the same logical structure as the argument?",
+            "options": [
+              "All birds can fly. Penguins are birds. Therefore, penguins can fly.",
+              "If a person exercises, they will lose weight. John exercises. Therefore, John will lose weight.",
+              "If a law is passed, crime will decrease. A law is passed. Therefore, crime will decrease.",
+              "If a system is implemented, crime will decrease. A system is implemented. Therefore, crime will decrease."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following has the same logical structure as the argument? If a law is passed, crime will decrease. A law is passed. Therefore, crime will decrease.",
+          "scores": {
+            "bleu4": 0.0032886526676613246,
+            "rougeL": 0.15503875968992248,
+            "cosine_sim": 0.4926721155643463,
+            "bleurt": 0.3078245520591736
+          }
+        }
+      ]
+    },
+    {
+      "id": 255,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most helps to explain the greater decline among sugar maples?",
+            "correct": 1,
+            "options": [
+              "Unlike spruces or firs, most sugar maples are native to areas that receive a lot of acid rain.",
+              "Spruces and firs, unlike sugar maples, can extract calcium from a mineral compound that is common in soil and is not affected by acid rain.",
+              "Sugar maples require more calcium in the spring and summer than they do in the fall and winter.",
+              "Sugar maples that do not receive enough calcium deteriorate less rapidly than spruces or firs that do not receive enough calcium."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most helps to explain the greater decline among sugar maples? Spruces and firs, unlike sugar maples, can extract calcium from a mineral compound that is common in soil and is not affected by acid rain.",
+          "matched_pred_idx": 8,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would best explain the apparent discrepancy in the passage?",
+            "options": [
+              "Sugar maples require more calcium than spruces or firs.",
+              "Acid rain only affects sugar maples in the forest.",
+              "Spruces and firs are more likely to show signs of calcium deficiency.",
+              "The calcium levels in the soil are the same across all tree species."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would best explain the apparent discrepancy in the passage? Sugar maples require more calcium than spruces or firs.",
+          "scores": {
+            "bleu4": 0.19254636349977697,
+            "rougeL": 0.4,
+            "cosine_sim": 0.7609094381332397,
+            "bleurt": 0.48219919204711914
+          }
+        }
+      ]
+    },
+    {
+      "id": 256,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 257,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following is an assumption required by the argument?",
+            "correct": 3,
+            "options": [
+              "All citizens have the same level of access to the Internet.",
+              "The Internet is more often used to discuss important issues than to discuss frivolous issues.",
+              "People speaking in the public square of days past had complete freedom of expression.",
+              "A public forum can lose effectiveness as a tool of democracy if participants cannot discuss issues freely."
+            ]
+          },
+          "gt_text": "Which one of the following is an assumption required by the argument? public forum can lose effectiveness as a tool of democracy if participants cannot discuss issues freely.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which one of the following is an assumption required by the argument?",
+            "options": [
+              "The public square was the only means of democratic discussion in the past.",
+              "The internet is more effective than the public square in fostering civil discourse.",
+              "The internet's role in facilitating discussion is as important as the public square's.",
+              "Internet users are more likely to engage in civil debate than those in public squares."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is an assumption required by the argument? The internet's role in facilitating discussion is as important as the public square's.",
+          "scores": {
+            "bleu4": 0.4094952321602109,
+            "rougeL": 0.4727272727272727,
+            "cosine_sim": 0.6623904705047607,
+            "bleurt": 0.42888426780700684
+          }
+        }
+      ]
+    },
+    {
+      "id": 258,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most substantially weakens the argument?",
+            "correct": 1,
+            "options": [
+              "During the first North American outbreak of the disease, many of the deaths reported to have been caused by CXC were actually due to other causes.",
+              "Since the first outbreak, farmers have learned to treat mild cases of CXC and no longer report them to veterinarians or authorities.",
+              "An inoculation program against CXC was recently begun after controlled studies showed inoculation to be 70 percent effective in preventing serious cases of the illness.",
+              "Many recent cattle deaths that have actually been caused by CXC have been mistakenly attributed to another disease that mimics the symptoms of CXC."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most substantially weakens the argument? Since the first outbreak, farmers have learned to treat mild cases of CXC and no longer report them to veterinarians or authorities.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "The number of reported CXC cases has increased significantly over the past five years.",
+              "The virulence of CXC has remained constant since the first outbreak.",
+              "The reporting methods for CXC cases have changed over the past five years.",
+              "The death rate from CXC is solely determined by the disease's virulence."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? The reporting methods for CXC cases have changed over the past five years.",
+          "scores": {
+            "bleu4": 0.2481968318782204,
+            "rougeL": 0.44827586206896547,
+            "cosine_sim": 0.7042299509048462,
+            "bleurt": 0.44427216053009033
+          }
+        }
+      ]
+    },
+    {
+      "id": 259,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following would it be most useful for the clinic to establish in order to make its decision?",
+            "correct": 1,
+            "options": [
+              "Whether the visits of patients who require diagnosis of skin discolorations tend to be shorter in duration at the clinic than at the hospital",
+              "Whether the machine at the clinic would get significantly less heavy use than the machine at the hospital does",
+              "Whether the principles on which the machine operates have been known to science for a long time",
+              "Whether in certain cases of skin discoloration, visual inspection is sufficient to make a diagnosis of skin cancer"
+            ]
+          },
+          "gt_text": "Which of the following would it be most useful for the clinic to establish in order to make its decision? Whether the machine at the clinic would get significantly less heavy use than the machine at the hospital does",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "Which one of the following is a necessary assumption for the argument?",
+            "options": [
+              "The machine’s reliability is the only factor in diagnostic cost reduction.",
+              "The machine’s cost is lower than the cost of tissue tests.",
+              "The clinic currently performs more tissue tests than necessary.",
+              "The machine can be used without additional training or maintenance."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is a necessary assumption for the argument? The machine’s reliability is the only factor in diagnostic cost reduction.",
+          "scores": {
+            "bleu4": 0.10357610836561904,
+            "rougeL": 0.3939393939393939,
+            "cosine_sim": 0.63411945104599,
+            "bleurt": 0.422593891620636
+          }
+        }
+      ]
+    },
+    {
+      "id": 260,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, most strongly supports the network's position?",
+            "correct": 2,
+            "options": [
+              "This was not the first time that this network news organization has aired a controversial report on the economy that has inspired viewers to complain to the network.",
+              "Most network news viewers rely on network news broadcasts as their primary source of information regarding the economy.",
+              "The other major network news organizations reported similar reductions in viewership during the same week.",
+              "The viewers who registered complaints with the network were regular viewers of the news organization's programs."
+            ]
+          },
+          "gt_text": "Which of the following, if true, most strongly supports the network's position? The other major network news organizations reported similar reductions in viewership during the same week.",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most strengthen the argument?",
+            "options": [
+              "The network's viewership has been stable in previous weeks without any reports.",
+              "The report was widely praised by critics.",
+              "The network's viewership dropped only after the report aired.",
+              "The complaints were from a small number of viewers."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most strengthen the argument? The network's viewership has been stable in previous weeks without any reports.",
+          "scores": {
+            "bleu4": 0.25251707845062055,
+            "rougeL": 0.4799999999999999,
+            "cosine_sim": 0.7082979679107666,
+            "bleurt": 0.4899345636367798
+          }
+        }
+      ]
+    },
+    {
+      "id": 261,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true and not taken into account by the calculation, most seriously weakens the argument?",
+            "correct": 2,
+            "options": [
+              "Many people whose employment requires physical exertion do not choose to engage in regular physical exercise when they are not at work.",
+              "Exercise is a topic that is often omitted from discussion between doctor and patient during a patient's visit.",
+              "Physical conditions that eventually require medical or nursing-home care often first predispose a person to adopt a sedentary lifestyle.",
+              "A regular program of moderate exercise tends to increase circulation, induce a feeling of well-being and energy, and decrease excess weight."
+            ]
+          },
+          "gt_text": "Which one of the following, if true and not taken into account by the calculation, most seriously weakens the argument? Physical conditions that eventually require medical or nursing-home care often first predispose a person to adopt a sedentary lifestyle.",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most strengthen the argument?",
+            "options": [
+              "Studies show that sedentary individuals have 30% higher healthcare costs than active individuals.",
+              "The $1,650 figure was calculated using data from a single year.",
+              "Many people who exercise also have high healthcare costs due to other factors.",
+              "The argument assumes that healthcare costs are the only measure of societal burden."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most strengthen the argument? Studies show that sedentary individuals have 30% higher healthcare costs than active individuals.",
+          "scores": {
+            "bleu4": 0.19182406790433051,
+            "rougeL": 0.3692307692307692,
+            "cosine_sim": 0.7155210971832275,
+            "bleurt": 0.4248042106628418
+          }
+        }
+      ]
+    },
+    {
+      "id": 262,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 263,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 264,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following most accurately describes the role played in the astronomer's argument by the statement that there could have been microbial life on Mars prior to there being such life on Earth?",
+            "correct": 1,
+            "options": [
+              "It is a claim for which justification is provided and that, if true, establishes the truth of the argument's main conclusion.",
+              "It is a claim for which some justification is provided and that is required in order to establish the argument's main conclusion.",
+              "It is a claim that provides some support for the argument's conclusion but that neither ensures the truth of that conclusion nor is required in order to establish that conclusion.",
+              "It is a claim for which no justification is provided and that, if true, ensures the truth of the argument's main conclusion."
+            ]
+          },
+          "gt_text": "Which one of the following most accurately describes the role played in the astronomer's argument by the statement that there could have been microbial life on Mars prior to there being such life on Earth? It is a claim for which some justification is provided and that is required in order to establish the argument's main conclusion.",
+          "matched_pred_idx": 8,
+          "matched_pred_question": {
+            "content": "Which one of the following would best resolve the apparent discrepancy between Earth's bombardment and the possibility of life originating from Mars?",
+            "options": [
+              "The bombardment of Earth occurred after the formation of microbial life on Mars.",
+              "The sterilization of Earth's surface was not complete.",
+              "Microbial life on Mars could not survive the journey to Earth.",
+              "The meteorites that carried life to Earth were not from Mars."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following would best resolve the apparent discrepancy between Earth's bombardment and the possibility of life originating from Mars? The bombardment of Earth occurred after the formation of microbial life on Mars.",
+          "scores": {
+            "bleu4": 0.2926409052885928,
+            "rougeL": 0.4842105263157894,
+            "cosine_sim": 0.8602938652038574,
+            "bleurt": 0.4464944005012512
+          }
+        }
+      ]
+    },
+    {
+      "id": 265,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, most strongly supports the claim that the use of the new nets will have the intended effects?",
+            "correct": 0,
+            "options": [
+              "The pheromones that would most attract the species sought by commercial fishers indicate the presence of a dangerous threat to most of the endangered marine species",
+              "Freshwater fishers often increase the odds of catching a desired fish, and avoid catching unintended species, by the specific design of the fishing hook.",
+              "Most of the newly design nets are not significantly more expensive than a typical bottom trawling system.",
+              "Catching unintended, endangered species adds nothing to the profits of a commercial deep-sea fishing company."
+            ]
+          },
+          "gt_text": "Which of the following, if true, most strongly supports the claim that the use of the new nets will have the intended effects? The pheromones that would most attract the species sought by commercial fishers indicate the presence of a dangerous threat to most of the endangered marine species",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "Which one of the following, if assumed, would most directly support the conclusion that the new nets will not interrupt commercial fishing?",
+            "options": [
+              "The new nets are more efficient at catching the targeted species.",
+              "The new nets are less durable than traditional nets.",
+              "The new nets require additional training for fishers.",
+              "The new nets are only effective in shallow waters."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if assumed, would most directly support the conclusion that the new nets will not interrupt commercial fishing? The new nets are more efficient at catching the targeted species.",
+          "scores": {
+            "bleu4": 0.17358935168800124,
+            "rougeL": 0.40506329113924044,
+            "cosine_sim": 0.7420613169670105,
+            "bleurt": 0.4257075786590576
+          }
+        }
+      ]
+    },
+    {
+      "id": 266,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 267,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following is an assumption on which the argument relies?",
+            "correct": 3,
+            "options": [
+              "The number of criminals put under routine supervision was not significantly greater than the number of criminals put under intensive supervision.",
+              "Of the criminals arrested while under intensive supervision, some would not have committed crimes if they had been under routine supervision.",
+              "All of the criminals who were arrested while under routine supervision had been in prison more than once before being paroled and put under supervision.",
+              "The proportion of arrests to crimes committed was not significantly higher for criminals under intensive supervision than for those under routine supervision."
+            ]
+          },
+          "gt_text": "Which one of the following is an assumption on which the argument relies? The proportion of arrests to crimes committed was not significantly higher for criminals under intensive supervision than for those under routine supervision.",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "What is the main conclusion of the argument?",
+            "options": [
+              "Intensive supervision is no more effective than routine supervision in preventing crimes.",
+              "Parolees under intensive supervision are more likely to be arrested.",
+              "The study's methodology was flawed.",
+              "The argument assumes that arrest rates are the only measure of effectiveness."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "What is the main conclusion of the argument? Intensive supervision is no more effective than routine supervision in preventing crimes.",
+          "scores": {
+            "bleu4": 0.15790330533218463,
+            "rougeL": 0.39999999999999997,
+            "cosine_sim": 0.7103961706161499,
+            "bleurt": 0.5593738555908203
+          }
+        }
+      ]
+    },
+    {
+      "id": 268,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following statements most accurately expresses the conclusion drawn in the argument?",
+            "correct": 2,
+            "options": [
+              "There are many ecological niches that can be filled by more than one species.",
+              "There are various ecological niches that must be filled if there is to be life on Earth.",
+              "Biodiversity does not require that all existing species continue to exist.",
+              "The survival of life on Earth depends upon biodiversity."
+            ]
+          },
+          "gt_text": "Which one of the following statements most accurately expresses the conclusion drawn in the argument? Biodiversity does not require that all existing species continue to exist.",
+          "matched_pred_idx": 8,
+          "matched_pred_question": {
+            "content": "Which one of the following would best resolve the apparent discrepancy in the information above?",
+            "options": [
+              "Biodiversity is only important if all species survive.",
+              "Biodiversity does not require the survival of every currently existing species.",
+              "Ecological niches are always filled by a single species.",
+              "The survival of every species is required for biodiversity."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following would best resolve the apparent discrepancy in the information above? Biodiversity does not require the survival of every currently existing species.",
+          "scores": {
+            "bleu4": 0.36777307531363024,
+            "rougeL": 0.6122448979591837,
+            "cosine_sim": 0.8929909467697144,
+            "bleurt": 0.6320664882659912
+          }
+        }
+      ]
+    },
+    {
+      "id": 269,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following most accurately describes the role played in the argument by the claim that democracy depends on the ability of citizens to share their ideas freely, without fear of reprisal?",
+            "correct": 2,
+            "options": [
+              "It is the argument's main conclusion and is inferred from two other statements in the argument, neither of which is used to support the other.",
+              "It is a claim for which support is provided, and which is in turn used to support the argument's main conclusion.",
+              "It is a claim for which no support is provided, and which is used to support a claim that is itself used to support the argument's main conclusion.",
+              "It is a claim for which no support is provided, and which is used to support only the argument's main conclusion."
+            ]
+          },
+          "gt_text": "Which one of the following most accurately describes the role played in the argument by the claim that democracy depends on the ability of citizens to share their ideas freely, without fear of reprisal? It is a claim for which no support is provided, and which is used to support a claim that is itself used to support the argument's main conclusion.",
+          "matched_pred_idx": 9,
+          "matched_pred_question": {
+            "content": "Which one of the following principles is best illustrated by the argument?",
+            "options": [
+              "The principle that free sharing of ideas is essential to democracy.",
+              "The principle that government oversight is necessary for national security.",
+              "The principle that private conversations should always be monitored.",
+              "The principle that democracy requires all forms of communication to be unrestricted."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following principles is best illustrated by the argument? The principle that free sharing of ideas is essential to democracy.",
+          "scores": {
+            "bleu4": 0.068798739783804,
+            "rougeL": 0.3296703296703297,
+            "cosine_sim": 0.6399481296539307,
+            "bleurt": 0.363528311252594
+          }
+        }
+      ]
+    },
+    {
+      "id": 270,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following most helps to explain why the price of vinyl records went up?",
+            "correct": 0,
+            "options": [
+              "As consumers bought compact discs instead of vinyl records, the number of vinyl records produced decreased, making their production less cost-efficient.",
+              "Compact disc player technology continued to change and develop even after compact discs first entered the market.",
+              "Consumers were so enthusiastic about the improved sound quality offered by compact disc technology that they were willing to pay a higher price to obtain it.",
+              "Some consumers who continued to buy vinyl records instead of compact discs did so because they were unwilling to pay a higher price for compact discs."
+            ]
+          },
+          "gt_text": "Which one of the following most helps to explain why the price of vinyl records went up? As consumers bought compact discs instead of vinyl records, the number of vinyl records produced decreased, making their production less cost-efficient.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "Which one of the following is most strongly supported by the information in the passage?",
+            "options": [
+              "The price of vinyl records was lower than the price of compact discs before the technology for compact discs became more efficient.",
+              "The price of compact discs was the only factor influencing the price of vinyl records.",
+              "The manufacturers of vinyl records were unable to reduce their production costs.",
+              "The demand for vinyl records increased as the price of compact discs decreased."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is most strongly supported by the information in the passage? The price of vinyl records was lower than the price of compact discs before the technology for compact discs became more efficient.",
+          "scores": {
+            "bleu4": 0.14806015541052223,
+            "rougeL": 0.4571428571428572,
+            "cosine_sim": 0.7152970433235168,
+            "bleurt": 0.4531550407409668
+          }
+        }
+      ]
+    },
+    {
+      "id": 271,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if assumed, enables the economist's conclusion to be properly drawn?",
+            "correct": 0,
+            "options": [
+              "People in countries that put collective goals before individuals' goals lack confidence in the economic policies of their countries.",
+              "A country's economic policies are the most significant factor determining whether that country's economy will experience a recession.",
+              "If the people in a country that puts individuals' goals first are willing to make new investments in their country's economy, their country will emerge quickly from an economic recession.",
+              "No new investment occurs in any country that does not emerge quickly from an economic recession."
+            ]
+          },
+          "gt_text": "Which one of the following, if assumed, enables the economist's conclusion to be properly drawn? People in countries that put collective goals before individuals' goals lack confidence in the economic policies of their countries.",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "**Sufficient Assumptions**",
+            "options": [
+              "Countries prioritizing collective goals have lower confidence in economic policies.",
+              "Rapid recession recovery is impossible without public-private partnerships.",
+              "Individual goals inherently conflict with economic growth.",
+              "Investment levels are determined solely by government policy."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "**Sufficient Assumptions** Countries prioritizing collective goals have lower confidence in economic policies.",
+          "scores": {
+            "bleu4": 0.011702559918779656,
+            "rougeL": 0.2978723404255319,
+            "cosine_sim": 0.7183133363723755,
+            "bleurt": 0.38778889179229736
+          }
+        }
+      ]
+    },
+    {
+      "id": 272,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most seriously weakens the argument?",
+            "correct": 3,
+            "options": [
+              "In the interviews, the people against the new freeway expressed their opinions with more emotion than the people for the freeway did.",
+              "The business interests of the television station that produced the program would be harmed by the construction of a new freeway.",
+              "Most viewers of television news programs do not expect those programs to be completely free of bias.",
+              "Before the program aired, over twice as many people were against building the freeway than were in favor of it."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most seriously weakens the argument? Before the program aired, over twice as many people were against building the freeway than were in favor of it.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "The program’s interviews were conducted in a region where the freeway is popular.",
+              "The program’s coverage included equal numbers of supporters and opponents.",
+              "The program’s interviews were conducted by a neutral journalist.",
+              "The program’s coverage was broadcast nationwide."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? The program’s interviews were conducted in a region where the freeway is popular.",
+          "scores": {
+            "bleu4": 0.2895985471844184,
+            "rougeL": 0.5517241379310345,
+            "cosine_sim": 0.6190716028213501,
+            "bleurt": 0.4352688789367676
+          }
+        }
+      ]
+    },
+    {
+      "id": 273,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following can most reasonably be concluded on the basis of the information above?",
+            "correct": 1,
+            "options": [
+              "Little is known about the contribution of global warming to the rise in global sea level.",
+              "The amount of water that results from the melting of glaciers and ice sheets cannot be determined by looking at the rise in global sea level alone.",
+              "Rises in global sea level that occurred before the world's reservoirs were built are difficult to explain.",
+              "The exact magnitude of the rise in global sea level is in dispute."
+            ]
+          },
+          "gt_text": "Which one of the following can most reasonably be concluded on the basis of the information above? The amount of water that results from the melting of glaciers and ice sheets cannot be determined by looking at the rise in global sea level alone.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "Which one of the following is most strongly supported by the information in the passage?",
+            "options": [
+              "Reservoirs are the only factor reducing the impact of global warming on sea levels.",
+              "The water in reservoirs would have otherwise contributed to sea level rise.",
+              "Global warming has no effect on the volume of water in reservoirs.",
+              "The reservoirs are designed to mitigate the effects of global warming."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is most strongly supported by the information in the passage? The water in reservoirs would have otherwise contributed to sea level rise.",
+          "scores": {
+            "bleu4": 0.10258764760832592,
+            "rougeL": 0.3661971830985915,
+            "cosine_sim": 0.5753046274185181,
+            "bleurt": 0.469909131526947
+          }
+        }
+      ]
+    },
+    {
+      "id": 274,
+      "n_gt": 1,
+      "n_pred": 16,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The argument uses which one of the following questionable techniques?",
+            "correct": 2,
+            "options": [
+              "depicting choices as having been made arbitrarily by dismissing without argument reasons that have been given for these choices",
+              "presenting as capricious and idiosyncratic decisions that are based on the rigorous application of well-defined principles",
+              "inferring the performance of certain actions on no basis other than the existence of both incentive and opportunity for performing those actions",
+              "assuming that the irrelevance of a consideration for one participant in a decision makes that consideration irrelevant for each participant in the decision"
+            ]
+          },
+          "gt_text": "The argument uses which one of the following questionable techniques? inferring the performance of certain actions on no basis other than the existence of both incentive and opportunity for performing those actions",
+          "matched_pred_idx": 10,
+          "matched_pred_question": {
+            "content": "The argument uses which reasoning technique?",
+            "options": [
+              "Causal reasoning (linking payment structure to behavior).",
+              "Analogical reasoning (comparing healthcare to other industries).",
+              "Statistical generalization (using broad claims about \"frequently\").",
+              "Appeal to authority (citing doctor expertise)."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "The argument uses which reasoning technique? Causal reasoning (linking payment structure to behavior).",
+          "scores": {
+            "bleu4": 0.13396659201744804,
+            "rougeL": 0.3157894736842105,
+            "cosine_sim": 0.5990004539489746,
+            "bleurt": 0.3696838617324829
+          }
+        }
+      ]
+    },
+    {
+      "id": 275,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 276,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Assuming the statements above are true, which of the following can be inferred from them?",
+            "correct": 2,
+            "options": [
+              "The ease of learning a second language depends almost exclusively on environmental factors.",
+              "Students whose parents enter them in early education and who read to them frequently are more likely to have extra income and more free time.",
+              "Students who begin studying a language later in life would have had an easier time learning some aspects of that language if they had begun studying it as a young child.",
+              "Proficient speakers of a second language are likely to have begun learning it before the age of 6."
+            ]
+          },
+          "gt_text": "Assuming the statements above are true, which of the following can be inferred from them? Students who begin studying a language later in life would have had an easier time learning some aspects of that language if they had begun studying it as a young child.",
+          "matched_pred_idx": 9,
+          "matched_pred_question": {
+            "content": "Which principle is illustrated by the argument?",
+            "options": [
+              "Early exposure to language through reading enhances proficiency.",
+              "Socioeconomic status is the primary factor in language learning.",
+              "Vocabulary retention declines with age regardless of reading habits.",
+              "Parental involvement is the key to language acquisition."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which principle is illustrated by the argument? Early exposure to language through reading enhances proficiency.",
+          "scores": {
+            "bleu4": 0.020545134155810812,
+            "rougeL": 0.23188405797101447,
+            "cosine_sim": 0.529546856880188,
+            "bleurt": 0.3420420289039612
+          }
+        }
+      ]
+    },
+    {
+      "id": 277,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most strengthens the argument?",
+            "correct": 3,
+            "options": [
+              "The widespread criticism and vocal public protest is misguided.",
+              "None of the \"Big Five\" animals are endangered.",
+              "The hunters are only allowed to hunt sick or elderly animals.",
+              "African countries would otherwise not be able to afford to protect the animals."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most strengthens the argument? African countries would otherwise not be able to afford to protect the animals.",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most strengthen the argument?",
+            "options": [
+              "study shows that countries with trophy hunting programs have higher wildlife population growth rates.",
+              "Trophy hunting is banned in all African nations except for the \"Big Five\" game.",
+              "The \"Big Five\" game is the only species that benefits from trophy hunting.",
+              "Hunters are required to pay a fee for each animal they kill."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most strengthen the argument? study shows that countries with trophy hunting programs have higher wildlife population growth rates.",
+          "scores": {
+            "bleu4": 0.35410595762404473,
+            "rougeL": 0.4583333333333333,
+            "cosine_sim": 0.6272929310798645,
+            "bleurt": 0.41427797079086304
+          }
+        }
+      ]
+    },
+    {
+      "id": 278,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The examples presented above best illustrate which one of the following propositions?",
+            "correct": 1,
+            "options": [
+              "Workers will need to acquire more education and skills to remain competitive in the labor market.",
+              "Employers utilize new technology because it allows them to reduce labor costs.",
+              "In seeking employment, highly skilled workers no longer have an advantage over less-skilled workers.",
+              "Technology eliminates many jobs but also creates just as many jobs."
+            ]
+          },
+          "gt_text": "The examples presented above best illustrate which one of the following propositions? Employers utilize new technology because it allows them to reduce labor costs.",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "What is the main conclusion of the argument?",
+            "options": [
+              "Machines in the first Industrial Revolution were faster than human workers.",
+              "The economic attractiveness of replacing unskilled workers with machines led to their widespread use.",
+              "Managers are seeking technology to replace highly paid skilled workers with fewer less-skilled workers.",
+              "The same economic principles that justified replacing unskilled workers apply to replacing skilled workers."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "What is the main conclusion of the argument? Managers are seeking technology to replace highly paid skilled workers with fewer less-skilled workers.",
+          "scores": {
+            "bleu4": 0.1447953615777742,
+            "rougeL": 0.2857142857142857,
+            "cosine_sim": 0.5876049399375916,
+            "bleurt": 0.45527076721191406
+          }
+        }
+      ]
+    },
+    {
+      "id": 279,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most helps to strengthen the argument?",
+            "correct": 1,
+            "options": [
+              "None of the shows that Wilke & Wilke produced last year that were not canceled were police dramas.",
+              "All of the new shows that Wilke & Wilke produced last year that were canceled were police dramas.",
+              "Most of the shows that Wilke & Wilke produced last year were police dramas.",
+              "Wilke & Wilke have produced more new shows for this season than they produced last season."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most helps to strengthen the argument? All of the new shows that Wilke & Wilke produced last year that were canceled were police dramas.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "The new police dramas have received critical acclaim and high viewership.",
+              "The network has a history of canceling shows with high ratings.",
+              "The new shows are more expensive to produce than last season's.",
+              "The network has a policy of canceling shows after one season."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? The new police dramas have received critical acclaim and high viewership.",
+          "scores": {
+            "bleu4": 0.2943095143505974,
+            "rougeL": 0.5306122448979592,
+            "cosine_sim": 0.7494310140609741,
+            "bleurt": 0.5072718858718872
+          }
+        }
+      ]
+    },
+    {
+      "id": 280,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Kim's and Hampton's statements most strongly support the claim that both of them would agree with which one of the following?",
+            "correct": 3,
+            "options": [
+              "The human diet needs to be modified in the next half century because of the depletion of our natural resources due to overpopulation.",
+              "Agricultural and wilderness areas need to be protected from urban encroachment by preparing urban areas for greater population density.",
+              "Efforts should be taken to slow the rate of human population growth and to increase the amount of land committed to agriculture.",
+              "Continued research into more-efficient agricultural practices and innovative biotechnology aimed at producing more food on less land would be beneficial."
+            ]
+          },
+          "gt_text": "Kim's and Hampton's statements most strongly support the claim that both of them would agree with which one of the following? Continued research into more-efficient agricultural practices and innovative biotechnology aimed at producing more food on less land would be beneficial.",
+          "matched_pred_idx": 8,
+          "matched_pred_question": {
+            "content": "Which one of the following would most effectively resolve the apparent discrepancy between Kim's and Hampton's arguments?",
+            "options": [
+              "Technological improvements will allow food production to meet demand without increasing land use.",
+              "Urban expansion will be limited to regions with no natural resources.",
+              "Forests and wildlife habitats will be replaced by urban areas.",
+              "The world population will not reach ten billion."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following would most effectively resolve the apparent discrepancy between Kim's and Hampton's arguments? Technological improvements will allow food production to meet demand without increasing land use.",
+          "scores": {
+            "bleu4": 0.16838537443642693,
+            "rougeL": 0.2105263157894737,
+            "cosine_sim": 0.7403761148452759,
+            "bleurt": 0.5212291479110718
+          }
+        }
+      ]
+    },
+    {
+      "id": 281,
+      "n_gt": 1,
+      "n_pred": 18,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Each of the following is an assumption on which the argument depends EXCEPT:",
+            "correct": 2,
+            "options": [
+              "Journalists do not eliminate all of the biases that enter their reporting.",
+              "Trained editors are able to detect at least some biases of journalists.",
+              "Journalists' reporting that is not objective is not taken seriously by trained editors.",
+              "It is imperative that reporting be as objective as possible."
+            ]
+          },
+          "gt_text": "Each of the following is an assumption on which the argument depends EXCEPT: Journalists' reporting that is not objective is not taken seriously by trained editors.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "CONCLUSION/MAIN POINT",
+            "options": [
+              "Journalists’ biases are inevitable.",
+              "Editors must review journalists’ work to ensure objectivity.",
+              "Objectivity in reporting is a difficult goal to achieve.",
+              "Journalists should be trained to eliminate their biases."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "CONCLUSION/MAIN POINT Editors must review journalists’ work to ensure objectivity.",
+          "scores": {
+            "bleu4": 0.010388680063005874,
+            "rougeL": 0.2222222222222222,
+            "cosine_sim": 0.6242678165435791,
+            "bleurt": 0.32381826639175415
+          }
+        }
+      ]
+    },
+    {
+      "id": 282,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "An error of reasoning of the same kind as one contained in the passage is present in each of EXCEPT:",
+            "correct": 3,
+            "options": [
+              "According to the airline industry, airfares have to rise if air travel is to be made safer; since airfares were just raised, we can rest assured that air travel will ttherefore become safer.",
+              "People who are really interested in the preservation of wildlife obviously do not go hunting for big game; since Gerda has never gone hunting for big game and intends never to do so, it is clear that she is really interested in the preservation of wildlife.",
+              "If the contents of a bottle are safe to drink, the bottle will not be marked \"poison, \" so, since the bottle is not marked \"poison, \" its contents will be safe to drink.",
+              "None of the so-called Western democracies is really democratic, because, for a country to be democratic, the opinion of each of its citizens must have a meaningful effect on government, and in none of these countries does each citizen's opinion have such an effect."
+            ]
+          },
+          "gt_text": "An error of reasoning of the same kind as one contained in the passage is present in each of EXCEPT: None of the so-called Western democracies is really democratic, because, for a country to be democratic, the opinion of each of its citizens must have a meaningful effect on government, and in none of these countries does each citizen's opinion have such an effect.",
+          "matched_pred_idx": 14,
+          "matched_pred_question": {
+            "content": "Which one of the following contains the same reasoning flaw as the argument?",
+            "options": [
+              "If it rains, the ground gets wet. The ground is wet, so it rained.",
+              "If a person is a doctor, they have a medical degree. The person has a medical degree, so they are a doctor.",
+              "If a car is red, it is fast. The car is fast, so it is red.",
+              "If a book is popular, it is well-written. The book is well-written, so it is popular."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following contains the same reasoning flaw as the argument? If it rains, the ground gets wet. The ground is wet, so it rained.",
+          "scores": {
+            "bleu4": 0.004633705002873051,
+            "rougeL": 0.17977528089887643,
+            "cosine_sim": 0.3609168529510498,
+            "bleurt": 0.28165358304977417
+          }
+        }
+      ]
+    },
+    {
+      "id": 283,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The argument requires assuming which one of the following?",
+            "correct": 1,
+            "options": [
+              "Wang's Law has in fact been shown to be true.",
+              "The scientists surveyed are generally aware that the results of the Brown-Eisler Experiment together with Wang's Law contradict the Minsk Hypothesis.",
+              "The sample is large enough to be representative of scientists in the field.",
+              "Almost all of the scientists surveyed are familiar with the way in which the results of the Brown-Eisler Experiment were obtained."
+            ]
+          },
+          "gt_text": "The argument requires assuming which one of the following? The scientists surveyed are generally aware that the results of the Brown-Eisler Experiment together with Wang's Law contradict the Minsk Hypothesis.",
+          "matched_pred_idx": 5,
+          "matched_pred_question": {
+            "content": "Which one of the following must be true if the argument is valid?",
+            "options": [
+              "The scientists surveyed reject the Minsk Hypothesis.",
+              "The Minsk Hypothesis is contradicted by Wang's Law and the Brown-Eisler Experiment.",
+              "The scientists surveyed are not influenced by external factors.",
+              "The Brown-Eisler Experiment's results are accurate."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following must be true if the argument is valid? The Minsk Hypothesis is contradicted by Wang's Law and the Brown-Eisler Experiment.",
+          "scores": {
+            "bleu4": 0.25806865066928675,
+            "rougeL": 0.5079365079365079,
+            "cosine_sim": 0.8770442605018616,
+            "bleurt": 0.5436395406723022
+          }
+        }
+      ]
+    },
+    {
+      "id": 284,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following employs a flawed argumentative strategy that is most closely parallel to the flawed argumentative strategy in the advertisement above?",
+            "correct": 0,
+            "options": [
+              "This card game must be intellectually challenging, because it is played by highly intelligent people, who play only intellectually challenging card games. In fact, these players' intelligence is demonstrated by the fact that they play this game.",
+              "This painting is a poor imitation, because only people with poor eyesight mistook it for the original. That these people have poor eyesight is demonstrated by the fact that they also mistook a vase of flowers in the painting for a peacock.",
+              "That jacket must have been made for a very short person, because only very short people were able to fit into it. We know that they were very short because we saw them before they tried on the jacket.",
+              "When coffee is being chosen, Brand Z is the coffee chosen by people with highly developed taste in coffee. These people showed their highly developed taste in coffee by correctly distinguishing eight brands of coffee from each other in a taste test."
+            ]
+          },
+          "gt_text": "Which one of the following employs a flawed argumentative strategy that is most closely parallel to the flawed argumentative strategy in the advertisement above? This card game must be intellectually challenging, because it is played by highly intelligent people, who play only intellectually challenging card games. In fact, these players' intelligence is demonstrated by the fact that they play this game.",
+          "matched_pred_idx": 15,
+          "matched_pred_question": {
+            "content": "Which one of the following has the same logical structure as the argument?",
+            "options": [
+              "All A are B. C is A, so C is B.",
+              "If A, then B. A is true, so B is true.",
+              "Some A are B. C is A, so C is B.",
+              "is B. C is B, so C is A."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following has the same logical structure as the argument? All A are B. C is A, so C is B.",
+          "scores": {
+            "bleu4": 0.034140738828044,
+            "rougeL": 0.2588235294117647,
+            "cosine_sim": 0.4487709403038025,
+            "bleurt": 0.2814607620239258
+          }
+        }
+      ]
+    },
+    {
+      "id": 285,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following is most strongly supported by the statements above?",
+            "correct": 2,
+            "options": [
+              "Newspaper and magazine reviews of films are usually written in advance of a film's general release.",
+              "Typical audience members' responses to films from the latter part of the twentieth century are easy to determine .",
+              "Film historians do not believe that film reviews in newspapers and magazines reveal typical film audience members' views.",
+              "Films from the early part of the twentieth century were not usually reviewed in newspapers or magazmes."
+            ]
+          },
+          "gt_text": "Which one of the following is most strongly supported by the statements above? Film historians do not believe that film reviews in newspapers and magazines reveal typical film audience members' views.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "Which one of the following is most strongly supported by the information above?",
+            "options": [
+              "Historians cannot rely on box office figures or reviews to understand audience reactions.",
+              "Box office figures are the most reliable indicator of audience responses.",
+              "Newspaper reviews are more accurate than box office data.",
+              "Early 20th-century films were primarily designed for entertainment."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is most strongly supported by the information above? Historians cannot rely on box office figures or reviews to understand audience reactions.",
+          "scores": {
+            "bleu4": 0.3346938847662845,
+            "rougeL": 0.5263157894736842,
+            "cosine_sim": 0.7903447151184082,
+            "bleurt": 0.5666060447692871
+          }
+        }
+      ]
+    },
+    {
+      "id": 286,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following most accurately expresses the overall conclusion of the argument?",
+            "correct": 3,
+            "options": [
+              "It is likely that only one type of bacteria hibernates regularly.",
+              "If bacteria are extremely diverse, it is unlikely that most types of bacteria hibernate regularly.",
+              "Bacteria of most types are usually in hibernation.",
+              "It is probably not true that most types of bacteria hibernate regularly."
+            ]
+          },
+          "gt_text": "Which one of the following most accurately expresses the overall conclusion of the argument? It is probably not true that most types of bacteria hibernate regularly.",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "Which one of the following is the main conclusion of the argument?",
+            "options": [
+              "Most bacteria of a common type are in hibernation at any given time.",
+              "Bacteria in general are usually in hibernation.",
+              "It is unlikely that most types of bacteria hibernate regularly.",
+              "Bacteria are extremely diverse in their biological characteristics."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is the main conclusion of the argument? It is unlikely that most types of bacteria hibernate regularly.",
+          "scores": {
+            "bleu4": 0.5767924370787486,
+            "rougeL": 0.7916666666666666,
+            "cosine_sim": 0.9046469926834106,
+            "bleurt": 0.6852413415908813
+          }
+        }
+      ]
+    },
+    {
+      "id": 287,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, most weakens the argument?",
+            "correct": 3,
+            "options": [
+              "The number of automobile workers in Burdistan has not increased during the same period.",
+              "Esterian automobile manufacturers have lowered the price of their automobiles so as to remain competitive with the manufacturers in Burdistan.",
+              "Because vehicles manufactured in Esteria have a reputation for high quality, many Esterian consumers have continued to purchase domestically manufactured vehicles since the tax was abolished.",
+              "Recent innovations in automated automobile-manufacturing technology have approximately halved the number of worker-hours required to produce most automobiles."
+            ]
+          },
+          "gt_text": "Which of the following, if true, most weakens the argument? Recent innovations in automated automobile-manufacturing technology have approximately halved the number of worker-hours required to produce most automobiles.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "The tax on Burdistan automobiles was the sole reason for the decline in Esterian automobile production.",
+              "The number of workers in Esterian automobile factories is directly proportional to the number of vehicles produced.",
+              "The cost of manufacturing automobiles in Burdistan is significantly lower than in Esteria.",
+              "The number of workers in Esterian automobile factories is not directly proportional to the number of vehicles produced."
+            ],
+            "correct": 3,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? The number of workers in Esterian automobile factories is not directly proportional to the number of vehicles produced.",
+          "scores": {
+            "bleu4": 0.2594068869083152,
+            "rougeL": 0.5333333333333333,
+            "cosine_sim": 0.6713041067123413,
+            "bleurt": 0.38651299476623535
+          }
+        }
+      ]
+    },
+    {
+      "id": 288,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following statements, if true, most seriously weakens the argument?",
+            "correct": 1,
+            "options": [
+              "Studies showed no correlation between stimulation and amount of sleep for children three years of age or older.",
+              "The stimulation that babies receive helps them to develop intellectually.",
+              "The babies who had a less stimulating routine gained weight at an average rate.",
+              "Babies with less stimulating routines usually get extra sleep during the day."
+            ]
+          },
+          "gt_text": "Which one of the following statements, if true, most seriously weakens the argument? The stimulation that babies receive helps them to develop intellectually.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "Which of the following is most strongly supported by the premises?",
+            "options": [
+              "Infants with less stimulation are more likely to sleep longer.",
+              "Parents should avoid all stimulation.",
+              "The study’s results are universally applicable.",
+              "Sleep is the most important factor in development."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following is most strongly supported by the premises? Infants with less stimulation are more likely to sleep longer.",
+          "scores": {
+            "bleu4": 0.22750215000744378,
+            "rougeL": 0.5,
+            "cosine_sim": 0.6846968531608582,
+            "bleurt": 0.3342406749725342
+          }
+        }
+      ]
+    },
+    {
+      "id": 289,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most weakens the editor's argument?",
+            "correct": 3,
+            "options": [
+              "Even if the volume of collected recyclables increases, that increase might not be enough to make the recycling program cost effective.",
+              "Because of the increase in the number of pickups under the new program, the amount charged by the contractor that collects the city's recyclables will increase significantly.",
+              "The cost of collecting and disposing of general trash has been less than the cost of collecting and disposing of recyclables, and this is still likely to be the case under the new recycling program.",
+              "A weekly schedule for recyclables pickup is substantially easier for people to follow and adhere to than is a schedule of pickups every other week."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most weakens the editor's argument? weekly schedule for recyclables pickup is substantially easier for people to follow and adhere to than is a schedule of pickups every other week.",
+          "matched_pred_idx": 5,
+          "matched_pred_question": {
+            "content": "Which one of the following is an implication of the argument?",
+            "options": [
+              "The city’s revenue from recyclables is directly proportional to the number of pickups.",
+              "The total volume of recyclables collected annually remains constant.",
+              "The city’s previous program was not cost-effective.",
+              "The city’s revenue from recyclables increases with the number of pickups."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is an implication of the argument? The total volume of recyclables collected annually remains constant.",
+          "scores": {
+            "bleu4": 0.23462659952557235,
+            "rougeL": 0.4545454545454546,
+            "cosine_sim": 0.6129083037376404,
+            "bleurt": 0.39044189453125
+          }
+        }
+      ]
+    },
+    {
+      "id": 290,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following most accurately describes the method of reasoning used in the argument?",
+            "correct": 3,
+            "options": [
+              "An observation about one object is used as a basis for a general conclusion regarding the status of similar objects.",
+              "A generalization is rejected by showing that it fails to hold in one particular instance.",
+              "A deficiency in a system is isolated by arguing that the system failed to control one of the objects that it was intended to control.",
+              "The conclusion is supported by ruling out other possible explanations of an observed fact."
+            ]
+          },
+          "gt_text": "Which one of the following most accurately describes the method of reasoning used in the argument? The conclusion is supported by ruling out other possible explanations of an observed fact.",
+          "matched_pred_idx": 8,
+          "matched_pred_question": {
+            "content": "Which one of the following would best resolve the apparent discrepancy in the information above?",
+            "options": [
+              "The book was temporarily moved for maintenance.",
+              "The book was checked out by a staff member.",
+              "The book was part of a special display.",
+              "The book was stolen."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following would best resolve the apparent discrepancy in the information above? The book was temporarily moved for maintenance.",
+          "scores": {
+            "bleu4": 0.19326700837947133,
+            "rougeL": 0.39215686274509803,
+            "cosine_sim": 0.6254728436470032,
+            "bleurt": 0.4274511933326721
+          }
+        }
+      ]
+    },
+    {
+      "id": 291,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following principles, if valid, most helps to justify the doctor's argument?",
+            "correct": 3,
+            "options": [
+              "Medical researchers should always attempt to develop effective medical treatments as rapidly as they can while fulfilling their other moral obligations.",
+              "It is wrong for any company to ask its medical researchers to keep their research confidential, if failure to share the research might delay development of effective medical treatments.",
+              "If the most important moral principle is to prevent human suffering, then it is wrong for medical researchers to keep their research confidential.",
+              "Medical researchers should not keep information confidential if it is possible that sharing that information would prevent some unnecessary human suffering."
+            ]
+          },
+          "gt_text": "Which one of the following principles, if valid, most helps to justify the doctor's argument? Medical researchers should not keep information confidential if it is possible that sharing that information would prevent some unnecessary human suffering.",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "What is the main conclusion of the argument?",
+            "options": [
+              "Medical researchers should not keep their research confidential.",
+              "The development of effective treatments may be delayed if research is not shared.",
+              "Humans may suffer unnecessarily if research is not shared.",
+              "Companies prefer that researchers keep their research confidential."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "What is the main conclusion of the argument? Medical researchers should not keep their research confidential.",
+          "scores": {
+            "bleu4": 0.10828655308729687,
+            "rougeL": 0.37931034482758624,
+            "cosine_sim": 0.7347079515457153,
+            "bleurt": 0.4383135437965393
+          }
+        }
+      ]
+    },
+    {
+      "id": 292,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The argument depends on the assumption that",
+            "correct": 3,
+            "options": [
+              "the medical ineffectiveness of many herbs as treatments for specific illnesses or conditions is well established",
+              "the cost of medical care would be substantially reduced if faster ways of obtaining regulatory-agency approval for new drugs could be found.",
+              "some other substances, besides herbs, are not available as drugs because the illnesses they could effectively treat are too uncommon to allow those substances to be marketed profitably as drugs",
+              "a licensed physician cannot recommend the medicinal use of an herb unless that herb is offered for sale as a drug."
+            ]
+          },
+          "gt_text": "The argument depends on the assumption that a licensed physician cannot recommend the medicinal use of an herb unless that herb is offered for sale as a drug.",
+          "matched_pred_idx": 9,
+          "matched_pred_question": {
+            "content": "Which one of the following is a principle that the argument relies on?",
+            "options": [
+              "drug must have a patent to be approved for medicinal use.",
+              "Herbs are more effective than synthetic drugs.",
+              "The regulatory agency approves drugs based on popularity.",
+              "Physicians are not allowed to prescribe unapproved drugs."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is a principle that the argument relies on? drug must have a patent to be approved for medicinal use.",
+          "scores": {
+            "bleu4": 0.018431200051083722,
+            "rougeL": 0.28,
+            "cosine_sim": 0.7402001023292542,
+            "bleurt": 0.37034690380096436
+          }
+        }
+      ]
+    },
+    {
+      "id": 293,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The class's reasoning is flawed in that the class",
+            "correct": 3,
+            "options": [
+              "neglected to offer any explanation for the results it discovered",
+              "assumed without proof that its thermometer was reliable",
+              "generalized too readily from the fruits it tested to fruits it did not test",
+              "too readily extrapolated from a narrow range of temperatures to the entire range of temperatures"
+            ]
+          },
+          "gt_text": "The class's reasoning is flawed in that the class too readily extrapolated from a narrow range of temperatures to the entire range of temperatures",
+          "matched_pred_idx": 10,
+          "matched_pred_question": {
+            "content": "Which one of the following is a point of disagreement between the class and a critic?",
+            "options": [
+              "The class believes temperature is the only factor affecting freshness, while a critic might argue other factors are involved.",
+              "The class observed the fruits for the same duration, while a critic might question this.",
+              "The class concluded that cooler temperatures lead to longer freshness, while a critic might dispute this.",
+              "The class stored the fruits in identical containers, while a critic might question this."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is a point of disagreement between the class and a critic? The class believes temperature is the only factor affecting freshness, while a critic might argue other factors are involved.",
+          "scores": {
+            "bleu4": 0.012765317762547784,
+            "rougeL": 0.2553191489361702,
+            "cosine_sim": 0.5474990010261536,
+            "bleurt": 0.35030150413513184
+          }
+        }
+      ]
+    },
+    {
+      "id": 294,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following is most strongly supported by the information given?",
+            "correct": 2,
+            "options": [
+              "Among whale fossils that date from later than about fifty million years ago, none are fossils of whale species that drank only fresh water.",
+              "The earliest whales that drank salt water differed from fresh-water-drinking whales only in their possession of specialized kidneys.",
+              "Fossils of whale species dating from between sixty million and fifty million years ago will not be found on continents that were at the time separated from ancient Asia by wide expanses of ocean.",
+              "Between sixty million and fifty million years ago, the freshwater lakes and rivers in which whales originated were gradually invaded by salt water."
+            ]
+          },
+          "gt_text": "Which of the following is most strongly supported by the information given? Fossils of whale species dating from between sixty million and fifty million years ago will not be found on continents that were at the time separated from ancient Asia by wide expanses of ocean.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "Which one of the following is most strongly supported by the information above?",
+            "options": [
+              "Early whales without saltwater kidneys could not survive in saltwater for extended periods.",
+              "The development of saltwater kidneys was the only way for whales to live in the ocean.",
+              "The fossil evidence shows that all early whales swam in saltwater.",
+              "Whales originated in the freshwater lakes and rivers of ancient Asia about sixty million years ago."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is most strongly supported by the information above? Early whales without saltwater kidneys could not survive in saltwater for extended periods.",
+          "scores": {
+            "bleu4": 0.16946129104956234,
+            "rougeL": 0.3611111111111111,
+            "cosine_sim": 0.6489798426628113,
+            "bleurt": 0.38552409410476685
+          }
+        }
+      ]
+    },
+    {
+      "id": 295,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following, if true, most seriously weakens the argument?",
+            "correct": 3,
+            "options": [
+              "A significant threat to shark populations, in addition to commercial shark fishing, is \"incidental mortality\" that results from catching sharks in nets intended for other fish.",
+              "The sharks that are the most profitable to catch are those that tend to remain in the same area of ocean year after year and not migrate far from where they were born.",
+              "The waters around South Australia are the only area in the world where that particular species of shark is found.",
+              "Since 1980 commercial shark-fishing boats have used sophisticated electronic equipment that enables them to locate sharks with greater accuracy."
+            ]
+          },
+          "gt_text": "Which one of the following, if true, most seriously weakens the argument? Since 1980 commercial shark-fishing boats have used sophisticated electronic equipment that enables them to locate sharks with greater accuracy.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "The CPUE for the shark species has remained constant, but the number of commercial sharkfishing boats has doubled since 1973.",
+              "The shark population in South Australia has been declining due to overfishing, but the CPUE has not reflected this.",
+              "The CPUE method is known to be unreliable for species that migrate seasonally.",
+              "The researchers have not accounted for changes in shark behavior that could affect catch rates."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? The CPUE for the shark species has remained constant, but the number of commercial sharkfishing boats has doubled since 1973.",
+          "scores": {
+            "bleu4": 0.267861158687514,
+            "rougeL": 0.40625,
+            "cosine_sim": 0.7196263074874878,
+            "bleurt": 0.41202008724212646
+          }
+        }
+      ]
+    },
+    {
+      "id": 296,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following statements directly contradicts the information presented above?",
+            "correct": 3,
+            "options": [
+              "The proportion of farmers in the United States labor force remained constant in the 30 years between 1850 and 1880.",
+              "The rate of growth of the United States labor force and the rate of growth of the general population rose simultaneously in the 30 years between 1850 and 1880.",
+              "The number of farmers in the general population increased slightly in the 30 years between 1850 and 1880.",
+              "The proportion of farmers in the general population increased from 68 percent in 1850 to 72 percent in 1880."
+            ]
+          },
+          "gt_text": "Which of the following statements directly contradicts the information presented above? The proportion of farmers in the general population increased from 68 percent in 1850 to 72 percent in 1880.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "Which one of the following is most strongly supported by the information given?",
+            "options": [
+              "The proportion of the population that were farmers decreased between 1850 and 1880.",
+              "Farmers were more likely to move to cities than to stay in rural areas.",
+              "The general population growth rate was higher than the farmers' growth rate.",
+              "The number of farmers increased by 50% during this period."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following is most strongly supported by the information given? The proportion of the population that were farmers decreased between 1850 and 1880.",
+          "scores": {
+            "bleu4": 0.1401793243727617,
+            "rougeL": 0.4642857142857143,
+            "cosine_sim": 0.7369078397750854,
+            "bleurt": 0.5123639106750488
+          }
+        }
+      ]
+    },
+    {
+      "id": 297,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following most logically completes the argument?",
+            "correct": 0,
+            "options": [
+              "incorporating humor into lectures can help professors to achieve the goals they have for those lectures",
+              "university professors should treat even the most serious topics in a humorous way",
+              "stand-up comedians and university professors have the same skill set",
+              "university professors can achieve the goals they have for their lectures only if they incorporate humor into them"
+            ]
+          },
+          "gt_text": "Which one of the following most logically completes the argument? incorporating humor into lectures can help professors to achieve the goals they have for those lectures",
+          "matched_pred_idx": 16,
+          "matched_pred_question": {
+            "content": "Which of the following best completes the argument?",
+            "options": [
+              "Humor is the most effective way to engage audiences.",
+              "University professors should use humor in their lectures.",
+              "Stand-up comedians are more skilled at public speaking than professors.",
+              "The audience will remember the content of lectures if humor is used."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following best completes the argument? University professors should use humor in their lectures.",
+          "scores": {
+            "bleu4": 0.19261445595036478,
+            "rougeL": 0.4583333333333333,
+            "cosine_sim": 0.8463228940963745,
+            "bleurt": 0.588508665561676
+          }
+        }
+      ]
+    },
+    {
+      "id": 298,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "The reasoning in the argument is flawed because the argument ignores the possibility that some people who",
+            "correct": 2,
+            "options": [
+              "truly understand economics have no chance of being elected",
+              "truly understand economics do not support the tax plan",
+              "do not support the tax plan do not truly understand economics",
+              "do not support the tax plan have no chance of being elected"
+            ]
+          },
+          "gt_text": "The reasoning in the argument is flawed because the argument ignores the possibility that some people who do not support the tax plan do not truly understand economics",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which one of the following, if true, would most weaken the argument?",
+            "options": [
+              "Some people who do not support the tax plan also do not understand economics.",
+              "The tax plan is supported by a majority of voters.",
+              "Economic understanding is not a requirement for political success.",
+              "Voters who support the tax plan are more likely to be re-elected."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following, if true, would most weaken the argument? Some people who do not support the tax plan also do not understand economics.",
+          "scores": {
+            "bleu4": 0.3255968746545406,
+            "rougeL": 0.5925925925925927,
+            "cosine_sim": 0.9101003408432007,
+            "bleurt": 0.5332621932029724
+          }
+        }
+      ]
+    },
+    {
+      "id": 299,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Morton's argument is flawed because it",
+            "correct": 2,
+            "options": [
+              "mistakes a correlation for a cause",
+              "fails to consider the status of alleged counterexamples",
+              "assumes what it sets out to conclude",
+              "bases its conclusion on the supposition that most people believe in that conclusion"
+            ]
+          },
+          "gt_text": "Morton's argument is flawed because it assumes what it sets out to conclude",
+          "matched_pred_idx": 13,
+          "matched_pred_question": {
+            "content": "What is the flaw in the argument?",
+            "options": [
+              "It assumes that success must include a college degree without evidence.",
+              "It confuses correlation with causation.",
+              "It makes a scope shift from education to success.",
+              "It uses ad hominem reasoning."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "What is the flaw in the argument? It assumes that success must include a college degree without evidence.",
+          "scores": {
+            "bleu4": 0.02560744480557418,
+            "rougeL": 0.25,
+            "cosine_sim": 0.6555032730102539,
+            "bleurt": 0.33004501461982727
+          }
+        }
+      ]
+    },
+    {
+      "id": 300,
+      "n_gt": 1,
+      "n_pred": 17,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which one of the following most logically completes the paragraph?",
+            "correct": 1,
+            "options": [
+              "farmers and agricultural agents should work closely with wildlife conservationists before taking measures to control elephants",
+              "the preservation of wildlife may endanger human welfare",
+              "it is unfair that people in any country should have to endure food shortages",
+              "it is time to remove elephants from the list of endangered species"
+            ]
+          },
+          "gt_text": "Which one of the following most logically completes the paragraph? the preservation of wildlife may endanger human welfare",
+          "matched_pred_idx": 9,
+          "matched_pred_question": {
+            "content": "Which one of the following principles is best illustrated by the argument?",
+            "options": [
+              "Human survival needs can justify the culling of wildlife.",
+              "Wildlife should be protected regardless of their impact on human activities.",
+              "The intelligence of animals determines their value to humans.",
+              "Documentaries should always present balanced perspectives on wildlife."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following principles is best illustrated by the argument? Human survival needs can justify the culling of wildlife.",
+          "scores": {
+            "bleu4": 0.19850823739068116,
+            "rougeL": 0.4615384615384615,
+            "cosine_sim": 0.6082820296287537,
+            "bleurt": 0.5536936521530151
+          }
+        }
+      ]
+    }
+  ]
+}
