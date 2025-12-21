@@ -268,7 +268,7 @@ def process_single_job(
         if source in prompts:
             prompt_template = prompts[source]
         elif source.startswith("race-"):
-            # Try "race" for "race-h" or "race-m"
+            # Try "race" for "race" or "race-m"
             race_prompt = prompts.get("race")
             if race_prompt:
                 prompt_template = race_prompt
@@ -354,175 +354,186 @@ def main():
     prompts = load_prompts(args.prompts_folder)
     print(f"Loaded prompts for sources: {', '.join(prompts.keys())}")
 
-    # Load data
-    print(f"Loading data from {args.data_path}...")
-    data = load_data(args.data_path, args.n, args.sources)
-
-    if args.sources:
-        print(f"Filtered by sources: {', '.join(args.sources)}")
-    print(f"Loaded {len(data)} items")
-
-    # Prepare output directory
-    # Determine dataset name based on sources
+    # Validate sources parameter
     if not args.sources:
         raise ValueError(
             "Error: --sources parameter is required. Please specify which dataset(s) to generate questions for.\n"
-            "Example: --sources reclor, --sources race-h, or --sources race-h dream"
+            "Example: --sources reclor, --sources race, or --sources race dream"
         )
-
-    if len(args.sources) == 1:
-        # Single source: use source name
-        dataset_name = args.sources[0].lower()
-    else:
-        # Multiple sources: use combined name
-        dataset_name = "_".join(sorted([s.lower() for s in args.sources]))
 
     # Get model_id from model name
     model_id = args.model.replace("/", "_")
 
-    # Output: outputs/{dataset_name}/{model_id}/
-    output_dir = Path("outputs") / dataset_name / model_id
-    output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = output_dir / "predictions.json"
-
     print(f"Using model: {args.model}")
+    print(f"Model ID: {model_id}")
     print(f"Using {args.workers} parallel workers")
     print(f"Generating {args.num_sets} question set(s) per sample")
-    print(
-        f"Output will be saved to: {output_path}"
-    )  # Create all jobs (k jobs per sample)
-    total_jobs = len(data) * args.num_sets
-    print(f"Total jobs: {total_jobs} ({len(data)} samples × {args.num_sets} sets)")
+    print(f"Processing sources: {', '.join(args.sources)}")
 
-    # Process items in parallel with multithreading
-    # Each job generates one set for one item
-    job_results = []
+    # Process each source separately
+    for source in args.sources:
+        source_lower = source.lower()
+        print(f"\n{'='*100}")
+        print(f"Processing source: {source.upper()}")
+        print(f"{'='*100}")
 
-    with ThreadPoolExecutor(max_workers=args.workers) as executor:
-        # Submit all jobs (k * n jobs total)
-        future_to_job = {}
-        for item in data:
-            for set_idx in range(args.num_sets):
-                future = executor.submit(
-                    process_single_job,
-                    item,
-                    set_idx,
-                    args.model,
-                    prompts,
-                    api_key,
-                )
-                future_to_job[future] = (item["id"], set_idx)
+        # Load data for this source only
+        print(f"Loading data from {args.data_path}...")
+        data = load_data(args.data_path, args.n, [source])
+        print(f"Loaded {len(data)} items for {source}")
 
-        # Process completed jobs with progress bar
-        with tqdm(total=total_jobs, desc="Generating questions", unit="job") as pbar:
-            for future in as_completed(future_to_job):
-                item_id, set_idx = future_to_job[future]
-                result = future.result()
-                job_results.append(result)
-
-                # Log errors without stopping progress bar
-                if (
-                    len(result) == 3
-                    and isinstance(result[2], dict)
-                    and "error" in result[2]
-                ):
-                    tqdm.write(
-                        f"✗ Error in item {item_id} set {set_idx}: {result[2]['error']}"
-                    )
-
-                pbar.update(1)
-
-    # Organize results by item_id
-    results_by_id = {}
-    for item_id, set_idx, question_set_or_error in job_results:
-        if item_id not in results_by_id:
-            results_by_id[item_id] = {}
-        results_by_id[item_id][set_idx] = question_set_or_error
-
-    # Build final predictions
-    predictions = []
-    for item in data:
-        item_id = item["id"]
-
-        if item_id not in results_by_id:
-            # All jobs failed
-            predictions.append(
-                {
-                    "id": item_id,
-                    "source": item.get("source", "unknown"),
-                    "error": "All jobs failed",
-                }
-            )
+        if not data:
+            print(f"Warning: No data found for source {source}, skipping...")
             continue
 
-        # Collect all sets for this item
-        sets_dict = results_by_id[item_id]
-        all_sets = []
-        has_error = False
-        error_msg = None
+        # Output: outputs/{source}/{model_id}/
+        output_dir = Path("outputs") / source_lower / model_id
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path = output_dir / "predictions.json"
 
-        for set_idx in range(args.num_sets):
-            if set_idx in sets_dict:
-                result = sets_dict[set_idx]
-                if isinstance(result, dict) and "error" in result:
+        print(f"Output will be saved to: {output_path}")
+
+        # Create all jobs (k jobs per sample)
+        total_jobs = len(data) * args.num_sets
+        print(f"Total jobs: {total_jobs} ({len(data)} samples × {args.num_sets} sets)")
+
+        # Process items in parallel with multithreading
+        # Each job generates one set for one item
+        job_results = []
+
+        with ThreadPoolExecutor(max_workers=args.workers) as executor:
+            # Submit all jobs (k * n jobs total)
+            future_to_job = {}
+            for item in data:
+                for set_idx in range(args.num_sets):
+                    future = executor.submit(
+                        process_single_job,
+                        item,
+                        set_idx,
+                        args.model,
+                        prompts,
+                        api_key,
+                    )
+                    future_to_job[future] = (item["id"], set_idx)
+
+            # Process completed jobs with progress bar
+            with tqdm(
+                total=total_jobs, desc=f"Generating {source}", unit="job"
+            ) as pbar:
+                for future in as_completed(future_to_job):
+                    item_id, set_idx = future_to_job[future]
+                    result = future.result()
+                    job_results.append(result)
+
+                    # Log errors without stopping progress bar
+                    if (
+                        len(result) == 3
+                        and isinstance(result[2], dict)
+                        and "error" in result[2]
+                    ):
+                        tqdm.write(
+                            f"✗ Error in item {item_id} set {set_idx}: {result[2]['error']}"
+                        )
+
+                    pbar.update(1)
+
+        # Organize results by item_id
+        results_by_id = {}
+        for item_id, set_idx, question_set_or_error in job_results:
+            if item_id not in results_by_id:
+                results_by_id[item_id] = {}
+            results_by_id[item_id][set_idx] = question_set_or_error
+
+        # Build final predictions
+        predictions = []
+        for item in data:
+            item_id = item["id"]
+
+            if item_id not in results_by_id:
+                # All jobs failed
+                predictions.append(
+                    {
+                        "id": item_id,
+                        "source": item.get("source", "unknown"),
+                        "error": "All jobs failed",
+                    }
+                )
+                continue
+
+            # Collect all sets for this item
+            sets_dict = results_by_id[item_id]
+            all_sets = []
+            has_error = False
+            error_msg = None
+
+            for set_idx in range(args.num_sets):
+                if set_idx in sets_dict:
+                    result = sets_dict[set_idx]
+                    if isinstance(result, dict) and "error" in result:
+                        has_error = True
+                        error_msg = result["error"]
+                        break
+                    all_sets.append(result)
+                else:
                     has_error = True
-                    error_msg = result["error"]
+                    error_msg = f"Missing set {set_idx}"
                     break
-                all_sets.append(result)
-            else:
-                has_error = True
-                error_msg = f"Missing set {set_idx}"
-                break
 
-        if has_error:
-            predictions.append(
-                {
-                    "id": item_id,
-                    "source": item.get("source", "unknown"),
-                    "error": error_msg,
-                }
-            )
-        else:
-            # Success
-            if args.num_sets == 1:
-                # Backward compatibility
+            if has_error:
                 predictions.append(
                     {
                         "id": item_id,
                         "source": item.get("source", "unknown"),
-                        "generated_questions": all_sets[0],
+                        "error": error_msg,
                     }
                 )
             else:
-                predictions.append(
-                    {
-                        "id": item_id,
-                        "source": item.get("source", "unknown"),
-                        "generated_questions": all_sets,
-                        "num_sets": args.num_sets,
-                    }
-                )
+                # Success
+                if args.num_sets == 1:
+                    # Backward compatibility
+                    predictions.append(
+                        {
+                            "id": item_id,
+                            "source": item.get("source", "unknown"),
+                            "generated_questions": all_sets[0],
+                        }
+                    )
+                else:
+                    predictions.append(
+                        {
+                            "id": item_id,
+                            "source": item.get("source", "unknown"),
+                            "generated_questions": all_sets,
+                            "num_sets": args.num_sets,
+                        }
+                    )
 
-    # Sort predictions by ID to maintain order
-    predictions.sort(key=lambda x: x["id"])
+        # Sort predictions by ID to maintain order
+        predictions.sort(key=lambda x: x["id"])
 
-    # Save predictions
-    print(f"\nSaving predictions to {output_path}...")
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(predictions, f, indent=2, ensure_ascii=False)
+        # Save predictions
+        print(f"\nSaving predictions to {output_path}...")
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(predictions, f, indent=2, ensure_ascii=False)
 
-    print(f"✓ Done! Processed {len(data)} items, saved to {output_path}")
+        print(
+            f"✓ Done! Processed {len(data)} items for {source}, saved to {output_path}"
+        )
 
-    # Print summary
-    successful = sum(1 for p in predictions if "error" not in p)
-    failed = len(predictions) - successful
-    total_question_sets = successful * args.num_sets
+        # Print summary
+        successful = sum(1 for p in predictions if "error" not in p)
+        failed = len(predictions) - successful
+        total_question_sets = successful * args.num_sets
 
-    print(f"\nSummary:")
-    print(f"  Successful samples: {successful}")
-    print(f"  Failed samples: {failed}")
-    print(f"  Total question sets generated: {total_question_sets}")
-    print(f"  Question sets per sample: {args.num_sets}")
+        print(f"\nSummary for {source}:")
+        print(f"  Successful samples: {successful}")
+        print(f"  Failed samples: {failed}")
+        print(f"  Total question sets generated: {total_question_sets}")
+        print(f"  Question sets per sample: {args.num_sets}")
+
+    print("\n" + "=" * 100)
+    print("ALL SOURCES COMPLETE")
+    print("=" * 100)
 
 
 if __name__ == "__main__":

@@ -485,21 +485,16 @@ def compute_source_metrics(
             gt_qs = gt_qs_map.get(sample_id, [])
             pred_qs = pred_qs_map.get(sample_id, [])
 
-            # For ReClor: select only best matching pred for each GT (for MAUVE/FBD)
-            # For other sources: use all predictions
-            if source.lower() == "reclor":
-                # Select best pred question for each GT question based on BLEURT score
-                selected_pred_qs = []
-                for q_score in scores:
-                    best_pred_idx = q_score["matched_pred_idx"]
-                    if best_pred_idx >= 0 and best_pred_idx < len(pred_qs):
-                        selected_pred_qs.append(pred_qs[best_pred_idx])
+            # Select only best matching pred for each GT (for MAUVE/FBD)
+            # This applies to ALL datasets to ensure fair comparison (n_pred = n_gt)
+            selected_pred_qs = []
+            for q_score in scores:
+                best_pred_idx = q_score["matched_pred_idx"]
+                if best_pred_idx >= 0 and best_pred_idx < len(pred_qs):
+                    selected_pred_qs.append(pred_qs[best_pred_idx])
 
-                # Use selected predictions for MAUVE/FBD (n_pred = n_gt for ReClor)
-                pred_qs_for_corpus = selected_pred_qs
-            else:
-                # Use all predictions for other sources
-                pred_qs_for_corpus = pred_qs
+            # Use selected predictions for MAUVE/FBD (n_pred = n_gt for all sources)
+            pred_qs_for_corpus = selected_pred_qs
 
             # Format to text for MAUVE
             source_gt_texts.extend([format_question_text(q) for q in gt_qs])
