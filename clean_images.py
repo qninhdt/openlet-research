@@ -2,10 +2,12 @@
 Phase 1: Clean Image Generation using Pyppeteer
 Generates clean images from text with random styling and auto-fitting logic.
 """
+
 import json
 import random
 import asyncio
 import nest_asyncio
+import argparse
 from pathlib import Path
 import numpy as np
 import cv2
@@ -14,6 +16,7 @@ from tqdm import tqdm
 
 # Allow nested event loops for Jupyter/Colab environments
 nest_asyncio.apply()
+
 
 class CleanImageGenerator:
     """
@@ -26,10 +29,10 @@ class CleanImageGenerator:
 
     # Common dimensions (Width, Height)
     COMMON_SIZES = {
-        "a4": (794, 1123),          # A4 at 96 DPI
-        "a5": (559, 794),           # A5 at 96 DPI
-        "letter": (816, 1056),      # US Letter
-        "screen_hd": (1280, 720),   
+        "a4": (794, 1123),  # A4 at 96 DPI
+        "a5": (559, 794),  # A5 at 96 DPI
+        "letter": (816, 1056),  # US Letter
+        "screen_hd": (1280, 720),
         "screen_fhd": (1920, 1080),
         "facebook_post": (1200, 630),
         "twitter_post": (1200, 675),
@@ -46,7 +49,6 @@ class CleanImageGenerator:
         "Open Sans": "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap",
         "Lora": "https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap",
         "Merriweather": "https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap",
-        
         # --- Chữ viết tay (Handwriting) - Hỗ trợ Tiếng Việt ---
         "Dancing Script": "https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&display=swap",
         "Pacifico": "https://fonts.googleapis.com/css2?family=Pacifico&display=swap",
@@ -60,19 +62,54 @@ class CleanImageGenerator:
 
     # Tách danh sách tên để random
     ALL_FONTS = list(GOOGLE_FONTS_MAP.keys())
-    HANDWRITING_FONTS = ["Dancing Script", "Pacifico", "Caveat", "Patrick Hand", "Pangolin", "Charm", "Mali", "Itim"]
+    HANDWRITING_FONTS = [
+        "Dancing Script",
+        "Pacifico",
+        "Caveat",
+        "Patrick Hand",
+        "Pangolin",
+        "Charm",
+        "Mali",
+        "Itim",
+    ]
 
     BACKGROUND_COLORS = [
-        "#FFFFFF", "#FFFEF7", "#FFFFF0", "#FEFEFE", "#F9F9F9",
-        "#F5F5F5", "#FFF8DC", "#FFFACD", "#FFF5EE", "#FAF0E6",
-        "#FAEBD7", "#FFE4E1", "#F0F8FF", "#F5FFFA", "#FFFFF0",
-        "#FFFAFA", "#F8F8FF", "#FDF5E6", "#FFFAF0",
+        "#FFFFFF",
+        "#FFFEF7",
+        "#FFFFF0",
+        "#FEFEFE",
+        "#F9F9F9",
+        "#F5F5F5",
+        "#FFF8DC",
+        "#FFFACD",
+        "#FFF5EE",
+        "#FAF0E6",
+        "#FAEBD7",
+        "#FFE4E1",
+        "#F0F8FF",
+        "#F5FFFA",
+        "#FFFFF0",
+        "#FFFAFA",
+        "#F8F8FF",
+        "#FDF5E6",
+        "#FFFAF0",
     ]
 
     TEXT_COLORS = [
-        "#000000", "#1A1A1A", "#2C2C2C", "#333333", "#404040",
-        "#1C1C1C", "#0A0A0A", "#111111", "#0D0D0D", "#262626",
-        "#292929", "#1F1F1F", "#141414", "#3D3D3D",
+        "#000000",
+        "#1A1A1A",
+        "#2C2C2C",
+        "#333333",
+        "#404040",
+        "#1C1C1C",
+        "#0A0A0A",
+        "#111111",
+        "#0D0D0D",
+        "#262626",
+        "#292929",
+        "#1F1F1F",
+        "#141414",
+        "#3D3D3D",
     ]
 
     def __init__(self):
@@ -146,23 +183,23 @@ class CleanImageGenerator:
         """
         # 1. Select Random Size
         width, height = self._get_random_size()
-        
+
         text_length = len(text)
         settings = self._calculate_optimal_settings(text_length, width, height)
 
         # 2. Random Font Selection
         font_name = random.choice(self.ALL_FONTS)
         font_url = self.GOOGLE_FONTS_MAP[font_name]
-        
+
         # Lấy base font size từ settings
         base_font_size = random.randint(*settings["font_size_range"])
-        
+
         # TWEAK: Nếu là font viết tay, tăng size lên 1.3 lần cho dễ đọc
         # (Font viết tay 12px thường trông bé hơn Arial 12px rất nhiều)
         if font_name in self.HANDWRITING_FONTS:
             font_size = int(base_font_size * 1.3)
             # Giảm bớt weight đậm cho font viết tay để đỡ bị bết
-            font_weight = random.choice([400, 500]) 
+            font_weight = random.choice([400, 500])
         else:
             font_size = base_font_size
             font_weight = random.choice([300, 400, 500, 600, 700])
@@ -171,17 +208,17 @@ class CleanImageGenerator:
         num_columns = random.choice(settings["num_columns_choices"])
         bg_color = random.choice(self.BACKGROUND_COLORS)
         text_color = random.choice(self.TEXT_COLORS)
-        
+
         # Calculate padding pixels based on percentage range
         pad_min, pad_max = settings["padding_range"]
         padding_horizontal = int(width * random.uniform(pad_min, pad_max))
-        padding_bottom = random.randint(20, 60) # Reserve space at bottom
-        y_offset_percent = random.randint(0, 25) # Random top margin start
+        padding_bottom = random.randint(20, 60)  # Reserve space at bottom
+        y_offset_percent = random.randint(0, 25)  # Random top margin start
 
         column_gap = random.randint(20, int(width * 0.05)) if num_columns > 1 else 0
-        
+
         # Font style (italic) thường có sẵn trong font viết tay nên hạn chế force italic bằng CSS
-        font_style = "normal" 
+        font_style = "normal"
         if font_name not in self.HANDWRITING_FONTS and random.random() < 0.2:
             font_style = "italic"
 
@@ -260,7 +297,7 @@ class CleanImageGenerator:
         if (document.readyState === 'loading') {{ document.addEventListener('DOMContentLoaded', fitTextAndPosition); }}
         else {{ fitTextAndPosition(); }}
         """
-        
+
         # 5. Inject Google Font Link vào thẻ <head>
         html = f"""<!DOCTYPE html>
         <html lang="vi">
@@ -273,7 +310,7 @@ class CleanImageGenerator:
         </head>
         <body><div class="content">{formatted_text}</div><script>{javascript}</script></body>
         </html>"""
-        
+
         return html, width, height
 
     def _format_text(self, text, paragraph_spacing):
@@ -285,7 +322,7 @@ class CleanImageGenerator:
             para = para.strip()
             if para:
                 # Replace newlines within paragraph with spaces
-                cleaned_para = para.replace('\n', ' ')
+                cleaned_para = para.replace("\n", " ")
                 formatted.append(f"<p>{cleaned_para}</p>")
         return "\n".join(formatted)
 
@@ -296,13 +333,13 @@ class CleanImageGenerator:
         """
         await page.setViewport({"width": width, "height": height})
         await page.setContent(html_content)
-        
+
         try:
             # Wait for JS auto-fit to complete
-            await page.waitForSelector('body.render-done', {"timeout": 10000})
+            await page.waitForSelector("body.render-done", {"timeout": 10000})
         except Exception as e:
             print(f"⚠️ Timeout waiting for auto-fit logic on {output_path.name}: {e}")
-        
+
         # Screenshot (fullPage=False ensures we crop to viewport)
         image_bytes = await page.screenshot(fullPage=False)
 
@@ -317,7 +354,7 @@ class CleanImageGenerator:
         """
         browser = None
         output_paths = []
-        
+
         try:
             browser = await launch(
                 headless=True,
@@ -326,19 +363,19 @@ class CleanImageGenerator:
                     "--disable-setuid-sandbox",
                     "--disable-dev-shm-usage",
                     "--disable-web-security",
-                ]
+                ],
             )
-            
+
             # Limit concurrency to avoid memory issues
             sem = asyncio.Semaphore(5)
             pbar = tqdm(total=len(items), desc="🎨 Generating clean images", unit="img")
-            
+
             async def process_one(item, path):
                 async with sem:
                     page = await browser.newPage()
                     try:
                         # 1. Generate HTML with random size
-                        html, w, h = self.generate_html_content(item['content'])
+                        html, w, h = self.generate_html_content(item["content"])
                         # 2. Render
                         await self._render_clean_image(page, html, path, w, h)
                         pbar.update(1)
@@ -353,60 +390,127 @@ class CleanImageGenerator:
                 output_path = output_dir / filename
                 output_paths.append(str(output_path))
                 tasks.append(process_one(item, output_path))
-            
+
             await asyncio.gather(*tasks)
             pbar.close()
-            
+
         except Exception as e:
             print(f"❌ Critical Error in batch: {e}")
         finally:
             if browser:
                 await browser.close()
-                
+
         return output_paths
 
-    def generate_from_json(self, json_path="datasets/unified/data.json", 
-                          output_dir="datasets/unified/images/clean"):
+    def generate_from_json(
+        self,
+        json_path="datasets/unified/data.json",
+        output_dir="outputs",
+        sources=None,
+    ):
         """
         Entry point to generate images from a JSON file.
+
+        Args:
+            json_path: Path to the JSON file containing the data
+            output_dir: Base directory to save generated images (will create outputs/{source}/images/clean/)
+            sources: List of dataset sources to include (e.g., ['race', 'dream', 'logiqa'])
+                    If None, all datasets will be processed
         """
         json_file = Path(json_path)
         if not json_file.exists():
             raise FileNotFoundError(f"JSON file not found: {json_path}")
-        
+
         print(f"📂 Loading data from: {json_path}")
-        with open(json_file, 'r', encoding='utf-8') as f:
+        with open(json_file, "r", encoding="utf-8") as f:
             data = json.load(f)
-        
-        print(f"📊 Total items to process: {len(data)}")
-        
-        output_path = Path(output_dir)
-        output_path.mkdir(parents=True, exist_ok=True)
-        self.output_dir = output_path
-        
-        # Run async task
-        output_paths = asyncio.run(self._generate_batch_task(data, output_path))
-        return output_paths
+
+        # Filter by sources if specified
+        if sources is not None:
+            original_count = len(data)
+            data = [item for item in data if item.get("source") in sources]
+            print(
+                f"📊 Filtered by sources {sources}: {len(data)}/{original_count} items"
+            )
+        else:
+            print(f"📊 Total items to process: {len(data)}")
+
+        if len(data) == 0:
+            print("⚠️ No items to process after filtering!")
+            return []
+
+        # Group data by source
+        data_by_source = {}
+        for item in data:
+            source = item.get("source", "unknown")
+            if source not in data_by_source:
+                data_by_source[source] = []
+            data_by_source[source].append(item)
+
+        all_output_paths = []
+        base_output_dir = Path(output_dir)
+
+        # Process each source separately
+        for source, items in data_by_source.items():
+            source_output_dir = base_output_dir / source / "images" / "clean"
+            source_output_dir.mkdir(parents=True, exist_ok=True)
+
+            print(f"\n📦 Processing {source}: {len(items)} items")
+            print(f"📁 Output: {source_output_dir}")
+
+            # Run async task for this source
+            output_paths = asyncio.run(
+                self._generate_batch_task(items, source_output_dir)
+            )
+            all_output_paths.extend(output_paths)
+
+        return all_output_paths
 
 
 # --- Main Execution ---
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Generate clean images from unified dataset JSON"
+    )
+    parser.add_argument(
+        "--json-path",
+        type=str,
+        default="datasets/unified/data.json",
+        help="Path to the JSON file containing the data (default: datasets/unified/data.json)",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="outputs",
+        help="Base directory to save generated images (default: outputs). Images will be saved to outputs/{source}/images/clean/",
+    )
+    parser.add_argument(
+        "--sources",
+        type=str,
+        nargs="+",
+        default=None,
+        help="List of dataset sources to include (e.g., race dream logiqa reclor). If not specified, all datasets will be processed.",
+    )
+
+    args = parser.parse_args()
+
     print("=" * 70)
     print("PHASE 1: CLEAN IMAGE GENERATION (RANDOM SIZES & AUTO-FIT)")
     print("=" * 70)
-    
+
     # Initialize without size (size is random per sample)
     generator = CleanImageGenerator()
-    
+
     # Run generation
     try:
         paths = generator.generate_from_json(
-            json_path="datasets/unified/data.json",
-            output_dir="datasets/unified/images/clean"
+            json_path=args.json_path,
+            output_dir=args.output_dir,
+            sources=args.sources,
         )
         print("\n" + "=" * 70)
         print(f"✅ Phase 1 completed. Generated {len(paths)} clean images.")
-        print(f"📁 Saved to: datasets/unified/images/clean/")
+        print(f"📁 Saved to: {args.output_dir}")
         print("=" * 70)
     except Exception as e:
         print(f"\n❌ Execution failed: {e}")

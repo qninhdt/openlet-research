@@ -1,0 +1,1104 @@
+{
+  "source": "race",
+  "model": "openai/gpt-5-mini",
+  "model_id": "openai_gpt-5-mini",
+  "metrics": {
+    "n_samples": 98,
+    "avg_cer": 0.022313255061199237,
+    "std_cer": 0.03222641881878144,
+    "min_cer": 0.0018604651162790699,
+    "max_cer": 0.2844750889679715,
+    "avg_wer": 0.08351202549122334,
+    "std_wer": 0.0721541739161877,
+    "min_wer": 0.007075471698113208,
+    "max_wer": 0.43661971830985913,
+    "total_gt_chars": 181732,
+    "total_pred_chars": 180398,
+    "total_gt_words": 31785,
+    "total_pred_words": 31622
+  },
+  "detailed_results": [
+    {
+      "id": 1,
+      "gt_length": 2462,
+      "pred_length": 2478,
+      "gt_word_count": 438,
+      "pred_word_count": 442,
+      "metrics": {
+        "cer": 0.0239642567018684,
+        "wer": 0.08045977011494253
+      }
+    },
+    {
+      "id": 2,
+      "gt_length": 3408,
+      "pred_length": 3428,
+      "gt_word_count": 639,
+      "pred_word_count": 641,
+      "metrics": {
+        "cer": 0.0067488262910798125,
+        "wer": 0.02204724409448819
+      }
+    },
+    {
+      "id": 3,
+      "gt_length": 1168,
+      "pred_length": 1175,
+      "gt_word_count": 233,
+      "pred_word_count": 235,
+      "metrics": {
+        "cer": 0.008561643835616438,
+        "wer": 0.04782608695652174
+      }
+    },
+    {
+      "id": 4,
+      "gt_length": 4244,
+      "pred_length": 4243,
+      "gt_word_count": 819,
+      "pred_word_count": 805,
+      "metrics": {
+        "cer": 0.01885014137606032,
+        "wer": 0.09217171717171717
+      }
+    },
+    {
+      "id": 5,
+      "gt_length": 1664,
+      "pred_length": 1681,
+      "gt_word_count": 304,
+      "pred_word_count": 308,
+      "metrics": {
+        "cer": 0.024639423076923076,
+        "wer": 0.05647840531561462
+      }
+    },
+    {
+      "id": 6,
+      "gt_length": 2101,
+      "pred_length": 2103,
+      "gt_word_count": 311,
+      "pred_word_count": 312,
+      "metrics": {
+        "cer": 0.006187529747739172,
+        "wer": 0.0457516339869281
+      }
+    },
+    {
+      "id": 7,
+      "gt_length": 1696,
+      "pred_length": 1697,
+      "gt_word_count": 316,
+      "pred_word_count": 314,
+      "metrics": {
+        "cer": 0.005306603773584905,
+        "wer": 0.04501607717041801
+      }
+    },
+    {
+      "id": 8,
+      "gt_length": 1548,
+      "pred_length": 1542,
+      "gt_word_count": 259,
+      "pred_word_count": 259,
+      "metrics": {
+        "cer": 0.025193798449612403,
+        "wer": 0.13095238095238096
+      }
+    },
+    {
+      "id": 9,
+      "gt_length": 1656,
+      "pred_length": 1660,
+      "gt_word_count": 286,
+      "pred_word_count": 286,
+      "metrics": {
+        "cer": 0.018719806763285024,
+        "wer": 0.08185053380782918
+      }
+    },
+    {
+      "id": 10,
+      "gt_length": 1490,
+      "pred_length": 1494,
+      "gt_word_count": 282,
+      "pred_word_count": 283,
+      "metrics": {
+        "cer": 0.008053691275167786,
+        "wer": 0.046762589928057555
+      }
+    },
+    {
+      "id": 11,
+      "gt_length": 4164,
+      "pred_length": 4167,
+      "gt_word_count": 789,
+      "pred_word_count": 788,
+      "metrics": {
+        "cer": 0.009125840537944284,
+        "wer": 0.05412371134020619
+      }
+    },
+    {
+      "id": 12,
+      "gt_length": 1052,
+      "pred_length": 1039,
+      "gt_word_count": 196,
+      "pred_word_count": 193,
+      "metrics": {
+        "cer": 0.029467680608365018,
+        "wer": 0.07216494845360824
+      }
+    },
+    {
+      "id": 13,
+      "gt_length": 2375,
+      "pred_length": 2407,
+      "gt_word_count": 472,
+      "pred_word_count": 473,
+      "metrics": {
+        "cer": 0.02568421052631579,
+        "wer": 0.08552631578947369
+      }
+    },
+    {
+      "id": 14,
+      "gt_length": 2140,
+      "pred_length": 2136,
+      "gt_word_count": 341,
+      "pred_word_count": 340,
+      "metrics": {
+        "cer": 0.005607476635514018,
+        "wer": 0.026706231454005934
+      }
+    },
+    {
+      "id": 15,
+      "gt_length": 1468,
+      "pred_length": 1470,
+      "gt_word_count": 278,
+      "pred_word_count": 278,
+      "metrics": {
+        "cer": 0.007493188010899182,
+        "wer": 0.051470588235294115
+      }
+    },
+    {
+      "id": 16,
+      "gt_length": 2392,
+      "pred_length": 2378,
+      "gt_word_count": 374,
+      "pred_word_count": 383,
+      "metrics": {
+        "cer": 0.025501672240802676,
+        "wer": 0.13821138211382114
+      }
+    },
+    {
+      "id": 17,
+      "gt_length": 1440,
+      "pred_length": 1412,
+      "gt_word_count": 290,
+      "pred_word_count": 259,
+      "metrics": {
+        "cer": 0.06736111111111111,
+        "wer": 0.43661971830985913
+      }
+    },
+    {
+      "id": 18,
+      "gt_length": 1158,
+      "pred_length": 1148,
+      "gt_word_count": 215,
+      "pred_word_count": 213,
+      "metrics": {
+        "cer": 0.010362694300518135,
+        "wer": 0.03271028037383177
+      }
+    },
+    {
+      "id": 19,
+      "gt_length": 1862,
+      "pred_length": 1868,
+      "gt_word_count": 334,
+      "pred_word_count": 334,
+      "metrics": {
+        "cer": 0.00322234156820623,
+        "wer": 0.036585365853658534
+      }
+    },
+    {
+      "id": 20,
+      "gt_length": 3611,
+      "pred_length": 3607,
+      "gt_word_count": 654,
+      "pred_word_count": 654,
+      "metrics": {
+        "cer": 0.009138742730545555,
+        "wer": 0.043478260869565216
+      }
+    },
+    {
+      "id": 21,
+      "gt_length": 1140,
+      "pred_length": 1129,
+      "gt_word_count": 188,
+      "pred_word_count": 187,
+      "metrics": {
+        "cer": 0.021929824561403508,
+        "wer": 0.06914893617021277
+      }
+    },
+    {
+      "id": 22,
+      "gt_length": 1765,
+      "pred_length": 1744,
+      "gt_word_count": 332,
+      "pred_word_count": 331,
+      "metrics": {
+        "cer": 0.01529745042492918,
+        "wer": 0.009036144578313253
+      }
+    },
+    {
+      "id": 23,
+      "gt_length": 1228,
+      "pred_length": 1225,
+      "gt_word_count": 223,
+      "pred_word_count": 223,
+      "metrics": {
+        "cer": 0.026058631921824105,
+        "wer": 0.1619047619047619
+      }
+    },
+    {
+      "id": 24,
+      "gt_length": 712,
+      "pred_length": 697,
+      "gt_word_count": 135,
+      "pred_word_count": 134,
+      "metrics": {
+        "cer": 0.025280898876404494,
+        "wer": 0.022222222222222223
+      }
+    },
+    {
+      "id": 25,
+      "gt_length": 1796,
+      "pred_length": 1705,
+      "gt_word_count": 302,
+      "pred_word_count": 300,
+      "metrics": {
+        "cer": 0.05790645879732739,
+        "wer": 0.04013377926421405
+      }
+    },
+    {
+      "id": 26,
+      "gt_length": 1501,
+      "pred_length": 1497,
+      "gt_word_count": 262,
+      "pred_word_count": 259,
+      "metrics": {
+        "cer": 0.011325782811459028,
+        "wer": 0.06589147286821706
+      }
+    },
+    {
+      "id": 27,
+      "gt_length": 2979,
+      "pred_length": 2966,
+      "gt_word_count": 524,
+      "pred_word_count": 523,
+      "metrics": {
+        "cer": 0.014434373950990266,
+        "wer": 0.09090909090909091
+      }
+    },
+    {
+      "id": 28,
+      "gt_length": 1287,
+      "pred_length": 1294,
+      "gt_word_count": 211,
+      "pred_word_count": 212,
+      "metrics": {
+        "cer": 0.05128205128205128,
+        "wer": 0.1796116504854369
+      }
+    },
+    {
+      "id": 29,
+      "gt_length": 2162,
+      "pred_length": 2160,
+      "gt_word_count": 376,
+      "pred_word_count": 376,
+      "metrics": {
+        "cer": 0.004625346901017576,
+        "wer": 0.013368983957219251
+      }
+    },
+    {
+      "id": 30,
+      "gt_length": 1614,
+      "pred_length": 1602,
+      "gt_word_count": 279,
+      "pred_word_count": 274,
+      "metrics": {
+        "cer": 0.016728624535315983,
+        "wer": 0.06859205776173286
+      }
+    },
+    {
+      "id": 31,
+      "gt_length": 2216,
+      "pred_length": 2211,
+      "gt_word_count": 346,
+      "pred_word_count": 345,
+      "metrics": {
+        "cer": 0.007671480144404332,
+        "wer": 0.03529411764705882
+      }
+    },
+    {
+      "id": 32,
+      "gt_length": 2371,
+      "pred_length": 2381,
+      "gt_word_count": 368,
+      "pred_word_count": 367,
+      "metrics": {
+        "cer": 0.008013496415014762,
+        "wer": 0.07541899441340782
+      }
+    },
+    {
+      "id": 33,
+      "gt_length": 1358,
+      "pred_length": 1363,
+      "gt_word_count": 207,
+      "pred_word_count": 215,
+      "metrics": {
+        "cer": 0.04197349042709867,
+        "wer": 0.26108374384236455
+      }
+    },
+    {
+      "id": 34,
+      "gt_length": 672,
+      "pred_length": 682,
+      "gt_word_count": 119,
+      "pred_word_count": 117,
+      "metrics": {
+        "cer": 0.022321428571428572,
+        "wer": 0.10434782608695652
+      }
+    },
+    {
+      "id": 35,
+      "gt_length": 1537,
+      "pred_length": 1540,
+      "gt_word_count": 278,
+      "pred_word_count": 278,
+      "metrics": {
+        "cer": 0.00520494469746259,
+        "wer": 0.040293040293040296
+      }
+    },
+    {
+      "id": 36,
+      "gt_length": 1574,
+      "pred_length": 1604,
+      "gt_word_count": 258,
+      "pred_word_count": 289,
+      "metrics": {
+        "cer": 0.035578144853875476,
+        "wer": 0.308300395256917
+      }
+    },
+    {
+      "id": 37,
+      "gt_length": 1311,
+      "pred_length": 1316,
+      "gt_word_count": 241,
+      "pred_word_count": 243,
+      "metrics": {
+        "cer": 0.006102212051868803,
+        "wer": 0.058823529411764705
+      }
+    },
+    {
+      "id": 38,
+      "gt_length": 2041,
+      "pred_length": 2047,
+      "gt_word_count": 343,
+      "pred_word_count": 344,
+      "metrics": {
+        "cer": 0.006859382655560999,
+        "wer": 0.04437869822485207
+      }
+    },
+    {
+      "id": 39,
+      "gt_length": 1697,
+      "pred_length": 1697,
+      "gt_word_count": 299,
+      "pred_word_count": 294,
+      "metrics": {
+        "cer": 0.0076605774896876845,
+        "wer": 0.05387205387205387
+      }
+    },
+    {
+      "id": 40,
+      "gt_length": 1108,
+      "pred_length": 1108,
+      "gt_word_count": 201,
+      "pred_word_count": 199,
+      "metrics": {
+        "cer": 0.011732851985559567,
+        "wer": 0.06598984771573604
+      }
+    },
+    {
+      "id": 41,
+      "gt_length": 1785,
+      "pred_length": 1784,
+      "gt_word_count": 288,
+      "pred_word_count": 291,
+      "metrics": {
+        "cer": 0.035854341736694675,
+        "wer": 0.16845878136200718
+      }
+    },
+    {
+      "id": 42,
+      "gt_length": 1712,
+      "pred_length": 1709,
+      "gt_word_count": 294,
+      "pred_word_count": 293,
+      "metrics": {
+        "cer": 0.009929906542056074,
+        "wer": 0.034129692832764506
+      }
+    },
+    {
+      "id": 43,
+      "gt_length": 2047,
+      "pred_length": 2045,
+      "gt_word_count": 329,
+      "pred_word_count": 329,
+      "metrics": {
+        "cer": 0.01172447484123107,
+        "wer": 0.03669724770642202
+      }
+    },
+    {
+      "id": 44,
+      "gt_length": 1921,
+      "pred_length": 1804,
+      "gt_word_count": 291,
+      "pred_word_count": 272,
+      "metrics": {
+        "cer": 0.07131702238417491,
+        "wer": 0.12758620689655173
+      }
+    },
+    {
+      "id": 45,
+      "gt_length": 1913,
+      "pred_length": 1918,
+      "gt_word_count": 312,
+      "pred_word_count": 311,
+      "metrics": {
+        "cer": 0.054364871928907474,
+        "wer": 0.13898305084745763
+      }
+    },
+    {
+      "id": 46,
+      "gt_length": 3294,
+      "pred_length": 3286,
+      "gt_word_count": 609,
+      "pred_word_count": 603,
+      "metrics": {
+        "cer": 0.013357619914996965,
+        "wer": 0.05676126878130217
+      }
+    },
+    {
+      "id": 47,
+      "gt_length": 1370,
+      "pred_length": 1359,
+      "gt_word_count": 239,
+      "pred_word_count": 237,
+      "metrics": {
+        "cer": 0.013868613138686132,
+        "wer": 0.046218487394957986
+      }
+    },
+    {
+      "id": 48,
+      "gt_length": 918,
+      "pred_length": 913,
+      "gt_word_count": 176,
+      "pred_word_count": 173,
+      "metrics": {
+        "cer": 0.027233115468409588,
+        "wer": 0.1111111111111111
+      }
+    },
+    {
+      "id": 49,
+      "gt_length": 3392,
+      "pred_length": 3396,
+      "gt_word_count": 597,
+      "pred_word_count": 596,
+      "metrics": {
+        "cer": 0.006191037735849057,
+        "wer": 0.04060913705583756
+      }
+    },
+    {
+      "id": 50,
+      "gt_length": 2184,
+      "pred_length": 2109,
+      "gt_word_count": 343,
+      "pred_word_count": 333,
+      "metrics": {
+        "cer": 0.05357142857142857,
+        "wer": 0.09144542772861357
+      }
+    },
+    {
+      "id": 51,
+      "gt_length": 2447,
+      "pred_length": 2439,
+      "gt_word_count": 394,
+      "pred_word_count": 395,
+      "metrics": {
+        "cer": 0.014303228442991417,
+        "wer": 0.030690537084398978
+      }
+    },
+    {
+      "id": 52,
+      "gt_length": 1045,
+      "pred_length": 1043,
+      "gt_word_count": 202,
+      "pred_word_count": 199,
+      "metrics": {
+        "cer": 0.014354066985645933,
+        "wer": 0.075
+      }
+    },
+    {
+      "id": 53,
+      "gt_length": 917,
+      "pred_length": 882,
+      "gt_word_count": 157,
+      "pred_word_count": 164,
+      "metrics": {
+        "cer": 0.08505997818974918,
+        "wer": 0.1337579617834395
+      }
+    },
+    {
+      "id": 54,
+      "gt_length": 768,
+      "pred_length": 776,
+      "gt_word_count": 154,
+      "pred_word_count": 156,
+      "metrics": {
+        "cer": 0.03125,
+        "wer": 0.16216216216216217
+      }
+    },
+    {
+      "id": 55,
+      "gt_length": 2523,
+      "pred_length": 2493,
+      "gt_word_count": 424,
+      "pred_word_count": 422,
+      "metrics": {
+        "cer": 0.015854141894569955,
+        "wer": 0.007075471698113208
+      }
+    },
+    {
+      "id": 56,
+      "gt_length": 2127,
+      "pred_length": 2145,
+      "gt_word_count": 334,
+      "pred_word_count": 354,
+      "metrics": {
+        "cer": 0.029619181946403384,
+        "wer": 0.2085889570552147
+      }
+    },
+    {
+      "id": 57,
+      "gt_length": 1171,
+      "pred_length": 1173,
+      "gt_word_count": 204,
+      "pred_word_count": 205,
+      "metrics": {
+        "cer": 0.02391118701964133,
+        "wer": 0.04411764705882353
+      }
+    },
+    {
+      "id": 58,
+      "gt_length": 1769,
+      "pred_length": 1776,
+      "gt_word_count": 272,
+      "pred_word_count": 289,
+      "metrics": {
+        "cer": 0.01921989824759751,
+        "wer": 0.1213235294117647
+      }
+    },
+    {
+      "id": 59,
+      "gt_length": 1566,
+      "pred_length": 1571,
+      "gt_word_count": 295,
+      "pred_word_count": 294,
+      "metrics": {
+        "cer": 0.005108556832694764,
+        "wer": 0.03767123287671233
+      }
+    },
+    {
+      "id": 60,
+      "gt_length": 1420,
+      "pred_length": 1414,
+      "gt_word_count": 255,
+      "pred_word_count": 254,
+      "metrics": {
+        "cer": 0.01056338028169014,
+        "wer": 0.03187250996015936
+      }
+    },
+    {
+      "id": 61,
+      "gt_length": 2331,
+      "pred_length": 2327,
+      "gt_word_count": 363,
+      "pred_word_count": 375,
+      "metrics": {
+        "cer": 0.02145002145002145,
+        "wer": 0.08611111111111111
+      }
+    },
+    {
+      "id": 62,
+      "gt_length": 2032,
+      "pred_length": 1919,
+      "gt_word_count": 330,
+      "pred_word_count": 316,
+      "metrics": {
+        "cer": 0.07824803149606299,
+        "wer": 0.13190184049079753
+      }
+    },
+    {
+      "id": 63,
+      "gt_length": 1681,
+      "pred_length": 1680,
+      "gt_word_count": 279,
+      "pred_word_count": 273,
+      "metrics": {
+        "cer": 0.018441403926234383,
+        "wer": 0.125
+      }
+    },
+    {
+      "id": 64,
+      "gt_length": 1782,
+      "pred_length": 1779,
+      "gt_word_count": 332,
+      "pred_word_count": 330,
+      "metrics": {
+        "cer": 0.010662177328843996,
+        "wer": 0.0581039755351682
+      }
+    },
+    {
+      "id": 65,
+      "gt_length": 1184,
+      "pred_length": 1182,
+      "gt_word_count": 238,
+      "pred_word_count": 237,
+      "metrics": {
+        "cer": 0.006756756756756757,
+        "wer": 0.008403361344537815
+      }
+    },
+    {
+      "id": 67,
+      "gt_length": 2157,
+      "pred_length": 2164,
+      "gt_word_count": 382,
+      "pred_word_count": 382,
+      "metrics": {
+        "cer": 0.007881316643486324,
+        "wer": 0.050666666666666665
+      }
+    },
+    {
+      "id": 68,
+      "gt_length": 1075,
+      "pred_length": 1077,
+      "gt_word_count": 174,
+      "pred_word_count": 174,
+      "metrics": {
+        "cer": 0.0018604651162790699,
+        "wer": 0.023255813953488372
+      }
+    },
+    {
+      "id": 69,
+      "gt_length": 1584,
+      "pred_length": 1581,
+      "gt_word_count": 269,
+      "pred_word_count": 268,
+      "metrics": {
+        "cer": 0.025252525252525252,
+        "wer": 0.07224334600760456
+      }
+    },
+    {
+      "id": 70,
+      "gt_length": 1329,
+      "pred_length": 1330,
+      "gt_word_count": 244,
+      "pred_word_count": 244,
+      "metrics": {
+        "cer": 0.002257336343115124,
+        "wer": 0.012345679012345678
+      }
+    },
+    {
+      "id": 71,
+      "gt_length": 1631,
+      "pred_length": 1635,
+      "gt_word_count": 272,
+      "pred_word_count": 272,
+      "metrics": {
+        "cer": 0.004904966278356836,
+        "wer": 0.045112781954887216
+      }
+    },
+    {
+      "id": 72,
+      "gt_length": 1752,
+      "pred_length": 1899,
+      "gt_word_count": 306,
+      "pred_word_count": 328,
+      "metrics": {
+        "cer": 0.09246575342465753,
+        "wer": 0.11551155115511551
+      }
+    },
+    {
+      "id": 73,
+      "gt_length": 1374,
+      "pred_length": 1375,
+      "gt_word_count": 276,
+      "pred_word_count": 275,
+      "metrics": {
+        "cer": 0.005094614264919942,
+        "wer": 0.03676470588235294
+      }
+    },
+    {
+      "id": 74,
+      "gt_length": 1533,
+      "pred_length": 1532,
+      "gt_word_count": 251,
+      "pred_word_count": 249,
+      "metrics": {
+        "cer": 0.008480104370515329,
+        "wer": 0.05714285714285714
+      }
+    },
+    {
+      "id": 75,
+      "gt_length": 4496,
+      "pred_length": 3327,
+      "gt_word_count": 790,
+      "pred_word_count": 609,
+      "metrics": {
+        "cer": 0.2844750889679715,
+        "wer": 0.3893229166666667
+      }
+    },
+    {
+      "id": 76,
+      "gt_length": 2201,
+      "pred_length": 2206,
+      "gt_word_count": 350,
+      "pred_word_count": 349,
+      "metrics": {
+        "cer": 0.004997728305315766,
+        "wer": 0.05263157894736842
+      }
+    },
+    {
+      "id": 77,
+      "gt_length": 1686,
+      "pred_length": 1684,
+      "gt_word_count": 281,
+      "pred_word_count": 276,
+      "metrics": {
+        "cer": 0.019572953736654804,
+        "wer": 0.08303249097472924
+      }
+    },
+    {
+      "id": 78,
+      "gt_length": 1564,
+      "pred_length": 1567,
+      "gt_word_count": 301,
+      "pred_word_count": 299,
+      "metrics": {
+        "cer": 0.010869565217391304,
+        "wer": 0.0821917808219178
+      }
+    },
+    {
+      "id": 79,
+      "gt_length": 1740,
+      "pred_length": 1748,
+      "gt_word_count": 325,
+      "pred_word_count": 327,
+      "metrics": {
+        "cer": 0.011494252873563218,
+        "wer": 0.075
+      }
+    },
+    {
+      "id": 80,
+      "gt_length": 3684,
+      "pred_length": 3693,
+      "gt_word_count": 689,
+      "pred_word_count": 686,
+      "metrics": {
+        "cer": 0.006243213897937025,
+        "wer": 0.041176470588235294
+      }
+    },
+    {
+      "id": 81,
+      "error": "Missing predicted text"
+    },
+    {
+      "id": 82,
+      "gt_length": 4192,
+      "pred_length": 4200,
+      "gt_word_count": 783,
+      "pred_word_count": 782,
+      "metrics": {
+        "cer": 0.02194656488549618,
+        "wer": 0.0799475753604194
+      }
+    },
+    {
+      "id": 83,
+      "gt_length": 1962,
+      "pred_length": 1973,
+      "gt_word_count": 305,
+      "pred_word_count": 319,
+      "metrics": {
+        "cer": 0.03211009174311927,
+        "wer": 0.21180555555555555
+      }
+    },
+    {
+      "id": 84,
+      "gt_length": 1812,
+      "pred_length": 1821,
+      "gt_word_count": 316,
+      "pred_word_count": 317,
+      "metrics": {
+        "cer": 0.004966887417218543,
+        "wer": 0.025559105431309903
+      }
+    },
+    {
+      "id": 85,
+      "gt_length": 950,
+      "pred_length": 953,
+      "gt_word_count": 167,
+      "pred_word_count": 168,
+      "metrics": {
+        "cer": 0.015789473684210527,
+        "wer": 0.04242424242424243
+      }
+    },
+    {
+      "id": 86,
+      "gt_length": 1630,
+      "pred_length": 1634,
+      "gt_word_count": 311,
+      "pred_word_count": 311,
+      "metrics": {
+        "cer": 0.006134969325153374,
+        "wer": 0.04590163934426229
+      }
+    },
+    {
+      "id": 87,
+      "gt_length": 1540,
+      "pred_length": 1537,
+      "gt_word_count": 279,
+      "pred_word_count": 279,
+      "metrics": {
+        "cer": 0.007142857142857143,
+        "wer": 0.03272727272727273
+      }
+    },
+    {
+      "id": 88,
+      "gt_length": 849,
+      "pred_length": 846,
+      "gt_word_count": 159,
+      "pred_word_count": 157,
+      "metrics": {
+        "cer": 0.015312131919905771,
+        "wer": 0.025157232704402517
+      }
+    },
+    {
+      "id": 89,
+      "gt_length": 1927,
+      "pred_length": 1931,
+      "gt_word_count": 334,
+      "pred_word_count": 334,
+      "metrics": {
+        "cer": 0.007784120394395433,
+        "wer": 0.0425531914893617
+      }
+    },
+    {
+      "id": 90,
+      "gt_length": 2123,
+      "pred_length": 2124,
+      "gt_word_count": 348,
+      "pred_word_count": 345,
+      "metrics": {
+        "cer": 0.009891662741403674,
+        "wer": 0.04941860465116279
+      }
+    },
+    {
+      "id": 91,
+      "gt_length": 1450,
+      "pred_length": 1462,
+      "gt_word_count": 246,
+      "pred_word_count": 254,
+      "metrics": {
+        "cer": 0.021379310344827585,
+        "wer": 0.1522633744855967
+      }
+    },
+    {
+      "id": 92,
+      "gt_length": 2234,
+      "pred_length": 2264,
+      "gt_word_count": 384,
+      "pred_word_count": 406,
+      "metrics": {
+        "cer": 0.022381378692927483,
+        "wer": 0.1554959785522788
+      }
+    },
+    {
+      "id": 93,
+      "gt_length": 1630,
+      "pred_length": 1633,
+      "gt_word_count": 265,
+      "pred_word_count": 263,
+      "metrics": {
+        "cer": 0.014723926380368098,
+        "wer": 0.1171875
+      }
+    },
+    {
+      "id": 94,
+      "gt_length": 2121,
+      "pred_length": 2119,
+      "gt_word_count": 363,
+      "pred_word_count": 362,
+      "metrics": {
+        "cer": 0.008958038661008957,
+        "wer": 0.0335195530726257
+      }
+    },
+    {
+      "id": 95,
+      "gt_length": 2040,
+      "pred_length": 2053,
+      "gt_word_count": 347,
+      "pred_word_count": 345,
+      "metrics": {
+        "cer": 0.01764705882352941,
+        "wer": 0.11869436201780416
+      }
+    },
+    {
+      "id": 96,
+      "gt_length": 735,
+      "pred_length": 739,
+      "gt_word_count": 147,
+      "pred_word_count": 147,
+      "metrics": {
+        "cer": 0.005442176870748299,
+        "wer": 0.055944055944055944
+      }
+    },
+    {
+      "id": 97,
+      "gt_length": 1265,
+      "pred_length": 1271,
+      "gt_word_count": 226,
+      "pred_word_count": 223,
+      "metrics": {
+        "cer": 0.028458498023715414,
+        "wer": 0.11818181818181818
+      }
+    },
+    {
+      "id": 98,
+      "gt_length": 2211,
+      "pred_length": 2199,
+      "gt_word_count": 354,
+      "pred_word_count": 352,
+      "metrics": {
+        "cer": 0.028946178199909543,
+        "wer": 0.11781609195402298
+      }
+    },
+    {
+      "id": 99,
+      "gt_length": 1245,
+      "pred_length": 1249,
+      "gt_word_count": 235,
+      "pred_word_count": 235,
+      "metrics": {
+        "cer": 0.004016064257028112,
+        "wer": 0.03896103896103896
+      }
+    },
+    {
+      "id": 100,
+      "gt_length": 1543,
+      "pred_length": 1549,
+      "gt_word_count": 273,
+      "pred_word_count": 274,
+      "metrics": {
+        "cer": 0.008425145819831496,
+        "wer": 0.0749063670411985
+      }
+    }
+  ]
+}
