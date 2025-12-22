@@ -78,6 +78,4 @@ Output the questions directly. Do not include your analysis notes. Follow this p
 
 ---
 # INPUT TEXT:
-<text>
 {text}
-</text>

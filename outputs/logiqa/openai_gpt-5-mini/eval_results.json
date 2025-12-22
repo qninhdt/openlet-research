@@ -1,0 +1,2167 @@
+{
+  "source_metrics": {
+    "logiqa": {
+      "n_samples": 52,
+      "total_gt_questions": 52,
+      "total_pred_questions": 328,
+      "avg_bleu": 0.09168670922199529,
+      "avg_rouge": 0.2563110813025089,
+      "avg_cosine": 0.4668482179896763,
+      "avg_bleurt": 0.3296277667753972,
+      "mauve": 0.8744474602774823,
+      "fbd": 55.691661223199105
+    }
+  },
+  "detailed_results": [
+    {
+      "id": 301,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 302,
+      "n_gt": 1,
+      "n_pred": 1,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "So what are the three young people on business?",
+            "correct": 0,
+            "options": [
+              "20-year-old accountant, 20-year-old salesperson, 24-year-old salesperson",
+              "20-year-old accountant, 24-year-old salesperson, 24-year-old salesperson",
+              "24-year-old accountant, 20-year-old salesperson, 20-year-old salesperson",
+              "20-year-old accountant, 20-year-old accountant, 24-year-old salesperson"
+            ]
+          },
+          "gt_text": "So what are the three young people on business? 20-year-old accountant, 20-year-old salesperson, 24-year-old salesperson",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Background (implicit for all questions)",
+            "options": [
+              "“Two people sitting on the right of the 24‑year‑old” implies the 24‑year‑old has two people to his right → the 24‑year‑old sits at the left end.",
+              "“Two people sitting on the left of the accountant” implies the accountant sits at the right end.",
+              "“One of the two people sitting on the right of the salesperson is also a salesperson” implies there is a salesperson at the left end (so there are two people to that salesperson’s right), and since the rightmost is accountant, the middle must be a salesperson.",
+              "The 24‑year‑old sits in the leftmost seat."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Background (implicit for all questions) “Two people sitting on the right of the 24‑year‑old” implies the 24‑year‑old has two people to his right → the 24‑year‑old sits at the left end.",
+          "scores": {
+            "bleu4": 0.006787181501568368,
+            "rougeL": 0.3157894736842105,
+            "cosine_sim": 0.36308228969573975,
+            "bleurt": 0.3051837682723999
+          }
+        }
+      ]
+    },
+    {
+      "id": 303,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "According to the above statement, which of the following can be drawn about this Chinese medicine preparation?",
+            "correct": 1,
+            "options": [
+              "No dangshen",
+              "No Shouwu",
+              "有 白 术",
+              "不 白 术"
+            ]
+          },
+          "gt_text": "According to the above statement, which of the following can be drawn about this Chinese medicine preparation? No Shouwu",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which of the following must be present in every valid preparation described?",
+            "options": [],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following must be present in every valid preparation described?",
+          "scores": {
+            "bleu4": 0.25422541413895555,
+            "rougeL": 0.27027027027027023,
+            "cosine_sim": 0.50290447473526,
+            "bleurt": 0.371543288230896
+          }
+        }
+      ]
+    },
+    {
+      "id": 304,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 305,
+      "n_gt": 1,
+      "n_pred": 10,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "According to the above statement, you can get which of the following?",
+            "correct": 1,
+            "options": [
+              "Chen Rui can't speak the Central Plains Mandarin",
+              "Zhang Ming speaks Minnan dialect",
+              "Li Ying is from Shandong",
+              "Wang Jia can speak Huizhou dialect"
+            ]
+          },
+          "gt_text": "According to the above statement, you can get which of the following? Zhang Ming speaks Minnan dialect",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which of the following can be directly inferred from the passage?",
+            "options": [
+              "Li Ying is from Fujian.",
+              "Zhang Ming is from Fujian.",
+              "Chen Rui is from Fujian.",
+              "Wang Jia is from Fujian."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following can be directly inferred from the passage? Zhang Ming is from Fujian.",
+          "scores": {
+            "bleu4": 0.19587220116925325,
+            "rougeL": 0.3636363636363636,
+            "cosine_sim": 0.6929661631584167,
+            "bleurt": 0.46573150157928467
+          }
+        }
+      ]
+    },
+    {
+      "id": 306,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 307,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "",
+            "correct": 2,
+            "options": [
+              "Shannan",
+              "Jiangnan",
+              "Shanbei",
+              "Jiangbei"
+            ]
+          },
+          "gt_text": " Shanbei",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which team won the championship?",
+            "options": [
+              "Shannan Team",
+              "Jiangbei Team",
+              "Shanbei Team",
+              "Jiangnan Team"
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which team won the championship? Shanbei Team",
+          "scores": {
+            "bleu4": 0.02777619034011792,
+            "rougeL": 0.25,
+            "cosine_sim": 0.5541121363639832,
+            "bleurt": 0.4241406321525574
+          }
+        }
+      ]
+    },
+    {
+      "id": 308,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 309,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following is assumed by the above argument",
+            "correct": 3,
+            "options": [
+              "Some schizophrenia are not caused by lack of attention",
+              "Visual information is only transmitted through the visual cortex to obtain a neural network to transmit",
+              "Researchers have developed a new technology that can directly track the communication between the nerve cortex in the visual cortex and thalamus occipital region",
+              "The brain cannot process too much information in detail at the same time, and will only selectively focus on the things most relevant to the behavior"
+            ]
+          },
+          "gt_text": "Which of the following is assumed by the above argument The brain cannot process too much information in detail at the same time, and will only selectively focus on the things most relevant to the behavior",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Direct Inference — Which of the following can be correctly inferred from the passage?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Direct Inference — Which of the following can be correctly inferred from the passage?",
+          "scores": {
+            "bleu4": 0.06413451791929208,
+            "rougeL": 0.3018867924528302,
+            "cosine_sim": 0.47893422842025757,
+            "bleurt": 0.35778772830963135
+          }
+        }
+      ]
+    },
+    {
+      "id": 310,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 311,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 312,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 313,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 314,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 315,
+      "n_gt": 1,
+      "n_pred": 6,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "If Hao Yun stands to the east of Jiushang Station, you can get?",
+            "correct": 1,
+            "options": [
+              "Yinling Station is adjacent to Haoyun Station and west of Haoyun Station;",
+              "Haoyun Station is adjacent to Fuyi Station and west of Fuyi Station;",
+              "Jiushang Station is adjacent to Haoyun Station and west of Haoyun Station;",
+              "Yinling Station is adjacent to Fuyi Station and west of Fuyi Station;"
+            ]
+          },
+          "gt_text": "If Hao Yun stands to the east of Jiushang Station, you can get? Haoyun Station is adjacent to Fuyi Station and west of Fuyi Station;",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "If Jiushang is located east of Fuyi, which of the following must be true?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "If Jiushang is located east of Fuyi, which of the following must be true?",
+          "scores": {
+            "bleu4": 0.021850731478735546,
+            "rougeL": 0.25641025641025644,
+            "cosine_sim": 0.5957512855529785,
+            "bleurt": 0.36590576171875
+          }
+        }
+      ]
+    },
+    {
+      "id": 316,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 317,
+      "n_gt": 1,
+      "n_pred": 9,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, can best refute the above argument?",
+            "correct": 1,
+            "options": [
+              "Leeds fish and whale sharks feed on plankton and small animals in the ocean, and the growth rate cannot be significantly different.",
+              "Although the lifespan of the Leeds fish and the whale shark differ greatly, they all reach adulthood around the age of 20, and their body shape is basically fixed.",
+              "Although the lifespan of fish is different, their growth stages basically correspond to their juvenile, adult, middle-aged and elderly",
+              "There is no obvious change in the growth cycle of Jurassic fish and modern fish"
+            ]
+          },
+          "gt_text": "Which of the following, if true, can best refute the above argument? Although the lifespan of the Leeds fish and the whale shark differ greatly, they all reach adulthood around the age of 20, and their body shape is basically fixed.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Strengthen — Which of the following, if true, would most strengthen the author’s claim that Leeds’ growth rate likely exceeded that of the whale shark?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Strengthen — Which of the following, if true, would most strengthen the author’s claim that Leeds’ growth rate likely exceeded that of the whale shark?",
+          "scores": {
+            "bleu4": 0.17233682625570168,
+            "rougeL": 0.33333333333333337,
+            "cosine_sim": 0.7272379398345947,
+            "bleurt": 0.3738507628440857
+          }
+        }
+      ]
+    },
+    {
+      "id": 318,
+      "n_gt": 1,
+      "n_pred": 9,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, will best support the above argument?",
+            "correct": 0,
+            "options": [
+              "The raw materials of these canoes cannot be transported from the distant Yunnan virgin forest, they can only be obtained locally",
+              "These canoes have been soaked in water for thousands of years and are very heavy",
+              "The place where the Qi Zhou Qiu Jian story takes place is the Chu area, including south of Xuchang, Henan",
+              "The canoe hull is pointed at both ends and is chiseled from a complete log for better preservation"
+            ]
+          },
+          "gt_text": "Which of the following, if true, will best support the above argument? The raw materials of these canoes cannot be transported from the distant Yunnan virgin forest, they can only be obtained locally",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "(Explanation / Resolution) The passage reports that canoe wood is “exactly the same as the wood produced in tropical regions of Yunnan,” yet the canoes were excavated in Henan. Which of the following best explains this apparent tension while remaining consistent with the passage?",
+            "options": [
+              "The canoes were built from timber brought from distant tropical regions (e.g., Yunnan) by ancient people.",
+              "Over 3,000 years ago, Henan's local environment supported growth of tree species like those now restricted to tropical Yunnan.",
+              "Either (A) the wood was transported from a tropical region or (B) those tropical species grew in Henan at that time; both explanations can account for the observation.",
+              "The phrase \"exactly the same\" refers only to woodworking technique, not to species or origin of the wood."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "(Explanation / Resolution) The passage reports that canoe wood is “exactly the same as the wood produced in tropical regions of Yunnan,” yet the canoes were excavated in Henan. Which of the following best explains this apparent tension while remaining consistent with the passage? Either (A) the wood was transported from a tropical region or (B) those tropical species grew in Henan at that time; both explanations can account for the observation.",
+          "scores": {
+            "bleu4": 0.16622445882580403,
+            "rougeL": 0.26666666666666666,
+            "cosine_sim": 0.5826748609542847,
+            "bleurt": 0.3432489037513733
+          }
+        }
+      ]
+    },
+    {
+      "id": 319,
+      "n_gt": 1,
+      "n_pred": 10,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, best supports the above researchers ’views?",
+            "correct": 2,
+            "options": [
+              "This non-invasive stimulus is inexpensive and will not cause any pain to the human body",
+              "After a slight electric shock to the brain, the blood flow between the neurons in the brain is significantly enhanced, but it returns to normal after multiple stimulations",
+              "Before the experiment, the mathematics scores of the two groups of students were almost the same",
+              "Subjects with microshocks in the brain are more concerned about their behavior, and their concentration is more focused during the test"
+            ]
+          },
+          "gt_text": "Which of the following, if true, best supports the above researchers ’views? Before the experiment, the mathematics scores of the two groups of students were almost the same",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "平行推理：下列哪个论证在逻辑结构上最与原文相似？（原文结构：对一组受试者施加某种干预，结果优于对照组，据此断定该干预能提高能力，并观察到持久效应）",
+            "options": [
+              "一项研究给部分学生补充特定维生素，补充组考试成绩显著高于未补充组，研究者因此认为该维生素能提升记忆力并且效果可维持数月。",
+              "一项调查发现经常锻炼的人更不容易感到疲惫，研究者因此建议所有人每天锻炼三小时。",
+              "一个城市在雨天安装更多路灯后交通事故增加，市政府认为路灯增加导致事故增加。",
+              "研究人员发现吃巧克力的人在某次考试中表现更好，因此建议所有学生考试前吃巧克力。"
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "平行推理：下列哪个论证在逻辑结构上最与原文相似？（原文结构：对一组受试者施加某种干预，结果优于对照组，据此断定该干预能提高能力，并观察到持久效应） 一项研究给部分学生补充特定维生素，补充组考试成绩显著高于未补充组，研究者因此认为该维生素能提升记忆力并且效果可维持数月。",
+          "scores": {
+            "bleu4": 0.0,
+            "rougeL": 0.0,
+            "cosine_sim": 0.17740043997764587,
+            "bleurt": 0.18139298260211945
+          }
+        }
+      ]
+    },
+    {
+      "id": 320,
+      "n_gt": 1,
+      "n_pred": 10,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Regarding the overall average price of residential housing in the above three cities, which of the following judgments is wrong?",
+            "correct": 3,
+            "options": [
+              "The overall average price of residential housing in A City is the highest",
+              "The overall average price of residential housing in City B is in the middle",
+              "The overall average price of residential housing in Cingcheng is the lowest",
+              "The overall average price of residential housing in A City is the lowest"
+            ]
+          },
+          "gt_text": "Regarding the overall average price of residential housing in the above three cities, which of the following judgments is wrong? The overall average price of residential housing in A City is the lowest",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which one of the following statements must be true given the published information?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which one of the following statements must be true given the published information?",
+          "scores": {
+            "bleu4": 0.10671253043022044,
+            "rougeL": 0.2909090909090909,
+            "cosine_sim": 0.6550939679145813,
+            "bleurt": 0.4465100169181824
+          }
+        }
+      ]
+    },
+    {
+      "id": 321,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following is most appropriate as a corollary of the above discussion?",
+            "correct": 0,
+            "options": [
+              "\"Y chromosome Adam\" and \"mitochondrial Eve\" were formed in the same period, and \"age\" is close, \"Y chromosome Adam\" may be earlier.",
+              "15 years ago, there was only one man \"Adam\" on earth",
+              "As two individuals, \"Adam\" and \"Eve\" should never meet",
+              "Men and women are born together and have conceived modern humans together"
+            ]
+          },
+          "gt_text": "Which of the following is most appropriate as a corollary of the above discussion? \"Y chromosome Adam\" and \"mitochondrial Eve\" were formed in the same period, and \"age\" is close, \"Y chromosome Adam\" may be earlier.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Direct inference — Which of the following can be correctly inferred from the passage?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Direct inference — Which of the following can be correctly inferred from the passage?",
+          "scores": {
+            "bleu4": 0.0417036728043414,
+            "rougeL": 0.32727272727272727,
+            "cosine_sim": 0.5182384252548218,
+            "bleurt": 0.33113163709640503
+          }
+        }
+      ]
+    },
+    {
+      "id": 322,
+      "n_gt": 1,
+      "n_pred": 1,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, would best support the above argument?",
+            "correct": 1,
+            "options": [
+              "Studies of invertebrates in the ocean have also found that in colder water and with higher oxygen content, the organisms there are also larger",
+              "During the Carboniferous period, the concentration of oxygen in the earth ’s atmosphere was as high as 35%, much higher than the current 21%.At that time, there were many giant insects on the earth, and the wingspan of the dragonfly was close to one meter.",
+              "Small locusts cannot survive in a low-oxygen environment, especially in an environment with an oxygen concentration below 15%.Adult locusts can survive in an environment with 2% oxygen",
+              "Under the environment with high oxygen content and high air pressure, the tested fruit flies lived to the fifth generation and their body size increased by 20%"
+            ]
+          },
+          "gt_text": "Which of the following, if true, would best support the above argument? During the Carboniferous period, the concentration of oxygen in the earth ’s atmosphere was as high as 35%, much higher than the current 21%.At that time, there were many giant insects on the earth, and the wingspan of the dragonfly was close to one meter.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Passage (for reference)",
+            "options": [
+              "--"
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Passage (for reference) --",
+          "scores": {
+            "bleu4": 0.0,
+            "rougeL": 0.0,
+            "cosine_sim": 0.11978811770677567,
+            "bleurt": 0.03298801928758621
+          }
+        }
+      ]
+    },
+    {
+      "id": 323,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, best supports the above-mentioned scientists ’speculation?",
+            "correct": 3,
+            "options": [
+              "The short and wide hind bone makes this primate good at jumping and preying in the bushes",
+              "There is no strict proportional relationship between animal vision and orbital size",
+              "The time when the earliest great apes separated from other primates was at least 55 million years ago",
+              "Animals dominated by nocturnal activities, generally have larger eyes"
+            ]
+          },
+          "gt_text": "Which of the following, if true, best supports the above-mentioned scientists ’speculation? Animals dominated by nocturnal activities, generally have larger eyes",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "Strengthen — Which of the following, if true, would most strengthen the scientists’ speculation that the Aklyusian monkey was diurnal?",
+            "options": [
+              "A comparative study shows diurnal primates generally have smaller eye sockets than nocturnal primates.",
+              "Several nocturnal mammals are found to have small eye sockets.",
+              "New evidence shows the Aklyusian monkey’s heel bone was adapted for swimming.",
+              "Recent research indicates early apes were nocturnal."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Strengthen — Which of the following, if true, would most strengthen the scientists’ speculation that the Aklyusian monkey was diurnal? comparative study shows diurnal primates generally have smaller eye sockets than nocturnal primates.",
+          "scores": {
+            "bleu4": 0.2371144604616222,
+            "rougeL": 0.4444444444444444,
+            "cosine_sim": 0.696911633014679,
+            "bleurt": 0.4304909110069275
+          }
+        }
+      ]
+    },
+    {
+      "id": 324,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 325,
+      "n_gt": 1,
+      "n_pred": 1,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following is true to best refute the above speculation?",
+            "correct": 0,
+            "options": [
+              "There is a huge difference between the process of developing from protein to organic life and the process from organic molecules to protein",
+              "Higher intelligence is not only a product of material evolution, but also a product of continuous socialization",
+              "In the natural environment, the synthesis of amino acid molecules from existing interstellar molecules is a small probability event",
+              "Some interstellar molecules are not found in the Earth ’s environment, and they are still not available in the laboratory"
+            ]
+          },
+          "gt_text": "Which of the following is true to best refute the above speculation? There is a huge difference between the process of developing from protein to organic life and the process from organic molecules to protein",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Passage (for reference)",
+            "options": [
+              "--"
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Passage (for reference)",
+          "scores": {
+            "bleu4": 0.0,
+            "rougeL": 0.0,
+            "cosine_sim": 0.17793570458889008,
+            "bleurt": 0.15155914425849915
+          }
+        }
+      ]
+    },
+    {
+      "id": 326,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 327,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, can best refute the views of the above scientists?",
+            "correct": 2,
+            "options": [
+              "In the distant universe, some blue-shifted objects were also found",
+              "The earth is not in the center of the universe",
+              "The stars that people can observe may be less than one percent of the real universe",
+              "From the perspective of other celestial bodies in the universe, redshift is also an absolute dominant phenomenon"
+            ]
+          },
+          "gt_text": "Which of the following, if true, can best refute the views of the above scientists? The stars that people can observe may be less than one percent of the real universe",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "(Strengthen) Which of the following observations would best strengthen the view that galactic redshift is due primarily to galaxies moving away from us rather than being caused by changes in particle masses?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "(Strengthen) Which of the following observations would best strengthen the view that galactic redshift is due primarily to galaxies moving away from us rather than being caused by changes in particle masses?",
+          "scores": {
+            "bleu4": 0.2244734292653491,
+            "rougeL": 0.40740740740740744,
+            "cosine_sim": 0.5963499546051025,
+            "bleurt": 0.4197472929954529
+          }
+        }
+      ]
+    },
+    {
+      "id": 328,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 329,
+      "n_gt": 1,
+      "n_pred": 1,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, would best refute the above experimental conclusion?",
+            "correct": 0,
+            "options": [
+              "The capsaicin contained in chili can hinder the secretion of a neurotransmitter to a certain extent",
+              "In this experiment, 5% of the experimenters' discomfort symptoms worsened",
+              "In another group of subjects who took the pill after meals, 55% of the subjects' symptoms were alleviated",
+              "After paying attention to a healthy diet, patients with dyspepsia will generally ease the symptoms of discomfort within one month"
+            ]
+          },
+          "gt_text": "Which of the following, if true, would best refute the above experimental conclusion? The capsaicin contained in chili can hinder the secretion of a neurotransmitter to a certain extent",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Passage (for reference)",
+            "options": [
+              "--"
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Passage (for reference) --",
+          "scores": {
+            "bleu4": 0.0,
+            "rougeL": 0.0,
+            "cosine_sim": 0.14967654645442963,
+            "bleurt": 0.06333759427070618
+          }
+        }
+      ]
+    },
+    {
+      "id": 330,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, can best refute the above argument?",
+            "correct": 1,
+            "options": [
+              "The cave inspired the description of hell in Greek mythology",
+              "The cave is actually an ancient cemetery and funeral venue",
+              "There is no prehistoric village in Europe that has been found earlier than the cave",
+              "The entrance to the cave collapsed 5000 years ago"
+            ]
+          },
+          "gt_text": "Which of the following, if true, can best refute the above argument? The cave is actually an ancient cemetery and funeral venue",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "Direct Inference — Which of the following must be true based solely on the passage?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Direct Inference — Which of the following must be true based solely on the passage?",
+          "scores": {
+            "bleu4": 0.31268514922728713,
+            "rougeL": 0.4285714285714286,
+            "cosine_sim": 0.6059587001800537,
+            "bleurt": 0.40611732006073
+          }
+        }
+      ]
+    },
+    {
+      "id": 331,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 332,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 333,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 334,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 335,
+      "n_gt": 1,
+      "n_pred": 9,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following is most important for evaluating the above conclusion?",
+            "correct": 1,
+            "options": [
+              "Test the daily diet of some pregnant women who do not lack vitamins to determine the vitamin content.",
+              "Test pregnant women and other women who have enough vitamins in their daily diet to determine whether they lack vitamins.",
+              "Test pregnant women and other women with insufficient vitamins in their daily diet and determine whether they are deficient in vitamins.",
+              "Test the daily diet of some pregnant women who lack vitamins to determine the content of vitamins."
+            ]
+          },
+          "gt_text": "Which of the following is most important for evaluating the above conclusion? Test pregnant women and other women who have enough vitamins in their daily diet to determine whether they lack vitamins.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Direct inference — Which of the following can be most directly inferred from the passage?",
+            "options": [
+              "Symptoms of vitamin deficiency in pregnant women are generally caused by inadequate diets.",
+              "Fetal growth commonly increases maternal vitamin requirements, which explains many deficiency symptoms in pregnant women.",
+              "All pregnant women will show vitamin deficiency symptoms at some point.",
+              "Pregnant women who increase vitamin intake never show deficiency symptoms."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Direct inference — Which of the following can be most directly inferred from the passage? Fetal growth commonly increases maternal vitamin requirements, which explains many deficiency symptoms in pregnant women.",
+          "scores": {
+            "bleu4": 0.09438946238992309,
+            "rougeL": 0.30000000000000004,
+            "cosine_sim": 0.7025792598724365,
+            "bleurt": 0.4503500461578369
+          }
+        }
+      ]
+    },
+    {
+      "id": 336,
+      "n_gt": 1,
+      "n_pred": 1,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following conclusions can be drawn from the above conclusions?",
+            "correct": 2,
+            "options": [
+              "An education system that does not allow everyone to go to college is unreasonable.",
+              "An education system that guarantees everyone to enjoy compulsory education is reasonable.",
+              "An education system that does not allow everyone to enjoy the right to compulsory education is unreasonable.",
+              "There should be more requirements for a reasonable education system."
+            ]
+          },
+          "gt_text": "Which of the following conclusions can be drawn from the above conclusions? An education system that does not allow everyone to enjoy the right to compulsory education is unreasonable.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Direct Inference — Which of the following can be correctly inferred from the passage?",
+            "options": [],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Direct Inference — Which of the following can be correctly inferred from the passage?",
+          "scores": {
+            "bleu4": 0.0787911078069031,
+            "rougeL": 0.380952380952381,
+            "cosine_sim": 0.48050814867019653,
+            "bleurt": 0.37805378437042236
+          }
+        }
+      ]
+    },
+    {
+      "id": 337,
+      "n_gt": 1,
+      "n_pred": 6,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "",
+            "correct": 3,
+            "options": [
+              "Even if the Ukrainian authorities recognize the special status of the two \"Republic\" territories and Russian language, and pardon all militia armed participants and political prisoners, the conflict may still not be resolved.",
+              "Even if the conflict is resolved, it is not necessarily because the Ukrainian authorities recognize the \"Republic\" territory and the special status of Russian.",
+              "If the conflict is to be resolved, the Ukrainian authorities must recognize the special status of the two \"Republic\" territories and the Russian language, and pardon all militia armed participants and political prisoners.",
+              "As long as the Ukrainian authorities recognize the special status of the two \"Republic\" territories and the Russian language, and pardon all militia armed participants and political prisoners, the conflict can be resolved."
+            ]
+          },
+          "gt_text": " As long as the Ukrainian authorities recognize the special status of the two \"Republic\" territories and the Russian language, and pardon all militia armed participants and political prisoners, the conflict can be resolved.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "The comments of Ukrainian observers are best used to refute which of the following claims?",
+            "options": [
+              "Recognizing the two “Republics” and granting them special status (and pardoning the militia) would by itself resolve the conflict.",
+              "Recognizing the territories is completely irrelevant to any political settlement.",
+              "Pardoning militia members necessarily increases violence.",
+              "The speakers of the “Republics” will accept any compromise proposed by Kyiv."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "The comments of Ukrainian observers are best used to refute which of the following claims? Recognizing the two “Republics” and granting them special status (and pardoning the militia) would by itself resolve the conflict.",
+          "scores": {
+            "bleu4": 0.05895561887449621,
+            "rougeL": 0.3823529411764706,
+            "cosine_sim": 0.7500569224357605,
+            "bleurt": 0.3995399475097656
+          }
+        }
+      ]
+    },
+    {
+      "id": 338,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following can most question the above view?",
+            "correct": 3,
+            "options": [
+              "As online shopping sales increase, related taxes and fees will also increase.",
+              "Even in the era when there is no Internet, people can still buy their favorite products through physical stores.",
+              "The display of goods on the Internet cannot fully reflect the real situation.",
+              "People's satisfaction with the pursuit of material life depends only on the level of economic development in the region."
+            ]
+          },
+          "gt_text": "Which of the following can most question the above view? People's satisfaction with the pursuit of material life depends only on the level of economic development in the region.",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "Missing Premise — The passage claims that \"even in countries and regions with low economic development levels, people can satisfy their pursuit of material life through online shopping.\" Which of the following is the most important unstated assumption required for this claim to hold?",
+            "options": [],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Missing Premise — The passage claims that \"even in countries and regions with low economic development levels, people can satisfy their pursuit of material life through online shopping.\" Which of the following is the most important unstated assumption required for this claim to hold?",
+          "scores": {
+            "bleu4": 0.1645494395423276,
+            "rougeL": 0.36666666666666664,
+            "cosine_sim": 0.5691692233085632,
+            "bleurt": 0.4294981360435486
+          }
+        }
+      ]
+    },
+    {
+      "id": 339,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 340,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 341,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 342,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 343,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 344,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 345,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 346,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 347,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 348,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 349,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following may be correct?",
+            "correct": 3,
+            "options": [
+              "Li and Liu were hired by the same unit.",
+              "Wang, Zhao and Liu were all hired by Tianji.",
+              "Only Liu was hired by Tian Xuan.",
+              "Only Wang was hired by Tianxuan."
+            ]
+          },
+          "gt_text": "Which of the following may be correct? Only Wang was hired by Tianxuan.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "If Wang was not hired by Tianxuan, which of the following must be true?",
+            "options": [],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "If Wang was not hired by Tianxuan, which of the following must be true?",
+          "scores": {
+            "bleu4": 0.34791594751284466,
+            "rougeL": 0.38461538461538464,
+            "cosine_sim": 0.7313628792762756,
+            "bleurt": 0.6382023096084595
+          }
+        }
+      ]
+    },
+    {
+      "id": 350,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following must be correct?",
+            "correct": 2,
+            "options": [
+              "Zhang and Wang were hired by the same unit.",
+              "Wang and Liu were hired by different units",
+              "Tianshu hired at most two people.",
+              "Tianshu and Tianxuan employ the same number of people."
+            ]
+          },
+          "gt_text": "Which of the following must be correct? Tianshu hired at most two people.",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "Impossibility — Which of the following assignments is impossible (cannot occur under the given rules and the requirement that each employer hires at least one person)?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Impossibility — Which of the following assignments is impossible (cannot occur under the given rules and the requirement that each employer hires at least one person)?",
+          "scores": {
+            "bleu4": 0.28433291815307693,
+            "rougeL": 0.42857142857142855,
+            "cosine_sim": 0.5614520907402039,
+            "bleurt": 0.43438124656677246
+          }
+        }
+      ]
+    },
+    {
+      "id": 351,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following is correct, you can determine the employer of each graduate?",
+            "correct": 1,
+            "options": [
+              "Li was hired by Tianshu.",
+              "Zhang was hired by Tianxuan.",
+              "Zhang was hired by Tianshu.",
+              "Liu was hired by Tianji."
+            ]
+          },
+          "gt_text": "Which of the following is correct, you can determine the employer of each graduate? Zhang was hired by Tianxuan.",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "(Direct conditional) If Zhang was hired by Tianxuan, which of the following must be true?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "(Direct conditional) If Zhang was hired by Tianxuan, which of the following must be true?",
+          "scores": {
+            "bleu4": 0.19209639246873658,
+            "rougeL": 0.5106382978723404,
+            "cosine_sim": 0.6450110673904419,
+            "bleurt": 0.455070436000824
+          }
+        }
+      ]
+    },
+    {
+      "id": 352,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 353,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "According to this statistic, which of the following must be true?",
+            "correct": 2,
+            "options": [
+              "Some activities organized by the community do not involve the elderly in the community.",
+              "Some elderly people in the community do not participate in any activities organized by the community.",
+              "Any activity organized by a community will involve the elderly in the community.",
+              "Middle-aged people in the community also participated in community-organized activities."
+            ]
+          },
+          "gt_text": "According to this statistic, which of the following must be true? Any activity organized by a community will involve the elderly in the community.",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "Which of the following is necessarily true about elderly participation in health-related activities (given only the text as stated)?",
+            "options": [],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following is necessarily true about elderly participation in health-related activities (given only the text as stated)?",
+          "scores": {
+            "bleu4": 0.1185592186256948,
+            "rougeL": 0.4102564102564102,
+            "cosine_sim": 0.7178146243095398,
+            "bleurt": 0.4690413475036621
+          }
+        }
+      ]
+    },
+    {
+      "id": 354,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 355,
+      "n_gt": 1,
+      "n_pred": 9,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following best supports the above argument?",
+            "correct": 3,
+            "options": [
+              "The greater the greed, the easier it is to be deceived.",
+              "The society has improved, and the scammers will no longer exist.",
+              "With the progress of society, the quality of people will generally improve, and greed will gradually be eliminated.",
+              "No matter in what society, scammers always exist."
+            ]
+          },
+          "gt_text": "Which of the following best supports the above argument? No matter in what society, scammers always exist.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Direct inference — Which of the following can be validly inferred from the passage's premise?",
+            "options": [
+              "If no one is deceived, then there are neither scammers nor greedy people in that society.",
+              "If no one is deceived, then either there are no scammers or there are no greedy people.",
+              "If no one is deceived, then scammers certainly still exist.",
+              "If no one is deceived, then greed must still exist but produce no cheating."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Direct inference — Which of the following can be validly inferred from the passage's premise? If no one is deceived, then either there are no scammers or there are no greedy people.",
+          "scores": {
+            "bleu4": 0.0953796259494125,
+            "rougeL": 0.3043478260869565,
+            "cosine_sim": 0.6550112366676331,
+            "bleurt": 0.4116228222846985
+          }
+        }
+      ]
+    },
+    {
+      "id": 356,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "If only one sentence of the analyst ’s prediction is correct, who is the first?",
+            "correct": 3,
+            "options": [
+              "C",
+              "B",
+              "Can't push",
+              "Ding"
+            ]
+          },
+          "gt_text": "If only one sentence of the analyst ’s prediction is correct, who is the first? Ding",
+          "matched_pred_idx": 4,
+          "matched_pred_question": {
+            "content": "To validly conclude from the analysts' predictions that B is the champion, which additional (implicit) assumption is required?",
+            "options": [
+              "Predictions I and III are both true.",
+              "Predictions II and III are both true.",
+              "At least one of the three predictions is true.",
+              "The three predictions refer to different competitions."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "To validly conclude from the analysts' predictions that B is the champion, which additional (implicit) assumption is required? Predictions I and III are both true.",
+          "scores": {
+            "bleu4": 0.037061986319706204,
+            "rougeL": 0.35555555555555557,
+            "cosine_sim": 0.698586106300354,
+            "bleurt": 0.3564798831939697
+          }
+        }
+      ]
+    },
+    {
+      "id": 357,
+      "n_gt": 1,
+      "n_pred": 9,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following is most similar to the above argument?",
+            "correct": 3,
+            "options": [
+              "It is wrong to say that Alexander is a Plato student.In fact, Alexander was a student of Aristotle, and Aristotle was a student of Plato.",
+              "It is true that excessive fertilization is the main cause of lawn diseases and insect pests.Because excessive fertilization can cause the grass to grow madly, and the grass that grows madly has little resistance to diseases and insect pests.",
+              "It is wrong for people who frequently participate in strenuous exercise to cause sudden death.Because the violent cause is cardiovascular and cerebrovascular diseases, and vigorous exercise does not necessarily cause cardiovascular and cerebrovascular diseases.",
+              "It is wrong to say that inferior gasoline will not cause abnormal fuel consumption.Because inferior gasoline can cause very normal aging of engine valves, and abnormal aging of motive valves can cause abnormal fuel consumption."
+            ]
+          },
+          "gt_text": "Which of the following is most similar to the above argument? It is wrong to say that inferior gasoline will not cause abnormal fuel consumption.Because inferior gasoline can cause very normal aging of engine valves, and abnormal aging of motive valves can cause abnormal fuel consumption.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "(Identify the Fallacy / Evaluation)",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "(Identify the Fallacy / Evaluation)",
+          "scores": {
+            "bleu4": 8.18772574316337e-05,
+            "rougeL": 0.0392156862745098,
+            "cosine_sim": 0.35899248719215393,
+            "bleurt": 0.17147213220596313
+          }
+        }
+      ]
+    },
+    {
+      "id": 358,
+      "n_gt": 1,
+      "n_pred": 9,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "If the above statement is true, which of the following cannot be true?",
+            "correct": 2,
+            "options": [
+              "Veteran Klose broke Ronaldo's 15-ball World Cup goal record with 16 goals at the World Cup, but still did not win the favor of many clubs.",
+              "J.Ronaldo won the World Cup Golden Boots.At the same time, with the excellent performance of the club, he successfully transferred to Real Madrid in the case of many clubs chasing.",
+              "Royce failed to represent the German team in the Brazil World Cup due to injury, but he has an excellent performance in the Bundesliga club field, and has been favored by top giants such as Real Madrid and Barcelona in the transfer market.",
+              "Dortmund top scorer Lewandowski successfully transferred to Bayern Munich."
+            ]
+          },
+          "gt_text": "If the above statement is true, which of the following cannot be true? Royce failed to represent the German team in the Brazil World Cup due to injury, but he has an excellent performance in the Bundesliga club field, and has been favored by top giants such as Real Madrid and Barcelona in the transfer market.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "(Direct inference) Which of the following is best entailed by the sentence?",
+            "options": [
+              "If a player performed well in the World Cup, then many clubs will chase him.",
+              "If a player is favored and chased by many clubs, then he performed well in the World Cup and also performed well in clubs.",
+              "Performing well for a club is sufficient for being chased by many clubs, regardless of World Cup performance.",
+              "Clubs chase players based only on their marketability, not on on-field performance."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "(Direct inference) Which of the following is best entailed by the sentence? If a player is favored and chased by many clubs, then he performed well in the World Cup and also performed well in clubs.",
+          "scores": {
+            "bleu4": 0.08956520479984655,
+            "rougeL": 0.2921348314606742,
+            "cosine_sim": 0.5888638496398926,
+            "bleurt": 0.2919704020023346
+          }
+        }
+      ]
+    },
+    {
+      "id": 359,
+      "n_gt": 1,
+      "n_pred": 1,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following conclusions can be made based on the above discussion?",
+            "correct": 1,
+            "options": [
+              "Datian has real talent and basic social skills, but the positioning is not accurate.",
+              "Datian either does not have real talent, or lacks basic social skills, or fails to accurately locate in the career selection process.",
+              "Datian does not possess real knowledge and basic social skills, but the positioning is accurate.",
+              "Datian does not have real knowledge and basic social skills, and does not have an accurate positioning."
+            ]
+          },
+          "gt_text": "Which of the following conclusions can be made based on the above discussion? Datian either does not have real talent, or lacks basic social skills, or fails to accurately locate in the career selection process.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Constraint-Satisfaction (Small Puzzle)",
+            "options": [
+              "Rule: If a returnee has real knowledge (K), basic social skills (S), and is accurately positioned (P), then that returnee is not unemployed (¬U).",
+              "Returnee A has a UK master's and is unemployed (U).",
+              "Returnee B has K and S but is unemployed (U).",
+              "Returnee C is accurately positioned (P) and is employed (¬U)."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Constraint-Satisfaction (Small Puzzle) Rule: If a returnee has real knowledge (K), basic social skills (S), and is accurately positioned (P), then that returnee is not unemployed (¬U).",
+          "scores": {
+            "bleu4": 0.028610713594879558,
+            "rougeL": 0.15873015873015875,
+            "cosine_sim": 0.3891056478023529,
+            "bleurt": 0.27599936723709106
+          }
+        }
+      ]
+    },
+    {
+      "id": 360,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 361,
+      "n_gt": 1,
+      "n_pred": 9,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following is most similar to the question-making argument?",
+            "correct": 3,
+            "options": [
+              "If the parent has a good education for the child, the child's performance in the school is generally better.Because Wang Zheng's performance in the school is not good, his parents must be poorly educated.",
+              "If the child recites the poem for 1 hour every day, it will be exported into chapters.Guo Na recites the poems for less than an hour every day, so she cannot export to chapters.",
+              "If people know how to make money, they can generally accumulate more wealth.Therefore, Mr.Peng's wealth comes from his resourcefulness.",
+              "Northerners are usually taller than southerners.Marin is the highest in the class, so he must be a northerner."
+            ]
+          },
+          "gt_text": "Which of the following is most similar to the question-making argument? Northerners are usually taller than southerners.Marin is the highest in the class, so he must be a northerner.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "(Parallel reasoning) Which of the following arguments is most similar in logical structure to the passage’s argument?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "(Parallel reasoning) Which of the following arguments is most similar in logical structure to the passage’s argument?",
+          "scores": {
+            "bleu4": 0.12354840966590994,
+            "rougeL": 0.40816326530612246,
+            "cosine_sim": 0.4736630320549011,
+            "bleurt": 0.3830789625644684
+          }
+        }
+      ]
+    },
+    {
+      "id": 362,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 363,
+      "n_gt": 1,
+      "n_pred": 6,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following most appropriately summarizes the loopholes in the above argument?",
+            "correct": 3,
+            "options": [
+              "Make a substantive distinction between two types of phenomena that have no substantive difference.",
+              "Make an analogy between two types of objects that are not comparable.",
+              "The proportion of housework accidents in the whole operation accidents is not considered.",
+              "Not taking into account the proportion of left-handers among all people."
+            ]
+          },
+          "gt_text": "Which of the following most appropriately summarizes the loopholes in the above argument? Not taking into account the proportion of left-handers among all people.",
+          "matched_pred_idx": 5,
+          "matched_pred_question": {
+            "content": "Explanation / Resolution — Which of the following best explains why many people might believe left-handers are more accident-prone despite the passage's claim?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Explanation / Resolution — Which of the following best explains why many people might believe left-handers are more accident-prone despite the passage's claim?",
+          "scores": {
+            "bleu4": 0.1137168193487524,
+            "rougeL": 0.3673469387755102,
+            "cosine_sim": 0.6316257119178772,
+            "bleurt": 0.3680141568183899
+          }
+        }
+      ]
+    },
+    {
+      "id": 364,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 365,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 366,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 367,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 368,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 369,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 370,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, would most weaken the above conclusions of the government of Country H?",
+            "correct": 2,
+            "options": [
+              "Last year, H ’s financial investment to protect the equatorial rainforest was significantly lower than in previous years.",
+              "The area of ​​the equatorial rainforest in country G, which is adjacent to country H, has not decreased.",
+              "Last year's dry season in Country H saw unusually large and continuous rainfall.",
+              "The cost of rainforest protection in country H only accounts for a small percentage of annual fiscal expenditure."
+            ]
+          },
+          "gt_text": "Which of the following, if true, would most weaken the above conclusions of the government of Country H? Last year's dry season in Country H saw unusually large and continuous rainfall.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Strengthen the government's claim",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Strengthen the government's claim",
+          "scores": {
+            "bleu4": 0.000326100449495384,
+            "rougeL": 0.21621621621621623,
+            "cosine_sim": 0.40336042642593384,
+            "bleurt": 0.2871183156967163
+          }
+        }
+      ]
+    },
+    {
+      "id": 371,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 372,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 373,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 374,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "",
+            "correct": 1,
+            "options": [
+              "Obese people are more likely to suffer from heart disease than people with normal weight.However, obese people make up a very small percentage of our population.Therefore, in our country, there is no need for the medical and health community to emphasize the risk of heart disease.",
+              "Unchecked sex is more likely to be infected with AIDS than checkpoint.However, among people with unchecked sex, only a small percentage of people are infected with AIDS.Therefore, there is no need to emphasize the harm of unchecked sex in the propaganda of AIDS prevention.",
+              "The prevailing view is that smoking is more likely to cause lung cancer than not smoking.However, in some countries, the proportion of people with lung cancer who have a history of smoking is not higher than the proportion of the total population who have a history of smoking.Therefore, the above popular opinion is likely to be a prejudice.",
+              "High-income people are more capable of enjoying life than low-income people.But there are many high-income earners who claim to be unhappy.Therefore, those who pursue a happy life need not pay attention to the level of income."
+            ]
+          },
+          "gt_text": " Unchecked sex is more likely to be infected with AIDS than checkpoint.However, among people with unchecked sex, only a small percentage of people are infected with AIDS.Therefore, there is no need to emphasize the harm of unchecked sex in the propaganda of AIDS prevention.",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "(Explanation / Resolution) Which statement best explains how both premises (\"firearm crimes are more likely to lead to murder\" and \"most firearm crimes did not result in homicides\") can be true simultaneously?",
+            "options": [
+              "\"More likely\" is a relative statement comparing probabilities per incident; even if firearm crimes are more likely than others, the absolute probability for homicide can still be low, so most firearm crimes do not produce homicides.",
+              "The reports about firearm crimes are probably biased and cannot be trusted.",
+              "The terms \"murder\" and \"homicide\" are being used inconsistently in the premises.",
+              "Statistical errors mean that one of the two premises must be false."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "(Explanation / Resolution) Which statement best explains how both premises (\"firearm crimes are more likely to lead to murder\" and \"most firearm crimes did not result in homicides\") can be true simultaneously? \"More likely\" is a relative statement comparing probabilities per incident; even if firearm crimes are more likely than others, the absolute probability for homicide can still be low, so most firearm crimes do not produce homicides.",
+          "scores": {
+            "bleu4": 0.08865997282417162,
+            "rougeL": 0.16666666666666666,
+            "cosine_sim": 0.2353452891111374,
+            "bleurt": 0.3026798963546753
+          }
+        }
+      ]
+    },
+    {
+      "id": 375,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 376,
+      "n_gt": 1,
+      "n_pred": 1,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following most appropriately points out the loophole of the above argument?",
+            "correct": 3,
+            "options": [
+              "Assume without explanation? Any car equipped with airbags may experience a car accident.",
+              "Ignore this possibility? Owners without airbags pay more attention to driving cautiously.",
+              "Improper assumption? In any car accident, the airbag will automatically open.",
+              "Improperly equate the possibility of a car accident with the seriousness of the car owner ’s injury in the accident."
+            ]
+          },
+          "gt_text": "Which of the following most appropriately points out the loophole of the above argument? Improperly equate the possibility of a car accident with the seriousness of the car owner ’s injury in the accident.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Background (for reference)",
+            "options": [
+              "--"
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Background (for reference)",
+          "scores": {
+            "bleu4": 0.0,
+            "rougeL": 0.0,
+            "cosine_sim": 0.08223018795251846,
+            "bleurt": 0.11036547273397446
+          }
+        }
+      ]
+    },
+    {
+      "id": 377,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "",
+            "correct": 3,
+            "options": [
+              "People in Hunan don't like chili.Therefore, some people who love chili are not Hunanese.",
+              "Some people are not selfish.Therefore, people are not all selfish.",
+              "A good motivation does not necessarily have a good effect.Therefore, good effects do not necessarily result from good motivation.",
+              "Some southerners are not Cantonese.Therefore, not all Cantonese are Southerners."
+            ]
+          },
+          "gt_text": " Some southerners are not Cantonese.Therefore, not all Cantonese are Southerners.",
+          "matched_pred_idx": 4,
+          "matched_pred_question": {
+            "content": "Suppose the intended (correct) conclusion was \"Not all good goods are cheap.\" If that were the intended conclusion, which of the following must be true given the original premise?",
+            "options": [],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Suppose the intended (correct) conclusion was \"Not all good goods are cheap.\" If that were the intended conclusion, which of the following must be true given the original premise?",
+          "scores": {
+            "bleu4": 0.023830412565256146,
+            "rougeL": 0.2222222222222222,
+            "cosine_sim": 0.23043999075889587,
+            "bleurt": 0.2773176431655884
+          }
+        }
+      ]
+    },
+    {
+      "id": 378,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, would most weaken the above argument?",
+            "correct": 0,
+            "options": [
+              "Among the patients who died above, the average year of death of the second group was two years earlier than the first group.",
+              "Among the patients who died, the average life span of the second group was two years shorter than that of the first group.",
+              "Among the above living patients, the second group is more severely ill than the first group.",
+              "Among the above living patients, the second group is older than the first group."
+            ]
+          },
+          "gt_text": "Which of the following, if true, would most weaken the above argument? Among the patients who died above, the average year of death of the second group was two years earlier than the first group.",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "(Missing premise / Necessary assumption)",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "(Missing premise / Necessary assumption)",
+          "scores": {
+            "bleu4": 5.002229087427134e-07,
+            "rougeL": 0.05555555555555556,
+            "cosine_sim": 0.3065681457519531,
+            "bleurt": 0.14726953208446503
+          }
+        }
+      ]
+    },
+    {
+      "id": 379,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "",
+            "correct": 2,
+            "options": [
+              "You cannot enter the deep pool unless you have a deep water certificate.",
+              "Only those who hold a deep water certificate need not wear a swimming cap.",
+              "If you have a deep water certificate, you can enter the deep pool.",
+              "Those who are allowed to enter the swimming pool may not be allowed to enter the deep pool."
+            ]
+          },
+          "gt_text": " If you have a deep water certificate, you can enter the deep pool.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "(Direct Inference)",
+            "options": [],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "(Direct Inference)",
+          "scores": {
+            "bleu4": 0.0,
+            "rougeL": 0.0,
+            "cosine_sim": 0.17371860146522522,
+            "bleurt": 0.12590144574642181
+          }
+        }
+      ]
+    },
+    {
+      "id": 380,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 381,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 382,
+      "n_gt": 1,
+      "n_pred": 5,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following options is the closest to the meaning of this maxim?",
+            "correct": 2,
+            "options": [
+              "Only after introspection can life be of value.",
+              "To be valuable in life, we must reflect on it from time to time.",
+              "I'm confused for a lifetime.",
+              "People should live to understand."
+            ]
+          },
+          "gt_text": "Which of the following options is the closest to the meaning of this maxim? I'm confused for a lifetime.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "(Direct inference) Which of the following can be validly inferred from the statement \"Ancient Greek philosophers said that life without reflection is worthless\"?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "(Direct inference) Which of the following can be validly inferred from the statement \"Ancient Greek philosophers said that life without reflection is worthless\"?",
+          "scores": {
+            "bleu4": 0.10401577613691954,
+            "rougeL": 0.25641025641025644,
+            "cosine_sim": 0.39789915084838867,
+            "bleurt": 0.3312711715698242
+          }
+        }
+      ]
+    },
+    {
+      "id": 383,
+      "n_gt": 1,
+      "n_pred": 1,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following supplements will most strongly support the reasoning in the question stem?",
+            "correct": 1,
+            "options": [
+              "The computer can have the learning function like a human.",
+              "Computer programs cannot simulate human initiative and creativity.",
+              "In the future society, it is difficult to say whether people control computers or control computers.",
+              "People can compile computer programs that simulate human initiative and creativity."
+            ]
+          },
+          "gt_text": "Which of the following supplements will most strongly support the reasoning in the question stem? Computer programs cannot simulate human initiative and creativity.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Passage (for reference)",
+            "options": [
+              "--"
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Passage (for reference)",
+          "scores": {
+            "bleu4": 0.0,
+            "rougeL": 0.0,
+            "cosine_sim": 0.10255837440490723,
+            "bleurt": 0.05336599797010422
+          }
+        }
+      ]
+    },
+    {
+      "id": 384,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 385,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following reasoning clearly shows that the above argument is not valid?",
+            "correct": 0,
+            "options": [
+              "All successful people have to eat in clothes.I am not a successful person now, so I do n’t have to eat in clothes.",
+              "Commodities have use value, and air certainly has use value, so air is of course a commodity.",
+              "All technical backbones study hard.Xiao Zhang is a technical backbone.Therefore, Xiao Zhang is a hard-working person.",
+              "Criminal behaviors are illegal behaviors, and violations should be condemned by the society, so all criminal behaviors should be condemned by the society."
+            ]
+          },
+          "gt_text": "Which of the following reasoning clearly shows that the above argument is not valid? All successful people have to eat in clothes.I am not a successful person now, so I do n’t have to eat in clothes.",
+          "matched_pred_idx": 5,
+          "matched_pred_question": {
+            "content": "(Parallel reasoning) Which of the following arguments has the same logical form as the passage (i.e., A → B; ¬A; therefore ¬B)?",
+            "options": [
+              "All mammals are animals. Whales are not mammals. Therefore whales are not animals.",
+              "If it rains, the streets get wet. The streets are wet. Therefore it rained.",
+              "Everyone who owns a car can drive. Alice owns a car. Therefore Alice can drive.",
+              "All bachelors are unmarried. John is unmarried. Therefore John is a bachelor."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "(Parallel reasoning) Which of the following arguments has the same logical form as the passage (i.e., A → B; ¬A; therefore ¬B)? All mammals are animals. Whales are not mammals. Therefore whales are not animals.",
+          "scores": {
+            "bleu4": 0.07125760997008962,
+            "rougeL": 0.2077922077922078,
+            "cosine_sim": 0.41557326912879944,
+            "bleurt": 0.34888213872909546
+          }
+        }
+      ]
+    },
+    {
+      "id": 386,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following questions is most relevant for refuting the above reasoning?",
+            "correct": 0,
+            "options": [
+              "If two things happen at the same time or one after another, can we be sure that there is a causal relationship between them?",
+              "Why did Taiwan, Singapore, South Korea, and the United States also experience economic recession during this period?",
+              "Why the economy of mainland China is booming.",
+              "Why was the economic situation of the United Kingdom, which used to regulate Hong Kong, bad during this period?"
+            ]
+          },
+          "gt_text": "Which of the following questions is most relevant for refuting the above reasoning? If two things happen at the same time or one after another, can we be sure that there is a causal relationship between them?",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "(Direct Inference) Which of the following can be correctly inferred from the passage?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "(Direct Inference) Which of the following can be correctly inferred from the passage?",
+          "scores": {
+            "bleu4": 0.07329224670332826,
+            "rougeL": 0.22950819672131148,
+            "cosine_sim": 0.3937448263168335,
+            "bleurt": 0.3753514885902405
+          }
+        }
+      ]
+    },
+    {
+      "id": 387,
+      "n_gt": 1,
+      "n_pred": 1,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "According to some general principles of human nature, people in social life, no matter how high their status or education, their behavior always changes with the environment.There are both good and evil aspects in human nature.Everyone actually has a self-interested complex or tendency, and they are called \"rational economic men.\"\nWhich of the following options is not the implied meaning or conclusion that can be derived?",
+            "correct": 3,
+            "options": [
+              "When a person provides a role or service to society, it is impossible not to consider his own economic interests.",
+              "Once they have public power, some people are very likely to use \"power rent-seeking\" and engage in power and money transactions.",
+              "Some institutional factors should be designed to restrict the behavior of government officials.",
+              "The management of government officials should mainly depend on raising their awareness of self-discipline."
+            ]
+          },
+          "gt_text": "According to some general principles of human nature, people in social life, no matter how high their status or education, their behavior always changes with the environment.There are both good and evil aspects in human nature.Everyone actually has a self-interested complex or tendency, and they are called \"rational economic men.\"\nWhich of the following options is not the implied meaning or conclusion that can be derived? The management of government officials should mainly depend on raising their awareness of self-discipline.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "I don't see any Input Text — please paste the passage you want turned into LogiQA-style logical reasoning questions.",
+            "options": [],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "I don't see any Input Text — please paste the passage you want turned into LogiQA-style logical reasoning questions.",
+          "scores": {
+            "bleu4": 0.00042623759825796546,
+            "rougeL": 0.019230769230769232,
+            "cosine_sim": 0.11338845640420914,
+            "bleurt": 0.1754671037197113
+          }
+        }
+      ]
+    },
+    {
+      "id": 388,
+      "n_gt": 1,
+      "n_pred": 1,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "",
+            "correct": 3,
+            "options": [
+              "The shooting performance of everyone in the class is not excellent.",
+              "Someone in the class has excellent shooting performance.",
+              "The squad leader's shooting performance is excellent.",
+              "The shooting performance of the Sports Committee is not excellent."
+            ]
+          },
+          "gt_text": " The shooting performance of the Sports Committee is not excellent.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Below is a set of multiple-choice questions that probe the logical consequences, conditionals, assumptions, and possible/impossible scenarios entailed by the short passage. Each question assumes the passage is correct and — unless the question explicitly adds a new condition — also uses the fact stated in the passage: exactly one of the three instructors' statements is true.",
+            "options": [],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Below is a set of multiple-choice questions that probe the logical consequences, conditionals, assumptions, and possible/impossible scenarios entailed by the short passage. Each question assumes the passage is correct and — unless the question explicitly adds a new condition — also uses the fact stated in the passage: exactly one of the three instructors' statements is true.",
+          "scores": {
+            "bleu4": 0.007567143835953721,
+            "rougeL": 0.11940298507462686,
+            "cosine_sim": 0.010331081226468086,
+            "bleurt": 0.2416972517967224
+          }
+        }
+      ]
+    },
+    {
+      "id": 389,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following best explains the contradictory statement above?",
+            "correct": 2,
+            "options": [
+              "The sampling of the survey sample is not random and therefore not representative.",
+              "Some respondents later changed their views.",
+              "Many investigators believe that the causes of the \"September 11\" terrorist attacks were not single but compound.",
+              "There are technical errors in the calculation of the investigation results."
+            ]
+          },
+          "gt_text": "Which of the following best explains the contradictory statement above? Many investigators believe that the causes of the \"September 11\" terrorist attacks were not single but compound.",
+          "matched_pred_idx": 4,
+          "matched_pred_question": {
+            "content": "Which unstated assumption is required to conclude from the reported percentages that \"some respondents attributed the attacks to more than one cause\"?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which unstated assumption is required to conclude from the reported percentages that \"some respondents attributed the attacks to more than one cause\"?",
+          "scores": {
+            "bleu4": 0.09138336831870636,
+            "rougeL": 0.27450980392156865,
+            "cosine_sim": 0.5318722724914551,
+            "bleurt": 0.35057491064071655
+          }
+        }
+      ]
+    },
+    {
+      "id": 390,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "If the above proposition is true, then which of the following must be true?",
+            "correct": 1,
+            "options": [
+              "Some northerners are workers.",
+              "Some workers are Northerners.",
+              "Some northerners are not workers.",
+              "Some workers are not Northerners."
+            ]
+          },
+          "gt_text": "If the above proposition is true, then which of the following must be true? Some workers are Northerners.",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "If, in addition to the two given statements, it is known that every worker is a southerner, which of the following must be true?",
+            "options": [],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "If, in addition to the two given statements, it is known that every worker is a southerner, which of the following must be true?",
+          "scores": {
+            "bleu4": 0.2676032275663791,
+            "rougeL": 0.4761904761904762,
+            "cosine_sim": 0.8348706960678101,
+            "bleurt": 0.520808219909668
+          }
+        }
+      ]
+    },
+    {
+      "id": 391,
+      "n_gt": 1,
+      "n_pred": 5,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "",
+            "correct": 3,
+            "options": [
+              "Some robots are able to play games with chess masters.",
+              "The doctoral student is a master of Go.",
+              "That robot is IBM's latest generation product.",
+              "There was a considerable difference between the doctoral student and the robot."
+            ]
+          },
+          "gt_text": " There was a considerable difference between the doctoral student and the robot.",
+          "matched_pred_idx": 4,
+          "matched_pred_question": {
+            "content": "(Parallel reasoning)",
+            "options": [],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "(Parallel reasoning)",
+          "scores": {
+            "bleu4": 0.0,
+            "rougeL": 0.0,
+            "cosine_sim": 0.19848096370697021,
+            "bleurt": 0.08436167240142822
+          }
+        }
+      ]
+    },
+    {
+      "id": 392,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Who can meet all the requirements of Li Na?",
+            "correct": 2,
+            "options": [
+              "Liu Dawei",
+              "Li Qiang",
+              "Wu Gang",
+              "Wang Wei"
+            ]
+          },
+          "gt_text": "Who can meet all the requirements of Li Na? Wu Gang",
+          "matched_pred_idx": 6,
+          "matched_pred_question": {
+            "content": "Strengthen — Which additional fact, if added to the original statements, would most strongly reinforce the conclusion that Wu Gang is the man who satisfies all three of Li Na's requirements?",
+            "options": [],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Strengthen — Which additional fact, if added to the original statements, would most strongly reinforce the conclusion that Wu Gang is the man who satisfies all three of Li Na's requirements?",
+          "scores": {
+            "bleu4": 0.04595331932733298,
+            "rougeL": 0.3870967741935483,
+            "cosine_sim": 0.6160647869110107,
+            "bleurt": 0.4775843620300293
+          }
+        }
+      ]
+    },
+    {
+      "id": 393,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following cannot be a logical inference from the above conclusion?",
+            "correct": 1,
+            "options": [
+              "In a poor world, part may be smaller than whole.",
+              "In an infinite world, parts must not be equal to wholes.",
+              "In an infinite world, the whole may equal parts.",
+              "In a poor world, the whole must be larger than the part."
+            ]
+          },
+          "gt_text": "Which of the following cannot be a logical inference from the above conclusion? In an infinite world, parts must not be equal to wholes.",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "(Weaken) Which of the following, if true, would most seriously weaken the claim that \"in an infinite world, the part may be equal to the whole\"?",
+            "options": [],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "(Weaken) Which of the following, if true, would most seriously weaken the claim that \"in an infinite world, the part may be equal to the whole\"?",
+          "scores": {
+            "bleu4": 0.21246364616364083,
+            "rougeL": 0.5599999999999999,
+            "cosine_sim": 0.7187603116035461,
+            "bleurt": 0.4955570697784424
+          }
+        }
+      ]
+    },
+    {
+      "id": 394,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 395,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 396,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 397,
+      "n_gt": 1,
+      "n_pred": 8,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "",
+            "correct": 3,
+            "options": [
+              "Japan has been in recession for more than ten years.At that time, China ’s merchandise exports were very small, and the renminbi was very weak.",
+              "The US economic recession was mainly caused by the destruction of the myth of the Internet economy, and the \"9.11\" terrorist attacks exacerbated this recession.",
+              "China's GDP accounts for only 3.9% of the world's total, foreign trade is less than 5% of the world's, and it does not have the ability to affect the world market price and supply and demand.",
+              "Consumers in Western countries have benefited greatly from cheap goods in China."
+            ]
+          },
+          "gt_text": " Consumers in Western countries have benefited greatly from cheap goods in China.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "(Direct inference) Which of the following can be directly inferred from the passage?",
+            "options": [
+              "The United States and Japan are among the countries that have blamed their domestic economic problems on China’s fixed exchange rate.",
+              "China’s fixed exchange rate is the only cause of economic problems in the United States and Japan.",
+              "All domestic manufacturing companies in the United States and Japan caused economic pressure.",
+              "China intentionally set its exchange rate to harm other countries’ economies."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "(Direct inference) Which of the following can be directly inferred from the passage? The United States and Japan are among the countries that have blamed their domestic economic problems on China’s fixed exchange rate.",
+          "scores": {
+            "bleu4": 0.008531104334876973,
+            "rougeL": 0.15789473684210525,
+            "cosine_sim": 0.35038888454437256,
+            "bleurt": 0.3022456169128418
+          }
+        }
+      ]
+    },
+    {
+      "id": 398,
+      "n_gt": 1,
+      "n_pred": 1,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "According to the above situation, we know that the winner is",
+            "correct": 0,
+            "options": [
+              "Tsinghua University Team",
+              "China University of Science and Technology Team",
+              "Zhejiang University Team",
+              "Beijing University of Aeronautics and Astronautics"
+            ]
+          },
+          "gt_text": "According to the above situation, we know that the winner is Tsinghua University Team",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Background (restated succinctly)",
+            "options": [
+              "Professor Zhao: \"The champion is not Tsinghua\" AND \"The champion is not Zhejiang.\"",
+              "Professor Qian: \"The champion is not Tsinghua\" AND \"The champion is the University of Science and Technology of China (USTC).\"",
+              "Professor Sun:  \"The champion is not USTC\" AND \"The champion is Tsinghua.\""
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Background (restated succinctly) Professor Zhao: \"The champion is not Tsinghua\" AND \"The champion is not Zhejiang.\"",
+          "scores": {
+            "bleu4": 0.011191021613657745,
+            "rougeL": 0.19999999999999998,
+            "cosine_sim": 0.44651639461517334,
+            "bleurt": 0.34063971042633057
+          }
+        }
+      ]
+    },
+    {
+      "id": 399,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 400,
+      "n_gt": 1,
+      "n_pred": 9,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following options is not a logical inference from the above sentence?",
+            "correct": 1,
+            "options": [
+              "Only those who do what they want can do it to others.",
+              "If you want, then give it to others.",
+              "Don't treat others unless you want to.",
+              "Whatever is applied to people should be what they want."
+            ]
+          },
+          "gt_text": "Which of the following options is not a logical inference from the above sentence? If you want, then give it to others.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which of the following is a direct inference from the statement \"Do not do what you don't want to do to others\"?",
+            "options": [
+              "You should not perform on others any action you would not want performed on yourself.",
+              "You must actively do for others everything you would like them to do for you.",
+              "People always act in ways that maximize their own pleasure.",
+              "Moral obligations are identical to legal obligations."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following is a direct inference from the statement \"Do not do what you don't want to do to others\"? You should not perform on others any action you would not want performed on yourself.",
+          "scores": {
+            "bleu4": 0.10175568578459,
+            "rougeL": 0.43333333333333335,
+            "cosine_sim": 0.5651760697364807,
+            "bleurt": 0.40874260663986206
+          }
+        }
+      ]
+    }
+  ]
+}

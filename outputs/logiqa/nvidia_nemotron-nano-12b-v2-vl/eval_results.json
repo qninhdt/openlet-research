@@ -1,0 +1,947 @@
+{
+  "source_metrics": {
+    "logiqa": {
+      "n_samples": 10,
+      "total_gt_questions": 10,
+      "total_pred_questions": 72,
+      "avg_bleu": 0.16748121515035447,
+      "avg_rouge": 0.4000178622627219,
+      "avg_cosine": 0.5925767332315445,
+      "avg_bleurt": 0.4136700689792633,
+      "mauve": 0.8317421176873253,
+      "fbd": 75.26493555382135
+    }
+  },
+  "detailed_results": [
+    {
+      "id": 301,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 302,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 303,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 304,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 305,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 306,
+      "n_gt": 1,
+      "n_pred": 10,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following is true will most weaken the above argument",
+            "correct": 3,
+            "options": [
+              "This newly built house in Hexi Village has been tacitly approved by relevant departments",
+              "This newly built house in Hexi Village is a small property house",
+              "This newly built house in Hexi Village is built on rural collective land",
+              "Some of the newly built houses in Hexi Village are not small property houses"
+            ]
+          },
+          "gt_text": "Which of the following is true will most weaken the above argument Some of the newly built houses in Hexi Village are not small property houses",
+          "matched_pred_idx": 4,
+          "matched_pred_question": {
+            "content": "Which of the following, if true, would most weaken the conclusion that the house in Hexi Village is not protected by law?",
+            "options": [
+              "The house in Hexi Village is a small-property house.",
+              "The house in Hexi Village is registered.",
+              "The house in Hexi Village is protected by law.",
+              "The house in Hexi Village is not a small-property house."
+            ],
+            "correct": 3,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following, if true, would most weaken the conclusion that the house in Hexi Village is not protected by law? The house in Hexi Village is not a small-property house.",
+          "scores": {
+            "bleu4": 0.19524928605409594,
+            "rougeL": 0.6382978723404256,
+            "cosine_sim": 0.8240323662757874,
+            "bleurt": 0.5041031241416931
+          }
+        }
+      ]
+    },
+    {
+      "id": 307,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 308,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 309,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 310,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 311,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 312,
+      "n_gt": 1,
+      "n_pred": 7,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, most doubts the opinions of the above experts?",
+            "correct": 1,
+            "options": [
+              "Academics are inherently controversial, and everyone has the right to express their opinions;",
+              "Some experts analyzed the fossil's long axis, crown shape, crown lip and tongue surface protrusion and enamel, etc., that this fossil is not a human incisor fossil, but a deer tooth fossil;",
+              "This tooth fossil was excavated in the red sand layer 20 cm below the calcium plate 110,000 years ago;",
+              "Some experts used the uranium method to date the calcium plates of each layer of Zhangkou Cave, and proved that the earliest deposits of the fossil tooth were formed 300,000 years ago;"
+            ]
+          },
+          "gt_text": "Which of the following, if true, most doubts the opinions of the above experts? Some experts analyzed the fossil's long axis, crown shape, crown lip and tongue surface protrusion and enamel, etc., that this fossil is not a human incisor fossil, but a deer tooth fossil;",
+          "matched_pred_idx": 3,
+          "matched_pred_question": {
+            "content": "Which of the following arguments is most similar in logical structure to the one in the text?",
+            "options": [
+              "new artifact discovered in a region challenges the established timeline of human settlement in that region.",
+              "scientific study shows that a diet high in vegetables reduces heart disease, so the conclusion is that vegetables prevent heart disease.",
+              "recent survey indicates that 70% of people prefer coffee, so the conclusion is that coffee is the most popular beverage.",
+              "new law was passed to address a problem, so the conclusion is that the law will solve the problem."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following arguments is most similar in logical structure to the one in the text? new artifact discovered in a region challenges the established timeline of human settlement in that region.",
+          "scores": {
+            "bleu4": 0.12861792279171472,
+            "rougeL": 0.3037974683544304,
+            "cosine_sim": 0.48637980222702026,
+            "bleurt": 0.2992357015609741
+          }
+        }
+      ]
+    },
+    {
+      "id": 313,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 314,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 315,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 316,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 317,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 318,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 319,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 320,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 321,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 322,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 323,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 324,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 325,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 326,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 327,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 328,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 329,
+      "n_gt": 1,
+      "n_pred": 5,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, would best refute the above experimental conclusion?",
+            "correct": 0,
+            "options": [
+              "The capsaicin contained in chili can hinder the secretion of a neurotransmitter to a certain extent",
+              "In this experiment, 5% of the experimenters' discomfort symptoms worsened",
+              "In another group of subjects who took the pill after meals, 55% of the subjects' symptoms were alleviated",
+              "After paying attention to a healthy diet, patients with dyspepsia will generally ease the symptoms of discomfort within one month"
+            ]
+          },
+          "gt_text": "Which of the following, if true, would best refute the above experimental conclusion? The capsaicin contained in chili can hinder the secretion of a neurotransmitter to a certain extent",
+          "matched_pred_idx": 1,
+          "matched_pred_question": {
+            "content": "Which of the following, if true, most seriously weakens the conclusion that chili relieves indigestion?",
+            "options": [
+              "The participants were also advised to eat a healthy diet during the study.",
+              "The study was conducted in a laboratory with strict monitoring.",
+              "The participants were not aware of the study's purpose.",
+              "The tablets were taken with a meal."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following, if true, most seriously weakens the conclusion that chili relieves indigestion? The participants were also advised to eat a healthy diet during the study.",
+          "scores": {
+            "bleu4": 0.25827066150940764,
+            "rougeL": 0.42105263157894735,
+            "cosine_sim": 0.6536744832992554,
+            "bleurt": 0.33646100759506226
+          }
+        }
+      ]
+    },
+    {
+      "id": 330,
+      "n_gt": 1,
+      "n_pred": 10,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following, if true, can best refute the above argument?",
+            "correct": 1,
+            "options": [
+              "The cave inspired the description of hell in Greek mythology",
+              "The cave is actually an ancient cemetery and funeral venue",
+              "There is no prehistoric village in Europe that has been found earlier than the cave",
+              "The entrance to the cave collapsed 5000 years ago"
+            ]
+          },
+          "gt_text": "Which of the following, if true, can best refute the above argument? The cave is actually an ancient cemetery and funeral venue",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "Which of the following, if true, would most weaken the conclusion that hundreds of people lived in the cave?",
+            "options": [
+              "The artifacts found in the cave were imported from a distant region.",
+              "The cave's size is only large enough to house 50 people.",
+              "The Neolithic Age lasted for 10,000 years, and the artifacts could be from any time within that period.",
+              "The cave was discovered in the 1950s, long after the Neolithic Age."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following, if true, would most weaken the conclusion that hundreds of people lived in the cave? The artifacts found in the cave were imported from a distant region.",
+          "scores": {
+            "bleu4": 0.22533753160530579,
+            "rougeL": 0.339622641509434,
+            "cosine_sim": 0.6158736348152161,
+            "bleurt": 0.4162597060203552
+          }
+        }
+      ]
+    },
+    {
+      "id": 331,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 332,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 333,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 334,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 335,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 336,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 337,
+      "n_gt": 1,
+      "n_pred": 5,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "",
+            "correct": 3,
+            "options": [
+              "Even if the Ukrainian authorities recognize the special status of the two \"Republic\" territories and Russian language, and pardon all militia armed participants and political prisoners, the conflict may still not be resolved.",
+              "Even if the conflict is resolved, it is not necessarily because the Ukrainian authorities recognize the \"Republic\" territory and the special status of Russian.",
+              "If the conflict is to be resolved, the Ukrainian authorities must recognize the special status of the two \"Republic\" territories and the Russian language, and pardon all militia armed participants and political prisoners.",
+              "As long as the Ukrainian authorities recognize the special status of the two \"Republic\" territories and the Russian language, and pardon all militia armed participants and political prisoners, the conflict can be resolved."
+            ]
+          },
+          "gt_text": " As long as the Ukrainian authorities recognize the special status of the two \"Republic\" territories and the Russian language, and pardon all militia armed participants and political prisoners, the conflict can be resolved.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "The Ukrainian observers' comment is best used to refute which of the following arguments?",
+            "options": [
+              "Recognizing the special status of the republics and pardoning the militia is sufficient to resolve the conflict.",
+              "The republics' conditions are necessary for any resolution of the conflict.",
+              "The conflict can only be resolved through direct military engagement.",
+              "The republics' conditions are the most effective way to resolve the conflict."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "The Ukrainian observers' comment is best used to refute which of the following arguments? Recognizing the special status of the republics and pardoning the militia is sufficient to resolve the conflict.",
+          "scores": {
+            "bleu4": 0.12730394511776263,
+            "rougeL": 0.4375,
+            "cosine_sim": 0.6241856217384338,
+            "bleurt": 0.42071980237960815
+          }
+        }
+      ]
+    },
+    {
+      "id": 338,
+      "n_gt": 1,
+      "n_pred": 10,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following can most question the above view?",
+            "correct": 3,
+            "options": [
+              "As online shopping sales increase, related taxes and fees will also increase.",
+              "Even in the era when there is no Internet, people can still buy their favorite products through physical stores.",
+              "The display of goods on the Internet cannot fully reflect the real situation.",
+              "People's satisfaction with the pursuit of material life depends only on the level of economic development in the region."
+            ]
+          },
+          "gt_text": "Which of the following can most question the above view? People's satisfaction with the pursuit of material life depends only on the level of economic development in the region.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which of the following can be inferred from the passage?",
+            "options": [
+              "Online shopping is only available in developed countries.",
+              "The Internet's development has made online shopping possible in all regions.",
+              "People in low-income areas can access online shopping to meet their material needs.",
+              "The Internet's development has no impact on material life."
+            ],
+            "correct": 2,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following can be inferred from the passage? People in low-income areas can access online shopping to meet their material needs.",
+          "scores": {
+            "bleu4": 0.10078361025326499,
+            "rougeL": 0.33962264150943394,
+            "cosine_sim": 0.5094111561775208,
+            "bleurt": 0.45806074142456055
+          }
+        }
+      ]
+    },
+    {
+      "id": 339,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 340,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 341,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 342,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 343,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 344,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 345,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 346,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 347,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 348,
+      "n_gt": 1,
+      "n_pred": 5,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following raises the most serious question to the above conclusion?",
+            "correct": 0,
+            "options": [
+              "The vast majority of health care costs are spent on high-tech intensive care for high-risk patients.",
+              "Without increasing costs, our health conditions may also improve.",
+              "70% of the state's allocation to the health sector is for infrastructure construction.",
+              "The cost of care for elderly chronic diseases is very large."
+            ]
+          },
+          "gt_text": "Which of the following raises the most serious question to the above conclusion? The vast majority of health care costs are spent on high-tech intensive care for high-risk patients.",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "Which of the following can be inferred from the statements?",
+            "options": [
+              "The improvement in medical conditions is a result of the increased healthcare costs.",
+              "The healthcare costs have increased because of the improved medical conditions.",
+              "The healthcare costs and medical conditions are unrelated.",
+              "The healthcare costs have increased, but the medical conditions have not improved."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following can be inferred from the statements? The improvement in medical conditions is a result of the increased healthcare costs.",
+          "scores": {
+            "bleu4": 0.10263950539631678,
+            "rougeL": 0.2962962962962963,
+            "cosine_sim": 0.5769833922386169,
+            "bleurt": 0.5015573501586914
+          }
+        }
+      ]
+    },
+    {
+      "id": 349,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 350,
+      "n_gt": 1,
+      "n_pred": 10,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following must be correct?",
+            "correct": 2,
+            "options": [
+              "Zhang and Wang were hired by the same unit.",
+              "Wang and Liu were hired by different units",
+              "Tianshu hired at most two people.",
+              "Tianshu and Tianxuan employ the same number of people."
+            ]
+          },
+          "gt_text": "Which of the following must be correct? Tianshu hired at most two people.",
+          "matched_pred_idx": 7,
+          "matched_pred_question": {
+            "content": "Which of the following is a necessary condition for the assignments to be valid?",
+            "options": [
+              "Zhao is in Tianji.",
+              "Liu is in Tianxuan.",
+              "Wang is in Tianxuan.",
+              "Li is in Tianshu."
+            ],
+            "correct": 3,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following is a necessary condition for the assignments to be valid? Li is in Tianshu.",
+          "scores": {
+            "bleu4": 0.36112252918350196,
+            "rougeL": 0.5833333333333334,
+            "cosine_sim": 0.670728325843811,
+            "bleurt": 0.41154539585113525
+          }
+        }
+      ]
+    },
+    {
+      "id": 351,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 352,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 353,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 354,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 355,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 356,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 357,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 358,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 359,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 360,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 361,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 362,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 363,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 364,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 365,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 366,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 367,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 368,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 369,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 370,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 371,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 372,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 373,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 374,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 375,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 376,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 377,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 378,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 379,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 380,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 381,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 382,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 383,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 384,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 385,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 386,
+      "n_gt": 1,
+      "n_pred": 5,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following questions is most relevant for refuting the above reasoning?",
+            "correct": 0,
+            "options": [
+              "If two things happen at the same time or one after another, can we be sure that there is a causal relationship between them?",
+              "Why did Taiwan, Singapore, South Korea, and the United States also experience economic recession during this period?",
+              "Why the economy of mainland China is booming.",
+              "Why was the economic situation of the United Kingdom, which used to regulate Hong Kong, bad during this period?"
+            ]
+          },
+          "gt_text": "Which of the following questions is most relevant for refuting the above reasoning? If two things happen at the same time or one after another, can we be sure that there is a causal relationship between them?",
+          "matched_pred_idx": 2,
+          "matched_pred_question": {
+            "content": "Which of the following, if true, most seriously weakens the claim that \"one country, two systems\" caused Hong Kong's economic recession?",
+            "options": [
+              "The recession was due to global economic factors.",
+              "The policy was implemented in 1997.",
+              "The recession started in 1997.",
+              "The policy was popular among Hong Kong residents."
+            ],
+            "correct": 0,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following, if true, most seriously weakens the claim that \"one country, two systems\" caused Hong Kong's economic recession? The recession was due to global economic factors.",
+          "scores": {
+            "bleu4": 0.03695304233537279,
+            "rougeL": 0.28,
+            "cosine_sim": 0.46487146615982056,
+            "bleurt": 0.33051902055740356
+          }
+        }
+      ]
+    },
+    {
+      "id": 387,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 388,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 389,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 390,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 391,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 392,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 393,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 394,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 395,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 396,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 397,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 398,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 399,
+      "n_gt": 1,
+      "n_pred": 0,
+      "error": "Missing questions"
+    },
+    {
+      "id": 400,
+      "n_gt": 1,
+      "n_pred": 5,
+      "question_scores": [
+        {
+          "gt_question": {
+            "content": "Which of the following options is not a logical inference from the above sentence?",
+            "correct": 1,
+            "options": [
+              "Only those who do what they want can do it to others.",
+              "If you want, then give it to others.",
+              "Don't treat others unless you want to.",
+              "Whatever is applied to people should be what they want."
+            ]
+          },
+          "gt_text": "Which of the following options is not a logical inference from the above sentence? If you want, then give it to others.",
+          "matched_pred_idx": 0,
+          "matched_pred_question": {
+            "content": "Which of the following must be true based on the statement \"Do not do what you don't want to do to others\"?",
+            "options": [
+              "If you do something to others, you must want it done to you.",
+              "If you don't want something done to you, you should not do it to others.",
+              "If you want something done to you, you must do it to others.",
+              "If you do something to others, you don't want it done to you."
+            ],
+            "correct": 1,
+            "type": "General"
+          },
+          "matched_pred_text": "Which of the following must be true based on the statement \"Do not do what you don't want to do to others\"? If you don't want something done to you, you should not do it to others.",
+          "scores": {
+            "bleu4": 0.13853411725680145,
+            "rougeL": 0.36065573770491804,
+            "cosine_sim": 0.49962708353996277,
+            "bleurt": 0.4582388401031494
+          }
+        }
+      ]
+    }
+  ]
+}

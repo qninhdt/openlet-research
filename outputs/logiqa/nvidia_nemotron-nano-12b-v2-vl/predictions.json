@@ -1,0 +1,1304 @@
+[
+  {
+    "id": 301,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 302,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 303,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 304,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 305,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 306,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be inferred from the text?",
+        "options": [
+          "The house in Hexi Village is a small-property house.",
+          "The house in Hexi Village is not protected by law.",
+          "All unregistered houses are not protected by law.",
+          "The house in Hexi Village is registered."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument?",
+        "options": [
+          "The house in Hexi Village is a small-property house.",
+          "The house in Hexi Village is registered.",
+          "The house in Hexi Village is protected by law.",
+          "The house in Hexi Village is not a small-property house."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If the house in Hexi Village is registered, which of the following must be true?",
+        "options": [
+          "The house is protected by law.",
+          "The house is not a small-property house.",
+          "The house is a small-property house.",
+          "The house is not protected by law."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following arguments follows the same logical structure as the passage?",
+        "options": [
+          "All dogs are mammals. Fido is a dog. Therefore, Fido is a mammal.",
+          "All cats are animals. Whiskers is a cat. Therefore, Whiskers is a dog.",
+          "All birds can fly. Penguins are birds. Therefore, penguins can fly.",
+          "All students pass exams. John is a student. Therefore, John fails exams."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most weaken the conclusion that the house in Hexi Village is not protected by law?",
+        "options": [
+          "The house in Hexi Village is a small-property house.",
+          "The house in Hexi Village is registered.",
+          "The house in Hexi Village is protected by law.",
+          "The house in Hexi Village is not a small-property house."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a necessary assumption for the argument?",
+        "options": [
+          "The house in Hexi Village is a small-property house.",
+          "The house in Hexi Village is registered.",
+          "The house in Hexi Village is protected by law.",
+          "The house in Hexi Village is not a small-property house."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a valid conclusion based on the text?",
+        "options": [
+          "All small-property houses are protected by law.",
+          "The house in Hexi Village is a small-property house.",
+          "The house in Hexi Village is not protected by law.",
+          "The house in Hexi Village is registered."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a logical fallacy in the argument?",
+        "options": [
+          "Assuming that all unregistered houses are not protected.",
+          "Assuming that the house in Hexi Village is a small-property house.",
+          "Assuming that registration and protection are independent.",
+          "Assuming that the house in Hexi Village is not a small-property house."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If the house in Hexi Village is not a small-property house, which of the following must be true?",
+        "options": [
+          "The house is protected by law.",
+          "The house is not protected by law.",
+          "The house is registered.",
+          "The house is not registered."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a correct restatement of the rule in the text?",
+        "options": [
+          "If a house is a small-property house, then it is not protected by law.",
+          "If a house is not protected by law, then it is a small-property house.",
+          "If a house is registered, then it is a small-property house.",
+          "If a house is not registered, then it is not protected by law."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 307,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 308,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 309,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 310,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 311,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 312,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be directly inferred from the text?",
+        "options": [
+          "The Zhangkoudong site is located in the Kunming area.",
+          "The Kunming area's ancient human ruins were previously believed to be 30,000 years old.",
+          "The Zhangkoudong fossil is the oldest human artifact ever discovered.",
+          "The discovery of the Zhangkoudong fossil proves that humans lived in the Kunming area 110,000 years ago."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that the Zhangkoudong fossil \"rewrites the Kunming area's history\"?",
+        "options": [
+          "The Zhangkoudong site is part of the Kunming area.",
+          "The Kunming area's history is defined by the Longtan Mountain ruins.",
+          "The Zhangkoudong fossil is the only evidence of human activity in the region.",
+          "The Kunming area's previous timeline was based on incomplete data."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most weaken the conclusion that the Zhangkoudong fossil rewrites the Kunming area's history?",
+        "options": [
+          "The Zhangkoudong fossil was found in a different geological layer than the Longtan Mountain ruins.",
+          "The Kunming area's previous timeline was based on a single, unverified artifact.",
+          "The Zhangkoudong site is located 50 kilometers outside the Kunming area.",
+          "The fossil's age was determined using a method later proven unreliable."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following arguments is most similar in logical structure to the one in the text?",
+        "options": [
+          "new artifact discovered in a region challenges the established timeline of human settlement in that region.",
+          "scientific study shows that a diet high in vegetables reduces heart disease, so the conclusion is that vegetables prevent heart disease.",
+          "recent survey indicates that 70% of people prefer coffee, so the conclusion is that coffee is the most popular beverage.",
+          "new law was passed to address a problem, so the conclusion is that the law will solve the problem."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If the Zhangkoudong fossil is confirmed to be 110,000 years old, which of the following must be true?",
+        "options": [
+          "The Kunming area's human history extends beyond 30,000 years.",
+          "The Longtan Mountain ruins are no longer considered significant.",
+          "The Zhangkoudong site is the only location with evidence of human activity 110,000 years ago.",
+          "The Kunming area's previous timeline was based on a misinterpretation of the Longtan Mountain ruins."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following best explains the apparent discrepancy between the Zhangkoudong fossil's age and the Kunming area's previously accepted timeline?",
+        "options": [
+          "The Zhangkoudong fossil is not a human artifact but a tool used by animals.",
+          "The Kunming area's timeline was based on a different dating method.",
+          "The Zhangkoudong site is part of the Kunming area, and the fossil's age extends the region's human history.",
+          "The Longtan Mountain ruins were misdated due to contamination."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a necessary assumption for the conclusion that the Zhangkoudong fossil rewrites the Kunming area's history?",
+        "options": [
+          "The Zhangkoudong site is within the geographical boundaries of the Kunming area.",
+          "The Kunming area's previous timeline was based on a single, unreliable source.",
+          "The Zhangkoudong fossil is the only evidence of human activity in the region.",
+          "The Kunming area's history is defined by the Longtan Mountain ruins."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 313,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 314,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 315,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 316,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 317,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 318,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 319,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 320,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 321,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 322,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 323,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 324,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 325,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 326,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 327,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 328,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 329,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "What is the missing premise in the argument that chili relieves indigestion based on the study?",
+        "options": [
+          "The participants were not given any other treatment during the study.",
+          "The study was conducted in a controlled environment.",
+          "The participants were all from the same region.",
+          "The tablets were taken with water."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the conclusion that chili relieves indigestion?",
+        "options": [
+          "The participants were also advised to eat a healthy diet during the study.",
+          "The study was conducted in a laboratory with strict monitoring.",
+          "The participants were not aware of the study's purpose.",
+          "The tablets were taken with a meal."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be inferred from the text?",
+        "options": [
+          "The study proved that chili is the only effective treatment for indigestion.",
+          "The participants experienced a 60% reduction in symptoms after taking chili tablets.",
+          "The Italian experts were biased in their conclusions.",
+          "The tablets were taken after meals."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If the study had a control group that also took a placebo and 60% of them showed symptom relief, which of the following would most directly challenge the conclusion?",
+        "options": [
+          "The control group was given a different type of tablet.",
+          "The control group was not monitored as closely.",
+          "The control group was given a placebo.",
+          "The control group was not given any treatment."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a necessary assumption for the argument that chili relieves indigestion?",
+        "options": [
+          "The participants were not aware of the study's purpose.",
+          "The tablets were taken with water.",
+          "The participants did not have other treatments for indigestion.",
+          "The study was conducted over a 5-week period."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 330,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be inferred from the text?",
+        "options": [
+          "The artifacts found in Aptripa Cave were used for trade with neighboring regions.",
+          "The cave's size is directly proportional to the number of people who lived there.",
+          "The Neolithic Age artifacts found in the cave are from the same time period as the cave's construction.",
+          "The discovery of the cave in the 1950s was accidental."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that \"hundreds of people had lived in the cave\"?",
+        "options": [
+          "The artifacts found in the cave are indicative of human habitation.",
+          "The cave's size is sufficient to accommodate hundreds of people.",
+          "The tools and pottery found are unique to the Neolithic Age.",
+          "The cave was discovered by a man walking a dog."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most weaken the conclusion that hundreds of people lived in the cave?",
+        "options": [
+          "The artifacts found in the cave were imported from a distant region.",
+          "The cave's size is only large enough to house 50 people.",
+          "The Neolithic Age lasted for 10,000 years, and the artifacts could be from any time within that period.",
+          "The cave was discovered in the 1950s, long after the Neolithic Age."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If the artifacts found in the cave were not used by the inhabitants but were instead brought in by traders, which of the following would be a valid conclusion?",
+        "options": [
+          "The cave was a trade hub rather than a residential site.",
+          "The conclusion that hundreds lived there is invalid.",
+          "The artifacts are irrelevant to the cave's historical significance.",
+          "The discovery of the cave was accidental."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a necessary assumption for the argument that \"hundreds of people had lived in the cave\"?",
+        "options": [
+          "The artifacts found are from the same time period as the cave's construction.",
+          "The cave's size is sufficient to support a population of hundreds.",
+          "The tools and pottery found are unique to the Neolithic Age.",
+          "The cave was discovered in the 1950s."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following best explains the apparent discrepancy between the cave's size and the number of people who lived there?",
+        "options": [
+          "The cave's size is not directly related to the number of inhabitants.",
+          "The artifacts found are not indicative of human habitation.",
+          "The Neolithic Age artifacts are from a different time period.",
+          "The cave was discovered in the 1950s."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If the artifacts found in the cave were not used by the inhabitants but were instead brought in by traders, which of the following would be a valid conclusion?",
+        "options": [
+          "The cave was a trade hub rather than a residential site.",
+          "The conclusion that hundreds lived there is invalid.",
+          "The artifacts are irrelevant to the cave's historical significance.",
+          "The discovery of the cave was accidental."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a possible scenario that could challenge the conclusion that hundreds of people lived in the cave?",
+        "options": [
+          "The artifacts found are from a different time period than the Neolithic Age.",
+          "The cave's size is insufficient to house hundreds of people.",
+          "The tools and pottery found are not indicative of human habitation.",
+          "The cave was discovered in the 1950s."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the primary logical structure of the argument in the text?",
+        "options": [
+          "causal relationship between the discovery of artifacts and the conclusion about habitation.",
+          "correlation between the cave's size and the number of inhabitants.",
+          "direct inference from the artifacts to the conclusion about habitation.",
+          "comparison between the cave's size and the size of a football field."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a valid \"If-Then\" conditional statement based on the text?",
+        "options": [
+          "If the artifacts are from the Neolithic Age, then the cave was inhabited during that time.",
+          "If the cave was discovered in the 1950s, then it was not inhabited during the Neolithic Age.",
+          "If the cave's size is four football fields, then it can house hundreds of people.",
+          "If the artifacts were brought in by traders, then the conclusion about habitation is invalid."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 331,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 332,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 333,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 334,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 335,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 336,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 337,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "The Ukrainian observers' comment is best used to refute which of the following arguments?",
+        "options": [
+          "Recognizing the special status of the republics and pardoning the militia is sufficient to resolve the conflict.",
+          "The republics' conditions are necessary for any resolution of the conflict.",
+          "The conflict can only be resolved through direct military engagement.",
+          "The republics' conditions are the most effective way to resolve the conflict."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most strengthen the Ukrainian observers' skepticism about the republics' conditions?",
+        "options": [
+          "Historical examples show that territorial recognition often leads to prolonged conflicts.",
+          "Pardoning militia participants has been successfully implemented in other post-conflict regions.",
+          "The republics' conditions are identical to those accepted in previous peace agreements.",
+          "Military operations in the southeast have already ceased."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a necessary assumption for the republics' argument that their conditions are essential for resolving the conflict?",
+        "options": [
+          "The conflict cannot be resolved without addressing the status of the republics.",
+          "Pardoning militia participants is a common practice in post-war negotiations.",
+          "Ukrainian authorities have the authority to grant special status to the republics.",
+          "Military operations in the southeast are the primary cause of the conflict."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most weaken the republics' claim that their conditions are necessary for resolving the conflict?",
+        "options": [
+          "Alternative peace frameworks have successfully resolved similar conflicts without territorial recognition.",
+          "The republics' conditions are widely supported by international mediators.",
+          "Pardoning militia participants has been a standard practice in previous negotiations.",
+          "The conflict has persisted despite partial implementation of the republics' conditions."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "The Ukrainian observers' comment implies which of the following about the republics' conditions?",
+        "options": [
+          "They are overly simplistic and ignore deeper systemic issues.",
+          "They are the only viable path to peace.",
+          "They are based on historical precedents.",
+          "They are supported by the majority of Ukrainian citizens."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 338,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be inferred from the passage?",
+        "options": [
+          "Online shopping is only available in developed countries.",
+          "The Internet's development has made online shopping possible in all regions.",
+          "People in low-income areas can access online shopping to meet their material needs.",
+          "The Internet's development has no impact on material life."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "The passage suggests that the development of the Internet has:",
+        "options": [
+          "Eliminated the need for physical stores.",
+          "Made online shopping accessible even in economically disadvantaged areas.",
+          "Increased the cost of living in low-income regions.",
+          "Reduced the variety of products available online."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "The passage's mention of \"low economic development levels\" serves to:",
+        "options": [
+          "Emphasize the universality of online shopping.",
+          "Suggest that online shopping is only for the wealthy.",
+          "Highlight the limitations of the Internet's reach.",
+          "Argue that online shopping is not suitable for all regions."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "According to the passage, the Internet's development has:",
+        "options": [
+          "No impact on material life.",
+          "Enabled people to satisfy material needs without leaving home.",
+          "Caused a decline in traditional shopping.",
+          "Increased the cost of online shopping."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most strengthen the passage's claim?",
+        "options": [
+          "Online shopping platforms are unavailable in rural areas.",
+          "A significant portion of low-income populations lack internet access.",
+          "Online shopping reduces the need for physical retail infrastructure.",
+          "Traditional shopping methods are more efficient in low-income regions."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "The passage assumes that:",
+        "options": [
+          "All individuals in low-income regions have access to the Internet.",
+          "Online shopping is the only way to satisfy material needs.",
+          "The Internet's development directly correlates with economic growth.",
+          "People in low-income regions prioritize material needs over other concerns."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a necessary assumption for the passage's argument?",
+        "options": [
+          "The Internet is the sole means of accessing material goods.",
+          "Online shopping is accessible in regions with low economic development.",
+          "Material needs are the primary concern for all individuals.",
+          "The Internet's development has no negative consequences."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "The passage implies that:",
+        "options": [
+          "Online shopping is less convenient than traditional methods.",
+          "The Internet's development has made material needs more attainable.",
+          "Low-income regions have no access to the Internet.",
+          "Traditional shopping methods are obsolete."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most weaken the passage's claim?",
+        "options": [
+          "Online shopping platforms are unavailable in rural areas.",
+          "A significant portion of low-income populations lack internet access.",
+          "Online shopping reduces the need for physical retail infrastructure.",
+          "Traditional shopping methods are more efficient in low-income regions."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "The passage's primary purpose is to:",
+        "options": [
+          "Argue that online shopping is superior to traditional methods.",
+          "Highlight the accessibility of online shopping in economically disadvantaged areas.",
+          "Criticize the limitations of the Internet's reach.",
+          "Promote the use of online shopping in all regions."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 339,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 340,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 341,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 342,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 343,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 344,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 345,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 346,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 347,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 348,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "What is the missing premise that allows the conclusion that the increased healthcare costs are justified by the improved medical conditions?",
+        "options": [
+          "The improvement in medical conditions is a direct result of the increased healthcare costs.",
+          "The increased healthcare costs are necessary to maintain the current level of medical conditions.",
+          "The improved medical conditions are unrelated to the healthcare costs.",
+          "The healthcare costs have increased due to inflation."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument that the improved medical conditions justify the increased healthcare costs?",
+        "options": [
+          "The improved medical conditions are due to advancements in medical technology, not increased costs.",
+          "The healthcare costs have increased due to administrative inefficiencies.",
+          "The improved medical conditions are only available to a small percentage of the population.",
+          "The healthcare costs have increased because of a growing elderly population."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be inferred from the statements?",
+        "options": [
+          "The improvement in medical conditions is a result of the increased healthcare costs.",
+          "The healthcare costs have increased because of the improved medical conditions.",
+          "The healthcare costs and medical conditions are unrelated.",
+          "The healthcare costs have increased, but the medical conditions have not improved."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most strengthen the argument that the increased healthcare costs are justified by the improved medical conditions?",
+        "options": [
+          "The improved medical conditions are directly linked to the increased healthcare costs.",
+          "The healthcare costs have increased due to a decrease in the number of healthcare providers.",
+          "The improved medical conditions are only available to a limited group of people.",
+          "The healthcare costs have increased because of a rise in the number of medical facilities."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following best explains the apparent discrepancy between the increased healthcare costs and the improved medical conditions?",
+        "options": [
+          "The improved medical conditions are a result of the increased healthcare costs.",
+          "The healthcare costs have increased due to external factors unrelated to medical conditions.",
+          "The improved medical conditions are not a result of the increased healthcare costs.",
+          "The healthcare costs have increased, but the medical conditions have not improved."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 349,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 350,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following must be true?",
+        "options": [
+          "Zhao is in Tianji.",
+          "Liu is in Tianxuan.",
+          "Wang is in Tianxuan.",
+          "Li is in Tianshu."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "If Zhang is hired by Tianxuan, which of the following must be true?",
+        "options": [
+          "Wang is in Tianxuan.",
+          "Zhao is in Tianji.",
+          "Liu is in Tianxuan.",
+          "Li is in Tianshu."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following cannot be true?",
+        "options": [
+          "Zhao is in Tianji.",
+          "Zhao is in Tianxuan.",
+          "Li is in Tianshu.",
+          "Zhao is in Tianshu."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "If Zhao is hired by Tianji, which of the following must be true?",
+        "options": [
+          "Liu is in Tianji.",
+          "Wang is in Tianxuan.",
+          "Zhang is in Tianji.",
+          "Li is in Tianshu."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a possible arrangement of the students to employers?",
+        "options": [
+          "Li: Tianshu, Zhao: Tianji, Liu: Tianji, Zhang: Tianji, Wang: Tianxuan",
+          "Li: Tianshu, Zhao: Tianji, Liu: Tianji, Zhang: Tianxuan, Wang: Tianxuan",
+          "Li: Tianshu, Zhao: Tianxuan, Liu: Tianxuan, Zhang: Tianji, Wang: Tianji",
+          "Li: Tianshu, Zhao: Tianxuan, Liu: Tianxuan, Zhang: Tianxuan, Wang: Tianxuan"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following must be true if Liu is hired by Tianji?",
+        "options": [
+          "Zhao is in Tianji.",
+          "Zhao is in Tianxuan.",
+          "Zhang is in Tianji.",
+          "Wang is in Tianxuan."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following must be true if Wang is hired by Tianxuan?",
+        "options": [
+          "Zhang is in Tianxuan.",
+          "Zhang is in Tianji.",
+          "Zhao is in Tianji.",
+          "Zhao is in Tianxuan."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a necessary condition for the assignments to be valid?",
+        "options": [
+          "Zhao is in Tianji.",
+          "Liu is in Tianxuan.",
+          "Wang is in Tianxuan.",
+          "Li is in Tianshu."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following must be true if Zhao is hired by Tianxuan?",
+        "options": [
+          "Liu is in Tianxuan.",
+          "Wang is in Tianji.",
+          "Zhang is in Tianji.",
+          "Li is in Tianshu."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a possible arrangement of the students to employers?",
+        "options": [
+          "Li: Tianshu, Zhao: Tianji, Liu: Tianji, Zhang: Tianji, Wang: Tianxuan",
+          "Li: Tianshu, Zhao: Tianji, Liu: Tianji, Zhang: Tianxuan, Wang: Tianxuan",
+          "Li: Tianshu, Zhao: Tianxuan, Liu: Tianxuan, Zhang: Tianji, Wang: Tianji",
+          "Li: Tianshu, Zhao: Tianxuan, Liu: Tianxuan, Zhang: Tianxuan, Wang: Tianxuan"
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 351,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 352,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 353,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 354,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 355,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 356,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 357,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 358,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 359,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 360,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 361,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 362,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 363,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 364,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 365,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 366,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 367,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 368,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 369,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 370,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 371,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 372,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 373,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 374,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 375,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 376,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 377,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 378,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 379,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 380,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 381,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 382,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 383,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 384,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 385,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 386,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is stated in the passage?",
+        "options": [
+          "Hong Kong's economic recession began in 1997.",
+          "\"One country, two systems\" was implemented in 1997.",
+          "The policy caused the recession.",
+          "Both A and B."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "The argument that \"one country, two systems\" caused Hong Kong's economic recession relies on which assumption?",
+        "options": [
+          "The policy was implemented in 1997.",
+          "The recession started in 1997.",
+          "There is no other factor that could explain the recession.",
+          "The policy was the only factor in 1997."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the claim that \"one country, two systems\" caused Hong Kong's economic recession?",
+        "options": [
+          "The recession was due to global economic factors.",
+          "The policy was implemented in 1997.",
+          "The recession started in 1997.",
+          "The policy was popular among Hong Kong residents."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that \"one country, two systems\" caused Hong Kong's economic recession?",
+        "options": [
+          "The policy was implemented in 1997.",
+          "The recession started in 1997.",
+          "The policy directly led to the recession.",
+          "Hong Kong's economy was stable before 1997."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "If the economic recession in Hong Kong was not caused by \"one country, two systems,\" which of the following must be true?",
+        "options": [
+          "The policy was implemented in 1997.",
+          "The recession started in 1997.",
+          "There is another factor that explains the recession.",
+          "The policy was not implemented in 1997."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 387,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 388,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 389,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 390,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 391,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 392,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 393,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 394,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 395,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 396,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 397,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 398,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 399,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 400,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following must be true based on the statement \"Do not do what you don't want to do to others\"?",
+        "options": [
+          "If you do something to others, you must want it done to you.",
+          "If you don't want something done to you, you should not do it to others.",
+          "If you want something done to you, you must do it to others.",
+          "If you do something to others, you don't want it done to you."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If a person does not want to be criticized, what must they do according to the quote?",
+        "options": [
+          "Criticize others",
+          "Avoid criticizing others",
+          "Criticize others only if they want to be criticized",
+          "Criticize others regardless of their own preferences"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the necessary assumption for the conclusion that \"People should act in a way that they would want others to act towards them\" based on the quote?",
+        "options": [
+          "People's desires are consistent and not self-contradictory.",
+          "People always act in their own self-interest.",
+          "The quote is a universally accepted moral principle.",
+          "People can accurately determine what they want done to them."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following scenarios would violate the principle stated in the quote?",
+        "options": [
+          "A person helps others without expecting anything in return.",
+          "A person refuses to help others because they don't want to be helped.",
+          "A person helps others only if they are asked.",
+          "A person helps others even if they don't want to be helped."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "What is the contrapositive of the statement \"Do not do what you don't want to do to others\"?",
+        "options": [
+          "If you do something to others, you want it done to you.",
+          "If you don't want something done to you, you should not do it to others.",
+          "If you want something done to you, you should do it to others.",
+          "If you do something to others, you don't want it done to you."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  }
+]

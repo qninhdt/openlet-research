@@ -1,0 +1,3144 @@
+[
+  {
+    "id": 301,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 302,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Background (implicit for all questions)",
+        "options": [
+          "“Two people sitting on the right of the 24‑year‑old” implies the 24‑year‑old has two people to his right → the 24‑year‑old sits at the left end.",
+          "“Two people sitting on the left of the accountant” implies the accountant sits at the right end.",
+          "“One of the two people sitting on the right of the salesperson is also a salesperson” implies there is a salesperson at the left end (so there are two people to that salesperson’s right), and since the rightmost is accountant, the middle must be a salesperson.",
+          "The 24‑year‑old sits in the leftmost seat."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 303,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following must be present in every valid preparation described?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which single combination of ingredients is impossible under the given rules?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which one of the following sets of ingredients is a valid preparation (i.e., satisfies all rules)?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If Codonopsis is included in a preparation, which of the following must be true?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If Ginseng is included in a preparation, which of the following cannot be included at the same time?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Suppose we add the new constraint \"Atractylodes macrocephala is included.\" Under the original rules plus this new one, which of the following must then be true?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following statements is a correct logical consequence of the rules (no additional assumptions)?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which one of the following most accurately identifies the missing (unstated) assumption needed to infer \"Every valid preparation contains Atractylodes\" if the text had not stated Shouwu was required?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 304,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 305,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be directly inferred from the passage?",
+        "options": [
+          "Li Ying is from Fujian.",
+          "Zhang Ming is from Fujian.",
+          "Chen Rui is from Fujian.",
+          "Wang Jia is from Fujian."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which person speaks the Huizhou dialect?",
+        "options": [
+          "Zhang Ming",
+          "Li Ying",
+          "Wang Jia",
+          "Chen Rui"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which statement must be true given the information in the passage?",
+        "options": [
+          "Wang Jia is from Fujian.",
+          "Chen Rui understands the southern Fujian dialect.",
+          "Zhang Ming has the highest educational level among the four.",
+          "Li Ying is from Shandong."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which complete assignment of provinces to people is consistent with all statements?",
+        "options": [
+          "Zhang Ming — Fujian; Li Ying — Anhui; Wang Jia — Jiangsu; Chen Rui — Shandong",
+          "Zhang Ming — Shandong; Li Ying — Anhui; Wang Jia — Jiangsu; Chen Rui — Fujian",
+          "Zhang Ming — Fujian; Li Ying — Anhui; Wang Jia — Fujian; Chen Rui — Jiangsu",
+          "Zhang Ming — Anhui; Li Ying — Fujian; Wang Jia — Jiangsu; Chen Rui — Shandong"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If Chen Rui can speak Central Plains Mandarin, which of the following must be true?",
+        "options": [
+          "Chen Rui is from Jiangsu.",
+          "Chen Rui is from Shandong.",
+          "Zhang Ming is from Jiangsu.",
+          "Li Ying is from Fujian."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If Wang Jia is from Jiangsu, which of the following must be true?",
+        "options": [
+          "Li Ying and Wang Jia have the same education level.",
+          "Zhang Ming is from Jiangsu.",
+          "Chen Rui is from Anhui.",
+          "Wang Jia has a higher education level than Zhang Ming."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "The conclusion that Li Ying and the Jiangsu person share the same educational level depends on which unstated assumption?",
+        "options": [
+          "Classmates necessarily have the same level of education.",
+          "People from the same province always have different education levels.",
+          "Knowing a dialect implies knowing all other dialects.",
+          "No team member can speak more than one dialect."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most seriously weaken the deduction that Zhang Ming must be the Fujian native?",
+        "options": [
+          "It is possible for two team members to be from the same province.",
+          "Classmates have the same education level.",
+          "The person from Shandong speaks Central Plains Mandarin.",
+          "Chen Rui does not understand the southern Fujian dialect."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "The passage contains a sentence that reads awkwardly: “Speaking of southern Fujian dialects, Shandong people have the highest educational level and can speak Central Plains Mandarin.” Which interpretation best resolves the apparent ambiguity?",
+        "options": [
+          "The sentence means the person who speaks southern Fujian dialect is the one with the highest education, and separately the person from Shandong speaks Central Plains Mandarin.",
+          "The sentence means the Shandong native speaks the southern Fujian dialect.",
+          "The sentence means southern Fujian dialect speakers are all from Shandong.",
+          "The sentence means central Plains Mandarin and southern Fujian dialect are the same."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following arguments is most parallel in logical form to the reasoning in the passage (structure: X is highest; Y < X, therefore Y ≠ X)?",
+        "options": [
+          "“The student who scored highest on the exam is Alice. Bob scored lower than the top scorer; therefore Bob is not the top scorer.”",
+          "“All dogs bark. Fido is a dog; therefore Fido barks.”",
+          "“If it rains, the ground gets wet. The ground is wet; therefore it rained.”",
+          "“Some cars are red. That car is red; therefore it is a sports car.”"
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 306,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 307,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which team won the championship?",
+        "options": [
+          "Shannan Team",
+          "Jiangbei Team",
+          "Shanbei Team",
+          "Jiangnan Team"
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which one of the four audience comments is the only correct one?",
+        "options": [
+          "(1) The champion is either the Shannan team or the Jiangbei team.",
+          "(2) The champion is neither Shanbei nor Jiangnan.",
+          "(3) The champion is Jiangnan Team.",
+          "(4) The champion is not the Shannan team."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "If the champion were Jiangbei, how many of the four comments would be true?",
+        "options": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "If comment (3) (\"The champion is Jiangnan\") were true while it is still given that only one comment is correct, what follows?",
+        "options": [
+          "The champion must be Jiangnan.",
+          "The champion could be either Jiangnan or Shanbei.",
+          "This leads to a contradiction — no possible champion satisfies the \"only one true\" condition.",
+          "The champion must be Shannan."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Suppose the (unnamed) fifth team were the champion. With the original rule that exactly one comment is true, which of the following is correct?",
+        "options": [
+          "This is possible; only comment (1) would be true.",
+          "This is possible; only comment (4) would be true.",
+          "This is impossible — no assignment makes exactly one comment true.",
+          "This is possible; only comment (3) would be true."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "The conclusion that Shanbei won depends on which implicit assumption?",
+        "options": [
+          "\"Shannan\" and \"Shanbei\" refer to two distinct teams.",
+          "Jiangnan and Jiangbei are the same team.",
+          "Exactly one comment is true.",
+          "The fifth team's name is irrelevant."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which additional fact would most seriously weaken the conclusion that Shanbei won?",
+        "options": [
+          "An official match record states the champion is Shannan.",
+          "We learn comment (4) is certainly true.",
+          "We learn comment (2) is certainly false.",
+          "We learn comment (1) is certainly false."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Why is Jiangnan ruled out as the champion under the \"exactly one comment true\" condition?",
+        "options": [
+          "Because if Jiangnan were champion, comments (3) and (4) would both be true, giving two correct comments.",
+          "Because the problem states Jiangnan did not participate.",
+          "Because comment (2) explicitly names Jiangnan as champion.",
+          "Because comment (1) forbids Jiangnan."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 308,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 309,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct Inference — Which of the following can be correctly inferred from the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise — The researchers conclude that the discovery is \"expected to bring new treatments for disorders such as ADHD and schizophrenia caused by lack of attention.\" Which unstated assumption is most necessary for that conclusion?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Weaken — Which of the following, if true, most seriously weakens the researchers' expectation that the discovery will bring new treatments for attention-related disorders?",
+        "options": [],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen — Which additional finding would most strengthen the researchers' claim that this discovery could lead to new treatments?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning — If subsequent research showed that the thalamus pillow only sorts stimuli during sleep and is inactive during wakeful attention, which of the following would most likely be true?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Explanation/Resolution — Suppose later experiments manipulating the thalamus pillow produced no measurable change in attention in humans. Which explanation best resolves this apparent contradiction with the original claim?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Parallel Reasoning — Which of the following arguments is most similar in logical structure to the researchers' claim?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Scope — Which statement goes beyond what the passage supports?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 310,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 311,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 312,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 313,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 314,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 315,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following complete west-to-east station orders is consistent with the information?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "How many distinct complete west-to-east orders of the five stations satisfy all the given facts?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following statements MUST be true on the basis of the text alone?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If Jiushang is located east of Fuyi, which of the following must be true?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If Haoyun is NOT the westernmost station, which of the following must be true?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which station CANNOT be the easternmost (rightmost) station in any order consistent with the facts?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 316,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 317,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct Inference — Which of the following is definitely true according to the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference (numeric) — Based only on the passage, which of the following can be validly inferred about Leeds' average growth rate during its first 20 years?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise / Necessary Assumption — The passage concludes that \"the growth rate of Leeds is likely to exceed that of the whale shark.\" Which assumption is most needed for that conclusion to follow?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen — Which of the following, if true, would most strengthen the author’s claim that Leeds’ growth rate likely exceeded that of the whale shark?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Weaken — Which of the following, if true, would most seriously weaken the claim that Leeds grew faster than the whale shark?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning — If it were established that the largest whale sharks attain 16.5 meters only after 70 years, which statement must be true given the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Explanation / Resolution — The author notes Leeds’ lifespan is ~40 years and whale shark’s ~70 years, then suggests Leeds’ growth rate likely exceeded that of the whale shark. Which statement best explains why the author draws that inference?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Parallel Reasoning — Which of the following arguments is most similar in logical structure to the passage’s argument that Leeds likely grew faster than the whale shark?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Constraint-satisfaction / Ordering (numeric ranking) — Using average growth rate (meters per year) computed from the explicit figures in the passage and the additional hypothetical species below, which ranking from highest to lowest growth rate is correct?",
+        "options": [
+          "Leeds: 9 m in 20 years (use 9/20).",
+          "Whale shark (hypothetical): 16.5 m in 70 years (use 16.5/70).",
+          "Species C (hypothetical): 1.0 m per year (constant)."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 318,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct Inference) Which of the following can be validly inferred from the passage?",
+        "options": [
+          "The canoe discovered in 2010 was definitely built in Yunnan and then transported to Henan.",
+          "The wood used to make the canoes dates to more than 3,000 years ago.",
+          "The climate in ancient Henan was identical in every respect to the modern tropical climate of Yunnan.",
+          "No other canoe in China is older than the canoe found in 2010."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Missing Premise / Assumption) The author's conclusion — that more than 3,000 years ago Henan's climate was very similar to a tropical climate — depends most on which unstated assumption?",
+        "options": [
+          "The wood used to make the canoes grew locally (in Henan) at the time the canoes were made, rather than having been brought from a distant tropical region.",
+          "Carbon-14 dating always yields exact calendar years without any margin of error.",
+          "Yunnan today has a tropical climate.",
+          "People in ancient China never transported wood over long distances."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken) Which of the following, if true, most seriously weakens the claim that ancient Henan had a tropical-like climate?",
+        "options": [
+          "Archaeological evidence shows long-distance river trade routes that routinely transported large timber from Yunnan to Henan over 3,000 years ago.",
+          "Some modern tropical trees have wood that gives anomalously old carbon-14 ages.",
+          "Similar canoe shapes have been found in many non-tropical regions.",
+          "The canoe's dimensions are much larger than typical canoes used in Yunnan today."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Strengthen) Which piece of evidence would most strongly strengthen the author's claim that Henan's climate more than 3,000 years ago was similar to a tropical climate?",
+        "options": [
+          "Pollen and plant macrofossils from the same sediment layer show species currently restricted to tropical or subtropical zones.",
+          "A stylistically similar canoe was discovered in Yunnan and dated to the same period.",
+          "Records indicate that people from Yunnan visited Henan in later historical periods.",
+          "Modern Henan occasionally experiences warm and humid summers."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional Reasoning) If later dendrochronological (tree-ring) analysis shows the tree-ring growth patterns of the canoe wood match growth patterns of trees that grew in Henan more than 3,000 years ago, then which of the following must be true?",
+        "options": [
+          "The wood used in the canoe definitively originated in Yunnan.",
+          "The wood grew in Henan during that ancient period.",
+          "The canoe was produced within the last 1,000 years.",
+          "The canoe must have been transported from a tropical region."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional Reasoning — Hypothetical Added Constraint) Suppose scientists establish that the wood species used for the canoes is a species that, without exception, only grows where mean annual temperatures and humidity meet tropical thresholds. Given that fact and the canoe wood was found in Henan sediments dated to >3,000 years ago, which of the following follows logically (must be true)?",
+        "options": [
+          "Ancient Henan had a climate meeting those tropical thresholds at that time, or the wood was transported there from a tropical region.",
+          "The wood was definitely transported from Yunnan because tree species never migrate.",
+          "Carbon-14 dating is unreliable for that species.",
+          "Modern Henan must currently have a tropical climate."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / Resolution) The passage reports that canoe wood is “exactly the same as the wood produced in tropical regions of Yunnan,” yet the canoes were excavated in Henan. Which of the following best explains this apparent tension while remaining consistent with the passage?",
+        "options": [
+          "The canoes were built from timber brought from distant tropical regions (e.g., Yunnan) by ancient people.",
+          "Over 3,000 years ago, Henan's local environment supported growth of tree species like those now restricted to tropical Yunnan.",
+          "Either (A) the wood was transported from a tropical region or (B) those tropical species grew in Henan at that time; both explanations can account for the observation.",
+          "The phrase \"exactly the same\" refers only to woodworking technique, not to species or origin of the wood."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel Reasoning) Which argument has the most similar logical structure to the passage's reasoning (evidence about physical remains leads to a conclusion about past environment)?",
+        "options": [
+          "Fossilized pollen found under a former lake bed in northern Europe is identical to pollen from modern subtropical palms; therefore, northern Europe had subtropical conditions when the pollen was deposited.",
+          "A medieval manuscript written in Italian was found in England; therefore, all books in England were written in Italian in medieval times.",
+          "The presence of pottery fragments in a burial site means everyone buried there used the same pottery style.",
+          "A modern bridge contains steel produced in Germany; therefore, modern bridges in Germany are all made of steel."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Critical Evaluation — Scope Trap) Which of the following statements would overextend the passage’s evidence (i.e., goes beyond what the text justifies)?",
+        "options": [
+          "The canoe's wood has characteristics matching wood produced in tropical Yunnan.",
+          "The discovery suggests that climate in Henan over 3,000 years ago was very similar to tropical climates.",
+          "Every location in Henan had a tropical climate more than 3,000 years ago.",
+          "The Huaihe River region once supported warm, humid conditions with dense vegetation."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 319,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "直接推断：下列哪一项是根据文中陈述必然为真的？",
+        "options": [
+          "试验组共有25名学生。",
+          "对照组也接受了电击刺激。",
+          "所有51名学生的数学能力在训练后都有明显提高。",
+          "研究者对所有学生使用了相同强度的电击。"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "直接推断：已知共有51名志愿者且试验组有25人，则以下哪项必然为真？",
+        "options": [
+          "对照组有24人。",
+          "对照组有26人。",
+          "对照组也有25人。",
+          "对照组的人数无法确定。"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "缺失前提：研究者据“试验组数学能力显著高于对照组”并因此认为“微电击能提高大脑计算力”。该结论最依赖于下列哪一项未说明但必要的假设？",
+        "options": [
+          "试验组在训练前与对照组在数学能力上不存在系统性差异（除电击外两组可比）。",
+          "微电击不会对脑部造成任何长期伤害。",
+          "所有参与者都同意接受电击刺激。",
+          "研究者的设备在整个实验过程中都正常工作。"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "削弱论点：下列哪一项，如果为真，最严重地削弱了“微电击能提高大脑计算力”这一结论？",
+        "options": [
+          "试验组在训练前的数学能力普遍高于对照组。",
+          "研究者记录并公布了所有实验步骤和数据。",
+          "参与者的年龄在两组之间完全重合。",
+          "电击持续时间仅为五天。"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "强化论点：下列哪一项证据若为真，最能加强“微电击提高计算力”的结论？",
+        "options": [
+          "一个独立的双盲随机对照试验用不可区分的安慰电刺激（sham）作为对照，结果仍显示真实电击组长期优于安慰组。",
+          "电击设备的生产商声明设备符合安全标准。",
+          "研究者在文章末尾建议开展更多研究。",
+          "参与者在训练期间都完成了相同的家庭作业。"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "解释/解答矛盾：文中研究者感到惊讶的是“仅五天的轻微电击效果竟能持续至少半年”。下列哪一项说法最能解释这一现象（即最能合理说明为何效果可持续）？",
+        "options": [
+          "轻微电击触发了大脑的长期可塑性改变，从而导致持续的能力提升。",
+          "研究者在发布结果时夸大了持续时间。",
+          "参与者在试验后继续接受相同的电击刺激。",
+          "学生们在试验结束后都停止了数学训练。"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "平行推理：下列哪个论证在逻辑结构上最与原文相似？（原文结构：对一组受试者施加某种干预，结果优于对照组，据此断定该干预能提高能力，并观察到持久效应）",
+        "options": [
+          "一项研究给部分学生补充特定维生素，补充组考试成绩显著高于未补充组，研究者因此认为该维生素能提升记忆力并且效果可维持数月。",
+          "一项调查发现经常锻炼的人更不容易感到疲惫，研究者因此建议所有人每天锻炼三小时。",
+          "一个城市在雨天安装更多路灯后交通事故增加，市政府认为路灯增加导致事故增加。",
+          "研究人员发现吃巧克力的人在某次考试中表现更好，因此建议所有学生考试前吃巧克力。"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "条件推理：假设后来发现研究在分组时并非随机分配，而是由老师按成绩将较好的学生多分配到试验组，则下列哪项必然为真？",
+        "options": [
+          "试验组比对照组的基线数学能力更高，这可能部分或全部解释训练后差异。",
+          "微电击一定不会对数学能力产生任何影响。",
+          "原研究中的统计结论一定是伪造的。",
+          "对照组的人数一定少于25人。"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "取样/外推问题：下列哪一项指出了将研究结论推广到所有人群时最明显的逻辑问题？",
+        "options": [
+          "参与者是志愿的中学生，样本可能不具代表性，不能直接推广到成人或其他人群。",
+          "研究使用的电击技术来自知名厂家，因此结论可靠。",
+          "研究持续半年，说明结论对所有情形都是永久成立的。",
+          "研究在数学训练中用到了现代教材，所以结论只能适用于数学科目。"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "不当概括陷阱：文中研究者认为“微电击可以提高大脑的计算力”。下列哪项是从文中断言推导出的不合理过度推广？",
+        "options": [
+          "微电击对所有年龄段和所有类型的认知任务都有相同且持久的增强效果。",
+          "在本研究条件下，试验组表现优于对照组。",
+          "研究观测到的效果至少持续了半年的时间（在本样本中）。",
+          "本研究表明对特定脑区施以随机噪声刺激可能具有增强特定能力的潜力。"
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 320,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which one of the following statements must be true given the published information?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which city is reported as highest-priced for affordable housing?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "The published ranking for ordinary commercial houses lists \"A, B, B\". Which of the following is the best explanation for this anomaly?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Assume the intended (corrected) order for ordinary commercial houses is A > B > C (i.e., the printed duplication was a typo and the proper order lists each city once). Under that assumption, which statement must be true?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Now assume instead that the correct order for ordinary commercial houses is B > A > C (i.e., ordinary ranking places B above A). Under this assumption, which statement must be true?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following conclusions can be drawn from the original published lines (without any correction assumptions)?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Consider the claim: \"City A has the highest overall average price across the three housing types.\" Which single unstated assumption would be most necessary for that claim to follow from the published ranking as given?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following pieces of additional information would most weaken the claim that \"City A has the highest overall average price\"?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following arrangements for ordinary commercial houses is compatible with the published text if we require each city to appear exactly once in that ranking?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Find the option that most closely parallels the logical structure of the following reasoning: \"Villas: A>B>C; Affordable: B>A>C. Therefore, there is no city that is top-ranked in both villas and affordable housing.\"",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 321,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct inference — Which of the following can be correctly inferred from the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Constraint satisfaction (dates) — Given the researchers' estimates (Y: 156,000–120,000 years ago; mt: 148,000–99,000 years ago), which of the following is impossible?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Conditional reasoning — If a follow-up study with many more globally representative samples produced an estimated Y‑chromosome MRCA of 200,000 years ago, which of the following must be true?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Missing premise — The argument that \"all men have a common male ancestor\" based on Y‑chromosome analysis depends on which unstated assumption?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken — Which of the following, if true, most seriously weakens the researchers' date estimates for Y‑chromosome Adam?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Explanation / resolution — People sometimes claim that because all men trace to a single Y‑chromosome Adam and all women to a mitochondrial Eve, only two individuals are ancestors of all living humans. Which statement best explains the apparent discrepancy?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Parallel reasoning — Which argument is most analogous in logical structure to the passage's reasoning (trace uniparental inheritance → identify MRCA → date it)?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Direct inference about identity — Which of the following must be true based on the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 322,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Passage (for reference)",
+        "options": [
+          "--"
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 323,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct inference — Which of the following can be inferred from the passage?",
+        "options": [
+          "The researchers observed that a bone in the Aklyusian monkey’s heel is short and wide.",
+          "The researchers proved that the Aklyusian monkey was an ancestor of the early apes.",
+          "The Aklyusian monkey has a large eye socket.",
+          "The scientists concluded the Aklyusian monkey was nocturnal."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Missing premise/assumption — The scientists’ speculation that the Aklyusian monkey was active during the day depends on which unstated assumption?",
+        "options": [
+          "Species that are active during the day typically have relatively small eye sockets.",
+          "All apes (modern and extinct) are active during the day.",
+          "The shape of the heel bone determines whether an animal is active by day or night.",
+          "The Aklyusian monkey lived in open savanna habitats where daytime activity is favored."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen — Which of the following, if true, would most strengthen the scientists’ speculation that the Aklyusian monkey was diurnal?",
+        "options": [
+          "A comparative study shows diurnal primates generally have smaller eye sockets than nocturnal primates.",
+          "Several nocturnal mammals are found to have small eye sockets.",
+          "New evidence shows the Aklyusian monkey’s heel bone was adapted for swimming.",
+          "Recent research indicates early apes were nocturnal."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Weaken — Which of the following would most seriously undermine the scientists’ inference that the Aklyusian monkey was active during the day?",
+        "options": [
+          "Fossilization often compresses and distorts skull bones, making eye sockets appear smaller than they were in life.",
+          "Modern diurnal apes are observed to have small eye sockets.",
+          "Genetic evidence shows the Aklyusian monkey frequented daylight habitats.",
+          "The short, wide heel bone is confirmed by multiple specimens."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Conditional reasoning — If later studies conclusively demonstrate that the ancestors of the early apes were nocturnal, which of the following must be true given the passage?",
+        "options": [
+          "The researchers’ speculation that the Aklyusian monkey was active during the day must be false.",
+          "At least one of the scientists’ two claims is false: either the Aklyusian monkey was diurnal, or the early-ape ancestors were diurnal.",
+          "The heel bone description in the passage must be incorrect.",
+          "The Aklyusian monkey cannot share any characteristics with many apes."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Parallel reasoning — Which of the following arguments has the most similar logical form to the scientists’ reasoning in the passage?",
+        "options": [
+          "Because an extinct bird species had a short, stout beak, researchers claim it ate hard seeds and therefore had a diet like that of early birds.",
+          "Because modern bats have small eyes, scientists conclude they are diurnal like most birds.",
+          "Since rivers in the region are shallow today, geologists conclude the region was never flooded in the past.",
+          "Because a fossil shark had long fins, paleontologists conclude it lived in shallow coastal waters unlike its ancestors."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Explanation/Resolution — The passage says researchers “discovered the characteristics of many apes” from the Aklyusian monkey. Which statement best explains how one species could yield information about many apes?",
+        "options": [
+          "The Aklyusian monkey is thought to be closely related to the common ancestor of many apes, so its traits may reflect ancestral features.",
+          "Aklyusian monkey fossils were found on every continent where apes lived.",
+          "Researchers assume all apes always evolve identical traits through time.",
+          "The Aklyusian monkey’s heel bone is unlike any other primate’s heel bone."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Constraint / hypothetical addition — Suppose additional research establishes these two principles: (i) any primate with a short, wide heel bone is not a slow ground quadruped, and (ii) small eye sockets indicate diurnality. Given the passage and these principles, which of the following must be true about the Aklyusian monkey?",
+        "options": [
+          "It was diurnal and it was not a slow ground quadruped.",
+          "It was nocturnal and an efficient swimmer.",
+          "Early apes must have been slow ground quadrupeds.",
+          "The Aklyusian monkey could not share characteristics with early apes."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 324,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 325,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Passage (for reference)",
+        "options": [
+          "--"
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 326,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 327,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct inference) According to the passage, which of the following is definitely a correct statement?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Missing premise / Assumption) The passage reports that \"most galaxies have a redshift\" and that \"the farther the galaxy is from the earth, the greater the redshift. According to this, many scientists believe that the universe must be constantly expanding.\" Which one of the following is the key unstated assumption that this conclusion relies on?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken) Which of the following, if true, would most seriously weaken the claim that the observed galactic redshifts imply the universe is expanding?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Strengthen) Which of the following observations would best strengthen the view that galactic redshift is due primarily to galaxies moving away from us rather than being caused by changes in particle masses?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional reasoning) Suppose astronomers discover that the masses of elementary particles (including electrons) are identical everywhere in the universe and do not vary with distance. If that discovery is true, which of the following must be true given the passage?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Constraint-satisfaction / Ordering) Three galaxies Q, R, and P have these measured spectral-frequency observations and mass information:",
+        "options": [
+          "Q: observed blue-shifted spectral lines (highest measured frequencies).",
+          "P: observed strongest redshift (lowest measured frequencies).",
+          "R: observed intermediate frequencies (between Q and P)."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / Resolution) The passage states two mechanisms that can change observed spectral frequency: (i) recessional/approach distance (red/blue shift due to being far/near), and (ii) change in particle masses. Which of the following best explains why astronomers conclude expansion rather than mass-variation, assuming they make that conclusion?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 328,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 329,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Passage (for reference)",
+        "options": [
+          "--"
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 330,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct Inference — Which of the following statements can be correctly inferred from the passage?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference — Which of the following must be true based solely on the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise — Archaeologists concluded that \"hundreds of people had lived in the cave\" after excavating tools, pottery, obsidian, silver and copper utensils. Which one of the following is the best unstated assumption that the conclusion depends on?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken — Which of the following, if true, would most weaken the archaeologists' belief that hundreds lived in the cave?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Constraint Satisfaction (Hypothetical layering) — Suppose archaeologists assign the five finds to five distinct sediment layers numbered 1 (top) to 5 (bottom). In addition to the passage facts, they add these constraints:",
+        "options": [
+          "Copper utensils were found in layer 1.",
+          "Silver was found in a layer above the layer with pottery.",
+          "Obsidian occurs directly above the layer with tools.",
+          "The tools are in an even-numbered layer."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning — If a new accurate survey demonstrates that the cave's area is actually only equivalent to one football field (not four), which of the following must be true?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Explanation/Resolution — The passage states that the cave dates to the Neolithic Age yet was not discovered until the 1950s. Which of the following best explains why both statements can be true without contradiction?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Parallel Reasoning — The archaeologists reason: (Found many domestic artifacts in a cave) → (Therefore, many people lived there). Which of the following arguments has the most similar logical form?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 331,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 332,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 333,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 334,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 335,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct inference — Which of the following can be most directly inferred from the passage?",
+        "options": [
+          "Symptoms of vitamin deficiency in pregnant women are generally caused by inadequate diets.",
+          "Fetal growth commonly increases maternal vitamin requirements, which explains many deficiency symptoms in pregnant women.",
+          "All pregnant women will show vitamin deficiency symptoms at some point.",
+          "Pregnant women who increase vitamin intake never show deficiency symptoms."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Missing premise — The author's claim that deficiency symptoms are usually not due to lack of vitamins in the diet but to fetal growth depends on which unstated assumption?",
+        "options": [
+          "Pregnant women's diets typically provide sufficient vitamins for nonpregnant adult needs (so diet alone does not explain the symptoms).",
+          "Vitamins cannot be absorbed at all during pregnancy.",
+          "Every pregnant woman takes prenatal vitamin supplements.",
+          "Fetal growth always reduces a mother's appetite."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen — Which of the following, if true, would most strengthen the author's explanation?",
+        "options": [
+          "Most pregnant women consume the recommended amounts of vitamins yet still exhibit deficiency symptoms.",
+          "Many pregnant women avoid vitamin-rich foods during pregnancy.",
+          "A new medication increases vitamin absorption in middle-aged nonpregnant adults.",
+          "The price of vitamin-rich foods has risen recently."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Weaken — Which of the following, if true, would most seriously weaken the author's claim that fetal growth (higher demand) is the usual cause of these deficiency symptoms?",
+        "options": [
+          "Surveys show a large proportion of pregnant women have diets far below recommended vitamin intakes.",
+          "Studies show that fetal uptake of vitamins from the mother is negligible.",
+          "Most pregnant women regularly take prenatal vitamins.",
+          "Vitamin deficiency symptoms are impossible to measure reliably."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Conditional reasoning — If pregnant women increased their dietary vitamin intake so that total maternal intake exactly matched the combined needs of mother plus fetus, which of the following would most likely be true?",
+        "options": [
+          "The frequency of vitamin-deficiency symptoms among pregnant women would decrease.",
+          "The frequency of deficiency symptoms would remain unchanged.",
+          "Dietary intake would become irrelevant to maternal vitamin status.",
+          "Fetal growth would necessarily increase further."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Explanation/Resolution — Which statement best explains the apparent fact that many pregnant women show vitamin-deficiency symptoms even though the cause is not lack of vitamins in the diet?",
+        "options": [
+          "The fetus's growth creates increased maternal vitamin demand or transfer to the fetus, producing maternal deficiency symptoms despite adequate maternal diets.",
+          "Pregnant women eat less food overall, so their diet is the real cause.",
+          "Vitamin-deficiency symptoms during pregnancy are psychosomatic.",
+          "Prenatal vitamins directly cause symptoms identical to deficiency."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Parallel reasoning — Which of the following arguments is most similar in logical structure to the passage's argument?",
+        "options": [
+          "Many endurance athletes experience fatigue, not because they lack calories in their diets, but because their increased training raises their energy requirements.",
+          "Many smokers develop lung disease, not because of smoking, but because of general air pollution.",
+          "Many students fail exams because they study less, not because the exams are unusually hard.",
+          "Several cities suffer blackouts due to lack of power plants, not because electricity use rose."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Scope/trap — Which of the following statements is NOT justified (not necessarily true) based solely on the passage?",
+        "options": [
+          "No pregnant woman ever has a diet low enough in vitamins to cause deficiency symptoms.",
+          "Pregnant women have higher vitamin needs than nonpregnant people.",
+          "In most cases, fetal growth, rather than dietary lack, explains pregnant women's deficiency symptoms.",
+          "Dietary insufficiency can still be a cause in some pregnant women."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Hypothetical new constraint (conditional reasoning) — Suppose a study intervenes to reduce the amount of vitamins transferred from mother to fetus without changing maternal diets, and after the intervention the rate of maternal vitamin-deficiency symptoms falls. If these findings are accurate, which conclusion follows most directly?",
+        "options": [
+          "Transfer of vitamins to the fetus contributes causally to maternal vitamin-deficiency symptoms.",
+          "Maternal diet is the sole cause of deficiency symptoms.",
+          "Reducing fetal transfer causes maternal diets to become deficient.",
+          "Vitamin supplements are always ineffective during pregnancy."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 336,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct Inference — Which of the following can be correctly inferred from the passage?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 337,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "The comments of Ukrainian observers are best used to refute which of the following claims?",
+        "options": [
+          "Recognizing the two “Republics” and granting them special status (and pardoning the militia) would by itself resolve the conflict.",
+          "Recognizing the territories is completely irrelevant to any political settlement.",
+          "Pardoning militia members necessarily increases violence.",
+          "The speakers of the “Republics” will accept any compromise proposed by Kyiv."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which unstated assumption is required for the “Republics’” statement — “if the Ukrainian authorities do not recognize our territories and special status, and do not stop military operations, the conflict cannot be resolved” — to have the intended force?",
+        "options": [
+          "Recognition of their territories/special status and a halt to military operations are required conditions for resolving the conflict.",
+          "Granting recognition and pardons will immediately create economic prosperity in the region.",
+          "The Ukrainian authorities already intend to recognize the territories.",
+          "International law forbids any negotiation with unrecognized entities."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which one of the following, if true, would most weaken the Ukrainian observers’ skeptical question about whether recognition and pardoning could resolve the conflict?",
+        "options": [
+          "In a comparable recent case, official recognition plus a general amnesty led formerly armed militias to disarm and reintegrate, ending hostilities.",
+          "A majority of Ukrainians oppose granting special status to the separatist territories.",
+          "Pardoning combatants is illegal under Ukraine’s domestic criminal code.",
+          "International monitors lack the resources to verify compliance with any agreement."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "According to the “Republics’” public position (as reported), if the Ukrainian authorities grant the special status but continue military operations in the southeast, which of the following best follows?",
+        "options": [
+          "The conflict still cannot be resolved.",
+          "The conflict will necessarily be resolved because recognition has been granted.",
+          "Pardoning militia members will definitely resolve the conflict despite ongoing operations.",
+          "Nothing definite follows from this combination of actions."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which argument has the most similar logical form to the “Republics’” claim that without (recognition AND cessation of operations) the conflict cannot be resolved?",
+        "options": [
+          "Unless the company both cuts costs and increases sales, it will not return to profitability.",
+          "If the company cuts costs, it will automatically become profitable.",
+          "Without a map, hikers may become lost.",
+          "Even if the company cuts costs and increases sales, it might still fail due to external factors."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which statement best explains why Ukrainian observers pose the questions “Do we recognize the special status… and can we resolve the conflict by pardoning the militia?”",
+        "options": [
+          "They doubt that recognition and pardons would remove the fundamental causes of conflict or prevent future violence, so they question whether those measures would actually resolve the problem.",
+          "They are confident that recognizing the “Republics” would immediately restore international support for Ukraine.",
+          "They believe pardons are legally impossible and therefore irrelevant to negotiations.",
+          "They assume that the speakers of the “Republics” will accept any compromise once offered."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 338,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct Inference — Which of the following can be correctly inferred from the passage?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise — The passage claims that \"even in countries and regions with low economic development levels, people can satisfy their pursuit of material life through online shopping.\" Which of the following is the most important unstated assumption required for this claim to hold?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Weaken — Which of the following, if true, most seriously weakens the passage's claim that people in low-economic regions can satisfy their pursuit of material life through online shopping?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen — Which of the following, if true, most strengthens the passage's claim?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning — If a particular rural region has excellent Internet infrastructure but there are no postal or courier services, which of the following must be true given the passage?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Scope Trap — Which statement goes beyond what the passage supports (i.e., is too strong)?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Explanation/Resolution — Suppose critics note that low-economic regions typically have low incomes, so it seems surprising they can satisfy material pursuits via online shopping. Which of the following best explains the apparent discrepancy while remaining faithful to the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Reverse-Logic Trap — Which option states an inference that would be invalid given the passage (i.e., it reverses the logical relation in the passage)?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 339,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 340,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 341,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 342,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 343,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 344,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 345,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 346,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 347,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 348,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 349,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is definitely true (can be deduced from the facts)?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be validly inferred from the given statements?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following full assignment lists (Zhang, Wang, Li, Zhao, Liu) is an acceptable arrangement consistent with all the facts?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If Wang was not hired by Tianxuan, which of the following must be true?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If Wang was hired by Tianshu, which of the following must be true?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Consider the conclusion: \"Therefore, Wang must have been hired by Tianxuan.\" Which additional assumption (missing premise) would make that conclusion valid?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following pieces of new information would most strongly strengthen the claim \"Zhang was not hired by Tianxuan\"?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Why is it impossible for Zhang to be hired by Tianxuan when Liu and Zhao are already hired by Tianxuan?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 350,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct inference — Which of the following must be true given the statements (1)–(4)?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Constraint satisfaction — Which of the following complete assignments (person → employer) is acceptable under all given rules and the requirement that each employer hires at least one person?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Conditional reasoning — If Zhang was hired by Tianxuan, which of the following must be true?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Conditional reasoning (contrapositive) — If Wang was not hired by Tianxuan, which of the following must be true?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Missing premise — Which additional premise would be sufficient (and is the essential missing premise) to allow the valid conclusion \"At least one of Zhang and Wang was hired by Tianxuan\" from the given statements?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Possibility check — Which of the following scenarios could be true (i.e., is consistent with all given rules and the requirement that each employer hires at least one person)?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Impossibility — Which of the following assignments is impossible (cannot occur under the given rules and the requirement that each employer hires at least one person)?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 351,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct inference) Which one of the following must be true on the basis of statements (1)–(4)?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Constraint satisfaction) Which of the following complete assignments (format: Zhang, Wang, Li, Zhao, Liu → employer) satisfies all given statements and the requirement that each employer hires at least one student?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Direct conditional) If Zhang was hired by Tianxuan, which of the following must be true?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Chained deduction) If Zhang was hired by Tianxuan, which additional assignment must follow (given also the \"each unit has at least one hire\")?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Logical form / contrapositive) Which of the following is a valid inference (the contrapositive) of statement (4) \"If Zhang was hired by Tianxuan, then Wang was hired by Tianxuan\"?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional reasoning with a new assumption) Suppose we add the new information \"Wang was not hired by Tianxuan.\" Which of the following must then be true?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Missing premise / converse) Which additional premise would be required, together with the given statements, to validly conclude the converse \"If Wang was hired by Tianxuan, then Zhang was hired by Tianxuan\"?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / resolution) A classmate asserts \"All five graduates could have been hired by Tianxuan.\" Which statement best explains why that claim is impossible?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 352,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 353,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following statements MUST be true based solely on the organizer's statistics?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is necessarily true about elderly participation in health-related activities (given only the text as stated)?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "The organizer concludes: \"Elderly are equally interested in health and leisure activities.\" Which of the following is the missing assumption required for this conclusion to follow from the statistics?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most seriously WEAKEN the inference that elderly are intrinsically more inclined toward health activities than toward leisure activities?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Suppose we adopt the STRONGER interpretation that the sentence about health activities means “every elderly person participated in every health-related activity.” If it is later discovered that a particular elderly resident participated in no health-related activity, which of the following must be false under that stronger interpretation?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "There seems to be a possible puzzle: all elderly participated in all health activities, yet only some participated in all leisure activities. Which of the following best EXPLAINS this apparent discrepancy without contradicting the statistics?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following arguments is most PARALLEL in logical form to the organizer's report (\"Elderly: all H; some (elderly) all L\")?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 354,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 355,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct inference — Which of the following can be validly inferred from the passage's premise?",
+        "options": [
+          "If no one is deceived, then there are neither scammers nor greedy people in that society.",
+          "If no one is deceived, then either there are no scammers or there are no greedy people.",
+          "If no one is deceived, then scammers certainly still exist.",
+          "If no one is deceived, then greed must still exist but produce no cheating."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Conditional reasoning — If we add the hypothesis \"Scammers still exist in that society after progress,\" which of the following must be true?",
+        "options": [
+          "No one in that society is cheated.",
+          "Some people in that society remain greedy.",
+          "No one in that society is greedy.",
+          "Scammers will stop attempting deception."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Conditional reasoning (reverse) — If we add the hypothesis \"At least one person in that society remains greedy after progress,\" which of the following must be true?",
+        "options": [
+          "No one is deceived in that society.",
+          "There are no scammers in that society.",
+          "Someone must be cheated in that society.",
+          "Scammers and greedy people cannot coexist there."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Missing premise — Which additional assumption, if explicitly added to the passage, would make the conclusion (\"if no one is deceived, then greed has been universally eliminated\") logically valid?",
+        "options": [
+          "It is impossible for scammers to exist in any advanced society.",
+          "Scammers necessarily continue to exist in that society despite progress.",
+          "Greedy people never change their behavior.",
+          "Cheating can occur even without scammers."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which logical error best describes the reasoning that goes from ¬(someone is cheated) to \"people must have universally eliminated greed\"?",
+        "options": [
+          "Affirming the consequent.",
+          "Denying a conjunct (inferring ¬G from ¬(S ∧ G) instead of recognizing ¬S ∨ ¬G).",
+          "Confusing necessity with sufficiency in the opposite direction (i.e., assuming greed → cheating).",
+          "Equivocation on the term \"progress.\""
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen — Which additional fact would most strengthen the argument that if no one is deceived then greed must have been universally eliminated?",
+        "options": [
+          "There exist laws that punish cheating harshly.",
+          "Scammers are guaranteed to persist in any society (they cannot be fully eliminated).",
+          "Many people publicly renounce greed but privately remain greedy.",
+          "Some people are both scammers and immune to punishment."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Weaken — Which of the following, if true, most seriously weakens the passage's conclusion that the absence of deception implies universal elimination of greed?",
+        "options": [
+          "There is evidence that a recent campaign eradicated greedy impulses in many people.",
+          "Scammers were completely removed from the society as part of the progress.",
+          "Greed and deception are shown to be logically identical.",
+          "Cheating is defined to include only large-scale fraud."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Explanation/Resolution — The passage's conclusion appears stronger than what the premises guarantee. Which statement best explains this apparent discrepancy?",
+        "options": [
+          "The argument silently assumes that scammers cannot be eliminated, so the only way to stop cheating is to eliminate greed.",
+          "The argument incorrectly assumes that everyone who is greedy becomes a scammer.",
+          "The argument redefines \"cheated\" to mean something unrelated.",
+          "The argument equivocates on the meaning of \"society.\""
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Parallel reasoning — Which of the following arguments has the same logical form (and the same invalid move) as the passage?",
+        "options": [
+          "If there are faulty brakes and reckless drivers, then accidents will occur. Therefore, if no accidents occur, drivers must have universally stopped being reckless.",
+          "If a product is expensive then few buy it. Therefore, if many buy it, the product must be cheap.",
+          "If it rains then the ground gets wet. If the ground is wet, then it must have rained.",
+          "If a machine is switched off then it uses no power. Therefore, if it uses no power, the machine must be switched off."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 356,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be inferred with certainty from the three analysts' predictions and the fact that there is a single first place (no tie)?",
+        "options": [
+          "is the first.",
+          "is the first.",
+          "is the first.",
+          "is the first."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Prediction II is: \"If C is not the first, then D is not the first.\" Which of the following is logically equivalent to Prediction II?",
+        "options": [
+          "If D is first, then C is first.",
+          "If C is first, then D is first.",
+          "If D is not first, then C is not first.",
+          "If C is not first, then D is first."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following complete rankings (from 1st to 4th) is consistent with all three predictions?",
+        "options": [
+          "B, C, D",
+          "A, C, D",
+          "B, A, D",
+          "A, B, C"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Suppose prediction I (\"the first place is either A or B\") turns out to be false. Given the other two predictions and the single-first rule, which of the following must then be true?",
+        "options": [
+          "is first.",
+          "is first.",
+          "is first.",
+          "is first."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "To validly conclude from the analysts' predictions that B is the champion, which additional (implicit) assumption is required?",
+        "options": [
+          "Predictions I and III are both true.",
+          "Predictions II and III are both true.",
+          "At least one of the three predictions is true.",
+          "The three predictions refer to different competitions."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which piece of information would most seriously weaken the inference that B is first?",
+        "options": [
+          "Reliable evidence that A finished first.",
+          "Reliable evidence that prediction I is true.",
+          "Reliable evidence that prediction II is true.",
+          "Reliable evidence that there can be a tie for first."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following arguments is most parallel in logical structure to using predictions I (\"first is A or B\") and III (\"A is not first\") to infer that B is first?",
+        "options": [
+          "\"The winner is either John or Mary. John did not win. Therefore Mary won.\"",
+          "\"If it is rainy then the streets are wet. The streets are wet. Therefore it is rainy.\"",
+          "\"All swans are white. This bird is white. Therefore this bird is a swan.\"",
+          "\"If the store is open then it is daytime. It is daytime. Therefore the store is open.\""
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which single prediction is redundant (not needed) to deduce that B is first, assuming all three statements are meant to apply to the same contest?",
+        "options": [
+          "Prediction I",
+          "Prediction II",
+          "Prediction III",
+          "None of them is redundant"
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 357,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct Inference)",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Missing Premise / Assumption)",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Strengthen)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional Reasoning)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / Resolution)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel Reasoning)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Identify the Fallacy / Evaluation)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Scope / Reverse Logic Trap)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 358,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct inference) Which of the following is best entailed by the sentence?",
+        "options": [
+          "If a player performed well in the World Cup, then many clubs will chase him.",
+          "If a player is favored and chased by many clubs, then he performed well in the World Cup and also performed well in clubs.",
+          "Performing well for a club is sufficient for being chased by many clubs, regardless of World Cup performance.",
+          "Clubs chase players based only on their marketability, not on on-field performance."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional reasoning) If a player did not perform well during the World Cup, which of the following must be true according to the sentence?",
+        "options": [
+          "He still can be favored and chased by many clubs if he performs well at his club.",
+          "He cannot be favored and chased by many clubs.",
+          "He will definitely be ignored by all clubs.",
+          "He will be favored only if he is very young."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional reasoning — sufficiency vs necessity) If a player performed very well both during the World Cup and at his club, which of the following follows most accurately from the sentence?",
+        "options": [
+          "He will necessarily be favored and chased by many clubs.",
+          "He cannot be favored and chased by many clubs.",
+          "It is possible (i.e., he can) that he will be favored and chased by many clubs, but it is not guaranteed.",
+          "He will only be favored if he is over a certain age."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Missing premise / assumption) The claim (\"only those who perform well during the World Cup and also perform well in clubs can be favored and chased by many clubs\") most directly relies on which unstated assumption?",
+        "options": [
+          "Clubs base their transfer interest primarily on players' on-field performance in major competitions and club play.",
+          "Clubs decide transfers solely on players' social media followings.",
+          "Transfer fees are unrelated to player performance.",
+          "The World Cup is the only international tournament that matters to clubs."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Strengthen) Which of the following, if true, would most strengthen the original claim?",
+        "options": [
+          "Many clubs reported that they sometimes sign players purely for merchandising reasons.",
+          "In the current transfer window, every player actively chased by multiple clubs had both strong World Cup showings and strong club seasons.",
+          "Several players with excellent club form but poor World Cup outings were transferred to top clubs last summer.",
+          "Scouts believe club performance is irrelevant when assessing World Cup stars."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken) Which of the following would most seriously weaken the sentence's claim?",
+        "options": [
+          "Some clubs publicly state they value World Cup performance highly.",
+          "There are multiple recent cases of players being chased by many clubs despite poor performance in either the World Cup or at their clubs.",
+          "Players who perform poorly in both settings rarely get high wages.",
+          "The World Cup and club seasons use different tactical systems."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / resolution) Suppose a well-known player who performed poorly in the World Cup was nonetheless chased by many clubs. Which explanation best resolves this apparent contradiction with the sentence?",
+        "options": [
+          "The chasing clubs valued his club performances and other factors (e.g., reputation, commercial value), so the rule in the sentence is not an absolute constraint.",
+          "The World Cup is always more important than club performance.",
+          "Clubs never consider club performance when chasing players.",
+          "The player must have secretly performed well in the World Cup."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Constraint satisfaction — small scenario) Five players (P1–P5) have the following performance records this summer:",
+        "options": [
+          "P1: good World Cup, poor club",
+          "P2: good World Cup, good club",
+          "P3: poor World Cup, poor club",
+          "P4: poor World Cup, good club"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel reasoning) Which of the following arguments is most similar in logical form to the sentence (\"Only those who X and Y can be Z\")?",
+        "options": [
+          "Only students who pass both the written and practical exams can receive their professional license.",
+          "If someone has a driver's license, then they have passed the driving test.",
+          "All successful startups received funding from venture capitalists.",
+          "If a book is a bestseller, then it is popular."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 359,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Constraint-Satisfaction (Small Puzzle)",
+        "options": [
+          "Rule: If a returnee has real knowledge (K), basic social skills (S), and is accurately positioned (P), then that returnee is not unemployed (¬U).",
+          "Returnee A has a UK master's and is unemployed (U).",
+          "Returnee B has K and S but is unemployed (U).",
+          "Returnee C is accurately positioned (P) and is employed (¬U)."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 360,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 361,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct inference) Which of the following can be validly inferred from the three sentences in the passage (and nothing more)?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Missing premise — necessary assumption) The conclusion \"Li Ming must have graduated from Nankou Town No.1 Middle School\" depends on which one of the following assumptions being true?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken) Which of the following, if true, most seriously weakens the argument that Li Ming must have graduated from No.1 Middle School?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Strengthen) Which of the following, if true, would most strengthen the claim that Li Ming must have graduated from Nankou Town No.1 Middle School?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional reasoning) If it were additionally known that every student who achieves the best first-year college grades from Nankou Township had graduated from Nankou Town No.1 Middle School, then which of the following would necessarily be true?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Possible vs. Must be) Which of the following is compatible with the information given in the passage (i.e., could be true) but is not guaranteed by it?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / Resolution) Suppose an independent record shows Li Ming actually graduated from Nankou Town No.2 Middle School. Which of the following best explains the apparent contradiction with the argument in the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel reasoning) Which of the following arguments is most similar in logical structure to the passage’s argument?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Identify the key logical flaw) Which description best captures the principal logical error in the passage’s conclusion?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 362,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 363,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct Inference — Which of the following can be correctly inferred from the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise — The author's claim that the belief \"left-handers are more prone to operating accidents\" is a misunderstanding depends on which unstated assumption?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen — Which of the following, if true, would most strengthen the author's rejection of the belief that left-handers are more accident-prone?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Weaken — Which of the following, if true, would most seriously weaken the author's conclusion that the belief is a misunderstanding?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning — If we add the condition \"The frequency of housework accidents is strictly proportional to the amount of time spent doing housework,\" and accept the passage's statement that most housework accidents are to right-handers, which of the following must be true?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Explanation / Resolution — Which of the following best explains why many people might believe left-handers are more accident-prone despite the passage's claim?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 364,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 365,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 366,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 367,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 368,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 369,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 370,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct inference — must be true",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Missing premise / assumption",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Weaken the government's claim",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen the government's claim",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Explanation / resolution of an apparent discrepancy",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Conditional reasoning (new hypothetical)",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Parallel reasoning",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 371,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 372,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 373,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 374,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct Inference) What is the primary logical flaw in the argument?",
+        "options": [
+          "It assumes that because most crimes involving firearms do not result in homicide, those crimes are not relatively more dangerous than others.",
+          "It assumes that every crime involving a firearm inevitably results in homicide.",
+          "It infers causation from a mere correlation between firearms and homicides.",
+          "It relies on an unrepresentative sample of crimes when drawing its conclusion."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel Reasoning) Which of the following arguments is most similar in logical structure to the argument given?",
+        "options": [
+          "\"People who drink coffee get heart disease more often than those who don't. However, most coffee drinkers never get heart disease. Therefore, coffee need not be regulated as a health risk.\"",
+          "\"Bicyclists are more likely to be injured than pedestrians. Most bicyclists never get injured. Therefore, bicycling should be banned.\"",
+          "\"Electric cars sometimes catch fire, but most electric cars do not. Therefore, electric cars are safer than gasoline cars.\"",
+          "\"New drug X reduces symptoms more often than placebo. Most patients taking X still have symptoms. Therefore, drug X is ineffective.\""
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Missing Premise / Assumption) The conclusion (\"there is no need to distinguish illegal use of firearms as a serious offense\") depends on which unstated assumption?",
+        "options": [
+          "Only offenses that typically result in homicide should be classified as serious criminal offenses.",
+          "Most crimes that do not result in homicide are harmless.",
+          "The legal severity of an offense is unrelated to the probability that it will cause harm.",
+          "Firearms are used in only a small fraction of all crimes."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken) Which of the following, if true, most seriously weakens the argument's conclusion?",
+        "options": [
+          "Convicted perpetrators of firearm offenses are far more likely than other offenders to commit future homicides.",
+          "The overall number of crimes involving firearms has decreased in recent years.",
+          "Many jurisdictions already punish non-homicide firearm offenses severely.",
+          "Firearms used in crimes are often stolen from licensed owners."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Strengthen) Which of the following, if true, would most strengthen the argument's conclusion?",
+        "options": [
+          "For a given incident, the probability that a firearm crime results in homicide is only trivially higher than for other crimes.",
+          "Firearm crimes are frequently followed by severe non-fatal injuries at rates much higher than other crimes.",
+          "Areas with more firearm offenses show higher overall homicide rates even after controlling for other factors.",
+          "Public opinion strongly favors harsher penalties for firearm offenses."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional Reasoning — Probability) The passage asserts \"most crimes involving the use of firearms did not result in homicides.\" Which of the following must be true about the probability p that a randomly selected firearm-involving crime results in homicide?",
+        "options": [
+          "p > 0.5",
+          "p = 0.5",
+          "p < 0.5",
+          "Nothing definite can be inferred about p from that statement."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / Resolution) Which statement best explains how both premises (\"firearm crimes are more likely to lead to murder\" and \"most firearm crimes did not result in homicides\") can be true simultaneously?",
+        "options": [
+          "\"More likely\" is a relative statement comparing probabilities per incident; even if firearm crimes are more likely than others, the absolute probability for homicide can still be low, so most firearm crimes do not produce homicides.",
+          "The reports about firearm crimes are probably biased and cannot be trusted.",
+          "The terms \"murder\" and \"homicide\" are being used inconsistently in the premises.",
+          "Statistical errors mean that one of the two premises must be false."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 375,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 376,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Background (for reference)",
+        "options": [
+          "--"
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 377,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a correct immediate inference from the premise \"Some good goods are not cheap\"?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Is the argument that concludes \"not all good goods are good goods\" from the premise valid?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following inferences is analogous (same logical form) to the faulty inference in the text and thus shows it is not valid?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which additional premise, if added to the argument, would make the conclusion \"not all good goods are good goods\" follow deductively?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Suppose the intended (correct) conclusion was \"Not all good goods are cheap.\" If that were the intended conclusion, which of the following must be true given the original premise?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most seriously weaken the corrected inference \"Not all good goods are cheap\"?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which explanation best resolves the apparent discrepancy between the premise and the given conclusion?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 378,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct inference)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Missing premise / Necessary assumption)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken)",
+        "options": [],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "(Strengthen)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / Resolution)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional reasoning — hypothetical new information)",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel reasoning)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 379,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct Inference)",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Missing Premise / Assumption)",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional Reasoning)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Strengthen / Weaken)",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / Resolution)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel Reasoning)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Constraint Satisfaction / Policy Interpretation)",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 380,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 381,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 382,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct inference) Which of the following can be validly inferred from the statement \"Ancient Greek philosophers said that life without reflection is worthless\"?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Missing premise / Assumption) The following argument is offered: \"Ancient Greek philosophers said that life without reflection is worthless. Therefore people should spend time reflecting.\" Which unstated premise is required for this argument to be logically valid?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken) Which of the following, if true, would most seriously weaken the claim that \"life without reflection is worthless\"?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional reasoning) If we accept (i) that the ancient Greek philosophers' statement is true and (ii) that calling a life \"worthless\" is equivalent to saying it is \"not worth living,\" which of the following must be true?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel reasoning) Which of the following arguments has the most similar logical form to the original statement (\"Ancient Greek philosophers said that life without reflection is worthless\") understood as reporting an expert group's assertion?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 383,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Passage (for reference)",
+        "options": [
+          "--"
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 384,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 385,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct inference) Which of the following statements can be validly inferred from the two premises as stated in the passage?",
+        "options": [
+          "All Chinese people are under the jurisdiction of the People’s Republic of China.",
+          "No one under the jurisdiction of the People’s Republic of China is Taiwanese.",
+          "If someone is under the jurisdiction of the People’s Republic of China, then that person is Chinese.",
+          "Taiwanese are necessarily Chinese."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Identify the fallacy) The argument in the passage commits which of the following logical errors?",
+        "options": [
+          "Denying the antecedent (inferring ¬B from A → B and ¬A).",
+          "Affirming the consequent (inferring A from A → B and B).",
+          "Equivocation (using a key term in two different senses in the same argument).",
+          "Hasty generalization (drawing a general conclusion from an insufficient sample)."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Missing premise) Which additional premise, if added to the argument, would make the conclusion \"Taiwanese are not Chinese\" logically follow from the other two premises?",
+        "options": [
+          "All people under the jurisdiction of the People’s Republic of China are Taiwanese.",
+          "Anyone not under the jurisdiction of the People’s Republic of China is not Chinese.",
+          "Taiwanese culture is different from mainland Chinese culture.",
+          "Being Chinese requires speaking Mandarin."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken) Which of the following, if true, would most seriously weaken the argument that \"Taiwanese are not Chinese\"?",
+        "options": [
+          "The People’s Republic of China officially claims jurisdiction over Taiwan.",
+          "There exist many persons widely recognized as Chinese who are not under the jurisdiction of the People’s Republic of China (for example, overseas Chinese nationals).",
+          "Some Taiwanese speak languages other than Mandarin.",
+          "The People’s Republic of China’s borders have changed several times in history."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional reasoning) If we add the hypothetical premise \"All Chinese people are under the jurisdiction of the People’s Republic of China\" to the original two premises, which of the following must then be true?",
+        "options": [
+          "The original argument is still invalid; nothing follows.",
+          "Taiwanese are Chinese.",
+          "Taiwanese are not Chinese.",
+          "People under PRC jurisdiction are not Chinese."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel reasoning) Which of the following arguments has the same logical form as the passage (i.e., A → B; ¬A; therefore ¬B)?",
+        "options": [
+          "All mammals are animals. Whales are not mammals. Therefore whales are not animals.",
+          "If it rains, the streets get wet. The streets are wet. Therefore it rained.",
+          "Everyone who owns a car can drive. Alice owns a car. Therefore Alice can drive.",
+          "All bachelors are unmarried. John is unmarried. Therefore John is a bachelor."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / resolution) Suppose many people identify as both Taiwanese and Chinese despite the argument in the passage. Which of the following best explains this apparent discrepancy?",
+        "options": [
+          "The term \"Chinese\" is being used by the arguer to mean \"person under PRC jurisdiction,\" whereas many people use \"Chinese\" to denote ethnic or cultural identity rather than legal jurisdiction.",
+          "The People’s Republic of China recently changed its laws to include Taiwan.",
+          "Taiwanese people are legally stateless and therefore cannot be Chinese.",
+          "The argument’s premises are universally accepted facts about nationality everywhere."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 386,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct Inference) Which of the following can be correctly inferred from the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Direct Inference — attribution) Which of the following is explicitly stated in the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Missing Premise / Assumption) The claim that \"one country, two systems\" caused the recession implicitly relies on which unstated assumption?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken) Which piece of evidence would most seriously weaken the claim that \"one country, two systems\" caused Hong Kong's recession?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Strengthen) Which piece of information would best strengthen the argument that \"one country, two systems\" caused the recession?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional Reasoning) If it were discovered that several countries which did not implement \"one country, two systems\" also entered recession in 1997, which of the following would follow from that fact?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional Reasoning — added mechanism) Suppose additional reliable evidence showed that, immediately after 1997, policies associated with \"one country, two systems\" directly restricted foreign investment and trade in Hong Kong. If that were true, which of the following would be a necessary implication?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / Resolution) Which of the following best explains how the same year for both events (policy implementation and recession) could produce a misleading conclusion?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 387,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "I don't see any Input Text — please paste the passage you want turned into LogiQA-style logical reasoning questions.",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 388,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Below is a set of multiple-choice questions that probe the logical consequences, conditionals, assumptions, and possible/impossible scenarios entailed by the short passage. Each question assumes the passage is correct and — unless the question explicitly adds a new condition — also uses the fact stated in the passage: exactly one of the three instructors' statements is true.",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 389,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following statements MUST be true given the polling results as reported?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "The percentages given are: 40% (unfair US foreign policy), 55% (civilizational conflict), 23% (evil nature of terrorists), and 19% (no view). Which of the following is a correct numerical inference (treat percentages as of a 100-person sample)?",
+        "options": [],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Assume the poll used 100 respondents. What is the minimum possible number of respondents who selected more than one of the three listed causes?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is the BEST single explanation for why the cause-percentages sum to more than 100% (40+55+23+19 = 137%)?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which unstated assumption is required to conclude from the reported percentages that \"some respondents attributed the attacks to more than one cause\"?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If it were later revealed that the survey instructions forced each respondent to choose exactly one cause (single-choice), which of the following MUST be true?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which additional piece of information would most STRONGLY strengthen the interpretation that respondents commonly endorsed multiple causes?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 390,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be validly inferred from the two statements?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If, in addition to the two given statements, it is known that every worker is a southerner, which of the following must be true?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which additional premise would be sufficient (together with the original two statements) to validly conclude \"Some northerners are workers\"?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, would most seriously weaken the claim \"No northerner is a worker\"?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which description of the relationships among the sets H (people in Harbin), N (northerners), and W (workers) is consistent with the two statements?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Suppose someone adds the premise \"Every northerner is a worker.\" Which of the following must then be false (i.e., logically incompatible with the full set of premises)?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following arguments has the same logical form as the original pair of statements (i.e., \"All X are Y; Some X are not Z\")?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 391,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Missing premise)",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Strengthen)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Direct inference)",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel reasoning)",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 392,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct inference — Which of the following must be true?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Direct inference — Who is the man that meets all three of Li Na's requirements (tall, handsome, and a doctor)?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Constraint-satisfaction — Which of the following assignment of attributes (Tall / Doctor / Handsome) to the four men is consistent with all statements?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Conditional reasoning — If Li Qiang were the handsome man (contrary to what you can deduce from the full set of statements), which of the following would necessarily be true?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Conditional reasoning — If it were discovered that Wang Wei is tall (contrary to the deduction from the original constraints), which of the following would follow directly from the given statements plus that discovery?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Missing-premise — To validly conclude that Wang Wei is the only non-tall man (and thus Wu Gang is the only doctor who can be tall), which implicit assumption is required?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen — Which additional fact, if added to the original statements, would most strongly reinforce the conclusion that Wu Gang is the man who satisfies all three of Li Na's requirements?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 393,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct Inference) Which of the following can be correctly inferred from the passage?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional Reasoning — added constraint) If n is finite and even, which of the following must be true about the finite sequence of the first n natural numbers?",
+        "options": [],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Missing Premise / Assumption) The passage claims that \"in an infinite world, the part may be equal to the whole.\" Which unstated assumption is required to make that claim meaningful in standard set-theoretic terms?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken) Which of the following, if true, would most seriously weaken the claim that \"in an infinite world, the part may be equal to the whole\"?",
+        "options": [],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / Resolution) The passage first says that for a finite sequence the odd and even sequences are \"obviously shorter\" than the whole, then suggests that in an infinite sequence a part \"may be equal to the whole.\" Which statement best resolves this apparent discrepancy?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel Reasoning) Which of the following arguments has the same logical form as the passage (finite case: part strictly smaller; infinite case: part can be equal to whole)?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Direct Inference — Necessity) Which of the following statements is a correct logical consequence of the passage (interpreted with standard set theory)?",
+        "options": [],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 394,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 395,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 396,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 397,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "(Direct inference) Which of the following can be directly inferred from the passage?",
+        "options": [
+          "The United States and Japan are among the countries that have blamed their domestic economic problems on China’s fixed exchange rate.",
+          "China’s fixed exchange rate is the only cause of economic problems in the United States and Japan.",
+          "All domestic manufacturing companies in the United States and Japan caused economic pressure.",
+          "China intentionally set its exchange rate to harm other countries’ economies."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Missing premise / Necessary assumption) The claim that China’s fixed exchange rate explains some countries’ domestic economic problems relies on which unstated assumption?",
+        "options": [
+          "Changes in China’s exchange rate affect the international competitiveness of other countries’ industries.",
+          "The United States and Japan have identical economic structures.",
+          "Domestic manufacturing companies always blame foreign policy for their problems.",
+          "China’s economy is larger than the economies of all complaining countries combined."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Weaken) Which of the following, if true, would most seriously weaken the view that China’s fixed exchange rate is the cause of those countries’ domestic economic problems?",
+        "options": [
+          "Several complaining countries also experienced economic problems before China adopted its current exchange‑rate policy.",
+          "After China adjusted its exchange rate policy, the complaining countries’ economic problems persisted unchanged.",
+          "Some studies show a statistical correlation between China’s exchange rate and foreign manufacturing output.",
+          "Domestic manufacturing firms in the complaining countries benefited from lower input costs unrelated to exchange rates."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Explanation / Resolution) The passage mentions both (1) some countries blaming China’s fixed exchange rate and (2) “some domestic manufacturing companies have caused pressure.” Which statement best explains this apparent tension?",
+        "options": [
+          "Domestic manufacturing companies are pressuring their governments to attribute their difficulties to China’s exchange rate in order to shift public attention from domestic causes.",
+          "The governments secretly set China’s exchange rate policy and therefore blame themselves.",
+          "The passage implies that only domestic companies caused the economic problems, so blaming China is purely rhetorical.",
+          "China’s exchange rate policy directly forces domestic companies to exert political pressure."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Conditional reasoning) If it turned out that none of the domestic manufacturing companies in the complaining countries exported goods to or competed with Chinese producers, which of the following must be true (given only the passage)?",
+        "options": [
+          "The countries’ blame of China’s fixed exchange rate would be definitely incorrect.",
+          "Domestic manufacturing companies could not have been a source of pressure on their governments.",
+          "The passage alone would not provide sufficient basis to conclude that China’s exchange rate caused the countries’ economic problems.",
+          "The United States and Japan would stop blaming China immediately."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "(Parallel reasoning) Which of the following arguments is most parallel in logical structure to the passage’s account (i.e., some actors blame factor X for domestic problems; some domestic actors have caused pressure)?",
+        "options": [
+          "Several cities claim their rising crime rate is due to streaming services; some neighborhood associations have staged protests demanding action.",
+          "A researcher proved that caffeine improves memory; therefore all students should drink coffee.",
+          "The mayor said unemployment rose because of global warming; scientists demonstrated the opposite.",
+          "Every company increased prices because raw materials became scarce; consumers accepted the increases peacefully."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "(Constraint satisfaction / Consistency) Which of the following sets of statements is fully consistent with the passage?",
+        "options": [
+          "Some countries (including the US and Japan) blame China’s fixed exchange rate; some domestic manufacturers have increased political pressure; all countries blame China.",
+          "Some countries (especially the US and Japan) blame China’s fixed exchange rate; some domestic manufacturers have caused pressure; there may be other causes of domestic economic problems.",
+          "No country blames China; domestic manufacturers are the sole cause of economic problems in all complaining countries.",
+          "China’s fixed exchange rate is admitted by the passage to be the sole and proven cause of manufacturing decline worldwide."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "(Scope / Reverse‑logic trap) Which statement directly contradicts the passage?",
+        "options": [
+          "Only a handful of countries have blamed China’s fixed exchange rate for economic difficulties.",
+          "The passage says the United States and Japan are especially likely to blame China’s exchange‑rate policy.",
+          "All countries in the world blame China’s fixed exchange rate for their domestic economic problems.",
+          "Some domestic manufacturing companies have generated pressure related to these issues."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 398,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Background (restated succinctly)",
+        "options": [
+          "Professor Zhao: \"The champion is not Tsinghua\" AND \"The champion is not Zhejiang.\"",
+          "Professor Qian: \"The champion is not Tsinghua\" AND \"The champion is the University of Science and Technology of China (USTC).\"",
+          "Professor Sun:  \"The champion is not USTC\" AND \"The champion is Tsinghua.\""
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 399,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 400,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a direct inference from the statement \"Do not do what you don't want to do to others\"?",
+        "options": [
+          "You should not perform on others any action you would not want performed on yourself.",
+          "You must actively do for others everything you would like them to do for you.",
+          "People always act in ways that maximize their own pleasure.",
+          "Moral obligations are identical to legal obligations."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Someone argues from the maxim that \"Therefore lying to others is wrong.\" Which of the following is the missing premise that makes this argument valid?",
+        "options": [
+          "Lying to others is a common human practice.",
+          "People do not want others to lie to them.",
+          "Telling the truth always produces better outcomes.",
+          "Lying is illegal in many societies."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If a person applies the rule \"Do not do what you don't want to do to others\" consistently to every possible action, which of the following must be true?",
+        "options": [
+          "If they would not want others to insult them, then they will not insult others.",
+          "If they do not want to be praised, then they must praise others.",
+          "If they would not want to be helped, then they must help others.",
+          "They will perform only actions that make them personally happy."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the claim that the maxim is a universally reliable moral guide across all societies?",
+        "options": [
+          "Many societies have moral norms that permit certain actions that others forbid, even though some people in those societies would not want those actions done to themselves.",
+          "Most people find the maxim easy to remember and teach to children.",
+          "Some ethical systems emphasize positive duties (obligations to help) rather than only prohibitions.",
+          "The maxim is concise and appears in many proverbs."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following arguments is most parallel in logical form to \"Do not do what you don't want to do to others\"?",
+        "options": [
+          "If you would dislike loud music next door, then you should avoid playing loud music next door.",
+          "If you dislike loud music, then everyone else must also dislike loud music.",
+          "If you dislike loud music, then authorities should ban it everywhere.",
+          "Playing loud music proves you are inconsiderate."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "The rule is negatively phrased (prohibits doing to others what you wouldn't want done to you). Someone objects: \"But the rule seems to allow failing to rescue a drowning child if you personally would not want rescuing.\" Which statement best resolves this apparent discrepancy?",
+        "options": [
+          "The maxim is a rule about refraining from harmful acts (negative duty); it does not by itself establish positive duties (obligations to rescue), which require additional moral principles.",
+          "The maxim actually requires you to rescue anyone if you would prefer to be rescued.",
+          "The maxim forbids only intentional acts, not omissions or failures to help.",
+          "The maxim applies only where the law requires action."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Four actions are under consideration: Lying, Helping, Stealing, Praising. A person would not want lying or stealing done to them; they would welcome helping and praising. According to the maxim, which of the following must the person refrain from doing to others?",
+        "options": [
+          "Refrain from lying and from stealing; praising and helping are not required nor prohibited by the maxim.",
+          "Refrain from helping and praising; lying and stealing are permitted.",
+          "Refrain from lying and praising only.",
+          "Refrain from all four actions toward others."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "The text is written \"Confucius said?\" (with a question mark). What is the best inference about attribution?",
+        "options": [
+          "The writer is uncertain whether Confucius actually said the maxim.",
+          "It is certain and well-documented that Confucius authored the sentence.",
+          "The writer asserts that Confucius definitely did not say it.",
+          "The sentence must have been coined in modern times."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "To validly move from \"I would not want X done to me\" to \"Therefore I should not do X to others,\" which general assumption must be accepted?",
+        "options": [
+          "Others necessarily have identical preferences to mine.",
+          "One's own preferences about how to be treated are a legitimate basis for prescribing how to treat others (i.e., personal preferences can ground a general prohibition).",
+          "People's preferences never change over time.",
+          "Moral rules should always be enforced by law."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  }
+]

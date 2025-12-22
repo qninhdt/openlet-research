@@ -213,7 +213,7 @@ def generate_questions(
             response = llm.invoke(full_prompt)
             output = response.content
 
-            # print(output)
+            print(output)
 
             # check if output is empty
             if not output.strip():

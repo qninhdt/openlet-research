@@ -87,6 +87,4 @@ Output exactly 17 questions following this pattern exactly. Do not include your 
 
 ---
 # INPUT TEXT:
-<text>
 {text}
-</text>

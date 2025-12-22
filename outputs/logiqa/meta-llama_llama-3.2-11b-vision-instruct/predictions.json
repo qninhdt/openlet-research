@@ -1,0 +1,4352 @@
+[
+  {
+    "id": 301,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the communities from the citizen park?",
+        "options": [
+          "Cultural area, Leisure area, Administrative service area, Commercial area",
+          "Leisure area, Cultural area, Commercial area, Administrative service area",
+          "Administrative service area, Cultural area, Leisure area, Commercial area",
+          "Commercial area, Leisure area, Cultural area, Administrative service area"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If the cultural area is placed in the southeast, which of the following must be true?",
+        "options": [
+          "The leisure area is in the northeast.",
+          "The administrative service area is in the northwest.",
+          "The commercial area is in the southwest.",
+          "The administrative service area is in the southeast."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that the administrative service area is southwest of the cultural area?",
+        "options": [
+          "The cultural area is southeast of the leisure area.",
+          "The administrative service area is designated as a service area.",
+          "The communities must be placed in a specific order based on their designations.",
+          "The citizen park is located in the center of the township."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the conclusion that the communities must be placed in a specific order based on their designations?",
+        "options": [
+          "The communities are not required to be placed in a specific order.",
+          "The designations of the communities are not relevant to their placement.",
+          "The placement of the communities is determined by a random process.",
+          "The communities must be placed in a specific order to ensure efficient access to the citizen park."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 302,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the staff members from left to right?",
+        "options": [
+          "B, C",
+          "C, B",
+          "A, C",
+          "C, A"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If B is sitting on the left side of C, which of the following must be true?",
+        "options": [
+          "is sitting on the left side of B.",
+          "is sitting on the right side of B.",
+          "is sitting on the right side of A.",
+          "is sitting on the left side of A."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be inferred from the statements?",
+        "options": [
+          "At least one of the two people sitting on the left side of A is 20 years old.",
+          "At least one of the two people sitting on the right side of C is a salesperson.",
+          "is sitting on the right side of A.",
+          "is sitting on the right side of B."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "At least one of the two people sitting on the left side of A is a salesperson.",
+          "At least one of the two people sitting on the right side of C is 20 years old.",
+          "is sitting on the left side of A.",
+          "is sitting on the left side of B."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the conclusion?",
+        "options": [
+          "The company has a policy of not allowing salespeople to sit on the left side of the accountant.",
+          "The company has a policy of not allowing 20-year-olds to sit on the right side of the 24-year-old.",
+          "The company has a policy of not allowing the accountant to sit on the left side of the salesperson.",
+          "The company has a policy of not allowing the salesperson to sit on the right side of the accountant."
+        ],
+        "correct": 3,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 303,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the herbs?",
+        "options": [
+          "A: G, C, A, S",
+          "B: C, A, G, S",
+          "C: G, A, C, S",
+          "D: S, A, G, C"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If there is codonopsis, which of the following must be true?",
+        "options": [
+          "A: Ginseng is not present.",
+          "B: Atractylodes is not present.",
+          "C: Shouwu is not present.",
+          "D: Ginseng and atractylodes are both present."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument that at least one kind of ginseng or codonopsis must be present?",
+        "options": [
+          "A: Ginseng and codonopsis are both toxic.",
+          "B: Ginseng and codonopsis have the same medicinal properties.",
+          "C: Ginseng and codonopsis are interchangeable in traditional Chinese medicine.",
+          "D: Ginseng and codonopsis are both expensive."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that Shouwu must be present?",
+        "options": [
+          "A: Shouwu is a type of ginseng.",
+          "B: Shouwu is a type of codonopsis.",
+          "C: Shouwu is a required ingredient in traditional Chinese medicine.",
+          "D: Shouwu is a substitute for atractylodes."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 304,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the entities from the text?",
+        "options": [
+          "Xiaozhuang, English tutoring classes, postgraduate entrance exam",
+          "Postgraduate entrance exam, English tutoring classes, Xiaozhuang",
+          "English tutoring classes, postgraduate entrance exam, Xiaozhuang",
+          "Xiaozhuang, postgraduate entrance exam, English tutoring classes"
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "If Xiaozhuang is a postgraduate, which of the following must be true?",
+        "options": [
+          "Xiaozhuang must take English tutoring classes.",
+          "Xiaozhuang must take political counseling classes.",
+          "Xiaozhuang must take both English and political counseling classes.",
+          "Xiaozhuang must not take any counseling classes."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument?",
+        "options": [
+          "Xiaozhuang is not a postgraduate.",
+          "English tutoring classes are not necessary for postgraduates.",
+          "Political counseling classes are not necessary for postgraduates.",
+          "Xiaozhuang has already taken English tutoring classes."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "Xiaozhuang is a postgraduate.",
+          "English tutoring classes are necessary for postgraduates.",
+          "The postgraduate entrance exam requires counseling classes.",
+          "Xiaozhuang intends to take the postgraduate entrance exam."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 305,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the team members from Jiangsu, Anhui, Fujian, and Shandong?",
+        "options": [
+          "Zhang Ming (Jiangsu), Li Ying (Jiangsu), Wang Jia (Fujian), Chen Rui (Shandong)",
+          "Li Ying (Jiangsu), Zhang Ming (Jiangsu), Wang Jia (Fujian), Chen Rui (Shandong)",
+          "Wang Jia (Fujian), Li Ying (Jiangsu), Zhang Ming (Jiangsu), Chen Rui (Shandong)",
+          "Chen Rui (Shandong), Wang Jia (Fujian), Li Ying (Jiangsu), Zhang Ming (Jiangsu)"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If Wang Jia is from Shandong, which of the following must be true?",
+        "options": [
+          "Wang Jia can speak Central Plains Mandarin.",
+          "Wang Jia has a higher education level than Li Ying.",
+          "Wang Jia can speak Huizhou dialect.",
+          "Wang Jia is a colleague with his classmates from Jiangsu."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be inferred from the statements?",
+        "options": [
+          "Li Ying is from Jiangsu.",
+          "Wang Jia is from Fujian.",
+          "Chen Rui is from Shandong.",
+          "Zhang Ming is from Anhui."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument?",
+        "options": [
+          "Each person can only speak a dialect of their origin.",
+          "Shandong people have the highest educational level and can speak Central Plains Mandarin.",
+          "Wang Jia has a lower education level than Fujianese.",
+          "Li Ying can speak Huizhou dialect and is a colleague with his classmates from Jiangsu."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most weakens the argument?",
+        "options": [
+          "Shandong people have the lowest educational level.",
+          "Wang Jia has a higher education level than Li Ying.",
+          "Li Ying can speak Central Plains Mandarin.",
+          "Chen Rui can understand the dialect of southern Fujian."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 306,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the entities mentioned in the text?",
+        "options": [
+          "Pilots $\\to$ Areas $\\to$ Small Property Houses",
+          "Small Property Houses $\\to$ Areas $\\to$ Pilots",
+          "Areas $\\to$ Pilots $\\to$ Small Property Houses",
+          "Pilots $\\to$ Small Property Houses $\\to$ Areas"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If all localities confirm the registration and certification of rural collective land, which of the following must be true?",
+        "options": [
+          "Small-property houses are protected by law.",
+          "Pilots will be carried out in all areas.",
+          "The comprehensive clean-up of small property houses will be successful.",
+          "The system and policy preparations will be completed this year."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be inferred from the statements?",
+        "options": [
+          "The comprehensive clean-up of small property houses is a new policy.",
+          "The person in charge of the relevant department is responsible for the pilots.",
+          "Small-property houses are not protected by law.",
+          "The system and policy preparations will be completed next year."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "Small-property houses are not protected by law.",
+          "The person in charge of the relevant department is responsible for the pilots.",
+          "The comprehensive clean-up of small property houses is a new policy.",
+          "The system and policy preparations will be completed this year."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most weakens the argument?",
+        "options": [
+          "The comprehensive clean-up of small property houses has been successful in the past.",
+          "The person in charge of the relevant department is not responsible for the pilots.",
+          "Small-property houses are protected by law.",
+          "The system and policy preparations will be completed next year."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 307,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the teams that satisfies all the statements?",
+        "options": [
+          "S, J, N, B, A",
+          "J, S, N, B, A",
+          "N, J, S, B, A",
+          "A, N, J, S"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If statement (3) is true, which of the following must be true?",
+        "options": [
+          "Statement (4) is false.",
+          "Statement (1) is true.",
+          "Statement (2) is true.",
+          "Statement (1) is false."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the conclusion?",
+        "options": [
+          "The result of the match was a tie.",
+          "The champion was not one of the teams mentioned.",
+          "The match was not played according to the rules.",
+          "The result of the match was not announced."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "The result of the match was announced.",
+          "The champion was one of the teams mentioned.",
+          "The match was played according to the rules.",
+          "The result of the match was not a tie."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 308,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible conclusion based on the text?",
+        "options": [
+          "The development of small cities and towns can achieve urbanization.",
+          "The development of large cities alone can achieve urbanization.",
+          "The development of large cities and small cities/towns together can achieve urbanization.",
+          "The development of large cities alone cannot achieve urbanization."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "If a city has a population of over 1 million, which of the following must be true?",
+        "options": [
+          "It is considered a large city.",
+          "It has a high living cost.",
+          "It has a limited entry of rural population.",
+          "It is not considered a large city."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument?",
+        "options": [
+          "The development of large cities is the only factor that affects urbanization.",
+          "The development of small cities and towns is not a factor in urbanization.",
+          "Urbanization is solely dependent on economic growth.",
+          "The development of large cities alone can achieve urbanization."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 309,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be inferred from the text?",
+        "options": [
+          "The thalamus pillow is responsible for all cognitive functions.",
+          "The thalamus pillow plays a crucial role in sorting external stimulus information.",
+          "The discovery of the thalamus pillow is unrelated to the treatment of attention deficit hyperactivity disorder.",
+          "The thalamus pillow is the only brain area responsible for attention."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "The thalamus pillow is damaged in individuals with attention deficit hyperactivity disorder.",
+          "The thalamus pillow is responsible for sorting external stimulus information.",
+          "The disorders mentioned are caused by a lack of attention.",
+          "The researchers have not discovered any other brain areas responsible for attention."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "If the thalamus pillow is damaged, which of the following must be true?",
+        "options": [
+          "The individual will experience a loss of cognitive function.",
+          "The individual will have difficulty focusing attention.",
+          "The individual will not be able to sort external stimulus information.",
+          "The individual will not be able to perform any cognitive tasks."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 310,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument that microwave oven heating changes the molecular structure of food, producing molecules that the human body cannot recognize?",
+        "options": [
+          "Microwave heating is a common method of cooking that has been used for decades without any reported health problems.",
+          "The human body is capable of recognizing and processing a wide range of molecules, including those produced by microwave heating.",
+          "Some studies have found that microwave heating can actually improve the nutritional value of food.",
+          "The argument is based on a misunderstanding of the scientific evidence regarding the effects of microwave heating on food."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that microwave oven heating changes the molecular structure of food, producing molecules that the human body cannot recognize, and therefore, people or animals who often eat microwave foods will have serious physiological changes in their bodies, which will cause serious health problems?",
+        "options": [
+          "Microwave heating is a common method of cooking that has been used for decades.",
+          "The human body is capable of recognizing and processing a wide range of molecules.",
+          "Some studies have found that microwave heating can actually improve the nutritional value of food.",
+          "The argument is based on a misunderstanding of the scientific evidence regarding the effects of microwave heating on food."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously strengthens the argument that microwave oven heating changes the molecular structure of food, producing molecules that the human body cannot recognize?",
+        "options": [
+          "Some studies have found that microwave heating can actually improve the nutritional value of food.",
+          "The human body is capable of recognizing and processing a wide range of molecules, including those produced by microwave heating.",
+          "Microwave heating is a common method of cooking that has been used for decades without any reported health problems.",
+          "The argument is based on a misunderstanding of the scientific evidence regarding the effects of microwave heating on food."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 311,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be inferred from the text about the effects of lotus leaf on the body?",
+        "options": [
+          "Lotus leaf can only be used to treat hyperlipidemia and obesity.",
+          "Lotus leaf has a good effect on hyperlipidemia and obese patients.",
+          "Lotus leaf can only be used to lower blood pressure.",
+          "Lotus leaf has no effect on the body."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If lotus leaf is consumed in large quantities, which of the following must be true?",
+        "options": [
+          "Lotus leaf will have a negative effect on the body.",
+          "Lotus leaf will have no effect on the body.",
+          "Lotus leaf will have a positive effect on the body.",
+          "Lotus leaf will have a neutral effect on the body."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that lotus leaf is a good medicine for weight loss?",
+        "options": [
+          "Lotus leaf contains a variety of alkaloids, brassin glycosides, lotus leaf glycosides, and other ingredients.",
+          "Lotus leaf can effectively reduce cholesterol and triglycerides.",
+          "Some experts pointed out that lotus leaf is a good medicine for weight loss.",
+          "Lotus leaf has a good effect on hyperlipidemia and obese patients."
+        ],
+        "correct": 3,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 312,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following, if true, most seriously weakens the conclusion that the fossil is 110,000 years old?",
+        "options": [
+          "The dating method used to determine the age of the fossil is not reliable.",
+          "The fossil was found in an area with a history of human activities.",
+          "The fossil is similar to other fossils found in the area.",
+          "The fossil was found in a layer of rock that is known to be 110,000 years old."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that the fossil is 110,000 years old?",
+        "options": [
+          "The fossil was found in an area with a history of human activities.",
+          "The dating method used to determine the age of the fossil is reliable.",
+          "The fossil is similar to other fossils found in the area.",
+          "The fossil was found in a layer of rock that is known to be 110,000 years old."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If the fossil is confirmed to be 110,000 years old, what are the implications for the history of human activities in the area?",
+        "options": [
+          "The area must have had human activities as early as 110,000 years ago.",
+          "The area may have had human activities as early as 110,000 years ago.",
+          "The area cannot have had human activities as early as 110,000 years ago.",
+          "The area may not have had human activities as early as 110,000 years ago."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 313,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the stations from west to east?",
+        "options": [
+          "Haoyun Station, Huyao Station, Fuyi Station, Jiushang Station, Yinling Station",
+          "Haoyun Station, Fuyi Station, Huyao Station, Jiushang Station, Yinling Station",
+          "Huyao Station, Haoyun Station, Fuyi Station, Jiushang Station, Yinling Station",
+          "Fuyi Station, Haoyun Station, Huyao Station, Jiushang Station, Yinling Station"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If Haoyun Station is placed at the westernmost position, which of the following must be true?",
+        "options": [
+          "Fuyi Station is adjacent to Huyao Station.",
+          "Jiushang Station is adjacent to Yinling Station.",
+          "Huyao Station is adjacent to Fuyi Station.",
+          "Fuyi Station is east of Haoyun Station."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be inferred from the statements?",
+        "options": [
+          "Haoyun Station is west of Huyao Station.",
+          "Jiushang Station is east of Yinling Station.",
+          "Fuyi Station is adjacent to Haoyun Station.",
+          "Huyao Station is east of Fuyi Station."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "The stations are arranged from west to east.",
+          "The stations are adjacent to each other.",
+          "The relative positions of the stations are fixed.",
+          "The positions of the other stations are not strictly fixed."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument?",
+        "options": [
+          "The stations are not adjacent to each other.",
+          "The relative positions of the stations are not fixed.",
+          "The positions of the other stations are strictly fixed.",
+          "The stations are not arranged from west to east."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 314,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the stations from west to east?",
+        "options": [
+          "Haoyun Station, Huyao Station, Fuyi Station, Jiushang Station, Yinling Station",
+          "Haoyun Station, Fuyi Station, Huyao Station, Jiushang Station, Yinling Station",
+          "Huyao Station, Haoyun Station, Fuyi Station, Jiushang Station, Yinling Station",
+          "Fuyi Station, Haoyun Station, Huyao Station, Jiushang Station, Yinling Station"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If Haoyun Station is placed at the westernmost position, which of the following must be true?",
+        "options": [
+          "Fuyi Station is adjacent to Huyao Station.",
+          "Jiushang Station is adjacent to Yinling Station.",
+          "Huyao Station is adjacent to Fuyi Station.",
+          "Fuyi Station is east of Haoyun Station."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be inferred from the statements?",
+        "options": [
+          "Haoyun Station is west of Huyao Station.",
+          "Jiushang Station is east of Yinling Station.",
+          "Fuyi Station is adjacent to Haoyun Station.",
+          "Huyao Station is east of Fuyi Station."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "The stations are arranged from west to east.",
+          "The stations are adjacent to each other.",
+          "The relative positions of the stations are fixed.",
+          "The positions of the other stations are not strictly fixed."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument?",
+        "options": [
+          "The stations are not adjacent to each other.",
+          "The relative positions of the stations are not fixed.",
+          "The positions of the other stations are strictly fixed.",
+          "The stations are not arranged from west to east."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 315,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Constraint Satisfaction",
+        "options": [
+          "Haoyun, Huyao, Fuyi, Jiushang, Yinling",
+          "Haoyun, Fuyi, Huyao, Jiushang, Yinling",
+          "Huyao, Fuyi, Haoyun, Jiushang, Yinling",
+          "Fuyi, Haoyun, Huyao, Jiushang, Yinling"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Conditional Reasoning",
+        "options": [
+          "Haoyun Station is in the first position.",
+          "Huyao Station is in the second position.",
+          "Jiushang Station is in the fourth position.",
+          "Yinling Station is in the fifth position."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": ". Direct Inference",
+        "options": [
+          "Fuyi Station is adjacent to Haoyun Station.",
+          "Jiushang Station is west of Yinling Station.",
+          "Huyao Station is east of Fuyi Station.",
+          "Haoyun Station is west of Fuyi Station."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": ". Missing Premise",
+        "options": [
+          "Haoyun Station is west of Fuyi Station.",
+          "Fuyi Station is adjacent to Huyao Station.",
+          "The stations are arranged from west to east.",
+          "Huyao Station is east of Fuyi Station."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": ". Strengthen/Weaken",
+        "options": [
+          "Haoyun Station is in the second position from west to east.",
+          "Fuyi Station is adjacent to Huyao Station.",
+          "The stations are arranged from east to west.",
+          "Huyao Station is west of Fuyi Station."
+        ],
+        "correct": 3,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 316,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Which of the following is a possible arrangement of the stations from west to east?",
+        "options": [
+          "Haoyun, Huyao, Fuyi, Jiushang, Yinling",
+          "Haoyun, Fuyi, Huyao, Jiushang, Yinling",
+          "Huyao, Fuyi, Haoyun, Jiushang, Yinling",
+          "Fuyi, Haoyun, Huyao, Jiushang, Yinling"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". If Fuyi Station is in the third position, which of the following must be?",
+        "options": [
+          "Haoyun Station is in the first position.",
+          "Huyao Station is in the second position.",
+          "Jiushang Station is in the fourth position.",
+          "Yinling Station is in the fifth position."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following can be inferred from the text?",
+        "options": [
+          "Fuyi Station is adjacent to both Haoyun Station and Huyao Station.",
+          "Jiushang Station is adjacent to both Fuyi Station and Yinling Station.",
+          "Haoyun Station is west of Huyao Station.",
+          "Huyao Station is east of Fuyi Station."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 317,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct Inference",
+        "options": [
+          "Leeds grows at a rate of 0.45 meters per year.",
+          "Leeds can grow up to 9 meters long within 20 years of birth.",
+          "Leeds' growth rate is comparable to the whale shark.",
+          "Leeds' average lifespan is about 40 years."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise",
+        "options": [
+          "Leeds is a fish from the Jurassic era.",
+          "The whale shark is a modern species.",
+          "The growth rate of Leeds is comparable to the whale shark.",
+          "The average lifespan of the whale shark is about 70 years."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "The whale shark's growth rate is significantly faster than Leeds'.",
+          "The average lifespan of the whale shark is about 40 years.",
+          "Leeds' growth rate is comparable to the whale shark.",
+          "The whale shark is a much larger species than Leeds."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 318,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Constraint Satisfaction",
+        "options": [
+          "Canoe 1, Canoe 2, Canoe 3",
+          "Canoe 3, Canoe 2, Canoe 1",
+          "Canoe 1, Canoe 3, Canoe 2",
+          "Canoe 2, Canoe 1, Canoe 3"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning",
+        "options": [
+          "The canoes were made from the same type of wood.",
+          "The canoes were discovered in the same location.",
+          "The canoes were of the same size.",
+          "The canoes were of the same age."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference",
+        "options": [
+          "The climate in Henan was warm and humid.",
+          "The climate in Henan was cold and dry.",
+          "The climate in Henan was similar to the tropical climate of Yunnan.",
+          "The climate in Henan was different from the tropical climate of Yunnan."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise/Assumption",
+        "options": [
+          "The canoes were made from the same type of wood.",
+          "The canoes were discovered in the same location.",
+          "The canoes were of the same size.",
+          "The canoes were of the same age."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "The canoes were made from different types of wood.",
+          "The canoes were discovered in different locations.",
+          "The canoes were of different sizes.",
+          "The canoes were of different ages."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 319,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Constraint Satisfaction",
+        "options": [
+          "**Stem:** \"Which of the following is a possible explanation for the improved mathematics ability in the test group?\"",
+          "**Options:**",
+          "The researchers used a more effective stimulation technique.",
+          "The test group members were more motivated to learn mathematics."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". Conditional Reasoning",
+        "options": [
+          "**Stem:** \"If the researchers had used a different population (e.g., high school students), which of the following would be?\"",
+          "**Options:**",
+          "The results would be the same.",
+          "The results would be different."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Direct Inference",
+        "options": [
+          "**Stem:** \"Which of the following can be inferred from the study?\"",
+          "**Options:**",
+          "The researchers used a new type of stimulation.",
+          "The test group members had higher mathematics ability before the study."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": ". Missing Premise",
+        "options": [
+          "**Stem:** \"What is the missing premise in the argument that the researchers' conclusion is based on?\"",
+          "**Options:**",
+          "The researchers used a random sample of participants.",
+          "The stimulation technique was applied to the correct brain areas."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Strengthen/Weaken",
+        "options": [
+          "**Stem:** \"Which of the following, if, would most strengthen the researchers' conclusion?\"",
+          "**Options:**",
+          "The stimulation technique was used in a previous study with similar results.",
+          "The test group members had higher mathematics ability before the study."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". Explanation/Resolution",
+        "options": [
+          "**Stem:** \"Which of the following best explains the apparent discrepancy between the study's results and previous studies on the same topic?\"",
+          "**Options:**",
+          "The researchers used a different population.",
+          "The stimulation technique was used in a different way."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Parallel Reasoning",
+        "options": [
+          "**Stem:** \"Which of the following arguments is most similar in its reasoning to the researchers' conclusion?\"",
+          "**Options:**",
+          "If a new type of medication is used to treat a disease, the disease will be cured.",
+          "If a new type of exercise is used to improve physical fitness, the person will be healthier."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 320,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Which of the following arrangements is acceptable?",
+        "options": [
+          "Villa houses: A City > B City > C City",
+          "Ordinary commercial houses: A City > B City > B City",
+          "Affordable housing: B City > A City > C City",
+          "Villa houses: A City > C City > B City"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". If the price of affordable housing in A City is higher than in B City, which of the following must be?",
+        "options": [
+          "Villa houses: A City > B City > C City",
+          "Ordinary commercial houses: A City > B City > B City",
+          "Affordable housing: B City > A City > C City",
+          "Villa houses: A City > C City > B City"
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following can be inferred/derived from the statements?",
+        "options": [
+          "Villa houses are more expensive than ordinary commercial houses in A City.",
+          "Affordable housing is more expensive than villa houses in B City.",
+          "The price of affordable housing in A City is higher than in B City.",
+          "Villa houses are more expensive than affordable housing in C City."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". The conclusion relies on which assumption?",
+        "options": [
+          "The survey only includes data from three cities in eastern China.",
+          "The price of villa houses is a good indicator of the overall housing market.",
+          "The price of affordable housing is a good indicator of the overall housing market.",
+          "The survey only includes data from three types of residential housing."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following, if, most weakens the argument?",
+        "options": [
+          "The survey only includes data from three cities in eastern China.",
+          "The price of villa houses is a good indicator of the overall housing market.",
+          "The price of affordable housing is a good indicator of the overall housing market.",
+          "The survey only includes data from three types of residential housing."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". Which statement best explains the apparent discrepancy?",
+        "options": [
+          "The survey only includes data from three cities in eastern China.",
+          "The price of villa houses is a good indicator of the overall housing market.",
+          "The price of affordable housing is a good indicator of the overall housing market.",
+          "The survey only includes data from three types of residential housing."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following arguments is most similar in its reasoning?",
+        "options": [
+          "Villa houses are more expensive than ordinary commercial houses in A City.",
+          "Affordable housing is more expensive than villa houses in B City.",
+          "The price of affordable housing in A City is higher than in B City.",
+          "Villa houses are more expensive than affordable housing in C City."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 321,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 322,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Constraint Satisfaction (Ordering/Grouping)",
+        "options": [
+          "Insects would become larger.",
+          "Insects would remain the same size.",
+          "Insects would become smaller.",
+          "Insects would disappear."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning",
+        "options": [
+          "The insect would have a larger body size.",
+          "The insect would have a smaller body size.",
+          "The insect would have a normal body size.",
+          "The insect would not be able to breathe."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference",
+        "options": [
+          "Oxygen content has no effect on insect size.",
+          "Oxygen content has a direct effect on insect size.",
+          "Oxygen content has an indirect effect on insect size.",
+          "Oxygen content has no relationship with insect size."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise/Assumption",
+        "options": [
+          "Insects need oxygen to breathe.",
+          "The stomata system is connected to the trachea.",
+          "The total length of the stomata system is limited by the current atmospheric oxygen level.",
+          "Insects have a fixed body size."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "Insects have a complex respiratory system.",
+          "The stomata system is highly efficient at delivering oxygen.",
+          "The total length of the stomata system is directly proportional to the size of the insect.",
+          "Insects have a fixed body size."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 323,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Constraint Satisfaction",
+        "options": [
+          "The \"Aklyusian monkey\" is active at night.",
+          "The \"Aklyusian monkey\" is active during the day.",
+          "The \"Aklyusian monkey\" has a large eye socket.",
+          "The \"Aklyusian monkey\" has a short and wide bone in its heel."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning",
+        "options": [
+          "The \"Aklyusian monkey\" is active during the day.",
+          "The \"Aklyusian monkey\" is active at night.",
+          "The \"Aklyusian monkey\" has a large eye socket.",
+          "The \"Aklyusian monkey\" has a short and wide bone in its heel."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference",
+        "options": [
+          "The \"Aklyusian monkey\" is a type of ape.",
+          "The \"Aklyusian monkey\" is a type of monkey.",
+          "The \"Aklyusian monkey\" is active during the day.",
+          "The \"Aklyusian monkey\" has a large eye socket."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise",
+        "options": [
+          "The \"Aklyusian monkey\" has a short and wide bone in its heel.",
+          "The \"Aklyusian monkey\" has a small eye socket.",
+          "The ancestors of the early apes were active during the day.",
+          "The \"Aklyusian monkey\" is a type of ape."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "The \"Aklyusian monkey\" has a large eye socket.",
+          "The \"Aklyusian monkey\" has a short and wide bone in its heel.",
+          "The ancestors of the early apes were active during the day.",
+          "The \"Aklyusian monkey\" is a type of monkey."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Explanation/Resolution",
+        "options": [
+          "The \"Aklyusian monkey\" is a type of ape.",
+          "The \"Aklyusian monkey\" is a type of monkey.",
+          "The ancestors of the early apes were active during the day.",
+          "The \"Aklyusian monkey\" has a large eye socket."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Parallel Reasoning",
+        "options": [
+          "If a bird has a short beak, it must be a type of bird.",
+          "If a cat has a short tail, it must be a type of cat.",
+          "If a dog has a short leg, it must be a type of dog.",
+          "If a horse has a short mane, it must be a type of horse."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 324,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Conditional Reasoning",
+        "options": [
+          "Humans will be able to create \"customized babies\" with specific traits.",
+          "The cost of genetic screening will decrease significantly.",
+          "The accuracy of genetic screening will increase.",
+          "The use of genetic screening will become mandatory."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference",
+        "options": [
+          "The news about Conne Levi was widely reported in the media.",
+          "The European Society of Human Reproduction and Embryology Annual Meeting is a prestigious conference.",
+          "The audience at the meeting was composed of experts and scholars.",
+          "The meeting was held in a different location."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise/Assumption",
+        "options": [
+          "Conne Levi's genetic screening is a significant advancement.",
+          "The technology used for Conne Levi's screening is widely available.",
+          "Humans have the ability to create \"customized babies\" with specific traits.",
+          "The concept of \"customized babies\" is widely accepted."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "The technology used for Conne Levi's screening is not widely available.",
+          "The concept of \"customized babies\" is widely accepted.",
+          "Conne Levi's genetic screening is not a significant advancement.",
+          "The idea of \"customized babies\" is morally and ethically questionable."
+        ],
+        "correct": 3,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 325,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following, if true, most seriously weakens the speculation that there are living bodies on other planets?",
+        "options": [
+          "Amino acid molecules are not abundant in interstellar molecules.",
+          "The transformation of amino acid molecules into proteins requires a specific set of conditions that are unlikely to be met in space.",
+          "The existence of life on Earth is not evidence of the possibility of life on other planets.",
+          "The universe is too old for life to have developed on other planets."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If amino acid molecules are abundant in interstellar molecules, what must be true about the possibility of life on other planets?",
+        "options": [
+          "It is possible that life on other planets is more intelligent than life on Earth.",
+          "The existence of life on other planets is guaranteed.",
+          "The possibility of life on other planets is increased.",
+          "The possibility of life on other planets is decreased."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that there are living bodies on other planets?",
+        "options": [
+          "Amino acid molecules are abundant in interstellar molecules.",
+          "The transformation of amino acid molecules into proteins requires a specific set of conditions that are unlikely to be met in space.",
+          "The existence of life on Earth is not evidence of the possibility of life on other planets.",
+          "The universe is too old for life to have developed on other planets."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 326,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Question 1: Constraint Satisfaction",
+        "options": [
+          "150,000 to 200,000 years ago",
+          "200,000 to 250,000 years ago",
+          "250,000 to 300,000 years ago",
+          "300,000 to 350,000 years ago"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Question 2: Conditional Reasoning",
+        "options": [
+          "Homo sapiens originated in Asia",
+          "Homo sapiens migrated from Africa to Asia",
+          "Homo sapiens evolved in Africa about 200,000 years ago",
+          "Homo sapiens migrated from Asia to Africa"
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Question 3: Direct Inference",
+        "options": [
+          "Homo sapiens originated in Europe",
+          "Homo sapiens migrated from Africa to Europe",
+          "Homo sapiens evolved in Africa about 200,000 years ago",
+          "Homo sapiens migrated from Asia to Africa"
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Question 4: Missing Premise",
+        "options": [
+          "Homo sapiens evolved in Africa about 200,000 years ago",
+          "Homo sapiens migrated from Africa to Europe and Asia",
+          "The oldest Homo sapiens remains have appeared in Africa",
+          "Homo sapiens are the direct ancestors of modern people"
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Question 5: Strengthen/Weaken",
+        "options": [
+          "Homo sapiens fossils have been found in Europe",
+          "Homo sapiens fossils have been found in Asia",
+          "The oldest Homo sapiens remains have appeared in Europe",
+          "Homo sapiens are the direct ancestors of modern people"
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 327,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Which of the following is a possible arrangement of the relationship between the mass of the particles and the redshift/blue shift phenomenon?",
+        "options": [
+          "Mass increase $\\to$ Blue shift",
+          "Mass decrease $\\to$ Red shift",
+          "Red shift $\\to$ Mass increase",
+          "Blue shift $\\to$ Mass decrease"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". If the mass of the particles in a galaxy increases by %, which of the following must be?",
+        "options": [
+          "The redshift phenomenon will become more pronounced.",
+          "The blue shift phenomenon will become more pronounced.",
+          "The redshift phenomenon will become less pronounced.",
+          "The blue shift phenomenon will become less pronounced."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following can be inferred from the statements?",
+        "options": [
+          "The universe is constantly expanding.",
+          "The mass of the particles in galaxies is decreasing over time.",
+          "The redshift phenomenon is caused by the mass of the particles.",
+          "The blue shift phenomenon is caused by the mass of the particles."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". What is the missing premise in the above argument?",
+        "options": [
+          "The mass of the particles in galaxies is decreasing over time.",
+          "The universe is constantly expanding.",
+          "The redshift phenomenon is caused by the mass of the particles.",
+          "The blue shift phenomenon is caused by the mass of the particles."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following, if, most seriously weakens the argument?",
+        "options": [
+          "The redshift phenomenon is caused by the mass of the particles.",
+          "The universe is constantly expanding.",
+          "The mass of the particles in galaxies is increasing over time.",
+          "The blue shift phenomenon is caused by the mass of the particles."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": ". Which statement best explains the apparent discrepancy between the redshift phenomenon and the blue shift phenomenon?",
+        "options": [
+          "The mass of the particles in galaxies is decreasing over time.",
+          "The universe is constantly expanding.",
+          "The redshift phenomenon is caused by the mass of the particles.",
+          "The blue shift phenomenon is caused by the mass of the particles."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following arguments is most similar in its reasoning?",
+        "options": [
+          "If the mass of the particles in a galaxy decreases by %, the redshift phenomenon will become less pronounced.",
+          "If the mass of the particles in a galaxy increases by %, the blue shift phenomenon will become more pronounced.",
+          "If the mass of the particles in a galaxy increases by %, the redshift phenomenon will become more pronounced.",
+          "If the mass of the particles in a galaxy decreases by %, the blue shift phenomenon will become less pronounced."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 328,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible conclusion if we add the condition that Li Wenbing's family is a landscape room?",
+        "options": [
+          "Li Wenbing's family can see the landscape.",
+          "Li Wenbing's family cannot see the landscape.",
+          "The landscape is not visible from any room.",
+          "The conclusion remains the same."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If we assume that Li Wenbing's family is not a landscape room, which of the following must be true?",
+        "options": [
+          "All landscape rooms can see the landscape.",
+          "Li Wenbing's family cannot see the landscape.",
+          "The landscape is not visible from any room.",
+          "The conclusion is invalid."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "Li Wenbing's family is a landscape room.",
+          "The landscape is not visible from any room.",
+          "All landscape rooms can see the landscape.",
+          "Li Wenbing's family cannot see the landscape."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the conclusion?",
+        "options": [
+          "The landscape is not visible from any room.",
+          "Li Wenbing's family is a landscape room.",
+          "All landscape rooms can see the landscape.",
+          "The conclusion is invalid."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which statement best explains the apparent discrepancy?",
+        "options": [
+          "The landscape is not visible from any room.",
+          "Li Wenbing's family is a landscape room.",
+          "All landscape rooms can see the landscape.",
+          "The conclusion is invalid."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 329,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following, if true, most seriously weakens the conclusion that chili relieves indigestion?",
+        "options": [
+          "The study only included experimenters with mild indigestion symptoms.",
+          "The experimenters were not given any other treatment options.",
+          "The study was conducted over a period of only 5 weeks.",
+          "The experimenters were not asked to keep a food diary."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If the study had a larger sample size, which of the following must be true?",
+        "options": [
+          "The results would be more reliable.",
+          "The results would be less reliable.",
+          "The results would be the same.",
+          "The results would be more generalizable."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that chili relieves indigestion?",
+        "options": [
+          "The experimenters were suffering from indigestion.",
+          "The experimenters took chili tablets before meals.",
+          "The experimenters did not experience any discomfort symptoms.",
+          "The study was conducted over a period of 5 weeks."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most strengthens the conclusion that chili relieves indigestion?",
+        "options": [
+          "The study found that the experimenters who took chili tablets had lower levels of stomach acid.",
+          "The study found that the experimenters who took chili tablets had higher levels of stomach acid.",
+          "The study found that the experimenters who took chili tablets had no change in stomach acid levels.",
+          "The study found that the experimenters who took chili tablets had a decrease in stomach acid levels."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following is a possible explanation for the results of the study?",
+        "options": [
+          "The experimenters who took chili tablets had a placebo effect.",
+          "The experimenters who took chili tablets had a real effect.",
+          "The study was conducted over a period of only 5 weeks.",
+          "The study had a small sample size."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 330,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 331,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following, if true, most seriously weakens the researchers' conclusion that the impact period was about 215 million years ago?",
+        "options": [
+          "The presence of marine plankton fossils in the upper and lower strata is not a reliable indicator of age.",
+          "The concentration of iridium in the rock is not significantly higher than normal.",
+          "The rock contains no other evidence of a meteorite impact.",
+          "The age of the meteorite is not consistent with the age of the surrounding rock."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If the concentration of iridium in the rock is above 100 times the normal concentration, what can be inferred about the age of the meteorite?",
+        "options": [
+          "The meteorite is at least 200 million years old.",
+          "The meteorite is no older than 100 million years.",
+          "The age of the meteorite is not determinable from the concentration of iridium.",
+          "The concentration of iridium is not a reliable indicator of age."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "The presence of certain elements and minerals is evidence of a meteorite impact.",
+          "The age of the meteorite is consistent with the age of the surrounding rock.",
+          "The concentration of iridium in the rock is significantly higher than normal.",
+          "The rock contains no other evidence of a meteorite impact."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 332,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Question 1: Constraint Satisfaction",
+        "options": [
+          "20",
+          "40",
+          "50",
+          "60"
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Question 2: Direct Inference",
+        "options": [
+          "The majority of the public supports extending the retirement age.",
+          "The negative impact on youth employment is a major reason for opposing the extension.",
+          "The blog statistics are representative of the general public opinion.",
+          "The retirement age should be extended to alleviate social security pressure."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Question 3: Missing Premise",
+        "options": [
+          "The blog statistics are biased towards a specific age group.",
+          "The negative impact on youth employment is a major reason for opposing the extension.",
+          "The retirement age should be extended to alleviate social security pressure.",
+          "The blog statistics are representative of the general public opinion."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Question 4: Strengthen/Weaken",
+        "options": [
+          "The majority of the public supports extending the retirement age.",
+          "The negative impact on youth employment is a minor reason for opposing the extension.",
+          "The blog statistics are representative of the general public opinion.",
+          "The retirement age should be extended to alleviate social security pressure."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 333,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the supercomputers in terms of their ranking and speed?",
+        "options": [
+          "Tianhe No.1 (2012) > Tianhe 2 (2013) > Titanium (2013)",
+          "Tianhe 2 (2013) > Tianhe No.1 (2012) > Titanium (2013)",
+          "Titanium (2013) > Tianhe 2 (2013) > Tianhe No.1 (2012)",
+          "Tianhe No.1 (2012) > Titanium (2013) > Tianhe 2 (2013)"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If a new supercomputer is developed in 2014 with a speed twice that of Tianhe 2, which of the following must be true?",
+        "options": [
+          "The new supercomputer will rank first in the world.",
+          "The new supercomputer will rank second in the world.",
+          "The ranking of supercomputers will remain the same.",
+          "The speed of Tianhe 2 will be surpassed by another supercomputer."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the conclusion that Tianhe 2 is the fastest supercomputer in 2013?",
+        "options": [
+          "The ranking of supercomputers is based on a combination of speed and power consumption.",
+          "The speed of Tianhe 2 is not the only factor that determines its ranking.",
+          "The ranking of supercomputers is based solely on speed.",
+          "The speed of Tianhe 2 is not the highest in the world."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "The ranking of supercomputers is based solely on speed.",
+          "The speed of Tianhe 2 is not the only factor that determines its ranking.",
+          "The ranking of supercomputers is based on a combination of speed and power consumption.",
+          "The speed of Tianhe 2 is the highest in the world."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which statement best explains the apparent discrepancy between the ranking of Tianhe No.1 and Tianhe 2?",
+        "options": [
+          "The ranking of supercomputers is based on a combination of speed and power consumption.",
+          "The speed of Tianhe 2 is not the only factor that determines its ranking.",
+          "The ranking of supercomputers is based solely on speed.",
+          "The speed of Tianhe 2 is not the highest in the world."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following arguments is most similar in its reasoning to the argument presented in the text?",
+        "options": [
+          "The ranking of supercomputers is based solely on speed.",
+          "The speed of Tianhe 2 is not the only factor that determines its ranking.",
+          "The ranking of supercomputers is based on a combination of speed and power consumption.",
+          "The speed of Tianhe 2 is the highest in the world."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 334,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the \"resurrected\" animals to restore the damaged ecological environment in Siberia?",
+        "options": [
+          "Mammoths, Dodos, Dinosaurs",
+          "Dinosaurs, Mammoths, Dodos",
+          "Dodos, Dinosaurs, Mammoths",
+          "Mammoths, Dinosaurs, Dodos"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If the resurrected mammoths are unable to adapt to the modern climate, which of the following must be true?",
+        "options": [
+          "The area of ​​tundra in Siberia will increase.",
+          "The grasslands lacking fertilizer will be restored.",
+          "The resurrected mammoths will not be able to survive.",
+          "The resurrected mammoths will not be able to reproduce."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that reanimated animals are expected to restore the damaged ecological environment in some areas?",
+        "options": [
+          "The resurrected animals will be able to adapt to the modern climate.",
+          "The resurrected animals will be able to reproduce.",
+          "The resurrected animals will be able to restore the damaged ecological environment.",
+          "The resurrected animals will be able to survive."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument that reanimated animals are expected to restore the damaged ecological environment in some areas?",
+        "options": [
+          "The resurrected animals will not be able to adapt to the modern climate.",
+          "The resurrected animals will not be able to reproduce.",
+          "The resurrected animals will not be able to survive.",
+          "The resurrected animals will not be able to restore the damaged ecological environment."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Which statement best explains the apparent discrepancy between the potential benefits of reanimated animals and the challenges of adapting to the modern climate?",
+        "options": [
+          "The resurrected animals will be able to adapt to the modern climate.",
+          "The resurrected animals will not be able to adapt to the modern climate.",
+          "The resurrected animals will be able to restore the damaged ecological environment.",
+          "The resurrected animals will not be able to restore the damaged ecological environment."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 335,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Which of the following, if, would most strengthen the conclusion that the symptoms of vitamin deficiency in pregnant women are not due to their diet?",
+        "options": [
+          "Pregnant women have a higher demand for vitamins than non-pregnant women.",
+          "The diet of pregnant women is typically rich in vitamins.",
+          "The symptoms of vitamin deficiency in pregnant women are similar to those in non-pregnant women.",
+          "The growth of babies in the abdomen increases the demand for vitamins in pregnant women."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": ". What is the missing premise in the argument that the symptoms of vitamin deficiency in pregnant women are not due to their diet?",
+        "options": [
+          "Pregnant women have a higher demand for vitamins than non-pregnant women.",
+          "The diet of pregnant women is typically rich in vitamins.",
+          "The symptoms of vitamin deficiency in pregnant women are similar to those in non-pregnant women.",
+          "The growth of babies in the abdomen increases the demand for vitamins in pregnant women."
+        ],
+        "correct": 3,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 336,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Direct Inference",
+        "options": [
+          "Everyone who has completed compulsory education will automatically be accepted into higher education.",
+          "reasonable education system requires everyone to have the right to compulsory education.",
+          "Higher education is only available to those who have completed higher education.",
+          "Compulsory education is not necessary for higher education."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Missing Premise/Assumption",
+        "options": [
+          "Everyone has the ability to complete compulsory education.",
+          "Higher education is only available to those who have completed compulsory education.",
+          "The education system should prioritize fairness and equality.",
+          "Compulsory education is not necessary for higher education."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Strengthen/Weaken",
+        "options": [
+          "The education system is already fair and accessible to everyone.",
+          "Higher education is only available to those who have completed higher education.",
+          "The education system should prioritize academic achievement over fairness and equality.",
+          "Everyone has the ability to complete compulsory education."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 337,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be inferred from the text?",
+        "options": [
+          "The Ukrainian authorities must recognize the special status of Russian and stop military operations in the southeast.",
+          "The conflict cannot be resolved without recognizing the special status of Russian and stopping military operations.",
+          "The Ukrainian authorities must recognize the special status of Russian, but military operations in the southeast can continue.",
+          "The conflict can be resolved without recognizing the special status of Russian."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument?",
+        "options": [
+          "The Ukrainian authorities have the power to recognize the special status of Russian.",
+          "The recognition of the special status of Russian is sufficient to resolve the conflict.",
+          "The conflict cannot be resolved without recognizing the special status of Russian and stopping military operations.",
+          "The Ukrainian authorities have no control over the military operations in the southeast."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 338,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct Inference",
+        "options": [
+          "The Internet's development is the primary factor in enabling online shopping.",
+          "People in countries with low economic development levels can afford to buy products online.",
+          "Online shopping is only available in countries with high economic development levels.",
+          "The text does not provide enough information to make this inference."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise",
+        "options": [
+          "The Internet's development is the primary factor in enabling online shopping.",
+          "People in countries with low economic development levels have access to the Internet.",
+          "Online shopping is a reliable way to satisfy material needs.",
+          "The text does not provide enough information to make this inference."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "The Internet's development has led to increased economic inequality.",
+          "Online shopping is only available in countries with high economic development levels.",
+          "The text does not provide enough information to make this inference.",
+          "The Internet's development has led to increased access to education and healthcare."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 339,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be inferred from the statements?",
+        "options": [
+          "Wang Gang has a master's degree.",
+          "Wang Gang has more than 5 years of research experience.",
+          "Wang Gang is a university teacher.",
+          "Wang Gang has a bachelor's degree."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "Wang Gang has a job that requires a doctorate.",
+          "Wang Gang has more than one year of research experience.",
+          "Wang Gang has a bachelor's degree.",
+          "Wang Gang is not a university teacher."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most strengthens the argument?",
+        "options": [
+          "Wang Gang has published several research papers.",
+          "Wang Gang has a master's degree from a prestigious school.",
+          "Wang Gang has more than 5 years of research experience.",
+          "Wang Gang is not a university teacher."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 340,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 341,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Step 16: Example 1: Logic Puzzle (Constraint Satisfaction)",
+        "options": [
+          "Which of the following is a possible arrangement of the entities from the Input Text?",
+          "A: Happiness $\\to$ Income $\\to$ Life Satisfaction",
+          "B: Life Satisfaction $\\to$ Happiness $\\to$ Income",
+          "C: Income $\\to$ Life Satisfaction $\\to$ Happiness"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Step 17: Example 2: Argumentation (Weaken)",
+        "options": [
+          "Which of the following, if true, most seriously weakens the argument that happy people can make more money?",
+          "A: The study only looked at people up to the age of 29.",
+          "B: The relationship between happiness and income is bidirectional.",
+          "C: The study only looked at a specific age group."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Step 18: Example 3: Missing Premise",
+        "options": [
+          "What is the missing premise in the argument that happy people can make more money?",
+          "A: The study only looked at people up to the age of 29.",
+          "B: The relationship between happiness and income is bidirectional.",
+          "C: The study only looked at a specific age group."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 342,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Which of the following can be inferred from the statement \"All students in the class have passed the examination\"?",
+        "options": [
+          "All students in the class have failed the examination.",
+          "Some students in the class have failed the examination.",
+          "None of the students in the class have passed the examination.",
+          "The examination was easy."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": ". What is the missing premise in the argument \"All students in the class have passed the examination. Therefore, none of the students in the class have passed\"?",
+        "options": [
+          "The examination was difficult.",
+          "All students in the class took the examination.",
+          "The examination was easy.",
+          "None of the students in the class took the examination."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following, if, most seriously weakens the argument \"All students in the class have passed the examination. Therefore, none of the students in the class have passed\"?",
+        "options": [
+          "Some students in the class did not take the examination.",
+          "The examination was easy.",
+          "All students in the class took the examination.",
+          "None of the students in the class have passed the examination."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 343,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following, if true, most strengthens the conclusion that the average income of households in City W has increased in the past two years?",
+        "options": [
+          "The average price of food has decreased by 10% in the past two years.",
+          "The average income of households in City W has increased by more than 10% in the past two years.",
+          "Residents' food purchases account for more than 10% of the city's monthly household income.",
+          "The average price of food has increased by more than 25% in the past five years."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If the average income of households in City W has increased by more than 10% in the past two years, which of the following must be true?",
+        "options": [
+          "Food prices have decreased by more than 10% in the past two years.",
+          "Residents' food purchases account for more than 10% of the city's monthly household income.",
+          "The average price of food has increased by more than 25% in the past five years.",
+          "The average income of households in City W has increased by more than 20% in the past two years."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that the average income of households in City W has increased in the past two years?",
+        "options": [
+          "Food prices have increased by 25% in the past five years.",
+          "Residents' food purchases account for only about 8% of the city's monthly household income.",
+          "The average income of households in City W has increased by more than 10% in the past two years.",
+          "The average price of food has decreased by more than 10% in the past two years."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 344,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Constraint Satisfaction (Ordering/Grouping)",
+        "options": [
+          "**Question:** Which of the following cars is allowed to travel on an odd day?",
+          "Car with ending number 0",
+          "Car with ending number 5",
+          "Car with ending number 10"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning",
+        "options": [
+          "**Question:** If a car with ending number 5 is allowed to travel on an odd day, which of the following must be true?",
+          "All cars with ending numbers 1, 3, 5, 7, 9 are allowed to travel.",
+          "Only cars with ending numbers 1, 3, 5, 7, 9 are allowed to travel.",
+          "Cars with ending numbers 1, 3, 5, 7, 9 are allowed to travel, but only on even days."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference",
+        "options": [
+          "**Question:** Which of the following can be inferred from the text?",
+          "The city government implemented the travel restrictions to reduce air pollution.",
+          "The travel restrictions will solve the problem of air pollution and congestion.",
+          "Cars with ending numbers 1, 3, 5, 7, 9 are allowed to travel on odd days."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise/Assumption",
+        "options": [
+          "**Question:** What is the missing premise in the argument that the travel restrictions will solve the problem of air pollution and congestion?",
+          "The travel restrictions will reduce the number of private cars on the road.",
+          "The travel restrictions will reduce air pollution and congestion.",
+          "The travel restrictions are a necessary condition for reducing air pollution and congestion."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "**Question:** Which of the following, if true, most seriously weakens the argument that the travel restrictions will solve the problem of air pollution and congestion?",
+          "The travel restrictions will reduce the number of private cars on the road.",
+          "The travel restrictions will increase air pollution and congestion.",
+          "The city government did not consider alternative solutions to the problem."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 345,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Constraint Satisfaction (Ordering/Grouping)",
+        "options": [
+          "The student is admitted to Beijing University for a master's degree without a test.",
+          "The student is not admitted to Beijing University for a master's degree without a test.",
+          "The student is admitted to a different university for a master's degree without a test.",
+          "The student is not admitted to any university for a master's degree without a test."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference",
+        "options": [
+          "All students who enter Beijing University for a master's degree have already obtained the recommended qualifications of their schools.",
+          "Some students who enter Beijing University for a master's degree have not already obtained the recommended qualifications of their schools.",
+          "The recommended qualifications of schools are not relevant to admission decisions.",
+          "The admission process for Beijing University's master's program is not transparent."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise",
+        "options": [
+          "The recommended qualifications of schools are sufficient for admission.",
+          "The admission process for Beijing University's master's program is not transparent.",
+          "All students who enter Beijing University for a master's degree have already obtained the recommended qualifications of their schools.",
+          "The university has a strict admission policy."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 346,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct Inference",
+        "options": [
+          "Pure water is completely mineral-free.",
+          "Mineral water is more expensive than pure water.",
+          "Drinking mineral water can lead to health problems.",
+          "People who drink only pure water are likely to have mineral deficiencies."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise",
+        "options": [
+          "Pure water lacks essential minerals.",
+          "Mineral water is more beneficial than pure water.",
+          "Drinking mineral water can lead to health problems.",
+          "People who drink only pure water are likely to have mineral deficiencies."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "Mineral water is more expensive than pure water.",
+          "Drinking mineral water can lead to health problems.",
+          "People who drink only pure water are likely to have mineral deficiencies.",
+          "Pure water is completely mineral-free."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 347,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Direct Inference",
+        "options": [
+          "Life books are more popular than science and technology books.",
+          "Science and technology books are more popular than life books.",
+          "The sales of science and technology books are increasing.",
+          "The popularity of life books is decreasing."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". Strengthen/Weaken",
+        "options": [
+          "The sales of science and technology books are increasing due to a new trend.",
+          "The survey only sampled a small portion of the population.",
+          "Life books are more expensive than science and technology books.",
+          "The survey only considered online sales."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Direct Inference",
+        "options": [
+          "The popularity of life books is higher than that of science and technology books.",
+          "The sales of science and technology books are lower than those of life books.",
+          "The survey only considered books published in the last year.",
+          "The popularity of science and technology books is decreasing."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 348,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "What is the missing premise in the argument?",
+        "options": [
+          "The cost of health care has increased over the years.",
+          "Medical conditions have greatly improved.",
+          "The increased cost of health care has led to improved medical conditions.",
+          "The government has implemented policies to reduce healthcare costs."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument?",
+        "options": [
+          "The cost of health care has decreased over the years.",
+          "Medical conditions have not improved.",
+          "The increased cost of health care has led to improved medical conditions.",
+          "The government has implemented policies to reduce healthcare costs."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which statement best explains the apparent discrepancy between the premise and conclusion?",
+        "options": [
+          "The increased cost of health care has led to improved medical conditions.",
+          "The cost of health care has increased over the years.",
+          "Medical conditions have greatly improved.",
+          "The government has implemented policies to reduce healthcare costs."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 349,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Question 1: Constraint Satisfaction",
+        "options": [
+          "Tianshu, Tianji, Tianxuan",
+          "Tianxuan, Tianji, Tianshu",
+          "Tianji, Tianshu, Tianxuan",
+          "Tianxuan, Tianshu, Tianji"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Question 2: Conditional Reasoning",
+        "options": [
+          "Wang was hired by Tianshu.",
+          "Zhao was hired by Tianji.",
+          "Liu was hired by Tianxuan.",
+          "Zhang was hired by Tianji."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Question 3: Direct Inference",
+        "options": [
+          "At least one student was hired by each unit.",
+          "Li was hired by Tianshu.",
+          "Liu and Zhao were hired by the same unit.",
+          "Zhang was hired by Tianxuan."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Question 4: Missing Premise",
+        "options": [
+          "At least one student was hired by each unit.",
+          "Li was hired by Tianshu.",
+          "Liu and Zhao were hired by the same unit.",
+          "Zhang was hired by Tianxuan."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Question 5: Strengthen/Weaken",
+        "options": [
+          "The university has a large number of graduate students.",
+          "The employers have different requirements for each unit.",
+          "The students were hired based on their academic performance.",
+          "The employers have different budgets for each unit."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 350,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Which of the following is a possible arrangement of the students' employers?",
+        "options": [
+          "Tianshu, Tianji, Tianxuan",
+          "Tianshu, Tianxuan, Tianji",
+          "Tianji, Tianxuan, Tianshu",
+          "Tianxuan, Tianshu, Tianji"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". If Li was hired by Tianji, which of the following must be?",
+        "options": [
+          "Wang was hired by Tianxuan.",
+          "Zhao was hired by Tianshu.",
+          "Liu was hired by Tianxuan.",
+          "Zhang was hired by Tianji."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following, if, most seriously weakens the conclusion that at least one student was hired by each employer?",
+        "options": [
+          "The university has a policy of hiring only one student per employer.",
+          "The employers have a policy of not hiring students from the linguistics major.",
+          "The students were not hired by the employers due to a strike.",
+          "The students were not hired by the employers due to a lack of funding."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". What is the missing premise in the argument that if Zhang was hired by Tianxuan, then Wang was hired by Tianxuan?",
+        "options": [
+          "Zhang was hired by Tianxuan.",
+          "Wang was hired by Tianxuan.",
+          "Zhang was not hired by Tianxuan.",
+          "Wang was not hired by Tianxuan."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 351,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Question 1: Constraint Satisfaction",
+        "options": [
+          "Tianshu, Tianji, Tianxuan",
+          "Tianxuan, Tianji, Tianshu",
+          "Tianji, Tianshu, Tianxuan",
+          "Tianxuan, Tianshu, Tianji"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Question 2: Conditional Reasoning",
+        "options": [
+          "Wang was hired by Tianshu.",
+          "Zhao was hired by Tianji.",
+          "Liu was hired by Tianxuan.",
+          "Zhang was hired by Tianji."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Question 3: Direct Inference",
+        "options": [
+          "At least one student was hired by each unit.",
+          "Li was hired by Tianshu.",
+          "Liu and Zhao were hired by the same unit.",
+          "Zhang was hired by Tianxuan."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Question 4: Missing Premise",
+        "options": [
+          "At least one student was hired by each unit.",
+          "Li was hired by Tianshu.",
+          "Liu and Zhao were hired by the same unit.",
+          "Zhang was hired by Tianxuan."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Question 5: Strengthen/Weaken",
+        "options": [
+          "The university has a policy of hiring students from the linguistics major.",
+          "The employers have different requirements for the job.",
+          "The students were hired based on their skills and experience.",
+          "The university has a limited budget for hiring."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 352,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Question : Constraint Satisfaction",
+        "options": [
+          "Li, Zhang, Wang, Zhao, Liu, Tianshu, Tianji, Tianxuan",
+          "Li, Wang, Zhao, Liu, Zhang, Tianxuan, Tianji, Tianshu",
+          "Zhang, Li, Wang, Zhao, Liu, Tianji, Tianxuan, Tianshu",
+          "Wang, Li, Zhang, Zhao, Liu, Tianxuan, Tianji, Tianshu"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Question : Conditional Reasoning",
+        "options": [
+          "Wang was hired by Tianshu.",
+          "Zhao was hired by Tianji.",
+          "Liu was hired by Tianxuan.",
+          "Zhang was hired by Tianji."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Question : Direct Inference",
+        "options": [
+          "At least one student was hired by each unit.",
+          "All students were hired by the same unit.",
+          "Li was hired by Tianshu.",
+          "Wang was hired by Tianxuan."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Question : Missing Premise",
+        "options": [
+          "The hiring process is exclusive.",
+          "Each unit has a unique set of employees.",
+          "At least one student was hired by each unit.",
+          "The students were hired in a specific order."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Question : Strengthen/Weaken",
+        "options": [
+          "All students were hired by the same unit.",
+          "Each unit has a unique set of employees.",
+          "The hiring process is exclusive.",
+          "At least one student was hired by each unit."
+        ],
+        "correct": 3,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 353,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible conclusion about the relationship between health-related activities and leisure-type activities?",
+        "options": [
+          "All health-related activities are leisure-type activities.",
+          "All leisure-type activities are health-related activities.",
+          "Some health-related activities are leisure-type activities.",
+          "All health-related activities are not leisure-type activities."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "If all elderly have participated in all leisure-type activities, which of the following must be true?",
+        "options": [
+          "All health-related activities are leisure-type activities.",
+          "All leisure-type activities are health-related activities.",
+          "Some health-related activities are leisure-type activities.",
+          "All health-related activities are not leisure-type activities."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument that the elderly have participated in all community-organized activities?",
+        "options": [
+          "Some elderly have not participated in any health-related activities.",
+          "All health-related activities are leisure-type activities.",
+          "Some leisure-type activities are not health-related activities.",
+          "All community-organized activities are health-related activities."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that the elderly have participated in all community-organized activities?",
+        "options": [
+          "The elderly have participated in all health-related activities.",
+          "All health-related activities are leisure-type activities.",
+          "Some leisure-type activities are not health-related activities.",
+          "All community-organized activities are health-related activities."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 354,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible way to measure a court's implementation of the fundamental principle of judicial justice?",
+        "options": [
+          "By calculating the rate of positive misjudgments.",
+          "By counting the number of guilty verdicts.",
+          "By evaluating the court's decision-making process.",
+          "By analyzing the court's budget allocation."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If a court has a low rate of positive misjudgments, which of the following must be true?",
+        "options": [
+          "The court is implementing the fundamental principle of judicial justice well.",
+          "The court is not implementing the fundamental principle of judicial justice well.",
+          "The court's decision-making process is transparent.",
+          "The court's budget allocation is sufficient."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that a low rate of positive misjudgments indicates good implementation of the fundamental principle of judicial justice?",
+        "options": [
+          "low rate of positive misjudgments is a necessary condition for good implementation.",
+          "low rate of positive misjudgments is a sufficient condition for good implementation.",
+          "low rate of positive misjudgments is a necessary and sufficient condition for good implementation.",
+          "low rate of positive misjudgments is unrelated to good implementation."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument that a low rate of positive misjudgments indicates good implementation of the fundamental principle of judicial justice?",
+        "options": [
+          "The court's decision-making process is opaque.",
+          "The court's budget allocation is insufficient.",
+          "The rate of positive misjudgments is not a reliable indicator of good implementation.",
+          "The fundamental principle of judicial justice is not relevant to the court's decisions."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which statement best explains the apparent discrepancy between the text's assumption that a low rate of positive misjudgments is a necessary condition for good implementation and the lack of explicit evidence for this assumption?",
+        "options": [
+          "The text assumes a correlation between the rate of positive misjudgments and good implementation.",
+          "The text assumes a causation between the rate of positive misjudgments and good implementation.",
+          "The text assumes that a low rate of positive misjudgments is a sufficient condition for good implementation.",
+          "The text assumes that a low rate of positive misjudgments is unrelated to good implementation."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 355,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following, if true, must be a characteristic of a society where no one is deceived?",
+        "options": [
+          "People in that society must have universally eliminated greed.",
+          "There are no scammers in that society.",
+          "Everyone in that society is honest.",
+          "The society has a strong economy."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If a society has eliminated greed, which of the following must be true?",
+        "options": [
+          "No one in that society is deceived.",
+          "Everyone in that society is honest.",
+          "There are no scammers in that society.",
+          "The society has a strong economy."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument?",
+        "options": [
+          "As long as there are scammers in this society and some people have greed in their hearts, then someone must be cheated.",
+          "If society progresses so that no one is deceived, then people in that society must have universally eliminated greed.",
+          "People in a society with scammers and greed will be deceived.",
+          "society with no scammers and no greed will not have deception."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 356,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the players in the final ranking?",
+        "options": [
+          "B, C, D",
+          "C, B, D",
+          "A, C, D",
+          "D, A, B"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If A is in the first place, which of the following must be true?",
+        "options": [
+          "is in the second place.",
+          "is in the third place.",
+          "is in the fourth place.",
+          "is not in the first place."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the analysts' prediction?",
+        "options": [
+          "The ranking has a parallel ranking.",
+          "and B are not the only possible candidates for the first place.",
+          "and D are equally likely to be in the first place.",
+          "The analysts have a perfect track record of predicting the ranking."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the analysts' argument?",
+        "options": [
+          "The ranking does not have a parallel ranking.",
+          "and B are the only possible candidates for the first place.",
+          "and D are not possible candidates for the first place.",
+          "The analysts have a perfect track record of predicting the ranking."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 357,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be inferred from the text?",
+        "options": [
+          "Foods with high refined sugar content will not cause obesity.",
+          "Obesity is not an important cause of acquired diabetes.",
+          "Foods with high refined sugar content will cause acquired diabetes.",
+          "The relationship between foods with high refined sugar content and acquired diabetes is correlational."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument?",
+        "options": [
+          "Foods with high refined sugar content are a necessary cause of obesity.",
+          "Obesity is a sufficient cause of acquired diabetes.",
+          "Foods with high refined sugar content will cause acquired diabetes.",
+          "The relationship between foods with high refined sugar content and acquired diabetes is causal."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument?",
+        "options": [
+          "Foods with high refined sugar content are not a significant contributor to obesity.",
+          "Obesity is not a risk factor for acquired diabetes.",
+          "The relationship between foods with high refined sugar content and acquired diabetes is only correlational.",
+          "Foods with high refined sugar content are a necessary cause of acquired diabetes."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 358,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the conditions for being favored and chased by many clubs?",
+        "options": [
+          "Performing well in the World Cup and performing well in clubs",
+          "Performing well in clubs and performing well in the World Cup",
+          "Performing well in the World Cup only",
+          "Performing well in clubs only"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If a player performs well in clubs, which of the following must be true?",
+        "options": [
+          "The player will be favored and chased by many clubs.",
+          "The player will not be favored and chased by many clubs.",
+          "The player's performance in the World Cup is irrelevant.",
+          "The player's performance in the World Cup is necessary for being favored and chased by many clubs."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument?",
+        "options": [
+          "Performing well in the World Cup and performing well in clubs are necessary conditions for being favored and chased by many clubs.",
+          "Performing well in the World Cup and performing well in clubs are sufficient conditions for being favored and chased by many clubs.",
+          "Only those who perform well during the World Cup can be favored and chased by many clubs.",
+          "Only those who perform well in clubs can be favored and chased by many clubs."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 359,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the entities from the text?",
+        "options": [
+          "Chinese students studying abroad, job hunting, career selection",
+          "Overseas degree, real knowledge, basic social skills",
+          "Accurate positioning, career selection process, job finding",
+          "\"Sea waiter\" family, job seeker, overseas degree"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If a student has a master's degree from the UK, which of the following must be true?",
+        "options": [
+          "They will definitely find a job.",
+          "They will probably become a \"sea waiter.\"",
+          "They will have real knowledge and basic social skills.",
+          "They will be accurately positioned in the career selection process."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument?",
+        "options": [
+          "Chinese students with overseas degrees are having trouble finding jobs.",
+          "The students' inability to find jobs is due to a lack of knowledge or social skills.",
+          "The students' inability to find jobs is due to a lack of experience or networking skills.",
+          "The students' inability to find jobs is due to a lack of job opportunities or market demand."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 360,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible conclusion based on the premise \"some college teachers have overseas doctorates\"?",
+        "options": [
+          "Some overseas doctors have a high level.",
+          "All college teachers have overseas doctorates.",
+          "Some college teachers do not have overseas doctorates.",
+          "Some overseas doctors do not have a high level."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "If it is true that having an overseas doctorate is a necessary condition for having a high level, which of the following must be true?",
+        "options": [
+          "Some overseas doctors have a high level.",
+          "All college teachers have overseas doctorates.",
+          "Some college teachers do not have overseas doctorates.",
+          "Some overseas doctors do not have a high level."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument \"some college teachers have overseas doctorates, so some overseas doctors have a high level\"?",
+        "options": [
+          "Having an overseas doctorate is a sufficient condition for having a high level.",
+          "All college teachers have overseas doctorates.",
+          "Some overseas doctors do not have a high level.",
+          "Having a high level is a necessary condition for being an overseas doctor."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument \"some college teachers have overseas doctorates, so some overseas doctors have a high level\"?",
+        "options": [
+          "Some college teachers do not have overseas doctorates.",
+          "Having an overseas doctorate is not a sufficient condition for having a high level.",
+          "Some overseas doctors do not have a high level.",
+          "All college teachers have overseas doctorates."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 361,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct Inference",
+        "options": [
+          "Li Ming must have graduated from the second middle school.",
+          "The second middle school's students generally perform better than those of the first middle school.",
+          "Li Ming's grades in the first year of college are the best.",
+          "The first middle school's students generally perform better than those of the second middle school."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise",
+        "options": [
+          "Li Ming's grades in the first year of college are the best.",
+          "The first middle school's students generally perform better than those of the second middle school.",
+          "Li Ming is from Nankou Town.",
+          "The second middle school's students generally perform worse than those of the first middle school."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "Li Ming's grades in the first year of college are average.",
+          "The second middle school's students generally perform better than those of the first middle school.",
+          "Li Ming is from a different town.",
+          "The first middle school's students generally perform better than those of the second middle school."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 362,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "Journalists who write in Chinese must have a good Chinese language foundation.",
+          "The ability to write is not hindered by poor Chinese language skills.",
+          "Schools that train journalists should prioritize the improvement of students' Chinese ability.",
+          "Journalists who write in English do not need to have a good Chinese language foundation."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 363,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "What is the missing premise in the argument that left-handers are more prone to operating accidents than right-handers?",
+        "options": [
+          "Left-handers are more likely to engage in operating activities.",
+          "Most housework accidents occur to right-handers.",
+          "Operating accidents are a significant concern in many industries.",
+          "Left-handers are more prone to accidents in general."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument that left-handers are more prone to operating accidents than right-handers?",
+        "options": [
+          "Many operating accidents are caused by equipment failure.",
+          "Left-handers are more likely to engage in operating activities.",
+          "Most housework accidents occur to right-handers.",
+          "Operating accidents are a significant concern in many industries."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which statement best explains the apparent discrepancy between the premise and the conclusion?",
+        "options": [
+          "The premise is based on a general belief, but the conclusion is supported by evidence.",
+          "The conclusion is based on a misunderstanding of the premise.",
+          "The premise is supported by evidence, but the conclusion is not.",
+          "The premise and conclusion are unrelated."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 364,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Constraint Satisfaction",
+        "options": [
+          "The price of cement will increase by 10%.",
+          "The price of cement will decrease by 5%.",
+          "The price of cement will remain the same.",
+          "The relationship between the price of limestone and cement is unclear."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning",
+        "options": [
+          "The price of cement will increase by 5%.",
+          "The price of cement will decrease by 10%.",
+          "The price of cement will remain the same.",
+          "The relationship between energy consumption and cement price is unclear."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference",
+        "options": [
+          "The price of cement is directly proportional to the price of oil.",
+          "The price of cement is inversely proportional to the price of oil.",
+          "The price of cement is unrelated to the price of oil.",
+          "The text does not provide enough information to make an inference."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise",
+        "options": [
+          "The price of oil is a significant factor in the production of cement.",
+          "The production of cement requires a lot of energy.",
+          "The price of cement is directly proportional to the price of oil.",
+          "The relationship between the price of oil and cement is unclear."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "The production of cement requires a lot of labor.",
+          "The price of cement is directly proportional to the price of oil.",
+          "The price of oil is a minor factor in the production of cement.",
+          "The relationship between the price of oil and cement is unclear."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 365,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Which of the following, if, most seriously weakens the argument that Hengyuan's economic prospects are better than Yiyang's?",
+        "options": [
+          "The GDP growth rate of Hengyuan City is not a reliable indicator of economic prospects.",
+          "The GDP of Yiyang City is not a reliable indicator of economic prospects.",
+          "The economic prospects of Hengyuan City are not correlated with its GDP growth rate.",
+          "The economic prospects of Yiyang City are not correlated with its GDP growth rate."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". If the GDP of Hengyuan City is % higher than that of Yiyang City, what can be inferred about their economic prospects?",
+        "options": [
+          "Hengyuan's economic prospects are better than Yiyang's.",
+          "Yiyang's economic prospects are better than Hengyuan's.",
+          "The economic prospects of both cities are equal.",
+          "The relationship between GDP and economic prospects is unclear."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". What is the missing premise in the argument that Hengyuan's economic prospects are better than Yiyang's?",
+        "options": [
+          "Hengyuan's GDP growth rate is higher than Yiyang's.",
+          "The GDP of Yiyang City is larger than Hengyuan's.",
+          "Economic prospects are directly correlated with GDP growth rate.",
+          "Economic prospects are directly correlated with GDP size."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following, if, most strengthens the argument that Hengyuan's economic prospects are better than Yiyang's?",
+        "options": [
+          "The GDP growth rate of Hengyuan City is % higher than that of Yiyang City.",
+          "The GDP of Yiyang City is not a reliable indicator of economic prospects.",
+          "The economic prospects of Hengyuan City are directly correlated with its GDP growth rate.",
+          "The economic prospects of Yiyang City are directly correlated with its GDP size."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 366,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following, if true, most seriously weakens the conclusion that people can eat beef jerky without worrying about health effects?",
+        "options": [
+          "Some people who consume beef jerky regularly have been found to have high levels of arterial hardening.",
+          "The study only looked at people who consumed a small amount of beef jerky per day.",
+          "Most brands of beef jerky additives contain high levels of sodium.",
+          "The study did not control for other factors that may contribute to arterial hardening."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that people can eat beef jerky without worrying about health effects?",
+        "options": [
+          "Most brands of beef jerky additives do not contain any harmful ingredients.",
+          "People who consume beef jerky regularly are more likely to engage in other healthy behaviors.",
+          "The study only looked at people who consumed beef jerky for a short period of time.",
+          "The absence of evidence for a link between beef jerky additives and arterial hardening is evidence for the absence of such a link."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "If the study found that people who consumed a large amount of beef jerky per day had higher levels of arterial hardening, which of the following must be true?",
+        "options": [
+          "Most brands of beef jerky additives contain high levels of sodium.",
+          "People who consume beef jerky regularly are more likely to engage in other healthy behaviors.",
+          "The study only looked at people who consumed beef jerky for a short period of time.",
+          "The absence of evidence for a link between beef jerky additives and arterial hardening is evidence for the absence of such a link."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 367,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the entities (Peace Foundation, S Institute, funding) based on the rules?",
+        "options": [
+          "Peace Foundation $\\to$ S Institute $\\to$ Funding",
+          "S Institute $\\to$ Peace Foundation $\\to$ Funding",
+          "Funding $\\to$ S Institute $\\to$ Peace Foundation",
+          "S Institute $\\to$ Funding $\\to$ Peace Foundation"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If the S Institute breaks its promise, which of the following must be true?",
+        "options": [
+          "The Peace Foundation will withdraw the funding.",
+          "The S Institute will be fined.",
+          "The funding will be used for weapons research.",
+          "The S Institute will be suspended."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be inferred from the text?",
+        "options": [
+          "The S Institute's promise is sufficient to guarantee that the funding will not be used for weapons research.",
+          "The Peace Foundation will withdraw the funding if the S Institute keeps its promise.",
+          "The S Institute will be suspended if it breaks its promise.",
+          "The funding will be used for weapons research if the S Institute breaks its promise."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument?",
+        "options": [
+          "The S Institute promises not to use the funding for weapons research.",
+          "The Peace Foundation will withdraw the funding if the S Institute keeps its promise.",
+          "The funding will be used for weapons research if the S Institute breaks its promise.",
+          "The S Institute will be suspended if it breaks its promise."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument?",
+        "options": [
+          "The S Institute has a history of breaking its promises.",
+          "The Peace Foundation has a history of withdrawing funding for other reasons.",
+          "The funding will be used for weapons research regardless of the S Institute's promise.",
+          "The S Institute's promise is sufficient to guarantee that the funding will not be used for weapons research."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 368,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 369,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 370,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Conditional Reasoning",
+        "options": [
+          "The rainforest area will increase.",
+          "The rate of deforestation will decrease.",
+          "The government's efforts will be ineffective.",
+          "The data from satellite photos will show a significant reduction in rainforest area."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Direct Inference",
+        "options": [
+          "The government of country H has not taken any efforts to protect the rainforest.",
+          "The reduction in rainforest area is directly related to the government's efforts.",
+          "The data from satellite photos indicate that the government's efforts have achieved remarkable results.",
+          "The rainforest area in country H is increasing."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": ". Missing Premise/Assumption",
+        "options": [
+          "The government of country H has taken efforts to stop deforestation and forest fires.",
+          "The data from satellite photos indicate that the reduction in rainforest area is lower than in previous years.",
+          "The reduction in rainforest area is directly related to the government's efforts.",
+          "The government's efforts are the only factor contributing to the reduction in rainforest area."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". Strengthen/Weaken",
+        "options": [
+          "The government of country H has not taken any efforts to protect the rainforest.",
+          "The data from satellite photos indicate that the reduction in rainforest area is higher than expected.",
+          "The reduction in rainforest area is directly related to other factors, such as climate change.",
+          "The government's efforts are the only factor contributing to the reduction in rainforest area."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 371,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 372,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 373,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible relationship between Mr. Chen and his father's brother-in-law?",
+        "options": [
+          "Mr. Chen is his father's brother-in-law.",
+          "Mr. Chen is his father's brother-in-law's son.",
+          "Mr. Chen is his father's brother-in-law's brother.",
+          "Mr. Chen is his father's brother-in-law's father."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "If Mr. Chen invites his brother-in-law's brother, which of the following must be true?",
+        "options": [
+          "Mr. Chen's brother-in-law is married.",
+          "Mr. Chen's brother-in-law has a brother.",
+          "Mr. Chen's brother-in-law's brother is a close relative.",
+          "Mr. Chen's brother-in-law's brother is a friend."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument that Mr. Chen is holding a gathering of friends and family?",
+        "options": [
+          "Mr. Chen is not inviting any close relatives.",
+          "Mr. Chen is inviting only acquaintances.",
+          "Mr. Chen is inviting people from work.",
+          "Mr. Chen is inviting people from his neighborhood."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that Mr. Chen is holding a gathering of friends and family?",
+        "options": [
+          "Mr. Chen is inviting people he knows.",
+          "Mr. Chen is inviting people he likes.",
+          "Mr. Chen is inviting close relatives.",
+          "Mr. Chen is inviting friends and family."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 374,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 375,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 376,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Direct Inference",
+        "options": [
+          "The presence of airbags in a car has no effect on the risk of injury or death in an accident.",
+          "Cars with airbags are more likely to be involved in accidents than cars without airbags.",
+          "The proportion of cars with airbags is higher than that of cars without airbags.",
+          "The safety benefits of airbags are not supported by statistical evidence."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". Missing Premise",
+        "options": [
+          "The presence of airbags is the only factor influencing car safety.",
+          "Cars with airbags are more likely to be involved in accidents than cars without airbags.",
+          "The proportion of cars with airbags is higher than that of cars without airbags.",
+          "The safety benefits of airbags are not supported by statistical evidence."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". Strengthen/Weaken",
+        "options": [
+          "Studies have shown that airbags can reduce the risk of injury or death in accidents.",
+          "The presence of airbags is not the only factor influencing car safety.",
+          "Cars with airbags are more likely to be involved in accidents than cars without airbags.",
+          "The proportion of cars with airbags is lower than that of cars without airbags."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 377,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 378,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following, if true, must be true about the experimental drug W?",
+        "options": [
+          "The experimental drug W has the same effect as the placebo.",
+          "The experimental drug W has a different effect than the placebo.",
+          "The experimental drug W has no effect on the disease T.",
+          "The experimental drug W has a positive effect on the disease T."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "If the total number of patients in each group is 45, which of the following must be true?",
+        "options": [
+          "The experimental drug W has a positive effect on the disease T.",
+          "The experimental drug W has no effect on the disease T.",
+          "The placebo has a positive effect on the disease T.",
+          "The placebo has no effect on the disease T."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "The experimental drug W is used to treat disease T.",
+          "The placebo is used to treat disease T.",
+          "The outcome of the experiment is the same in both groups.",
+          "The total number of patients in each group is equal."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the conclusion that the experimental drug W is ineffective?",
+        "options": [
+          "The experimental drug W has a different effect than the placebo.",
+          "The experimental drug W has a positive effect on the disease T.",
+          "The placebo has a positive effect on the disease T.",
+          "The total number of patients in each group is not equal."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 379,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Missing Premise/Assumption",
+        "options": [
+          "Kobayashi did not wear a swimming cap.",
+          "The deep water certificate is not a valid exception to the rule.",
+          "The swimming pool regulations are absolute.",
+          "Kobayashi did not show the deep water certificate."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference",
+        "options": [
+          "Kobayashi understands the rules of swimming correctly.",
+          "The deep water certificate is not a valid exception to the rule.",
+          "Kobayashi was refused entry to the deep pool because he didn't wear a swimming cap.",
+          "The swimming pool regulations are absolute."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "The deep water certificate is a valid exception to the rule.",
+          "Kobayashi did wear a swimming cap.",
+          "The swimming pool regulations are not absolute.",
+          "Kobayashi did not show the deep water certificate."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 380,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible explanation for the simultaneous decline of crocodiles and increase of seals?",
+        "options": [
+          "The decline of crocodiles led to an increase in fish population, which in turn attracted more seals.",
+          "The increase in seal population caused the decline of crocodiles due to competition for food.",
+          "The decline of crocodiles and increase of seals are unrelated events.",
+          "The decline of crocodiles is a result of climate change, while the increase of seals is due to conservation efforts."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If the seal population continues to grow at the same rate, which of the following must be true?",
+        "options": [
+          "The decline of crocodiles will slow down.",
+          "The increase of seals will lead to a decrease in fish population.",
+          "The relationship between the decline of crocodiles and the increase of seals will become clearer.",
+          "The decline of crocodiles will become more pronounced."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be inferred from the statements?",
+        "options": [
+          "The decline of crocodiles is directly related to the increase of seals.",
+          "The increase of seals is a result of the decline of crocodiles.",
+          "The decline of crocodiles and increase of seals are unrelated events.",
+          "The relationship between the decline of crocodiles and the increase of seals is unclear."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "Seals and crocodiles compete for the same food source.",
+          "The decline of crocodiles is a result of climate change.",
+          "The increase of seals is a result of conservation efforts.",
+          "Seals rarely feed on crocodiles."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most weakens the argument that the increase of seals caused the decline of crocodiles?",
+        "options": [
+          "Seals and crocodiles have different habitats.",
+          "The decline of crocodiles is a result of climate change.",
+          "The increase of seals is a result of conservation efforts.",
+          "Seals rarely feed on crocodiles."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Which statement best explains the apparent discrepancy between the decline of crocodiles and the increase of seals?",
+        "options": [
+          "The decline of crocodiles is a result of climate change, while the increase of seals is due to conservation efforts.",
+          "The increase of seals is a result of the decline of crocodiles.",
+          "The decline of crocodiles and increase of seals are unrelated events.",
+          "The relationship between the decline of crocodiles and the increase of seals is unclear."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following arguments is most similar in its reasoning to the argument that the increase of seals caused the decline of crocodiles?",
+        "options": [
+          "If the decline of crocodiles is a result of climate change, then the increase of seals is a result of conservation efforts.",
+          "If the increase of seals is a result of the decline of crocodiles, then the decline of crocodiles is a result of climate change.",
+          "If the decline of crocodiles is a result of climate change, then the increase of seals is a result of the decline of crocodiles.",
+          "If the increase of seals is a result of conservation efforts, then the decline of crocodiles is a result of climate change."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 381,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "If everyone is perfect, which of the following must be true?",
+        "options": [
+          "Everyone is capable of making mistakes.",
+          "No one can make mistakes.",
+          "Everyone is guaranteed to make mistakes.",
+          "Everyone is immune to mistakes."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be inferred from the statements?",
+        "options": [
+          "Everyone is perfect.",
+          "No one is capable of making mistakes.",
+          "Everyone may make mistakes, but no one can.",
+          "Everyone is guaranteed to make mistakes."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "Everyone is perfect.",
+          "No one is capable of making mistakes.",
+          "Everyone may make mistakes, but no one can.",
+          "Everyone is guaranteed to make mistakes."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most seriously weakens the argument?",
+        "options": [
+          "Everyone is perfect.",
+          "No one is capable of making mistakes.",
+          "Everyone may make mistakes, but no one can.",
+          "Everyone is guaranteed to make mistakes."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which statement best explains the apparent discrepancy?",
+        "options": [
+          "Everyone is perfect.",
+          "No one is capable of making mistakes.",
+          "Everyone may make mistakes, but no one can.",
+          "Everyone is guaranteed to make mistakes."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following arguments is most similar in its reasoning?",
+        "options": [
+          "If everyone is perfect, then no one can make mistakes.",
+          "If everyone may make mistakes, then no one can.",
+          "If everyone is guaranteed to make mistakes, then no one can.",
+          "If everyone is immune to mistakes, then no one can."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 382,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Direct Inference",
+        "options": [
+          "Life without reflection is meaningless.",
+          "Reflection is essential for a fulfilling life.",
+          "Philosophers value intellectual pursuits.",
+          "The absence of reflection leads to a life without purpose."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning",
+        "options": [
+          "Aristotle's statement is a direct response to Plato's.",
+          "Plato's statement is a critique of Aristotle's views.",
+          "Aristotle's statement is more nuanced than Plato's.",
+          "Plato's statement is a precursor to Aristotle's ideas."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise",
+        "options": [
+          "Philosophers value intellectual pursuits.",
+          "Reflection is essential for a fulfilling life.",
+          "The absence of reflection leads to a life without purpose.",
+          "Philosophers are experts in various fields."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "Many people find meaning in their work.",
+          "Reflection is a key component of personal growth.",
+          "life without reflection can lead to stagnation.",
+          "Philosophers are not experts in practical matters."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Explanation/Resolution",
+        "options": [
+          "The philosophers' views on reflection are relevant to modern society.",
+          "The philosophers' statements on reflection are well-supported by evidence.",
+          "The philosophers' views on reflection are a response to the societal context.",
+          "The philosophers' statements on reflection are a precursor to later philosophical ideas."
+        ],
+        "correct": 3,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 383,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Which of the following is a possible conclusion based on the text?",
+        "options": [
+          "Computers can own people's initiative and creativity.",
+          "People's daily thinking and actions contain conscious active behaviors and some kind of creativity.",
+          "Computers are controlled by pre-programmed programs.",
+          "All the behaviors of computers are controlled by pre-programmed programs."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". If it is that people's daily thinking and actions contain conscious active behaviors and some kind of creativity, which of the following must be?",
+        "options": [
+          "Computers can own people's initiative and creativity.",
+          "People's daily thinking and actions are controlled by pre-programmed programs.",
+          "All the behaviors of computers are controlled by pre-programmed programs.",
+          "Computers are not capable of owning people's initiative and creativity."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": ". What is the missing premise in the argument that computers cannot own people's initiative and creativity?",
+        "options": [
+          "People's daily thinking and actions contain conscious active behaviors and some kind of creativity.",
+          "Computers are controlled by pre-programmed programs.",
+          "All the behaviors of computers are controlled by pre-programmed programs.",
+          "Computers can own people's initiative and creativity."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following, if, most seriously weakens the argument that computers cannot own people's initiative and creativity?",
+        "options": [
+          "Computers are becoming increasingly advanced and sophisticated.",
+          "People's daily thinking and actions are becoming more predictable and routine.",
+          "Computers are being used to automate more and more tasks.",
+          "Computers are being used to create art and music."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". Which statement best explains the apparent discrepancy between the text and the common perception that computers can own people's initiative and creativity?",
+        "options": [
+          "The text is referring to a specific type of computer program that is capable of owning people's initiative and creativity.",
+          "The text is referring to a specific type of human behavior that is not controlled by pre-programmed programs.",
+          "The text is referring to a specific type of computer that is not controlled by pre-programmed programs.",
+          "The text is referring to a specific type of human creativity that is not owned by computers."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 384,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the characteristics of Russian and French tarragon?",
+        "options": [
+          "Russian tarragon blooms, French tarragon does not bloom, and Russian tarragon has a unique flavor.",
+          "Russian tarragon blooms, French tarragon does not bloom, and French tarragon has a unique flavor.",
+          "Russian tarragon does not bloom, French tarragon blooms, and Russian tarragon has a unique flavor.",
+          "Russian tarragon does not bloom, French tarragon blooms, and French tarragon has a unique flavor."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If a plant does not bloom, which of the following must be true?",
+        "options": [
+          "It cannot produce seeds.",
+          "It has a unique flavor.",
+          "It is Russian tarragon.",
+          "It is French tarragon."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following can be inferred from the statements?",
+        "options": [
+          "Russian tarragon has a unique flavor.",
+          "French tarragon blooms.",
+          "Plants that do not bloom cannot produce seeds.",
+          "Russian tarragon is an ideal condiment."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that French tarragon is not an ideal condiment?",
+        "options": [
+          "French tarragon blooms.",
+          "Russian tarragon has a unique flavor.",
+          "Plants that do not bloom cannot produce seeds.",
+          "French tarragon has a unique flavor."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Which of the following, if true, most weakens the argument that French tarragon is not an ideal condiment?",
+        "options": [
+          "French tarragon has a unique flavor.",
+          "Russian tarragon does not bloom.",
+          "Plants that do not bloom can still produce seeds.",
+          "French tarragon blooms."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 385,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible conclusion based on the argument?",
+        "options": [
+          "Taiwanese are Chinese.",
+          "Taiwanese are not Chinese.",
+          "Taiwanese are a separate nation.",
+          "Taiwanese are a province of China."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If the People's Republic of China has jurisdiction over Taiwan, which of the following must be true?",
+        "options": [
+          "Taiwanese are Chinese.",
+          "Taiwanese are not under the jurisdiction of the People's Republic of China.",
+          "Taiwanese are a separate nation.",
+          "Taiwanese are a province of China."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument?",
+        "options": [
+          "The People's Republic of China has jurisdiction over Taiwan.",
+          "Taiwanese are a separate nation.",
+          "Taiwanese are not under the jurisdiction of the People's Republic of China.",
+          "Taiwanese are a province of China."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 386,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following, if true, most seriously weakens the claim that \"one country, two systems\" caused Hong Kong's economic recession?",
+        "options": [
+          "The economic recession was caused by other factors, such as a global economic downturn.",
+          "The implementation of \"one country, two systems\" was delayed, and the economic recession occurred before its implementation.",
+          "The economic recession was limited to Hong Kong, and other countries with similar systems did not experience a recession.",
+          "The economic recession was caused by a natural disaster, such as a hurricane or earthquake."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that \"one country, two systems\" caused Hong Kong's economic recession?",
+        "options": [
+          "The implementation of \"one country, two systems\" was a necessary condition for the economic recession.",
+          "The economic recession was a direct result of the implementation of \"one country, two systems.\"",
+          "The economic recession was caused by other factors, such as a global economic downturn.",
+          "The implementation of \"one country, two systems\" was a sufficient condition for the economic recession."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "If the economic recession was caused by other factors, would the implementation of \"one country, two systems\" still be blamed?",
+        "options": [
+          "Yes, because the implementation of \"one country, two systems\" was a necessary condition for the economic recession.",
+          "No, because the implementation of \"one country, two systems\" was a sufficient condition for the economic recession.",
+          "Maybe, because the relationship between the implementation of \"one country, two systems\" and the economic recession is unclear.",
+          "It depends on the specific circumstances of the economic recession."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 387,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 388,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Step 8: Finalize the question and answer key.",
+        "options": [
+          "A: Instructor Zhang is correct.",
+          "B: Instructor Sun is correct.",
+          "C: The third instructor is correct.",
+          "D: None of the above."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 389,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Constraint Satisfaction",
+        "options": [
+          "40%, 55%, 23%, 19%",
+          "55%, 40%, 23%, 19%",
+          "23%, 19%, 40%, 55%",
+          "19%, 23%, 55%, 40%"
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference",
+        "options": [
+          "The poll was conducted in a country with a high percentage of people believing in the evil nature of terrorists.",
+          "The poll was conducted in a country with a low percentage of people believing in the unfair foreign policy of the United States.",
+          "The poll was conducted in a country with a high percentage of people believing in the conflict between Islamic civilization and Western civilization.",
+          "The poll was conducted in a country with a low percentage of people believing in the conflict between Islamic civilization and Western civilization."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise",
+        "options": [
+          "The poll was conducted in a country with a high percentage of people believing in the evil nature of terrorists.",
+          "The poll was conducted in a country with a low percentage of people believing in the unfair foreign policy of the United States.",
+          "The poll was conducted in a country with a high percentage of people believing in the conflict between Islamic civilization and Western civilization.",
+          "The poll was conducted in a country with a low percentage of people believing in the conflict between Islamic civilization and Western civilization."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "The poll was conducted in a country with a high percentage of people believing in the evil nature of terrorists.",
+          "The poll was conducted in a country with a low percentage of people believing in the unfair foreign policy of the United States.",
+          "The poll was conducted in a country with a high percentage of people believing in the conflict between Islamic civilization and Western civilization.",
+          "The poll was conducted in a country with a low percentage of people believing in the conflict between Islamic civilization and Western civilization."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 390,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Direct Inference",
+        "options": [
+          "All people in Harbin are workers.",
+          "Some people in Harbin are northerners.",
+          "Some people in Harbin are not workers.",
+          "All people in Harbin are northerners and workers."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": ". Missing Premise",
+        "options": [
+          "The people in Harbin are all northerners.",
+          "Some people in Harbin are not workers.",
+          "All northerners are workers.",
+          "Some people in Harbin are workers."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": ". Strengthen/Weaken",
+        "options": [
+          "All northerners are workers.",
+          "Some people in Harbin are workers.",
+          "The people in Harbin are all workers.",
+          "Some people in Harbin are not northerners."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 391,
+    "source": "logiqa",
+    "generated_questions": []
+  },
+  {
+    "id": 392,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Question 1: Constraint Satisfaction (Ordering/Grouping)",
+        "options": [
+          "$W, G, L, D$",
+          "$W, L, G, D$",
+          "$G, W, L, D$",
+          "$L, W, G, D$"
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Question 2: Conditional Reasoning",
+        "options": [
+          "Li Qiang is a doctor.",
+          "Liu Dawei is tall.",
+          "Wu Gang is handsome.",
+          "Li Qiang is handsome."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Question 3: Direct Inference",
+        "options": [
+          "Wang Wei is not tall.",
+          "Liu Dawei is not a doctor.",
+          "Li Qiang is not handsome.",
+          "Wu Gang is not a doctor."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Question 4: Missing Premise",
+        "options": [
+          "Wang Wei is not handsome.",
+          "Li Qiang is handsome.",
+          "Wang Wei is a doctor.",
+          "Li Qiang is not a doctor."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 393,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following is a possible arrangement of the natural numbers in the odd and even sequences?",
+        "options": [
+          "A: 1, 2, 3, 4, 5, 6",
+          "B: 2, 4, 6, 1, 3, 5",
+          "C: 1, 3, 5, 2, 4, 6",
+          "D: 1, 2, 3, 4, 5, 6"
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "If the natural number sequence is extended indefinitely in an infinite world, which of the following must be true?",
+        "options": [
+          "A: The odd and even sequences are equal to the whole.",
+          "B: The odd and even sequences are smaller than the whole.",
+          "C: The natural sequence is equal to the whole.",
+          "D: The odd and even sequences are equal to each other."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the argument that the odd and even sequences must be smaller than the whole?",
+        "options": [
+          "A: The natural number sequence is finite.",
+          "B: The odd and even sequences are formed by taking natural numbers in turn.",
+          "C: The natural sequence is extended indefinitely.",
+          "D: The odd and even sequences are equal to each other."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 394,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Missing Premise/Assumption",
+        "options": [
+          "People who participate in Taekwondo exercise are generally healthier than those who do not participate in Taekwondo exercise.",
+          "The study found a correlation between Taekwondo exercise and health.",
+          "Anyone who exercises regularly is likely to be healthier.",
+          "The researchers controlled for other factors that could affect health."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": "Weaken",
+        "options": [
+          "People who participate in Taekwondo exercise are also more likely to engage in other healthy behaviors.",
+          "The study found that people who do not participate in Taekwondo exercise are more likely to have other health problems.",
+          "The researchers did not control for the effect of other factors on health.",
+          "The study found that Taekwondo exercise has no effect on health."
+        ],
+        "correct": 2,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 395,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Question 1: Direct Inference",
+        "options": [
+          "The brain content of SK3 protein in younger rats is higher.",
+          "Older rats have better memory than younger rats.",
+          "Increased brain SK3 protein content will lead to memory loss in experimental mice.",
+          "The relationship between the SK3 protein content and memory ability is causal."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Question 2: Missing Premise",
+        "options": [
+          "The brain content of SK3 protein in old experimental rats is higher.",
+          "The brain content of SK3 protein in younger rats is less.",
+          "The relationship between the SK3 protein content and memory ability is causal.",
+          "Older rats have worse memory than younger rats."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": "Question 3: Strengthen/Weaken",
+        "options": [
+          "The brain content of SK3 protein in younger rats is higher.",
+          "Older rats have better memory than younger rats.",
+          "The relationship between the SK3 protein content and memory ability is causal.",
+          "The study found that the brain content of SK3 protein in experimental mice is not related to their memory ability."
+        ],
+        "correct": 3,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 396,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". Which of the following can be logically derived from the text?",
+        "options": [
+          "If we accept the analogy between money and dung, then friends are like dung.",
+          "The conclusion \"friends are like dung\" is not.",
+          "The analogy between money and dung is universally accepted.",
+          "The text implies that friends are more valuable than money."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". What is the missing premise in the argument that leads to the conclusion \"friends are like dung\"?",
+        "options": [
+          "The analogy between money and dung is not universally accepted.",
+          "Friends are not as valuable as money.",
+          "The text does not imply that friends are like dung.",
+          "The conclusion \"friends are like dung\" is not."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following, if, would most seriously weaken the argument that leads to the conclusion \"friends are like dung\"?",
+        "options": [
+          "The analogy between money and dung is widely accepted in the field of economics.",
+          "Friends are often more valuable than money in personal relationships.",
+          "The text implies that friends are like dung.",
+          "The conclusion \"friends are like dung\" is not."
+        ],
+        "correct": 1,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 397,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". What is the missing premise in the argument that China's fixed exchange rate system is blamed for the economic mysteries of the United States and Japan?",
+        "options": [
+          "The United States and Japan have experienced economic growth in the past.",
+          "The fixed exchange rate system has caused pressure on domestic manufacturing companies.",
+          "The views of the United States and Japan are based on economic data.",
+          "The economic mysteries of the United States and Japan are unrelated to China's economic policies."
+        ],
+        "correct": 3,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 398,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Constraint Satisfaction",
+        "options": [
+          "Professor Zhao, Professor Qian, Professor Sun",
+          "Professor Qian, Professor Sun, Professor Zhao",
+          "Professor Sun, Professor Zhao, Professor Qian",
+          "Professor Zhao, Professor Sun, Professor Qian"
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Conditional Reasoning",
+        "options": [
+          "Professor Zhao is also correct.",
+          "Professor Sun is also correct.",
+          "The champion team is the University of Science and Technology of China.",
+          "The champion team is Tsinghua University."
+        ],
+        "correct": 3,
+        "type": "General"
+      },
+      {
+        "content": "Direct Inference",
+        "options": [
+          "Only one of the professors judged both correctly.",
+          "The other two professors are wrong.",
+          "The champion team is not Tsinghua University.",
+          "The champion team is not the University of Science and Technology of China."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Missing Premise",
+        "options": [
+          "The professors' predictions are mutually exclusive.",
+          "The champion team is not the China University of Science and Technology team.",
+          "The results of the competition showed that only one of them judged both correctly.",
+          "The other two professors are wrong."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "Strengthen/Weaken",
+        "options": [
+          "The professors' predictions are not mutually exclusive.",
+          "The champion team is the University of Science and Technology of China.",
+          "The other two professors are correct.",
+          "The results of the competition showed that all three professors judged both correctly."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 399,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": "Which of the following can be inferred/derived from the statements?",
+        "options": [
+          "The 3% of people with clear goals are more likely to achieve better results.",
+          "The 3% of people with clear goals are not necessarily more intelligent.",
+          "The 3% of people with clear goals are not necessarily more hardworking.",
+          "The 3% of people with clear goals are not necessarily more successful."
+        ],
+        "correct": 0,
+        "type": "General"
+      },
+      {
+        "content": "What is the missing premise in the above argument?",
+        "options": [
+          "The 3% of people with clear goals are more likely to achieve better results.",
+          "The 3% of people with clear goals are not necessarily more intelligent.",
+          "The 3% of people with clear goals are not necessarily more hardworking.",
+          "The 3% of people with clear goals are not necessarily more successful."
+        ],
+        "correct": 0,
+        "type": "General"
+      }
+    ]
+  },
+  {
+    "id": 400,
+    "source": "logiqa",
+    "generated_questions": [
+      {
+        "content": ". If someone is willing to do something to others, which of the following must be?",
+        "options": [
+          "They are willing to do it to themselves.",
+          "They are not willing to do it to themselves.",
+          "They are willing to do it to others, but not to themselves.",
+          "They are not willing to do it to others."
+        ],
+        "correct": 1,
+        "type": "General"
+      },
+      {
+        "content": ". What is the unstated assumption in the quote from Confucius?",
+        "options": [
+          "The quote is only applicable to certain situations.",
+          "The quote is only applicable to certain people.",
+          "The quote is a universal moral principle.",
+          "The quote is not a moral principle at all."
+        ],
+        "correct": 2,
+        "type": "General"
+      },
+      {
+        "content": ". Which of the following, if, most seriously weakens the moral principle presented in the quote?",
+        "options": [
+          "The quote is only applicable to certain cultures.",
+          "The quote is only applicable to certain situations.",
+          "The quote is not a universal moral principle.",
+          "The quote is not a moral principle at all."
+        ],
+        "correct": 3,
+        "type": "General"
+      }
+    ]
+  }
+]
