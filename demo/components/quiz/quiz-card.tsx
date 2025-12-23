@@ -166,7 +166,7 @@ export function QuizCard({ quiz, onDelete }: QuizCardProps) {
 
         {/* Last score - fixed height container to prevent layout shift */}
         {quiz.status === "ready" && (
-          <div className="min-h-[44px]">
+          <div className="min-h-11">
             {lastAttempt && (
               <div className="p-2 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-sm">
                 Last: {lastAttempt.score.toFixed(1)}% (

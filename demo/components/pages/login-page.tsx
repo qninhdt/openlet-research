@@ -9,7 +9,7 @@ export function LoginPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-zinc-900 dark:to-zinc-800">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 dark:from-zinc-900 dark:to-zinc-800">
         <div className="animate-pulse flex flex-col items-center gap-4">
           <div className="w-16 h-16 rounded-full bg-primary/20" />
           <div className="h-4 w-32 rounded bg-primary/20" />
@@ -19,7 +19,7 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-zinc-900 dark:to-zinc-800 p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 dark:from-zinc-900 dark:to-zinc-800 p-6">
       <div className="max-w-md w-full space-y-8">
         {/* Logo & Title */}
         <div className="text-center space-y-4">

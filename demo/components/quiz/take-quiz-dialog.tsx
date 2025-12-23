@@ -243,7 +243,7 @@ export function TakeQuizDialog({
             <ScrollArea className="h-full pr-4">
               <div className="space-y-6 py-4">
                 {/* Score Summary */}
-                <div className="text-center space-y-4 p-6 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5">
+                <div className="text-center space-y-4 p-6 rounded-xl bg-linear-to-br from-primary/10 to-primary/5">
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20">
                     <Trophy className="w-8 h-8 text-primary" />
                   </div>
