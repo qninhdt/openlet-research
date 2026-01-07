@@ -24,11 +24,36 @@ def load_json(file_path: str) -> List[Dict]:
 def normalize_model_name(model: str) -> str:
     """
     Normalize model name to match directory naming convention.
-    Replaces '/' with '_' and ':' with '_'
+    Replaces '/' with '_'
 
-    Example: 'google/gemini-2.0-flash-exp:free' -> 'google_gemini-2.0-flash-exp_free'
+    Example: 'deepseek/deepseek-ocr' -> 'deepseek_deepseek-ocr'
     """
-    return model.replace("/", "_").replace(":", "_")
+    return model.replace("/", "_")
+
+
+def normalize_text(text: str) -> str:
+    """
+    Normalize text by removing extra whitespace, newlines, and other irrelevant characters.
+
+    Args:
+        text: Input text to normalize
+
+    Returns:
+        Normalized text
+    """
+    if not text:
+        return ""
+
+    # Replace newlines, tabs, and multiple spaces with single space
+    text = text.replace("\n", " ").replace("\r", " ").replace("\t", " ")
+
+    # Replace multiple spaces with single space
+    text = " ".join(text.split())
+
+    # Strip leading/trailing whitespace
+    text = text.strip()
+
+    return text
 
 
 def get_ground_truth_text(data: List[Dict], sample_id: int) -> str:
@@ -42,6 +67,7 @@ def get_ground_truth_text(data: List[Dict], sample_id: int) -> str:
 def compute_ocr_metrics(gt_text: str, pred_text: str) -> Dict[str, float]:
     """
     Compute OCR metrics: CER and WER
+    Normalizes both texts before computing metrics.
 
     Args:
         gt_text: Ground truth text
@@ -50,17 +76,21 @@ def compute_ocr_metrics(gt_text: str, pred_text: str) -> Dict[str, float]:
     Returns:
         Dictionary with CER and WER scores
     """
+    # Normalize both texts
+    gt_text_norm = normalize_text(gt_text)
+    pred_text_norm = normalize_text(pred_text)
+
     # Handle empty texts
-    if not gt_text or not pred_text:
+    if not gt_text_norm or not pred_text_norm:
         return {
-            "cer": 1.0 if gt_text != pred_text else 0.0,
-            "wer": 1.0 if gt_text != pred_text else 0.0,
+            "cer": 1.0 if gt_text_norm != pred_text_norm else 0.0,
+            "wer": 1.0 if gt_text_norm != pred_text_norm else 0.0,
         }
 
     # Compute metrics
     try:
-        cer_score = cer(gt_text, pred_text)
-        wer_score = wer(gt_text, pred_text)
+        cer_score = cer(gt_text_norm, pred_text_norm)
+        wer_score = wer(gt_text_norm, pred_text_norm)
     except Exception as e:
         print(f"Warning: Error computing metrics: {e}")
         cer_score = 1.0
@@ -86,7 +116,7 @@ def evaluate_sample(
         pred_text: OCR predicted text
 
     Returns:
-        Dictionary with evaluation results
+        Dictionary with evaluation results, or None if should be skipped
     """
     if not gt_text:
         return {
@@ -94,21 +124,27 @@ def evaluate_sample(
             "error": "Missing ground truth text",
         }
 
-    if not pred_text:
+    # Skip sample if prediction is None or empty
+    if pred_text is None or not pred_text or not pred_text.strip():
         return {
             "id": sample_id,
-            "error": "Missing predicted text",
+            "skipped": True,
+            "reason": "Empty or missing predicted text",
         }
 
-    # Compute metrics
+    # Normalize texts for metrics computation
+    gt_text_norm = normalize_text(gt_text)
+    pred_text_norm = normalize_text(pred_text)
+
+    # Compute metrics (normalization happens inside compute_ocr_metrics too)
     metrics = compute_ocr_metrics(gt_text, pred_text)
 
     return {
         "id": sample_id,
-        "gt_length": len(gt_text),
-        "pred_length": len(pred_text),
-        "gt_word_count": len(gt_text.split()),
-        "pred_word_count": len(pred_text.split()),
+        "gt_length": len(gt_text_norm),
+        "pred_length": len(pred_text_norm),
+        "gt_word_count": len(gt_text_norm.split()),
+        "pred_word_count": len(pred_text_norm.split()),
         "metrics": metrics,
     }
 
@@ -116,6 +152,7 @@ def evaluate_sample(
 def compute_source_metrics(results: List[Dict]) -> Dict:
     """
     Compute aggregate metrics across all samples
+    Excludes samples with errors or that were skipped
 
     Args:
         results: List of evaluation results per sample
@@ -123,11 +160,18 @@ def compute_source_metrics(results: List[Dict]) -> Dict:
     Returns:
         Dictionary with aggregated metrics
     """
-    valid_results = [r for r in results if "error" not in r]
+    # Filter out samples with errors or that were skipped
+    valid_results = [r for r in results if "error" not in r and "skipped" not in r]
+
+    # Count skipped samples for reporting
+    skipped_count = len([r for r in results if "skipped" in r])
+    error_count = len([r for r in results if "error" in r])
 
     if not valid_results:
         return {
             "n_samples": 0,
+            "n_skipped": skipped_count,
+            "n_errors": error_count,
             "avg_cer": 0.0,
             "avg_wer": 0.0,
             "total_gt_chars": 0,
@@ -148,6 +192,8 @@ def compute_source_metrics(results: List[Dict]) -> Dict:
 
     return {
         "n_samples": len(valid_results),
+        "n_skipped": skipped_count,
+        "n_errors": error_count,
         "avg_cer": np.mean(all_cer),
         "std_cer": np.std(all_cer),
         "min_cer": np.min(all_cer),
@@ -168,16 +214,16 @@ def main():
         description="Evaluate OCR predictions using CER and WER"
     )
     parser.add_argument(
-        "--ground-truth",
+        "--dataset",
         type=str,
         default="./datasets/unified/data.json",
-        help="Path to ground truth JSON file",
+        help="Path to dataset JSON file",
     )
     parser.add_argument(
         "--model",
         type=str,
         required=True,
-        help="Model ID (e.g., 'google_gemini-2.0-flash-exp_free')",
+        help="Model name (e.g., 'deepseek/deepseek-ocr', 'paddlepaddle/paddleocr-vl')",
     )
     parser.add_argument(
         "--sources",
@@ -206,8 +252,8 @@ def main():
     print(f"Evaluating sources: {', '.join(args.sources)}")
 
     # Load ground truth data
-    print(f"\nLoading ground truth from {args.ground_truth}...")
-    gt_data = load_json(args.ground_truth)
+    print(f"\nLoading ground truth from {args.dataset}...")
+    gt_data = load_json(args.dataset)
 
     # Filter GT data by sources
     sources_lower = [s.lower() for s in args.sources]
@@ -257,7 +303,13 @@ def main():
             continue
 
         # Create mapping of ID to prediction
-        pred_map = {item["id"]: item["extracted_text"] for item in pred_data}
+        # Support both "predicted_text" and "extracted_text" keys
+        pred_map = {}
+        for item in pred_data:
+            predicted_text = item.get("predicted_text") or item.get(
+                "extracted_text", ""
+            )
+            pred_map[item["id"]] = predicted_text
 
         # Find common IDs
         gt_ids = {item["id"] for item in source_gt_data}
@@ -292,7 +344,12 @@ def main():
 
         # Print results
         print(f"\n### Source: {source.upper()} ###")
-        print(f"  Samples: {metrics['n_samples']}")
+        print(f"  Total Samples Evaluated: {len(common_ids)}")
+        print(f"  Valid Samples (used in metrics): {metrics['n_samples']}")
+        if metrics["n_skipped"] > 0:
+            print(f"  ⚠️  Skipped Samples (empty predictions): {metrics['n_skipped']}")
+        if metrics["n_errors"] > 0:
+            print(f"  ❌ Error Samples: {metrics['n_errors']}")
         print(f"  Total GT Characters: {metrics['total_gt_chars']:,}")
         print(f"  Total Pred Characters: {metrics['total_pred_chars']:,}")
         print(f"  Total GT Words: {metrics['total_gt_words']:,}")

@@ -1,76 +1,78 @@
 {
   "source": "race",
-  "model": "openai/gpt-5-mini",
-  "model_id": "openai_gpt-5-mini",
+  "model": "rednote-hilab/dots.ocr",
+  "model_id": "rednote-hilab_dots.ocr",
   "metrics": {
-    "n_samples": 99,
-    "avg_cer": 0.016012679521459586,
-    "std_cer": 0.031122688985177234,
+    "n_samples": 100,
+    "n_skipped": 0,
+    "n_errors": 0,
+    "avg_cer": 0.023011789049520583,
+    "std_cer": 0.09504845986606011,
     "min_cer": 0.0,
-    "max_cer": 0.2843443354148082,
-    "avg_wer": 0.05531753819385566,
-    "std_wer": 0.07050029320647415,
+    "max_cer": 0.7194844579226687,
+    "avg_wer": 0.04919466825180404,
+    "std_wer": 0.12101859357523057,
     "min_wer": 0.0,
-    "max_wer": 0.4206896551724138,
-    "total_gt_chars": 182430,
-    "total_pred_chars": 181162,
-    "total_gt_words": 31983,
-    "total_pred_words": 31840
+    "max_wer": 0.7754491017964071,
+    "total_gt_chars": 184344,
+    "total_pred_chars": 183580,
+    "total_gt_words": 32352,
+    "total_pred_words": 32312
   },
   "detailed_results": [
     {
       "id": 1,
       "gt_length": 2459,
-      "pred_length": 2478,
+      "pred_length": 2457,
       "gt_word_count": 438,
-      "pred_word_count": 443,
+      "pred_word_count": 435,
       "metrics": {
-        "cer": 0.018300122000813338,
-        "wer": 0.0547945205479452
+        "cer": 0.0028466856445709637,
+        "wer": 0.02054794520547945
       }
     },
     {
       "id": 2,
       "gt_length": 3408,
-      "pred_length": 3367,
+      "pred_length": 3408,
       "gt_word_count": 639,
-      "pred_word_count": 632,
+      "pred_word_count": 639,
       "metrics": {
-        "cer": 0.03227699530516432,
-        "wer": 0.0406885758998435
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 3,
       "gt_length": 1168,
-      "pred_length": 1173,
+      "pred_length": 1168,
       "gt_word_count": 233,
-      "pred_word_count": 235,
+      "pred_word_count": 234,
       "metrics": {
-        "cer": 0.00684931506849315,
-        "wer": 0.02575107296137339
+        "cer": 0.0017123287671232876,
+        "wer": 0.012875536480686695
       }
     },
     {
       "id": 4,
       "gt_length": 4244,
-      "pred_length": 4211,
+      "pred_length": 4141,
       "gt_word_count": 819,
-      "pred_word_count": 803,
+      "pred_word_count": 796,
       "metrics": {
-        "cer": 0.013666352497643733,
-        "wer": 0.042735042735042736
+        "cer": 0.024269557021677664,
+        "wer": 0.028083028083028084
       }
     },
     {
       "id": 5,
       "gt_length": 1657,
-      "pred_length": 1685,
+      "pred_length": 1656,
       "gt_word_count": 304,
-      "pred_word_count": 309,
+      "pred_word_count": 303,
       "metrics": {
-        "cer": 0.02172601086300543,
-        "wer": 0.039473684210526314
+        "cer": 0.0006035003017501509,
+        "wer": 0.006578947368421052
       }
     },
     {
@@ -98,12 +100,12 @@
     {
       "id": 8,
       "gt_length": 1546,
-      "pred_length": 1539,
+      "pred_length": 1549,
       "gt_word_count": 259,
-      "pred_word_count": 259,
+      "pred_word_count": 263,
       "metrics": {
-        "cer": 0.020051746442432083,
-        "wer": 0.0888030888030888
+        "cer": 0.004527813712807244,
+        "wer": 0.03861003861003861
       }
     },
     {
@@ -113,140 +115,140 @@
       "gt_word_count": 286,
       "pred_word_count": 286,
       "metrics": {
-        "cer": 0.006038647342995169,
-        "wer": 0.017482517482517484
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 10,
       "gt_length": 1490,
-      "pred_length": 1492,
+      "pred_length": 1490,
       "gt_word_count": 282,
-      "pred_word_count": 283,
+      "pred_word_count": 282,
       "metrics": {
-        "cer": 0.0026845637583892616,
-        "wer": 0.010638297872340425
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 11,
       "gt_length": 4164,
-      "pred_length": 4156,
+      "pred_length": 4163,
       "gt_word_count": 789,
       "pred_word_count": 788,
       "metrics": {
-        "cer": 0.004322766570605188,
-        "wer": 0.016476552598225603
+        "cer": 0.0007204610951008645,
+        "wer": 0.0076045627376425855
       }
     },
     {
       "id": 12,
       "gt_length": 1051,
-      "pred_length": 1037,
+      "pred_length": 1016,
       "gt_word_count": 196,
-      "pred_word_count": 193,
+      "pred_word_count": 191,
       "metrics": {
-        "cer": 0.025689819219790674,
-        "wer": 0.05612244897959184
+        "cer": 0.035204567078972404,
+        "wer": 0.04081632653061224
       }
     },
     {
       "id": 13,
       "gt_length": 2372,
-      "pred_length": 2414,
+      "pred_length": 2384,
       "gt_word_count": 472,
-      "pred_word_count": 477,
+      "pred_word_count": 474,
       "metrics": {
-        "cer": 0.022344013490725127,
-        "wer": 0.03177966101694915
+        "cer": 0.006745362563237774,
+        "wer": 0.014830508474576272
       }
     },
     {
       "id": 14,
       "gt_length": 2138,
-      "pred_length": 2131,
+      "pred_length": 2138,
       "gt_word_count": 341,
-      "pred_word_count": 340,
+      "pred_word_count": 341,
       "metrics": {
-        "cer": 0.00420954162768943,
-        "wer": 0.008797653958944282
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 15,
       "gt_length": 1466,
-      "pred_length": 1464,
+      "pred_length": 1466,
       "gt_word_count": 278,
       "pred_word_count": 278,
       "metrics": {
-        "cer": 0.0020463847203274215,
-        "wer": 0.007194244604316547
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 16,
       "gt_length": 2388,
-      "pred_length": 2389,
+      "pred_length": 2363,
       "gt_word_count": 374,
-      "pred_word_count": 387,
+      "pred_word_count": 382,
       "metrics": {
-        "cer": 0.016331658291457288,
+        "cer": 0.023031825795644893,
         "wer": 0.10160427807486631
       }
     },
     {
       "id": 17,
       "gt_length": 1436,
-      "pred_length": 1403,
+      "pred_length": 1413,
       "gt_word_count": 290,
-      "pred_word_count": 256,
+      "pred_word_count": 266,
       "metrics": {
-        "cer": 0.057799442896935935,
-        "wer": 0.4206896551724138
+        "cer": 0.04247910863509749,
+        "wer": 0.3689655172413793
       }
     },
     {
       "id": 18,
       "gt_length": 1150,
-      "pred_length": 1147,
+      "pred_length": 1148,
       "gt_word_count": 215,
       "pred_word_count": 213,
       "metrics": {
-        "cer": 0.0026086956521739132,
-        "wer": 0.023255813953488372
+        "cer": 0.0017391304347826088,
+        "wer": 0.018604651162790697
       }
     },
     {
       "id": 19,
       "gt_length": 1862,
-      "pred_length": 1866,
+      "pred_length": 1862,
       "gt_word_count": 334,
       "pred_word_count": 334,
       "metrics": {
-        "cer": 0.00322234156820623,
-        "wer": 0.011976047904191617
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 20,
       "gt_length": 3611,
-      "pred_length": 3597,
+      "pred_length": 3610,
       "gt_word_count": 654,
       "pred_word_count": 654,
       "metrics": {
-        "cer": 0.007477153143173636,
-        "wer": 0.01834862385321101
+        "cer": 0.0011077263915812794,
+        "wer": 0.0030581039755351682
       }
     },
     {
       "id": 21,
       "gt_length": 1136,
-      "pred_length": 1132,
+      "pred_length": 1136,
       "gt_word_count": 188,
       "pred_word_count": 188,
       "metrics": {
-        "cer": 0.018485915492957746,
-        "wer": 0.07446808510638298
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
@@ -254,10 +256,10 @@
       "gt_length": 1740,
       "pred_length": 1740,
       "gt_word_count": 332,
-      "pred_word_count": 331,
+      "pred_word_count": 332,
       "metrics": {
-        "cer": 0.0011494252873563218,
-        "wer": 0.009036144578313253
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
@@ -267,404 +269,404 @@
       "gt_word_count": 223,
       "pred_word_count": 223,
       "metrics": {
-        "cer": 0.009828009828009828,
-        "wer": 0.053811659192825115
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 24,
       "gt_length": 696,
-      "pred_length": 699,
+      "pred_length": 696,
       "gt_word_count": 135,
       "pred_word_count": 135,
       "metrics": {
-        "cer": 0.007183908045977011,
-        "wer": 0.022222222222222223
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 25,
       "gt_length": 1700,
-      "pred_length": 1694,
+      "pred_length": 1710,
       "gt_word_count": 302,
-      "pred_word_count": 299,
+      "pred_word_count": 304,
       "metrics": {
-        "cer": 0.00411764705882353,
+        "cer": 0.00823529411764706,
         "wer": 0.026490066225165563
       }
     },
     {
       "id": 26,
       "gt_length": 1494,
-      "pred_length": 1492,
+      "pred_length": 1491,
       "gt_word_count": 262,
       "pred_word_count": 259,
       "metrics": {
-        "cer": 0.0033467202141900937,
-        "wer": 0.030534351145038167
+        "cer": 0.002008032128514056,
+        "wer": 0.022900763358778626
       }
     },
     {
       "id": 27,
       "gt_length": 2979,
-      "pred_length": 2962,
+      "pred_length": 2980,
       "gt_word_count": 524,
-      "pred_word_count": 523,
+      "pred_word_count": 524,
       "metrics": {
-        "cer": 0.010406176569318564,
-        "wer": 0.05725190839694656
+        "cer": 0.002685464921114468,
+        "wer": 0.02480916030534351
       }
     },
     {
       "id": 28,
       "gt_length": 1281,
-      "pred_length": 1308,
+      "pred_length": 1282,
       "gt_word_count": 211,
-      "pred_word_count": 214,
+      "pred_word_count": 212,
       "metrics": {
-        "cer": 0.053864168618266976,
-        "wer": 0.16587677725118483
+        "cer": 0.00702576112412178,
+        "wer": 0.07109004739336493
       }
     },
     {
       "id": 29,
       "gt_length": 2156,
-      "pred_length": 2154,
+      "pred_length": 2158,
       "gt_word_count": 376,
-      "pred_word_count": 376,
+      "pred_word_count": 377,
       "metrics": {
-        "cer": 0.0037105751391465678,
-        "wer": 0.010638297872340425
+        "cer": 0.0013914656771799629,
+        "wer": 0.007978723404255319
       }
     },
     {
       "id": 30,
       "gt_length": 1612,
-      "pred_length": 1602,
+      "pred_length": 1608,
       "gt_word_count": 279,
-      "pred_word_count": 275,
+      "pred_word_count": 277,
       "metrics": {
-        "cer": 0.017990074441687345,
-        "wer": 0.05734767025089606
+        "cer": 0.007444168734491315,
+        "wer": 0.03942652329749104
       }
     },
     {
       "id": 31,
       "gt_length": 2206,
-      "pred_length": 2200,
+      "pred_length": 2205,
       "gt_word_count": 346,
-      "pred_word_count": 343,
+      "pred_word_count": 345,
       "metrics": {
-        "cer": 0.003173164097914778,
-        "wer": 0.014450867052023121
+        "cer": 0.00045330915684496827,
+        "wer": 0.005780346820809248
       }
     },
     {
       "id": 32,
       "gt_length": 2369,
-      "pred_length": 2370,
+      "pred_length": 2379,
       "gt_word_count": 368,
-      "pred_word_count": 367,
+      "pred_word_count": 372,
       "metrics": {
-        "cer": 0.002532714225411566,
-        "wer": 0.016304347826086956
+        "cer": 0.008020261713803293,
+        "wer": 0.03260869565217391
       }
     },
     {
       "id": 33,
       "gt_length": 1356,
-      "pred_length": 1359,
+      "pred_length": 1364,
       "gt_word_count": 207,
       "pred_word_count": 215,
       "metrics": {
-        "cer": 0.01991150442477876,
-        "wer": 0.17391304347826086
+        "cer": 0.01696165191740413,
+        "wer": 0.178743961352657
       }
     },
     {
       "id": 34,
       "gt_length": 671,
-      "pred_length": 672,
+      "pred_length": 671,
       "gt_word_count": 119,
-      "pred_word_count": 117,
+      "pred_word_count": 119,
       "metrics": {
-        "cer": 0.02533532041728763,
-        "wer": 0.07563025210084033
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 35,
       "gt_length": 1536,
-      "pred_length": 1535,
+      "pred_length": 1536,
       "gt_word_count": 278,
       "pred_word_count": 278,
       "metrics": {
-        "cer": 0.0013020833333333333,
-        "wer": 0.0035971223021582736
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 36,
       "gt_length": 1574,
-      "pred_length": 1598,
+      "pred_length": 1608,
       "gt_word_count": 258,
-      "pred_word_count": 288,
+      "pred_word_count": 293,
       "metrics": {
-        "cer": 0.035578144853875476,
-        "wer": 0.26744186046511625
+        "cer": 0.0241423125794155,
+        "wer": 0.2596899224806202
       }
     },
     {
       "id": 37,
       "gt_length": 1311,
-      "pred_length": 1312,
+      "pred_length": 1311,
       "gt_word_count": 241,
-      "pred_word_count": 243,
+      "pred_word_count": 241,
       "metrics": {
-        "cer": 0.0030511060259344014,
-        "wer": 0.03319502074688797
+        "cer": 0.0015255530129672007,
+        "wer": 0.016597510373443983
       }
     },
     {
       "id": 38,
       "gt_length": 2040,
-      "pred_length": 2052,
+      "pred_length": 2044,
       "gt_word_count": 343,
-      "pred_word_count": 345,
+      "pred_word_count": 343,
       "metrics": {
-        "cer": 0.013235294117647059,
-        "wer": 0.026239067055393587
+        "cer": 0.00196078431372549,
+        "wer": 0.008746355685131196
       }
     },
     {
       "id": 39,
       "gt_length": 1697,
-      "pred_length": 1698,
+      "pred_length": 1696,
       "gt_word_count": 299,
-      "pred_word_count": 300,
+      "pred_word_count": 299,
       "metrics": {
-        "cer": 0.004714201532115498,
-        "wer": 0.020066889632107024
+        "cer": 0.0017678255745433118,
+        "wer": 0.010033444816053512
       }
     },
     {
       "id": 40,
       "gt_length": 1106,
-      "pred_length": 1105,
+      "pred_length": 1104,
       "gt_word_count": 201,
-      "pred_word_count": 200,
+      "pred_word_count": 199,
       "metrics": {
-        "cer": 0.007233273056057866,
-        "wer": 0.04477611940298507
+        "cer": 0.0018083182640144665,
+        "wer": 0.01990049751243781
       }
     },
     {
       "id": 41,
       "gt_length": 1775,
-      "pred_length": 1812,
+      "pred_length": 1791,
       "gt_word_count": 288,
-      "pred_word_count": 296,
+      "pred_word_count": 294,
       "metrics": {
-        "cer": 0.05295774647887324,
-        "wer": 0.1527777777777778
+        "cer": 0.04619718309859155,
+        "wer": 0.1423611111111111
       }
     },
     {
       "id": 42,
       "gt_length": 1712,
-      "pred_length": 1713,
+      "pred_length": 1711,
       "gt_word_count": 294,
       "pred_word_count": 294,
       "metrics": {
-        "cer": 0.005841121495327103,
-        "wer": 0.02040816326530612
+        "cer": 0.0005841121495327102,
+        "wer": 0.003401360544217687
       }
     },
     {
       "id": 43,
       "gt_length": 2037,
-      "pred_length": 2040,
+      "pred_length": 2036,
       "gt_word_count": 329,
       "pred_word_count": 329,
       "metrics": {
-        "cer": 0.008836524300441826,
-        "wer": 0.0364741641337386
+        "cer": 0.0014727540500736377,
+        "wer": 0.00911854103343465
       }
     },
     {
       "id": 44,
       "gt_length": 1880,
-      "pred_length": 1800,
+      "pred_length": 1802,
       "gt_word_count": 291,
-      "pred_word_count": 276,
+      "pred_word_count": 275,
       "metrics": {
-        "cer": 0.04893617021276596,
-        "wer": 0.10652920962199312
+        "cer": 0.04202127659574468,
+        "wer": 0.06872852233676977
       }
     },
     {
       "id": 45,
       "gt_length": 1908,
-      "pred_length": 1912,
+      "pred_length": 1934,
       "gt_word_count": 312,
-      "pred_word_count": 313,
+      "pred_word_count": 318,
       "metrics": {
-        "cer": 0.0047169811320754715,
-        "wer": 0.019230769230769232
+        "cer": 0.016247379454926623,
+        "wer": 0.035256410256410256
       }
     },
     {
       "id": 46,
       "gt_length": 3289,
-      "pred_length": 3283,
+      "pred_length": 3290,
       "gt_word_count": 609,
-      "pred_word_count": 606,
+      "pred_word_count": 609,
       "metrics": {
-        "cer": 0.012465795074490726,
-        "wer": 0.03284072249589491
+        "cer": 0.0036485253876558225,
+        "wer": 0.014778325123152709
       }
     },
     {
       "id": 47,
       "gt_length": 1361,
-      "pred_length": 1358,
+      "pred_length": 1359,
       "gt_word_count": 239,
-      "pred_word_count": 237,
+      "pred_word_count": 238,
       "metrics": {
-        "cer": 0.005143277002204262,
-        "wer": 0.029288702928870293
+        "cer": 0.0014695077149155032,
+        "wer": 0.012552301255230125
       }
     },
     {
       "id": 48,
       "gt_length": 915,
-      "pred_length": 910,
+      "pred_length": 914,
       "gt_word_count": 176,
-      "pred_word_count": 173,
+      "pred_word_count": 175,
       "metrics": {
-        "cer": 0.019672131147540985,
-        "wer": 0.0625
+        "cer": 0.001092896174863388,
+        "wer": 0.011363636363636364
       }
     },
     {
       "id": 49,
       "gt_length": 3389,
-      "pred_length": 3412,
+      "pred_length": 3388,
       "gt_word_count": 597,
-      "pred_word_count": 602,
+      "pred_word_count": 596,
       "metrics": {
-        "cer": 0.011212747123045146,
-        "wer": 0.038525963149078725
+        "cer": 0.0011802891708468574,
+        "wer": 0.011725293132328308
       }
     },
     {
       "id": 50,
       "gt_length": 2176,
-      "pred_length": 2102,
+      "pred_length": 2040,
       "gt_word_count": 343,
-      "pred_word_count": 332,
+      "pred_word_count": 322,
       "metrics": {
-        "cer": 0.04917279411764706,
-        "wer": 0.07871720116618076
+        "cer": 0.06295955882352941,
+        "wer": 0.06705539358600583
       }
     },
     {
       "id": 51,
       "gt_length": 2425,
-      "pred_length": 2428,
+      "pred_length": 2441,
       "gt_word_count": 394,
-      "pred_word_count": 391,
+      "pred_word_count": 394,
       "metrics": {
-        "cer": 0.007422680412371134,
-        "wer": 0.030456852791878174
+        "cer": 0.006597938144329897,
+        "wer": 0.01015228426395939
       }
     },
     {
       "id": 52,
       "gt_length": 1045,
-      "pred_length": 1046,
+      "pred_length": 1044,
       "gt_word_count": 202,
-      "pred_word_count": 200,
+      "pred_word_count": 201,
       "metrics": {
-        "cer": 0.015311004784688996,
-        "wer": 0.0594059405940594
+        "cer": 0.0009569377990430622,
+        "wer": 0.009900990099009901
       }
     },
     {
       "id": 53,
       "gt_length": 863,
-      "pred_length": 875,
+      "pred_length": 869,
       "gt_word_count": 157,
-      "pred_word_count": 162,
+      "pred_word_count": 163,
       "metrics": {
-        "cer": 0.0220162224797219,
-        "wer": 0.12101910828025478
+        "cer": 0.006952491309385863,
+        "wer": 0.07643312101910828
       }
     },
     {
       "id": 54,
       "gt_length": 766,
-      "pred_length": 768,
+      "pred_length": 767,
       "gt_word_count": 154,
       "pred_word_count": 156,
       "metrics": {
-        "cer": 0.010443864229765013,
-        "wer": 0.05844155844155844
+        "cer": 0.0039164490861618795,
+        "wer": 0.032467532467532464
       }
     },
     {
       "id": 55,
       "gt_length": 2493,
-      "pred_length": 2494,
+      "pred_length": 2517,
       "gt_word_count": 424,
       "pred_word_count": 424,
       "metrics": {
-        "cer": 0.0008022462896109105,
-        "wer": 0.0023584905660377358
+        "cer": 0.009626955475330927,
+        "wer": 0.02830188679245283
       }
     },
     {
       "id": 56,
       "gt_length": 2127,
-      "pred_length": 2136,
+      "pred_length": 2141,
       "gt_word_count": 334,
-      "pred_word_count": 353,
+      "pred_word_count": 355,
       "metrics": {
-        "cer": 0.019746121297602257,
-        "wer": 0.1497005988023952
+        "cer": 0.5806299952985425,
+        "wer": 0.7754491017964071
       }
     },
     {
       "id": 57,
       "gt_length": 1167,
-      "pred_length": 1169,
+      "pred_length": 1167,
       "gt_word_count": 204,
-      "pred_word_count": 205,
+      "pred_word_count": 204,
       "metrics": {
-        "cer": 0.02056555269922879,
-        "wer": 0.04411764705882353
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 58,
       "gt_length": 1755,
-      "pred_length": 1772,
+      "pred_length": 1773,
       "gt_word_count": 272,
       "pred_word_count": 289,
       "metrics": {
-        "cer": 0.011396011396011397,
+        "cer": 0.010826210826210826,
         "wer": 0.1213235294117647
       }
     },
     {
       "id": 59,
       "gt_length": 1566,
-      "pred_length": 1564,
+      "pred_length": 1565,
       "gt_word_count": 295,
       "pred_word_count": 294,
       "metrics": {
-        "cer": 0.005747126436781609,
-        "wer": 0.030508474576271188
+        "cer": 0.0006385696040868455,
+        "wer": 0.006779661016949152
       }
     },
     {
@@ -681,45 +683,45 @@
     {
       "id": 61,
       "gt_length": 2318,
-      "pred_length": 2321,
+      "pred_length": 2328,
       "gt_word_count": 363,
-      "pred_word_count": 375,
+      "pred_word_count": 374,
       "metrics": {
-        "cer": 0.014667817083692839,
-        "wer": 0.07162534435261708
+        "cer": 0.0060396893874029335,
+        "wer": 0.05509641873278237
       }
     },
     {
       "id": 62,
       "gt_length": 1983,
-      "pred_length": 1937,
+      "pred_length": 1910,
       "gt_word_count": 330,
-      "pred_word_count": 321,
+      "pred_word_count": 317,
       "metrics": {
-        "cer": 0.030761472516389308,
-        "wer": 0.08181818181818182
+        "cer": 0.040342914775592535,
+        "wer": 0.07878787878787878
       }
     },
     {
       "id": 63,
       "gt_length": 1680,
-      "pred_length": 1673,
+      "pred_length": 1680,
       "gt_word_count": 279,
-      "pred_word_count": 273,
+      "pred_word_count": 279,
       "metrics": {
-        "cer": 0.011904761904761904,
-        "wer": 0.06093189964157706
+        "cer": 0.002380952380952381,
+        "wer": 0.021505376344086023
       }
     },
     {
       "id": 64,
       "gt_length": 1781,
-      "pred_length": 1860,
+      "pred_length": 1780,
       "gt_word_count": 332,
-      "pred_word_count": 341,
+      "pred_word_count": 331,
       "metrics": {
-        "cer": 0.08478382930937675,
-        "wer": 0.1566265060240964
+        "cer": 0.0005614823133071309,
+        "wer": 0.006024096385542169
       }
     },
     {
@@ -736,23 +738,23 @@
     {
       "id": 66,
       "gt_length": 1319,
-      "pred_length": 1340,
+      "pred_length": 2267,
       "gt_word_count": 198,
-      "pred_word_count": 222,
+      "pred_word_count": 349,
       "metrics": {
-        "cer": 0.028051554207733132,
-        "wer": 0.26262626262626265
+        "cer": 0.7194844579226687,
+        "wer": 0.7727272727272727
       }
     },
     {
       "id": 67,
       "gt_length": 2154,
-      "pred_length": 2155,
+      "pred_length": 2149,
       "gt_word_count": 382,
-      "pred_word_count": 383,
+      "pred_word_count": 381,
       "metrics": {
-        "cer": 0.006963788300835654,
-        "wer": 0.020942408376963352
+        "cer": 0.0032497678737233053,
+        "wer": 0.010471204188481676
       }
     },
     {
@@ -769,23 +771,23 @@
     {
       "id": 69,
       "gt_length": 1575,
-      "pred_length": 1574,
+      "pred_length": 1575,
       "gt_word_count": 269,
-      "pred_word_count": 268,
+      "pred_word_count": 269,
       "metrics": {
-        "cer": 0.0025396825396825397,
-        "wer": 0.01858736059479554
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 70,
       "gt_length": 1329,
-      "pred_length": 1330,
+      "pred_length": 1329,
       "gt_word_count": 244,
       "pred_word_count": 244,
       "metrics": {
-        "cer": 0.002257336343115124,
-        "wer": 0.00819672131147541
+        "cer": 0.0015048908954100827,
+        "wer": 0.004098360655737705
       }
     },
     {
@@ -802,12 +804,12 @@
     {
       "id": 72,
       "gt_length": 1752,
-      "pred_length": 1826,
+      "pred_length": 1698,
       "gt_word_count": 306,
-      "pred_word_count": 316,
+      "pred_word_count": 298,
       "metrics": {
-        "cer": 0.05422374429223744,
-        "wer": 0.058823529411764705
+        "cer": 0.030821917808219176,
+        "wer": 0.026143790849673203
       }
     },
     {
@@ -817,8 +819,8 @@
       "gt_word_count": 276,
       "pred_word_count": 275,
       "metrics": {
-        "cer": 0.0014577259475218659,
-        "wer": 0.010869565217391304
+        "cer": 0.0007288629737609329,
+        "wer": 0.007246376811594203
       }
     },
     {
@@ -835,12 +837,12 @@
     {
       "id": 75,
       "gt_length": 4484,
-      "pred_length": 3306,
+      "pred_length": 3302,
       "gt_word_count": 790,
-      "pred_word_count": 609,
+      "pred_word_count": 610,
       "metrics": {
-        "cer": 0.2843443354148082,
-        "wer": 0.36075949367088606
+        "cer": 0.27631578947368424,
+        "wer": 0.33164556962025316
       }
     },
     {
@@ -857,71 +859,78 @@
     {
       "id": 77,
       "gt_length": 1679,
-      "pred_length": 1675,
+      "pred_length": 1679,
       "gt_word_count": 281,
-      "pred_word_count": 275,
+      "pred_word_count": 281,
       "metrics": {
-        "cer": 0.01012507444907683,
-        "wer": 0.05338078291814947
+        "cer": 0.0023823704586063135,
+        "wer": 0.014234875444839857
       }
     },
     {
       "id": 78,
       "gt_length": 1562,
-      "pred_length": 1559,
+      "pred_length": 1560,
       "gt_word_count": 301,
       "pred_word_count": 299,
       "metrics": {
-        "cer": 0.003201024327784891,
-        "wer": 0.016611295681063124
+        "cer": 0.0012804097311139564,
+        "wer": 0.013289036544850499
       }
     },
     {
       "id": 79,
       "gt_length": 1740,
-      "pred_length": 1746,
+      "pred_length": 1740,
       "gt_word_count": 325,
-      "pred_word_count": 326,
+      "pred_word_count": 325,
       "metrics": {
-        "cer": 0.009770114942528735,
-        "wer": 0.043076923076923075
+        "cer": 0.004597701149425287,
+        "wer": 0.03076923076923077
       }
     },
     {
       "id": 80,
       "gt_length": 3683,
-      "pred_length": 3683,
+      "pred_length": 3681,
       "gt_word_count": 689,
-      "pred_word_count": 686,
+      "pred_word_count": 687,
       "metrics": {
-        "cer": 0.00325821341297855,
-        "wer": 0.013062409288824383
+        "cer": 0.0005430355688297583,
+        "wer": 0.005805515239477504
       }
     },
     {
       "id": 81,
-      "error": "Missing predicted text"
+      "gt_length": 1914,
+      "pred_length": 1912,
+      "gt_word_count": 369,
+      "pred_word_count": 364,
+      "metrics": {
+        "cer": 0.012539184952978056,
+        "wer": 0.06775067750677506
+      }
     },
     {
       "id": 82,
       "gt_length": 4192,
-      "pred_length": 4032,
+      "pred_length": 4098,
       "gt_word_count": 783,
-      "pred_word_count": 754,
+      "pred_word_count": 767,
       "metrics": {
-        "cer": 0.03864503816793893,
-        "wer": 0.04342273307790549
+        "cer": 0.03244274809160305,
+        "wer": 0.04086845466155811
       }
     },
     {
       "id": 83,
       "gt_length": 1951,
-      "pred_length": 1956,
+      "pred_length": 1832,
       "gt_word_count": 305,
-      "pred_word_count": 319,
+      "pred_word_count": 303,
       "metrics": {
-        "cer": 0.017939518195797026,
-        "wer": 0.12459016393442623
+        "cer": 0.08252178370066633,
+        "wer": 0.18688524590163935
       }
     },
     {
@@ -931,30 +940,30 @@
       "gt_word_count": 316,
       "pred_word_count": 316,
       "metrics": {
-        "cer": 0.00772626931567329,
-        "wer": 0.012658227848101266
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 85,
       "gt_length": 945,
-      "pred_length": 951,
+      "pred_length": 946,
       "gt_word_count": 167,
-      "pred_word_count": 168,
+      "pred_word_count": 167,
       "metrics": {
-        "cer": 0.008465608465608466,
-        "wer": 0.017964071856287425
+        "cer": 0.0010582010582010583,
+        "wer": 0.005988023952095809
       }
     },
     {
       "id": 86,
       "gt_length": 1630,
-      "pred_length": 1628,
+      "pred_length": 1630,
       "gt_word_count": 311,
       "pred_word_count": 311,
       "metrics": {
-        "cer": 0.00245398773006135,
-        "wer": 0.006430868167202572
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
@@ -971,7 +980,7 @@
     {
       "id": 88,
       "gt_length": 844,
-      "pred_length": 843,
+      "pred_length": 842,
       "gt_word_count": 159,
       "pred_word_count": 157,
       "metrics": {
@@ -982,45 +991,45 @@
     {
       "id": 89,
       "gt_length": 1927,
-      "pred_length": 1929,
+      "pred_length": 1927,
       "gt_word_count": 334,
-      "pred_word_count": 333,
+      "pred_word_count": 334,
       "metrics": {
-        "cer": 0.0031136481577581734,
-        "wer": 0.011976047904191617
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 90,
       "gt_length": 2123,
-      "pred_length": 2122,
+      "pred_length": 2121,
       "gt_word_count": 348,
       "pred_word_count": 346,
       "metrics": {
-        "cer": 0.002826189354686764,
-        "wer": 0.017241379310344827
+        "cer": 0.001413094677343382,
+        "wer": 0.014367816091954023
       }
     },
     {
       "id": 91,
       "gt_length": 1448,
-      "pred_length": 1461,
+      "pred_length": 1456,
       "gt_word_count": 246,
-      "pred_word_count": 256,
+      "pred_word_count": 254,
       "metrics": {
-        "cer": 0.017265193370165747,
-        "wer": 0.12601626016260162
+        "cer": 0.006906077348066298,
+        "wer": 0.08130081300813008
       }
     },
     {
       "id": 92,
       "gt_length": 2233,
-      "pred_length": 2247,
+      "pred_length": 2275,
       "gt_word_count": 384,
-      "pred_word_count": 405,
+      "pred_word_count": 406,
       "metrics": {
-        "cer": 0.016569637259292433,
-        "wer": 0.12760416666666666
+        "cer": 0.024630541871921183,
+        "wer": 0.13802083333333334
       }
     },
     {
@@ -1028,32 +1037,32 @@
       "gt_length": 1625,
       "pred_length": 1625,
       "gt_word_count": 265,
-      "pred_word_count": 263,
+      "pred_word_count": 265,
       "metrics": {
-        "cer": 0.003076923076923077,
-        "wer": 0.026415094339622643
+        "cer": 0.0012307692307692308,
+        "wer": 0.007547169811320755
       }
     },
     {
       "id": 94,
       "gt_length": 2112,
-      "pred_length": 2114,
+      "pred_length": 2111,
       "gt_word_count": 363,
       "pred_word_count": 362,
       "metrics": {
-        "cer": 0.0023674242424242425,
-        "wer": 0.011019283746556474
+        "cer": 0.0004734848484848485,
+        "wer": 0.005509641873278237
       }
     },
     {
       "id": 95,
       "gt_length": 2040,
-      "pred_length": 2043,
+      "pred_length": 2041,
       "gt_word_count": 347,
-      "pred_word_count": 344,
+      "pred_word_count": 348,
       "metrics": {
-        "cer": 0.010294117647058823,
-        "wer": 0.06628242074927954
+        "cer": 0.0024509803921568627,
+        "wer": 0.020172910662824207
       }
     },
     {
@@ -1070,45 +1079,45 @@
     {
       "id": 97,
       "gt_length": 1263,
-      "pred_length": 1279,
+      "pred_length": 1259,
       "gt_word_count": 226,
-      "pred_word_count": 225,
+      "pred_word_count": 222,
       "metrics": {
-        "cer": 0.030878859857482184,
-        "wer": 0.084070796460177
+        "cer": 0.003167062549485352,
+        "wer": 0.035398230088495575
       }
     },
     {
       "id": 98,
       "gt_length": 2206,
-      "pred_length": 2202,
+      "pred_length": 2204,
       "gt_word_count": 354,
       "pred_word_count": 353,
       "metrics": {
-        "cer": 0.006346328195829556,
-        "wer": 0.01694915254237288
+        "cer": 0.003173164097914778,
+        "wer": 0.014124293785310734
       }
     },
     {
       "id": 99,
       "gt_length": 1245,
-      "pred_length": 1239,
+      "pred_length": 1245,
       "gt_word_count": 235,
-      "pred_word_count": 233,
+      "pred_word_count": 235,
       "metrics": {
-        "cer": 0.008032128514056224,
-        "wer": 0.029787234042553193
+        "cer": 0.0,
+        "wer": 0.0
       }
     },
     {
       "id": 100,
       "gt_length": 1542,
-      "pred_length": 1543,
+      "pred_length": 1542,
       "gt_word_count": 273,
-      "pred_word_count": 274,
+      "pred_word_count": 272,
       "metrics": {
-        "cer": 0.004539559014267186,
-        "wer": 0.03296703296703297
+        "cer": 0.0012970168612191958,
+        "wer": 0.01098901098901099
       }
     }
   ]
