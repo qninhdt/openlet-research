@@ -2,16 +2,14 @@
   "functions": [
     {
       "codebase": "default",
+      "runtime": "python312",
       "ignore": [
-        "node_modules",
+        "venv",
+        "__pycache__",
         ".git",
         "firebase-debug.log",
         "firebase-debug.*.log",
         "*.local"
-      ],
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint",
-        "npm --prefix \"$RESOURCE_DIR\" run build"
       ],
       "source": "functions"
     }

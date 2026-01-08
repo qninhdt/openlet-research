@@ -1,12 +1,28 @@
-# Compiled JavaScript files
-lib/**/*.js
-lib/**/*.js.map
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 
-# TypeScript v1 declaration files
-typings/
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
 
-# Node.js dependency directory
-node_modules/
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Firebase
+firebase-debug.log
+firebase-debug.*.log
 *.local
 
-.env.openlet-demo
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+

@@ -1,0 +1,10 @@
+# Firebase Functions dependencies
+firebase-functions>=0.4.0
+firebase-admin>=6.4.0
+
+# Async HTTP requests
+aiohttp>=3.9.0
+
+# PDF processing
+PyMuPDF>=1.24.0
+

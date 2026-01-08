@@ -1,11 +1,13 @@
-export const OCR_PROMPT = `You are an advanced OCR (Optical Character Recognition) and text reconstruction engine. Your task is to transcribe text from the provided image with the following strict rules:
+"""Prompt templates for OCR and question generation."""
+
+OCR_PROMPT = """You are an advanced OCR (Optical Character Recognition) and text reconstruction engine. Your task is to transcribe text from the provided image with the following strict rules:
 
 1.  **Output ONLY the text:** Do not provide any conversational fillers, explanations, preambles (e.g., "Here is the text"), or markdown code blocks. Start the response directly with the first word found in the image.
 2.  **Intelligent Reconstruction:** If parts of the text are occluded, blurry, damaged, or noisy, you must logically infer and fill in the missing words or characters based on the surrounding context, grammar, and sentence structure to ensure the output is coherent.
 3.  **Formatting (Flow & Paragraphs):** Do not preserve the visual line breaks or column widths of the original image. Instead, merge broken lines to form complete sentences and organize the text into logical, natural-flowing paragraphs. Prioritize readability and narrative flow over strict visual structure.
-4.  **No Markdown Styling:** Do not add any markdown styling (bold, italic), syntax highlighting, or code block delimiters unless they are explicitly part of the original text's content.`;
+4.  **No Markdown Styling:** Do not add any markdown styling (bold, italic), syntax highlighting, or code block delimiters unless they are explicitly part of the original text's content."""
 
-export const QUESTION_GENERATION_PROMPT = `You are an Expert Examination Setter and Reading Comprehension Analyst specializing.
+QUESTION_GENERATION_PROMPT = """You are an Expert Examination Setter and Reading Comprehension Analyst specializing.
 
 Your task is to generate a comprehensive set of multiple-choice questions based on the provided **Input Text**. The questions must evaluate the reader's ability to comprehend, reason, and infer information, ranging from simple word matching to complex multi-sentence reasoning.
 
@@ -100,4 +102,4 @@ Output MUST start with metadata headers, then questions. Follow this pattern EXA
 
 ---
 # INPUT TEXT:
-{text}`;
+{text}"""

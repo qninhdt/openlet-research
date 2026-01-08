@@ -14,11 +14,6 @@ export const AVAILABLE_MODELS: ModelInfo[] = [
     category: "open-source",
   },
   {
-    id: "qwen/qwen3-vl-8b-instruct",
-    displayName: "Qwen3 VL 8B",
-    category: "open-source",
-  },
-  {
     id: "nvidia/nemotron-nano-12b-v2-vl",
     displayName: "Nemotron Nano 12B",
     category: "open-source",
@@ -70,12 +65,24 @@ export interface UserAttempt {
   userAnswers: Record<number, number>; // questionId -> selected option index
 }
 
+// Input type for quiz creation
+export type QuizInputType = "images" | "pdf";
+
 // Main Quiz document
 export interface Quiz {
   id?: string;
   userId: string;
   status: QuizStatus;
+  // Legacy single image support
   imageUrl?: string;
+  // New: multiple images support
+  imageUrls?: string[];
+  // New: PDF support
+  pdfUrl?: string;
+  // Input type used
+  inputType?: QuizInputType;
+  // Number of pages processed
+  pageCount?: number;
   ocrText?: string;
   questions?: Question[];
   userAttempts?: UserAttempt[];
@@ -87,6 +94,8 @@ export interface Quiz {
   topics?: string[];
   ocrModel?: string;
   questionModel?: string;
+  // Control file cleanup
+  deleteFilesAfterProcessing?: boolean;
 }
 
 // User profile
