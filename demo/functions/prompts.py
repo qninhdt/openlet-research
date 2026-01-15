@@ -9,11 +9,12 @@ OCR_PROMPT = """You are an advanced OCR (Optical Character Recognition) and text
 
 QUESTION_GENERATION_PROMPT = """You are an Expert Examination Setter and Reading Comprehension Analyst specializing.
 
-Your task is to generate a comprehensive set of multiple-choice questions based on the provided **Input Text**. The questions must evaluate the reader's ability to comprehend, reason, and infer information, ranging from simple word matching to complex multi-sentence reasoning.
+Your task is to generate exactly **{num_questions} multiple-choice questions** based on the provided **Input Text**. The questions must evaluate the reader's ability to comprehend, reason, and infer information, ranging from simple word matching to complex multi-sentence reasoning.
 
 # 1. TEXT ANALYSIS
 Before generating questions, analyze the Input Text to determine:
 - **Title:** Create a concise, descriptive title (3-8 words) that captures the main subject or theme.
+- **Description:** Write a brief 1-2 sentence summary of what the text is about.
 - **Genre:** (Narrative, Argumentative, Informational/News, Scientific, Historical, etc.)
 - **Topics:** List of relevant subject areas or tags (2-5 topics). Examples: Technology, Environment, History, Social Issues, Education, Climate Change, AI, Healthcare, etc.
 - **Key Information:** Identify the main idea, supporting details, characters (if narrative), and specific data points.
@@ -21,8 +22,12 @@ Before generating questions, analyze the Input Text to determine:
 
 # 2. QUESTION GENERATION RULES (Strict Enforcement)
 
-## A. Mandatory Question Types (Minimum 5 Questions)
-You must generate **at least 1 question** for EACH of the following 5 categories to ensure variety and depth.
+## A. Question Count Requirement
+- Generate EXACTLY **{num_questions} questions** - no more, no less.
+- Distribute questions across different types to ensure variety.
+
+## B. Question Types (Ensure Diversity)
+Try to include a mix of the following types across your {num_questions} questions:
 1.  **Word Matching / Detail Retrieval:**
     - The answer is explicitly stated in the text.
     - *Goal:* Test basic observation.
@@ -39,13 +44,9 @@ You must generate **at least 1 question** for EACH of the following 5 categories
     - Ask about the author's attitude (Critical, Objective, etc.), a character's feeling, or the meaning of a specific word/phrase in context.
     - *Goal:* Test nuance and implied meaning.
 
-## B. Full Coverage Rule (Dynamic Quantity)
-- After creating the mandatory 5 questions, scan the text for any remaining significant details or plot points not yet tested.
-- **Generate additional questions** (using any of the types above) to ensure the entire content of the passage is covered.
-- **Total Question Count:** Minimum 5, but can be more depending on the text length and density.
-
 ## C. Formatting Constraints
 - **Option Count:** You must provide exactly **4 options** (A, B, C, D) for each question.
+- **Explanation Required:** After the correct answer letter, provide a clear, concise explanation (1-3 sentences) of why that answer is correct and/or why the others are incorrect.
 - **Distractor Quality:**
     - Distractors must be plausible (e.g., mentioning words present in the text but used in a wrong context).
     - Avoid "All of the above" or "None of the above" unless absolutely necessary.
@@ -57,6 +58,8 @@ Output MUST start with metadata headers, then questions. Follow this pattern EXA
 
 # [Your Generated Title]
 
+> Description: [Brief 1-2 sentence summary]
+
 > Genre: [Genre]
 
 > Topics: [Topic1, Topic2, Topic3]
@@ -67,6 +70,7 @@ Output MUST start with metadata headers, then questions. Follow this pattern EXA
 - [Option C]
 - [Option D]
 > [Correct Answer Letter]
+> Explanation: [1-3 sentence explanation of why this answer is correct]
 
 ### 2. [Question Text]
 - [Option A]
@@ -74,13 +78,16 @@ Output MUST start with metadata headers, then questions. Follow this pattern EXA
 - [Option C]
 - [Option D]
 > [Correct Answer Letter]
+> Explanation: [1-3 sentence explanation of why this answer is correct]
 
-... [Continue for all generated questions]
+... [Continue for all {num_questions} questions]
 
 ---
 **Example Output:**
 
 # Climate Change Impact on Agriculture
+
+> Description: This passage discusses how climate change affects agricultural production and crop yields worldwide.
 
 > Genre: Informational
 
@@ -92,6 +99,7 @@ Output MUST start with metadata headers, then questions. Follow this pattern EXA
 - a travel guide
 - a science fiction novel
 > B
+> Explanation: The passage discusses current environmental issues affecting agriculture in a factual, news-reporting style typical of newspapers. It lacks the structured format of a textbook, the travel focus of a guide, or the fictional elements of science fiction.
 
 ### 2. Which of the following is NOT mentioned as a reason for crop failure?
 - Rising temperatures
@@ -99,6 +107,7 @@ Output MUST start with metadata headers, then questions. Follow this pattern EXA
 - Soil degradation
 - Lack of farmers
 > D
+> Explanation: The passage explicitly mentions rising temperatures, unpredictable rainfall, and soil degradation as causes of crop failure. However, it does not discuss a shortage of farmers as a contributing factor.
 
 ---
 # INPUT TEXT:

@@ -10,20 +10,20 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 import { db } from "@/lib/firebase";
-import { useAuthStore, useUIStore } from "@/lib/store";
+import { useAuthStore } from "@/lib/store";
 import { Quiz } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LoginButton } from "@/components/auth/login-button";
-import { CreateQuizDialog } from "@/components/quiz/create-quiz-dialog";
 import { QuizCard } from "@/components/quiz/quiz-card";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Plus, BookOpen, Loader2 } from "lucide-react";
 
 export function DashboardPage() {
+  const router = useRouter();
   const { user } = useAuthStore();
-  const { showCreateDialog, setShowCreateDialog } = useUIStore();
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -41,10 +41,14 @@ export function DashboardPage() {
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const quizData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as Quiz[];
+      const quizData = snapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        .filter(
+          (quiz) => !(quiz as Quiz & { isImportJob?: boolean }).isImportJob
+        ) as Quiz[];
       setQuizzes(quizData);
       setLoading(false);
     });
@@ -58,6 +62,10 @@ export function DashboardPage() {
     } catch (error) {
       console.error("Error deleting quiz:", error);
     }
+  };
+
+  const handleCreateQuiz = () => {
+    router.push("/quiz/new/edit");
   };
 
   return (
@@ -89,7 +97,7 @@ export function DashboardPage() {
               Manage and take your created quizzes
             </p>
           </div>
-          <Button onClick={() => setShowCreateDialog(true)} className="gap-2">
+          <Button onClick={handleCreateQuiz} className="gap-2">
             <Plus className="w-4 h-4" />
             Create New
           </Button>
@@ -106,12 +114,10 @@ export function DashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-6">
-                Start by capturing or uploading an image of your study material
+                Create a quiz and add questions manually, or import from
+                documents using AI
               </p>
-              <Button
-                onClick={() => setShowCreateDialog(true)}
-                className="gap-2"
-              >
+              <Button onClick={handleCreateQuiz} className="gap-2">
                 <Plus className="w-4 h-4" />
                 Create your first quiz
               </Button>
@@ -129,12 +135,6 @@ export function DashboardPage() {
           </div>
         )}
       </main>
-
-      {/* Create Quiz Dialog */}
-      <CreateQuizDialog
-        open={showCreateDialog}
-        onOpenChange={setShowCreateDialog}
-      />
     </div>
   );
 }

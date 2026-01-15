@@ -8,17 +8,21 @@ from typing import Optional
 @dataclass
 class Question:
     """Represents a single quiz question."""
+
     id: int
     content: str
     options: list[str]
     correct: int  # 0-based index (A=0, B=1, C=2, D=3)
+    explanation: str  # Explanation of why the correct answer is right
     type: Optional[str] = "General"
 
 
 @dataclass
 class ParsedQuizData:
     """Represents parsed quiz data with metadata and questions."""
+
     title: str = "Untitled Quiz"
+    description: str = ""
     genre: str = "General"
     topics: list[str] = field(default_factory=lambda: ["General"])
     questions: list[Question] = field(default_factory=list)
@@ -27,6 +31,7 @@ class ParsedQuizData:
         """Convert to dictionary for Firestore."""
         return {
             "title": self.title,
+            "description": self.description,
             "genre": self.genre,
             "topics": self.topics,
             "questions": [
@@ -35,6 +40,7 @@ class ParsedQuizData:
                     "content": q.content,
                     "options": q.options,
                     "correct": q.correct,
+                    "explanation": q.explanation,
                     "type": q.type,
                 }
                 for q in self.questions
@@ -56,10 +62,12 @@ def parse_llm_output(output: str) -> ParsedQuizData:
     - option 3
     - option 4
     > A|B|C|D
+    > Explanation: explanation text
 
     Returns parsed quiz data with metadata and questions.
     """
     title = "Untitled Quiz"
+    description = ""
     genre = "General"
     topics: list[str] = []
     questions: list[Question] = []
@@ -69,13 +77,24 @@ def parse_llm_output(output: str) -> ParsedQuizData:
     if title_match:
         title = title_match.group(1).strip()
 
+    # Extract description from > Description: line
+    description_match = re.search(
+        r">\s*Description:\s*(.+?)$", output, re.MULTILINE | re.IGNORECASE
+    )
+    if description_match:
+        description = description_match.group(1).strip()
+
     # Extract genre from > Genre: line
-    genre_match = re.search(r">\s*Genre:\s*(.+?)$", output, re.MULTILINE | re.IGNORECASE)
+    genre_match = re.search(
+        r">\s*Genre:\s*(.+?)$", output, re.MULTILINE | re.IGNORECASE
+    )
     if genre_match:
         genre = genre_match.group(1).strip()
 
     # Extract topics from > Topics: line (comma-separated)
-    topics_match = re.search(r">\s*Topics?:\s*(.+?)$", output, re.MULTILINE | re.IGNORECASE)
+    topics_match = re.search(
+        r">\s*Topics?:\s*(.+?)$", output, re.MULTILINE | re.IGNORECASE
+    )
     if topics_match:
         topics = [t.strip() for t in topics_match.group(1).split(",") if t.strip()]
 
@@ -121,11 +140,16 @@ def parse_llm_output(output: str) -> ParsedQuizData:
         # Parse options - look for lines starting with "-"
         options: list[str] = []
         answer_line: Optional[str] = None
+        explanation: str = ""
+        answer_line_idx: int = -1
 
-        for line in lines[1:]:
-            if line.startswith(">"):
-                answer_line = line
-                break
+        for idx, line in enumerate(lines[1:], start=1):
+            if line.startswith(">") and not answer_line:
+                # Check if this is an answer line (single letter A-D)
+                answer_check = line.replace(">", "").strip().upper()
+                if answer_check in ["A", "B", "C", "D"]:
+                    answer_line = line
+                    answer_line_idx = idx
             elif line.startswith("-") and len(options) < 4:
                 # Remove "- " prefix
                 option_text = line[1:].strip()
@@ -146,12 +170,29 @@ def parse_llm_output(output: str) -> ParsedQuizData:
         if correct_idx is None:
             continue
 
+        # Extract explanation from the line after answer
+        # Look for "> Explanation:" in remaining lines after answer
+        for line in lines[answer_line_idx + 1 :]:
+            if line.startswith(">") and "explanation:" in line.lower():
+                # Extract explanation text after "Explanation:"
+                explanation_match = re.search(
+                    r">\s*explanation:\s*(.+)", line, re.IGNORECASE
+                )
+                if explanation_match:
+                    explanation = explanation_match.group(1).strip()
+                break
+
+        # Default explanation if not found
+        if not explanation:
+            explanation = "No explanation provided."
+
         questions.append(
             Question(
                 id=question_id,
                 content=content,
                 options=options,
                 correct=correct_idx,
+                explanation=explanation,
                 type="General",
             )
         )
@@ -159,8 +200,8 @@ def parse_llm_output(output: str) -> ParsedQuizData:
 
     return ParsedQuizData(
         title=title,
+        description=description,
         genre=genre,
         topics=topics,
         questions=questions,
     )
-

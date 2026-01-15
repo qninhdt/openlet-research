@@ -54,10 +54,11 @@ export interface Question {
   content: string;
   options: string[];
   correct: number; // 0-based index (A=0, B=1, C=2, D=3)
+  explanation: string; // Explanation of why the correct answer is right
   type?: string;
 }
 
-// User attempt record
+// User attempt record (for quiz owner)
 export interface UserAttempt {
   attemptAt: Timestamp | Date;
   score: number;
@@ -65,40 +66,147 @@ export interface UserAttempt {
   userAnswers: Record<number, number>; // questionId -> selected option index
 }
 
+// Public attempt record (for students/guests taking published quizzes)
+export interface PublicAttempt {
+  id?: string;
+  userId: string; // Firebase Auth UID (can be anonymous)
+  displayName: string; // Nickname or display name
+  isAnonymous: boolean;
+  attemptAt: Timestamp | Date;
+  score: number;
+  total: number;
+  correctCount: number;
+  userAnswers: Record<number, number>; // Only user's choices (no correct answers)
+}
+
+// Top performer summary (stored in quiz document)
+export interface TopPerformer {
+  attemptId: string;
+  userId: string;
+  displayName: string;
+  isAnonymous: boolean;
+  score: number;
+  correctCount: number;
+  total: number;
+  attemptAt: Timestamp | Date;
+}
+
+// Quiz metrics (aggregated stats stored in quiz document)
+export interface QuizMetrics {
+  totalResponses: number;
+  avgScore: number;
+  highestScore: number;
+  lowestScore: number;
+  scoreDistribution: [number, number, number, number, number]; // [0-29%, 30-49%, 50-69%, 70-89%, 90-100%]
+}
+
+// Individual question result (server-evaluated, returned based on publicLevel)
+export interface QuestionResult {
+  questionId: number;
+  userAnswer: number;
+  isCorrect?: boolean; // Only included if publicLevel >= 2
+  correctAnswer?: number; // Only included if publicLevel >= 3
+  explanation?: string; // Only included if publicLevel >= 4
+}
+
+// Attempt result response from get_attempt_result function
+export interface AttemptResult {
+  attempt: PublicAttempt;
+  quiz: {
+    title?: string;
+    description?: string;
+    passage?: string;
+    publicLevel: PublicLevel;
+  };
+  questions?: Array<{
+    id: number;
+    content: string;
+    options: string[];
+  }>;
+  results?: QuestionResult[]; // Based on publicLevel
+}
+
 // Input type for quiz creation
 export type QuizInputType = "images" | "pdf";
+
+// Public visibility levels for quiz results
+export type PublicLevel = 0 | 1 | 2 | 3 | 4;
+// 0: Show nothing after submit
+// 1: Show only score
+// 2: Show score + which questions are correct/wrong
+// 3: Show score + correct/wrong + correct answers
+// 4: Show everything including explanations
+
+// Timer settings for quizzes
+export interface TimerSettings {
+  enabled: boolean;
+  durationMinutes: number;
+  autoSubmit: boolean;
+  warningMinutes: number; // Show warning when this many minutes remaining
+}
+
+// Quiz settings for publishing
+export interface QuizSettings {
+  isPublished: boolean;
+  allowAnonymous: boolean;
+  publicLevel: PublicLevel;
+  timer?: TimerSettings;
+}
 
 // Main Quiz document
 export interface Quiz {
   id?: string;
   userId: string;
   status: QuizStatus;
-  // Legacy single image support
-  imageUrl?: string;
-  // New: multiple images support
-  imageUrls?: string[];
-  // New: PDF support
-  pdfUrl?: string;
-  // Input type used
-  inputType?: QuizInputType;
-  // Number of pages processed
-  pageCount?: number;
-  ocrText?: string;
-  questions?: Question[];
-  userAttempts?: UserAttempt[];
-  createdAt: Timestamp | Date;
-  updatedAt?: Timestamp | Date;
-  errorMessage?: string;
+  // Quiz metadata
   title?: string;
+  description?: string;
+  passage?: string; // Original passage/document text
   genre?: string;
   topics?: string[];
+  // Publishing settings
+  isPublished?: boolean;
+  allowAnonymous?: boolean;
+  allowRedo?: boolean; // Allow users to retake the quiz
+  publicLevel?: PublicLevel;
+  // Timer settings
+  timerEnabled?: boolean;
+  timerDurationMinutes?: number;
+  timerAutoSubmit?: boolean;
+  timerWarningMinutes?: number;
+  // Questions
+  questions?: Question[];
+  userAttempts?: UserAttempt[];
+  // Aggregated metrics (instead of full publicAttempts array)
+  metrics?: QuizMetrics;
+  topPerformers?: TopPerformer[];
+  // Timestamps
+  createdAt: Timestamp | Date;
+  updatedAt?: Timestamp | Date;
+  // AI Import fields (used during import processing)
+  imageUrl?: string;
+  imageUrls?: string[];
+  pdfUrl?: string;
+  inputType?: QuizInputType;
+  pageCount?: number;
+  ocrText?: string;
   ocrModel?: string;
   questionModel?: string;
-  // Control file cleanup
+  targetQuestionCount?: number;
   deleteFilesAfterProcessing?: boolean;
+  errorMessage?: string;
 }
 
-// User profile
+// User profile (stored in Firestore)
+export interface UserProfile {
+  uid: string;
+  displayName: string | null;
+  email: string | null;
+  photoURL: string | null;
+  lastLoginAt?: Timestamp | Date;
+}
+
+// Legacy User interface
 export interface User {
   uid: string;
   displayName: string | null;

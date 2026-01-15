@@ -19,7 +19,8 @@ export default function Home() {
     );
   }
 
-  if (!user) {
+  // Redirect anonymous users and unauthenticated users to login page
+  if (!user || user.isAnonymous) {
     return <LoginPage />;
   }
 

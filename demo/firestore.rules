@@ -1,28 +1,45 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Users collection
+    // Users collection (public profiles)
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // Anyone can read user profiles (for displaying avatars)
+      allow read: if request.auth != null;
+      // Only the user can write their own profile
+      allow write: if request.auth != null && request.auth.uid == userId;
     }
     
     // Quizzes collection
     match /quizzes/{quizId} {
-      // Allow read if authenticated and user is the owner
-      allow read: if request.auth != null && 
-                    resource.data.userId == request.auth.uid;
+      // SECURITY: Only owner can read quiz document directly (contains answers)
+      // Players must use get_quiz_for_player Cloud Function which sanitizes data
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
       
       // Allow create if authenticated
       allow create: if request.auth != null && 
                       request.resource.data.userId == request.auth.uid;
       
-      // Allow update if authenticated and user is the owner
-      allow update: if request.auth != null && 
-                      resource.data.userId == request.auth.uid;
+      // Allow update ONLY if user is the owner
+      // Note: Attempts are now stored in subcollection, no need for publicAttempts updates from clients
+      allow update: if request.auth != null && resource.data.userId == request.auth.uid;
       
       // Allow delete if authenticated and user is the owner
       allow delete: if request.auth != null && 
                       resource.data.userId == request.auth.uid;
+      
+      // Attempts subcollection
+      match /attempts/{attemptId} {
+        // Allow read if:
+        // 1. User is the quiz owner, OR
+        // 2. User is the one who made the attempt
+        allow read: if request.auth != null && (
+          get(/databases/$(database)/documents/quizzes/$(quizId)).data.userId == request.auth.uid ||
+          resource.data.userId == request.auth.uid
+        );
+        
+        // Only the server (Cloud Function) can write attempts
+        allow write: if false;
+      }
     }
   }
 }

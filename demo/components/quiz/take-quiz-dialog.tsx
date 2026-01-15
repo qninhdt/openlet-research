@@ -11,8 +11,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -168,41 +166,40 @@ export function TakeQuizDialog({
                     </h3>
                   </div>
 
-                  <RadioGroup
-                    value={userAnswers[currentQuestion.id]?.toString() || ""}
-                    onValueChange={(value) =>
-                      handleAnswerSelect(currentQuestion.id, parseInt(value))
-                    }
-                  >
-                    <div className="space-y-3">
-                      {currentQuestion.options.map((option, index) => (
-                        <label
-                          key={index}
-                          className={`flex items-start gap-3 p-4 rounded-lg border cursor-pointer transition-colors ${
+                  <div className="space-y-2">
+                    {currentQuestion.options.map((option, index) => (
+                      <div
+                        key={index}
+                        onClick={() =>
+                          handleAnswerSelect(currentQuestion.id, index)
+                        }
+                        className={`flex items-center gap-3 p-3 rounded-lg border-2 cursor-pointer transition-colors ${
+                          userAnswers[currentQuestion.id] === index
+                            ? "border-primary bg-primary/10"
+                            : "border-zinc-200 dark:border-zinc-700 hover:border-primary/50"
+                        }`}
+                      >
+                        <span
+                          className={`text-sm font-semibold px-2.5 py-1 rounded min-w-[32px] text-center ${
                             userAnswers[currentQuestion.id] === index
-                              ? "border-primary bg-primary/5"
-                              : "border-zinc-200 dark:border-zinc-800 hover:border-primary/50"
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
                           }`}
                         >
-                          <RadioGroupItem
-                            value={index.toString()}
-                            id={`option-${index}`}
-                          />
-                          <div className="flex-1">
-                            <Label
-                              htmlFor={`option-${index}`}
-                              className="font-medium cursor-pointer"
-                            >
-                              {getOptionLabel(index)}.{" "}
-                            </Label>
-                            <span className="text-zinc-700 dark:text-zinc-300">
-                              {option}
-                            </span>
-                          </div>
-                        </label>
-                      ))}
-                    </div>
-                  </RadioGroup>
+                          {getOptionLabel(index)}
+                        </span>
+                        <span
+                          className={`flex-1 ${
+                            userAnswers[currentQuestion.id] === index
+                              ? "font-medium"
+                              : "text-zinc-700 dark:text-zinc-300"
+                          }`}
+                        >
+                          {option}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </ScrollArea>
             </div>

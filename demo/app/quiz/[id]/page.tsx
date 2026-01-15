@@ -1,375 +1,259 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { doc, getDoc, updateDoc, Timestamp } from "firebase/firestore";
+import { useParams } from "next/navigation";
+import { doc, onSnapshot, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { useAuthStore } from "@/lib/store";
-import type { Quiz } from "@/lib/types";
-import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { ArrowLeft, BookOpen, FileText, CheckCircle2 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { useEffect, useState } from "react";
+import { Quiz, UserProfile } from "@/lib/types";
+import { Card } from "@/components/ui/card";
+import { formatDate } from "./_components/shared";
+import { Users, TrendingUp, Trophy, BarChart3, Crown } from "lucide-react";
+import Image from "next/image";
 
-export default function QuizPage() {
+export default function QuizOverviewPage() {
   const params = useParams();
-  const router = useRouter();
-  const { user } = useAuthStore();
-  const { toast } = useToast();
+  const quizId = params.id as string;
   const [quiz, setQuiz] = useState<Quiz | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [answers, setAnswers] = useState<Record<number, number>>({});
-  const [submitted, setSubmitted] = useState(false);
-  const [score, setScore] = useState<number | null>(null);
-  const [retryKey, setRetryKey] = useState(0);
+  const [userProfiles, setUserProfiles] = useState<Record<string, UserProfile>>(
+    {}
+  );
 
   useEffect(() => {
-    const loadQuiz = async () => {
-      if (!user) {
-        router.push("/");
-        return;
-      }
-
-      try {
-        const quizId = params.id as string;
-        const quizDoc = await getDoc(doc(db, "quizzes", quizId));
-
-        if (!quizDoc.exists()) {
-          toast({
-            title: "Quiz not found",
-            variant: "destructive",
-          });
-          router.push("/");
-          return;
-        }
-
-        const quizData = { id: quizDoc.id, ...quizDoc.data() } as Quiz;
-
-        if (quizData.userId !== user.uid) {
-          toast({
-            title: "Access denied",
-            variant: "destructive",
-          });
-          router.push("/");
-          return;
-        }
-
-        if (quizData.status !== "ready") {
-          toast({
-            title: "Quiz not ready",
-            variant: "destructive",
-          });
-          router.push("/");
-          return;
-        }
-
-        setQuiz(quizData);
-      } catch (error) {
-        console.error("Error loading quiz:", error);
-        toast({
-          title: "Error loading quiz",
-          variant: "destructive",
-        });
-        router.push("/");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadQuiz();
-  }, [user, params.id, router, toast]);
-
-  const handleAnswerChange = (questionId: number, answerIndex: number) => {
-    setAnswers({ ...answers, [questionId]: answerIndex });
-  };
-
-  const handleSubmit = async () => {
-    if (!quiz || !user) return;
-
-    const questions = quiz.questions || [];
-    let correctCount = 0;
-
-    questions.forEach((q) => {
-      if (answers[q.id] === q.correct) {
-        correctCount++;
+    if (!quizId) return;
+    const unsubscribe = onSnapshot(doc(db, "quizzes", quizId), (doc) => {
+      if (doc.exists()) {
+        setQuiz({ id: doc.id, ...doc.data() } as Quiz);
       }
     });
+    return () => unsubscribe();
+  }, [quizId]);
 
-    const finalScore = (correctCount / questions.length) * 100;
-    setScore(finalScore);
-    setSubmitted(true);
+  // Fetch user profiles for non-anonymous top performers
+  useEffect(() => {
+    if (!quiz?.topPerformers) return;
+    const fetchProfiles = async () => {
+      const profiles: Record<string, UserProfile> = {};
+      for (const performer of quiz.topPerformers || []) {
+        if (!performer.isAnonymous && !userProfiles[performer.userId]) {
+          try {
+            const userDoc = await getDoc(doc(db, "users", performer.userId));
+            if (userDoc.exists()) {
+              profiles[performer.userId] = userDoc.data() as UserProfile;
+            }
+          } catch (error) {
+            console.error("Error fetching user profile:", error);
+          }
+        }
+      }
+      setUserProfiles((prev) => ({ ...prev, ...profiles }));
+    };
+    fetchProfiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quiz?.topPerformers]);
 
-    try {
-      const userAttempts = quiz.userAttempts || [];
-      userAttempts.push({
-        attemptAt: Timestamp.now(),
-        score: finalScore,
-        total: questions.length,
-        userAnswers: answers,
-      });
+  if (!quiz) return null;
 
-      await updateDoc(doc(db, "quizzes", quiz.id!), {
-        userAttempts,
-      });
-
-      toast({
-        title: "Quiz submitted!",
-        description: `You got ${correctCount}/${
-          questions.length
-        } correct (${finalScore.toFixed(1)}%)`,
-      });
-    } catch (error) {
-      console.error("Error saving attempt:", error);
-    }
+  // Use metrics from quiz document
+  const metrics = quiz.metrics || {
+    totalResponses: 0,
+    avgScore: 0,
+    highestScore: 0,
+    lowestScore: 0,
+    scoreDistribution: [0, 0, 0, 0, 0],
   };
-
-  const handleRetry = () => {
-    setAnswers({});
-    setSubmitted(false);
-    setScore(null);
-    setRetryKey((prev) => prev + 1);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-zinc-900">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading quiz...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!quiz) {
-    return null;
-  }
-
-  const questions = quiz.questions || [];
-  const answeredCount = Object.keys(answers).length;
-  const allAnswered = answeredCount === questions.length;
+  const topPerformers = quiz.topPerformers || [];
+  const scoreDistribution = metrics.scoreDistribution || [0, 0, 0, 0, 0];
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b bg-white/95 dark:bg-zinc-950/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-zinc-950/60">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+    <div className="space-y-6">
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Card className="p-4">
           <div className="flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => router.push("/")}
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-            <div className="flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-primary" />
-              <h1 className="font-semibold text-lg hidden sm:block">
-                {quiz.title || "Quiz"}
-              </h1>
+            <div className="p-2 rounded-full">
+              <Users className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold">{metrics.totalResponses}</p>
+              <p className="text-sm text-muted-foreground">Respondents</p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            {!submitted && (
-              <div className="text-sm text-muted-foreground">
-                <span className="font-medium text-foreground">
-                  {answeredCount}
-                </span>
-                /{questions.length} questions
-              </div>
-            )}
-            {submitted && score !== null && (
-              <div className="flex items-center gap-2 text-sm font-medium">
-                <CheckCircle2 className="w-5 h-5 text-green-500" />
-                <span className="text-green-600 dark:text-green-500">
-                  {score.toFixed(1)}%
-                </span>
-              </div>
-            )}
+        </Card>
+        <Card className="p-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-full">
+              <TrendingUp className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold">
+                {metrics.avgScore.toFixed(1)}%
+              </p>
+              <p className="text-sm text-muted-foreground">Avg Score</p>
+            </div>
           </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-6">
-        <div className="grid lg:grid-cols-2 gap-6">
-          {/* Reading Passage */}
-          <div className="lg:sticky lg:top-20 lg:self-start">
-            <Card className="shadow-sm">
-              <CardHeader className="pb-3">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-primary" />
-                  <CardTitle className="text-lg">Reading Passage</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <ScrollArea className="h-[calc(100vh-220px)] lg:h-[calc(100vh-200px)] pr-4">
-                  <div className="prose prose-sm dark:prose-invert max-w-none pb-4">
-                    <p className="whitespace-pre-wrap text-sm leading-relaxed">
-                      {quiz.ocrText}
-                    </p>
-                  </div>
-                </ScrollArea>
-              </CardContent>
-            </Card>
+        </Card>
+        <Card className="p-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-full">
+              <Trophy className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold">
+                {metrics.highestScore.toFixed(1)}%
+              </p>
+              <p className="text-sm text-muted-foreground">Highest</p>
+            </div>
           </div>
+        </Card>
+        <Card className="p-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-full">
+              <BarChart3 className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold">
+                {metrics.lowestScore.toFixed(1)}%
+              </p>
+              <p className="text-sm text-muted-foreground">Lowest</p>
+            </div>
+          </div>
+        </Card>
+      </div>
 
-          {/* Questions */}
-          <div className="space-y-4">
-            {questions.map((question, index) => {
-              const userAnswer = answers[question.id];
-              const isCorrect = submitted && userAnswer === question.correct;
-              const isWrong =
-                submitted &&
-                userAnswer !== undefined &&
-                userAnswer !== question.correct;
-
-              return (
-                <Card
-                  key={question.id}
-                  className={`shadow-sm transition-colors ${
-                    isCorrect
-                      ? "border-green-500 bg-green-50 dark:bg-green-950/20"
-                      : isWrong
-                      ? "border-red-500 bg-red-50 dark:bg-red-950/20"
-                      : ""
-                  }`}
-                >
-                  <CardHeader className="pb-2">
-                    <div className="flex items-start gap-3">
-                      <div
-                        className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                          isCorrect
-                            ? "bg-green-500 text-white"
-                            : isWrong
-                            ? "bg-red-500 text-white"
-                            : "bg-primary/10 text-primary"
-                        }`}
-                      >
-                        {index + 1}
+      {/* Score Distribution & Top Performers */}
+      <div className="grid md:grid-cols-2 gap-6">
+        <Card className="p-6">
+          <h3 className="font-semibold mb-4">Score Distribution</h3>
+          {metrics.totalResponses === 0 ? (
+            <p className="text-muted-foreground text-center py-8">
+              No responses yet
+            </p>
+          ) : (
+            <div className="relative h-64">
+              <div className="absolute inset-0 flex items-end justify-between gap-2 px-4">
+                {[
+                  {
+                    label: "0-29%",
+                    count: scoreDistribution[0],
+                    color: "bg-error",
+                  },
+                  {
+                    label: "30-49%",
+                    count: scoreDistribution[1],
+                    color: "bg-destructive",
+                  },
+                  {
+                    label: "50-69%",
+                    count: scoreDistribution[2],
+                    color: "bg-warning",
+                  },
+                  {
+                    label: "70-89%",
+                    count: scoreDistribution[3],
+                    color: "bg-success",
+                  },
+                  {
+                    label: "90-100%",
+                    count: scoreDistribution[4],
+                    color: "bg-success",
+                  },
+                ].map((range) => {
+                  const heightPercent =
+                    metrics.totalResponses > 0
+                      ? (range.count / metrics.totalResponses) * 100
+                      : 0;
+                  return (
+                    <div
+                      key={range.label}
+                      className="flex-1 flex flex-col items-center gap-2"
+                    >
+                      <div className="relative w-full group">
+                        <div
+                          className={`w-full ${range.color} rounded-t-lg transition-all duration-300 hover:opacity-80 relative`}
+                          style={{
+                            height: `${Math.max(heightPercent * 2, 4)}px`,
+                          }}
+                        >
+                          {range.count > 0 && (
+                            <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold whitespace-nowrap">
+                              {range.count}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <p className="text-sm leading-relaxed flex-1">
-                        {question.content}
+                      <div className="text-center">
+                        <p className="text-xs font-medium">{range.label}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {(
+                            (range.count / metrics.totalResponses) *
+                            100
+                          ).toFixed(0)}
+                          %
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </Card>
+
+        <Card className="p-6">
+          <h3 className="font-semibold mb-4 flex items-center gap-2">
+            <Crown className="w-5 h-5 text-warning" />
+            Top Performers
+          </h3>
+          {topPerformers.length === 0 ? (
+            <p className="text-muted-foreground text-center py-8">
+              No responses yet
+            </p>
+          ) : (
+            <div className="space-y-3">
+              {topPerformers.map((attempt, idx) => {
+                const firstLetter =
+                  attempt.displayName?.[0]?.toUpperCase() || "A";
+                const userProfile = userProfiles[attempt.userId];
+                const showPhoto = !attempt.isAnonymous && userProfile?.photoURL;
+
+                return (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/50"
+                  >
+                    {showPhoto ? (
+                      <img
+                        src={userProfile.photoURL!}
+                        alt={attempt.displayName}
+                        width={32}
+                        height={32}
+                        className="w-8 h-8 rounded-full"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-sm text-primary">
+                        {firstLetter}
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">
+                        {attempt.displayName}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {formatDate(attempt.attemptAt)}
                       </p>
                     </div>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <RadioGroup
-                      key={`question-${question.id}-${retryKey}`}
-                      value={userAnswer?.toString()}
-                      onValueChange={(value) =>
-                        !submitted &&
-                        handleAnswerChange(question.id, parseInt(value))
-                      }
-                      disabled={submitted}
-                      className="space-y-2"
-                    >
-                      {question.options.map((option, optionIndex) => {
-                        const isSelected = userAnswer === optionIndex;
-                        const isCorrectOption =
-                          submitted && optionIndex === question.correct;
-                        const isWrongSelected =
-                          submitted && isSelected && !isCorrectOption;
-
-                        return (
-                          <div
-                            key={optionIndex}
-                            className={`flex items-center space-x-3 rounded-lg p-3 transition-colors ${
-                              isCorrectOption
-                                ? "bg-green-100 dark:bg-green-950/30 border border-green-500"
-                                : isWrongSelected
-                                ? "bg-red-100 dark:bg-red-950/30 border border-red-500"
-                                : isSelected
-                                ? "bg-primary/5 border border-primary/20"
-                                : "hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-transparent"
-                            }`}
-                          >
-                            <RadioGroupItem
-                              value={optionIndex.toString()}
-                              id={`q${question.id}-option${optionIndex}`}
-                            />
-                            <Label
-                              htmlFor={`q${question.id}-option${optionIndex}`}
-                              className={`flex-1 text-sm leading-relaxed cursor-pointer ${
-                                submitted ? "cursor-default" : ""
-                              } ${
-                                isCorrectOption
-                                  ? "font-medium text-green-700 dark:text-green-400"
-                                  : isWrongSelected
-                                  ? "text-red-700 dark:text-red-400"
-                                  : ""
-                              }`}
-                            >
-                              <span className="font-semibold mr-2">
-                                {String.fromCharCode(65 + optionIndex)}.
-                              </span>
-                              {option}
-                            </Label>
-                          </div>
-                        );
-                      })}
-                    </RadioGroup>
-                  </CardContent>
-                </Card>
-              );
-            })}
-
-            {/* Submit Button */}
-            <div className="sticky bottom-0  bg-gradient-to-t from-zinc-50 dark:from-zinc-900 via-zinc-50 dark:via-zinc-900 to-transparent">
-              <Card className="shadow-lg">
-                <CardContent className="p-4">
-                  {!submitted ? (
-                    <Button
-                      onClick={handleSubmit}
-                      disabled={!allAnswered}
-                      className="w-full"
-                      size="lg"
-                    >
-                      {allAnswered
-                        ? "Submit Quiz"
-                        : `Please answer all ${questions.length} questions`}
-                    </Button>
-                  ) : (
-                    <div className="space-y-3">
-                      <div className="text-center py-2">
-                        <p className="text-2xl font-bold text-green-600 dark:text-green-500">
-                          {score?.toFixed(1)}%
-                        </p>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          {
-                            questions.filter((q) => answers[q.id] === q.correct)
-                              .length
-                          }
-                          /{questions.length} correct
-                        </p>
-                      </div>
-                      <div className="grid grid-cols-2 gap-3">
-                        <Button
-                          variant="outline"
-                          onClick={handleRetry}
-                          className="w-full"
-                        >
-                          Retry
-                        </Button>
-                        <Button
-                          onClick={() => router.push("/")}
-                          className="w-full"
-                        >
-                          Back to Home
-                        </Button>
-                      </div>
+                    <div className="text-right">
+                      <p className="font-bold text-success">
+                        {attempt.score.toFixed(1)}%
+                      </p>
                     </div>
-                  )}
-                </CardContent>
-              </Card>
+                  </div>
+                );
+              })}
             </div>
-          </div>
-        </div>
-      </main>
+          )}
+        </Card>
+      </div>
     </div>
   );
 }
