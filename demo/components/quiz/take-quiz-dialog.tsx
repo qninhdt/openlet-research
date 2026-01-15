@@ -274,15 +274,15 @@ export function TakeQuizDialog({
                         key={question.id}
                         className={`p-4 rounded-lg border ${
                           isCorrect
-                            ? "border-green-200 bg-green-50 dark:border-green-900 dark:bg-green-900/20"
-                            : "border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-900/20"
+                            ? "border-success bg-success-light dark:bg-success-light"
+                            : "border-error bg-error-light dark:bg-error-light"
                         }`}
                       >
                         <div className="flex items-start gap-3">
                           {isCorrect ? (
-                            <CheckCircle className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+                            <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />
                           ) : (
-                            <XCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                            <XCircle className="w-5 h-5 text-error shrink-0 mt-0.5" />
                           )}
                           <div className="flex-1 space-y-2">
                             <p className="font-medium">
@@ -295,9 +295,7 @@ export function TakeQuizDialog({
                                 </span>
                                 <span
                                   className={
-                                    isCorrect
-                                      ? "text-green-600"
-                                      : "text-red-600"
+                                    isCorrect ? "text-success" : "text-error"
                                   }
                                 >
                                   {getOptionLabel(userAnswer)}.{" "}
@@ -309,7 +307,7 @@ export function TakeQuizDialog({
                                   <span className="text-muted-foreground">
                                     Đáp án đúng:{" "}
                                   </span>
-                                  <span className="text-green-600">
+                                  <span className="text-success">
                                     {getOptionLabel(question.correct)}.{" "}
                                     {question.options[question.correct]}
                                   </span>

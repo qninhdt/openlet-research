@@ -222,12 +222,13 @@ export default function QuizOverviewPage() {
                     className="flex items-center gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/50"
                   >
                     {showPhoto ? (
-                      <img
+                      <Image
                         src={userProfile.photoURL!}
                         alt={attempt.displayName}
                         width={32}
                         height={32}
                         className="w-8 h-8 rounded-full"
+                        unoptimized
                       />
                     ) : (
                       <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-sm text-primary">

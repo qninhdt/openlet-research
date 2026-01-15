@@ -25,7 +25,6 @@ const PUBLIC_LEVEL_OPTIONS = [
 
 export default function SettingsPage() {
   const params = useParams();
-  const router = useRouter();
   const { toast } = useToast();
   const quizId = params.id as string;
   
@@ -131,7 +130,11 @@ export default function SettingsPage() {
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <h3 className="font-semibold flex items-center gap-2">
-              {isPublished ? <Globe className="w-5 h-5 text-green-600" /> : <Lock className="w-5 h-5 text-zinc-400" />}
+              {isPublished ? (
+                <Globe className="w-5 h-5 text-success" />
+              ) : (
+                <Lock className="w-5 h-5 text-zinc-400" />
+              )}
               {isPublished ? "Quiz is Published" : "Quiz is Private"}
             </h3>
             <p className="text-sm text-muted-foreground">
@@ -151,7 +154,11 @@ export default function SettingsPage() {
                 {quizUrl}
               </div>
               <Button variant="outline" size="icon" onClick={handleCopyLink}>
-                {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
+                {copied ? (
+                  <Check className="w-4 h-4 text-success" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
               </Button>
             </div>
           </div>

@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Timestamp } from "firebase/firestore";
 import { httpsCallable, getFunctions } from "firebase/functions";
 import { useAuthStore } from "@/lib/store";
-import { AttemptResult, PublicLevel } from "@/lib/types";
+import { AttemptResult } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -146,7 +146,7 @@ export default function AttemptResultPage() {
               <Button
                 variant="outline"
                 size="sm"
-                className="text-red-600 hover:text-red-700"
+                className="text-error hover:text-error"
                 onClick={() => setShowDeleteDialog(true)}
               >
                 Delete
@@ -239,36 +239,26 @@ export default function AttemptResultPage() {
                 <Card key={q.id} className="p-6">
                   <div className="space-y-4">
                     {/* Question Header */}
-                    <div className="flex items-start gap-3">
-                      <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-semibold shrink-0">
-                        {idx + 1}
-                      </span>
-                      <div className="flex-1">
-                        <p className="font-medium mb-1">{q.content}</p>
-                        {showCorrectness && (
-                          <div className="flex items-center gap-2">
-                            {result.isCorrect ? (
-                              <>
-                                <CheckCircle className="w-4 h-4 text-green-600" />
-                                <span className="text-sm text-green-600 font-medium">
-                                  Correct
-                                </span>
-                              </>
-                            ) : (
-                              <>
-                                <XCircle className="w-4 h-4 text-red-600" />
-                                <span className="text-sm text-red-600 font-medium">
-                                  Incorrect
-                                </span>
-                              </>
-                            )}
-                          </div>
-                        )}
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 space-y-2">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                          Question {idx + 1}
+                        </span>
+                        <p className="font-medium">{q.content}</p>
                       </div>
+                      {showCorrectness && (
+                        <div className="shrink-0">
+                          {result.isCorrect ? (
+                            <CheckCircle className="w-5 h-5 text-success" />
+                          ) : (
+                            <XCircle className="w-5 h-5 text-error" />
+                          )}
+                        </div>
+                      )}
                     </div>
 
                     {/* Options */}
-                    <div className="pl-11 space-y-2">
+                    <div className="space-y-2">
                       {q.options.map((opt, optIdx) => {
                         const isUserAnswer = result.userAnswer === optIdx;
                         const isCorrectAnswer =
@@ -278,34 +268,36 @@ export default function AttemptResultPage() {
                         const borderClass = !showCorrectness
                           ? isUserAnswer
                             ? "border-primary bg-primary/5"
-                            : "border-transparent bg-zinc-50 dark:bg-zinc-800/50"
+                            : "border-border"
                           : isCorrectAnswer
-                          ? "border-green-500 bg-green-50 dark:bg-green-950/30"
+                          ? "border-success/50 bg-success/5"
                           : isUserAnswer && !result.isCorrect
-                          ? "border-red-500 bg-red-50 dark:bg-red-950/30"
-                          : "border-transparent bg-zinc-50 dark:bg-zinc-800/50";
+                          ? "border-error/50 bg-error/5"
+                          : "border-border";
 
                         const labelClass = !showCorrectness
                           ? isUserAnswer
-                            ? "bg-primary text-white"
-                            : "bg-zinc-200 dark:bg-zinc-700"
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-muted text-muted-foreground"
                           : isCorrectAnswer
-                          ? "bg-green-600 text-white"
+                          ? "bg-success text-white"
                           : isUserAnswer && !result.isCorrect
-                          ? "bg-red-600 text-white"
-                          : "bg-zinc-200 dark:bg-zinc-700";
+                          ? "bg-error text-white"
+                          : "bg-muted text-muted-foreground";
 
                         return (
                           <div
                             key={optIdx}
-                            className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-colors ${borderClass}`}
+                            className={`flex items-center gap-3 p-3 rounded-lg border ${borderClass}`}
                           >
-                            <span
-                              className={`px-2 py-1 rounded text-sm font-semibold ${labelClass}`}
+                            <div
+                              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${labelClass}`}
                             >
                               {optionLabels[optIdx]}
-                            </span>
-                            <span className="flex-1">{opt}</span>
+                            </div>
+                            <div className="flex-1 min-w-0 text-sm truncate">
+                              {opt}
+                            </div>
                             {isUserAnswer && (
                               <span className="text-xs text-muted-foreground">
                                 Your answer

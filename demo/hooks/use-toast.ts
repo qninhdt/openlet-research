@@ -14,12 +14,13 @@ type ToasterToast = ToastProps & {
   action?: ToastActionElement;
 };
 
+// Used only for type inference
 const actionTypes = {
   ADD_TOAST: "ADD_TOAST",
   UPDATE_TOAST: "UPDATE_TOAST",
   DISMISS_TOAST: "DISMISS_TOAST",
   REMOVE_TOAST: "REMOVE_TOAST",
-} as const;
+} as const satisfies Record<string, string>;
 
 let count = 0;
 

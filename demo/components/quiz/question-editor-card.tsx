@@ -53,7 +53,7 @@ export function QuestionEditorCard({
           size="icon"
           onClick={() => onDelete(question.id)}
           title="Delete question"
-          className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950"
+          className="text-error hover:text-error hover:bg-error-light dark:hover:bg-error-light"
         >
           <Trash2 className="w-4 h-4" />
         </Button>
@@ -76,24 +76,24 @@ export function QuestionEditorCard({
         <Label>Answer Options</Label>
         <div className="space-y-2">
           {question.options.map((option, idx) => (
-            <div
-              key={idx}
-              onClick={() => handleCorrectChange(idx.toString())}
-              className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-colors cursor-pointer ${
-                question.correct === idx
-                  ? "border-green-500 bg-green-50 dark:bg-green-950/30"
-                  : "border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600"
-              }`}
-            >
-              <span
-                className={`text-sm font-semibold px-2.5 py-1 rounded min-w-[32px] text-center ${
+              <div
+                key={idx}
+                onClick={() => handleCorrectChange(idx.toString())}
+                className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-colors cursor-pointer ${
                   question.correct === idx
-                    ? "bg-green-600 text-white"
-                    : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
+                    ? "border-success bg-success-light dark:bg-success-light"
+                    : "border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600"
                 }`}
               >
-                {optionLabels[idx]}
-              </span>
+                <span
+                  className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
+                    question.correct === idx
+                      ? "bg-success text-success-foreground"
+                      : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
+                  }`}
+                >
+                  {optionLabels[idx]}
+                </span>
               <Input
                 id={`question-${question.id}-option-input-${idx}`}
                 value={option}
@@ -105,7 +105,7 @@ export function QuestionEditorCard({
                 placeholder={`Option ${optionLabels[idx]}`}
                 className={`flex-1 border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 ${
                   question.correct === idx
-                    ? "text-green-900 dark:text-green-100 placeholder:text-green-600/50 dark:placeholder:text-green-400/50 font-medium"
+                    ? "font-medium"
                     : ""
                 }`}
               />

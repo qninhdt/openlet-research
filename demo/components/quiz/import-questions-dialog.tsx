@@ -38,6 +38,7 @@ import {
   X,
   Sparkles,
 } from "lucide-react";
+import Image from "next/image";
 
 type ImportStep = "config" | "uploading" | "processing" | "done" | "error";
 type InputType = "images" | "pdf";
@@ -487,10 +488,12 @@ export function ImportQuestionsDialog() {
                           key={idx}
                           className="relative aspect-square rounded-lg overflow-hidden bg-zinc-100 dark:bg-zinc-800 group"
                         >
-                          <img
+                          <Image
                             src={url}
                             alt={`Preview ${idx + 1}`}
-                            className="w-full h-full object-cover"
+                            className="object-cover"
+                            fill
+                            unoptimized
                           />
                           <button
                             onClick={() => removeFile(idx)}
@@ -524,7 +527,7 @@ export function ImportQuestionsDialog() {
 
                 {selectedFiles.length > 0 && inputType === "pdf" && (
                   <div className="flex items-center gap-3 p-3 bg-zinc-50 dark:bg-zinc-900/50 rounded-lg border">
-                    <FileText className="w-6 h-6 text-red-500" />
+                    <FileText className="w-6 h-6 text-error" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">
                         {selectedFiles[0].name}
@@ -549,7 +552,7 @@ export function ImportQuestionsDialog() {
             </Tabs>
 
             {error && (
-              <div className="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm">
+              <div className="p-3 rounded-lg bg-error-light dark:bg-error-light text-error dark:text-error-foreground text-sm">
                 {error}
               </div>
             )}
@@ -569,18 +572,18 @@ export function ImportQuestionsDialog() {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 {step === "done" ? (
-                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <CheckCircle className="w-5 h-5 text-success" />
                 ) : step === "error" ? (
-                  <XCircle className="w-5 h-5 text-red-500" />
+                  <XCircle className="w-5 h-5 text-error" />
                 ) : (
                   <Loader2 className="w-5 h-5 text-primary animate-spin" />
                 )}
                 <span
                   className={`font-medium ${
                     step === "done"
-                      ? "text-green-600"
+                      ? "text-success"
                       : step === "error"
-                      ? "text-red-600"
+                      ? "text-error"
                       : ""
                   }`}
                 >
@@ -597,7 +600,7 @@ export function ImportQuestionsDialog() {
             </div>
 
             {error && (
-              <div className="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm">
+              <div className="p-3 rounded-lg bg-error-light dark:bg-error-light text-error dark:text-error-foreground text-sm">
                 {error}
               </div>
             )}

@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { getUserProfile } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const optionLabels = ["A", "B", "C", "D"];
 
@@ -47,10 +48,13 @@ export function ResponseCard({
         className="w-full flex items-center gap-4 p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors cursor-pointer"
       >
         {avatarUrl ? (
-          <img
+          <Image
             src={avatarUrl}
             alt={attempt.displayName}
-            className="w-10 h-10 rounded-full object-cover shrink-0"
+            className="rounded-full object-cover shrink-0"
+            width={32}
+            height={32}
+            unoptimized
           />
         ) : (
           <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-sm text-primary shrink-0">

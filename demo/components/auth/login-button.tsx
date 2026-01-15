@@ -5,6 +5,7 @@ import { auth, googleProvider } from "@/lib/firebase";
 import { useAuthStore } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import { LogOut, Chrome } from "lucide-react";
+import Image from "next/image";
 
 export function LoginButton() {
   const { user, loading } = useAuthStore();
@@ -38,10 +39,13 @@ export function LoginButton() {
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           {user.photoURL && (
-            <img
+            <Image
               src={user.photoURL}
               alt={user.displayName || "User"}
-              className="w-8 h-8 rounded-full"
+              className="rounded-full"
+              width={32}
+              height={32}
+              unoptimized
             />
           )}
           <span className="text-sm font-medium hidden sm:inline">

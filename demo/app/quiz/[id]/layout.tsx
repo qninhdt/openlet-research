@@ -110,7 +110,7 @@ export default function QuizLayout({
   const getActiveTab = () => {
     if (pathname.endsWith("/edit")) return "edit";
     if (pathname.endsWith("/responses")) return "responses";
-    if (pathname.endsWith("/questions")) return "questions";
+    if (pathname.endsWith("/content")) return "content";
     if (pathname.endsWith("/settings")) return "settings";
     return "overview";
   };
@@ -131,7 +131,7 @@ export default function QuizLayout({
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-500 mb-4">{error || "Quiz not found"}</p>
+          <p className="text-error mb-4">{error || "Quiz not found"}</p>
           <Button onClick={() => router.push("/")}>Go Home</Button>
         </div>
       </div>
@@ -147,24 +147,26 @@ export default function QuizLayout({
       {!isEditPage && !isNewQuiz && quiz && (
         <div className="bg-white dark:bg-zinc-800 border-b sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0 flex-1">
                 <Button
                   variant="ghost"
                   size="icon"
+                  className="shrink-0"
                   onClick={() => router.push("/")}
                 >
                   <ArrowLeft className="w-5 h-5" />
                 </Button>
-                <div>
-                  <h1 className="text-lg font-bold">{quizTitle}</h1>
+                <div className="min-w-0">
+                  <h1 className="text-base sm:text-lg font-bold truncate">{quizTitle}</h1>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 sm:gap-2 shrink-0">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => window.open(`/play/${quizId}`, "_blank")}
+                  className="hidden sm:flex"
                 >
                   <Eye className="w-4 h-4 mr-2" />
                   Preview
@@ -172,7 +174,16 @@ export default function QuizLayout({
                 <Button
                   variant="outline"
                   size="sm"
+                  onClick={() => window.open(`/play/${quizId}`, "_blank")}
+                  className="sm:hidden"
+                >
+                  <Eye className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
                   onClick={() => router.push(`/quiz/${quizId}/edit`)}
+                  className="hidden sm:flex"
                 >
                   <Edit className="w-4 h-4 mr-2" />
                   Edit
@@ -180,11 +191,27 @@ export default function QuizLayout({
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-red-600 hover:text-red-700"
+                  onClick={() => router.push(`/quiz/${quizId}/edit`)}
+                  className="sm:hidden"
+                >
+                  <Edit className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-error hover:text-error hidden sm:flex"
                   onClick={() => setShowDeleteDialog(true)}
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
                   Delete
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-error hover:text-error sm:hidden"
+                  onClick={() => setShowDeleteDialog(true)}
+                >
+                  <Trash2 className="w-4 h-4" />
                 </Button>
               </div>
             </div>
@@ -194,41 +221,41 @@ export default function QuizLayout({
 
       {/* Tabs - Only show if not on edit page and not new quiz */}
       {!isEditPage && !isNewQuiz && (
-        <div className="bg-white dark:bg-zinc-800 border-b">
+        <div className="bg-white dark:bg-zinc-800 border-b overflow-x-auto">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Tabs value={getActiveTab()}>
-              <TabsList className="h-12 bg-transparent border-0">
+              <TabsList className="h-12 bg-transparent border-0 w-full justify-start">
                 <TabsTrigger
                   value="overview"
                   onClick={() => router.push(`/quiz/${quizId}`)}
-                  className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none flex-shrink-0"
                 >
-                  <BarChart3 className="w-4 h-4 mr-2" />
-                  Overview
+                  <BarChart3 className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Overview</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="content"
+                  onClick={() => router.push(`/quiz/${quizId}/content`)}
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none flex-shrink-0"
+                >
+                  <FileText className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Content</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="responses"
                   onClick={() => router.push(`/quiz/${quizId}/responses`)}
-                  className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none flex-shrink-0"
                 >
-                  <Users className="w-4 h-4 mr-2" />
-                  Responses
-                </TabsTrigger>
-                <TabsTrigger
-                  value="questions"
-                  onClick={() => router.push(`/quiz/${quizId}/questions`)}
-                  className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
-                >
-                  <FileText className="w-4 h-4 mr-2" />
-                  Questions
+                  <Users className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Responses</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="settings"
                   onClick={() => router.push(`/quiz/${quizId}/settings`)}
-                  className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none flex-shrink-0"
                 >
-                  <Settings className="w-4 h-4 mr-2" />
-                  Settings
+                  <Settings className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Settings</span>
                 </TabsTrigger>
               </TabsList>
             </Tabs>

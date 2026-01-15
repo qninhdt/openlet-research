@@ -10,7 +10,8 @@ export function ThemeToggle() {
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
-    setTheme(isDark ? "dark" : "light");
+    // Use setTimeout to avoid synchronous setState in effect
+    setTimeout(() => setTheme(isDark ? "dark" : "light"), 0);
   }, []);
 
   const toggleTheme = () => {

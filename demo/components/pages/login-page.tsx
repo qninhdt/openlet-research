@@ -37,7 +37,7 @@ export function LoginPage() {
         {/* Features */}
         <div className="space-y-4">
           <div className="flex items-start gap-3 p-4 rounded-xl bg-white/50 dark:bg-zinc-800/50 backdrop-blur">
-            <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+            <div className="p-2 rounded-lg bg-info-light dark:bg-info-light text-info-foreground dark:text-info-foreground">
               <Camera className="w-5 h-5" />
             </div>
             <div>
@@ -51,7 +51,7 @@ export function LoginPage() {
           </div>
 
           <div className="flex items-start gap-3 p-4 rounded-xl bg-white/50 dark:bg-zinc-800/50 backdrop-blur">
-            <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
+            <div className="p-2 rounded-lg bg-info-light dark:bg-info-light text-info-foreground dark:text-info-foreground">
               <Brain className="w-5 h-5" />
             </div>
             <div>
@@ -65,7 +65,7 @@ export function LoginPage() {
           </div>
 
           <div className="flex items-start gap-3 p-4 rounded-xl bg-white/50 dark:bg-zinc-800/50 backdrop-blur">
-            <div className="p-2 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+            <div className="p-2 rounded-lg bg-success-light dark:bg-success-light text-success-foreground dark:text-success-foreground">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>

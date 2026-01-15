@@ -177,7 +177,6 @@ export interface Quiz {
   // Questions
   questions?: Question[];
   userAttempts?: UserAttempt[];
-  // Aggregated metrics (instead of full publicAttempts array)
   metrics?: QuizMetrics;
   topPerformers?: TopPerformer[];
   // Timestamps

@@ -528,12 +528,12 @@ export default function PlayQuizPage() {
               </>
             ) : (
               <div className="space-y-4">
-                <div className="text-center p-4 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800">
-                  <Lock className="w-8 h-8 mx-auto text-yellow-600 dark:text-yellow-500 mb-2" />
-                  <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">
+                <div className="text-center p-4 rounded-lg bg-warning-light dark:bg-warning-light border border-warning dark:border-warning">
+                  <Lock className="w-8 h-8 mx-auto text-warning-foreground dark:text-warning-foreground mb-2" />
+                  <p className="text-sm text-warning-foreground dark:text-warning-foreground font-medium">
                     Authentication Required
                   </p>
-                  <p className="text-xs text-yellow-700 dark:text-yellow-300 mt-1">
+                  <p className="text-xs text-warning-foreground dark:text-warning-foreground mt-1">
                     This quiz requires you to sign in with a Google account
                   </p>
                 </div>
@@ -595,7 +595,7 @@ export default function PlayQuizPage() {
                   <div className="flex items-center gap-2">
                     <h1 className="font-semibold">{quiz?.title || "Quiz"}</h1>
                     {isOwner && (
-                      <span className="text-xs px-2 py-0.5 rounded bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400">
+                      <span className="text-xs px-2 py-0.5 rounded bg-warning-light text-warning-foreground dark:bg-warning-light dark:text-warning-foreground">
                         Preview
                       </span>
                     )}
@@ -681,25 +681,25 @@ export default function PlayQuizPage() {
             return (
               <Card key={question.id} className="p-6 space-y-4">
                 {/* Question Header */}
-                <div className="flex items-start gap-3">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-semibold text-sm shrink-0">
-                    {idx + 1}
-                  </span>
-                  <div className="flex-1">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1 space-y-2">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                      Question {idx + 1}
+                    </span>
                     <div className="flex items-center gap-2">
                       <p className="font-medium text-lg">{question.content}</p>
-                      {publicLevel >= 2 &&
-                        (isCorrect ? (
-                          <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
-                        ) : (
-                          <XCircle className="w-5 h-5 text-red-600 shrink-0" />
-                        ))}
                     </div>
                   </div>
+                  {publicLevel >= 2 &&
+                    (isCorrect ? (
+                      <CheckCircle className="w-5 h-5 text-success shrink-0" />
+                    ) : (
+                      <XCircle className="w-5 h-5 text-error shrink-0" />
+                    ))}
                 </div>
 
                 {/* Options */}
-                <div className="space-y-2 pl-11">
+                <div className="space-y-2">
                   {question.options.map((option, optIdx) => {
                     const isUserAnswer = userAnswerIdx === optIdx;
                     const isCorrectAnswer =
@@ -710,41 +710,37 @@ export default function PlayQuizPage() {
                     return (
                       <div
                         key={optIdx}
-                        className={`flex items-center gap-3 p-3 rounded-lg border-2 ${
+                        className={`flex items-center gap-3 p-3 rounded-lg border ${
                           isCorrectAnswer
-                            ? "border-green-500 bg-green-50 dark:bg-green-900/20"
+                            ? "border-success/50 bg-success/5"
                             : showAsWrong
-                            ? "border-red-500 bg-red-50 dark:bg-red-900/20"
+                            ? "border-error/50 bg-error/5"
                             : isUserAnswer
                             ? "border-primary bg-primary/5"
-                            : "border-zinc-200 dark:border-zinc-700"
+                            : "border-border"
                         }`}
                       >
-                        <span
-                          className={`text-sm font-semibold px-2.5 py-1 rounded min-w-[32px] text-center ${
+                        <div
+                          className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
                             isCorrectAnswer
-                              ? "bg-green-600 text-white"
+                              ? "bg-success text-white"
                               : showAsWrong
-                              ? "bg-red-600 text-white"
+                              ? "bg-error text-white"
                               : isUserAnswer
                               ? "bg-primary text-primary-foreground"
-                              : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
+                              : "bg-muted text-muted-foreground"
                           }`}
                         >
                           {optionLabels[optIdx]}
-                        </span>
-                        <span
-                          className={
-                            isUserAnswer || isCorrectAnswer ? "font-medium" : ""
-                          }
-                        >
+                        </div>
+                        <div className="flex-1 min-w-0 text-sm truncate">
                           {option}
-                        </span>
+                        </div>
                         {isCorrectAnswer && publicLevel >= 3 && (
-                          <CheckCircle className="w-4 h-4 text-green-600 ml-auto" />
+                          <CheckCircle className="w-4 h-4 text-success ml-auto" />
                         )}
                         {showAsWrong && (
-                          <XCircle className="w-4 h-4 text-red-600 ml-auto" />
+                          <XCircle className="w-4 h-4 text-error ml-auto" />
                         )}
                       </div>
                     );
@@ -821,7 +817,7 @@ export default function PlayQuizPage() {
                     {quiz?.title || "Quiz"}
                   </h1>
                   {isOwner && (
-                    <span className="text-xs px-2 py-0.5 rounded bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400">
+                    <span className="text-xs px-2 py-0.5 rounded bg-warning-light text-warning-foreground dark:bg-warning-light dark:text-warning-foreground">
                       Preview
                     </span>
                   )}
@@ -837,7 +833,7 @@ export default function PlayQuizPage() {
                 <div
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-full font-mono text-sm ${
                     showWarning
-                      ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 animate-pulse"
+                      ? "bg-error-light text-error-foreground dark:bg-error-light dark:text-error-foreground animate-pulse"
                       : "bg-zinc-100 dark:bg-zinc-700"
                   }`}
                 >
@@ -892,14 +888,14 @@ export default function PlayQuizPage() {
 
         {/* Timer Warning */}
         {showWarning && !isOwner && (
-          <Card className="p-4 border-red-300 bg-red-50 dark:border-red-800 dark:bg-red-900/20">
+          <Card className="p-4 border-error bg-error-light dark:border-error dark:bg-error-light">
             <div className="flex items-center gap-3">
-              <AlertTriangle className="w-5 h-5 text-red-600" />
+              <AlertTriangle className="w-5 h-5 text-error" />
               <div>
-                <p className="font-medium text-red-700 dark:text-red-400">
+                <p className="font-medium text-error-foreground dark:text-error-foreground">
                   Time is running out!
                 </p>
-                <p className="text-sm text-red-600 dark:text-red-400">
+                <p className="text-sm text-error-foreground dark:text-error-foreground">
                   {quiz?.timerAutoSubmit
                     ? "Your quiz will be auto-submitted when time expires."
                     : "Please submit your answers soon."}
@@ -918,13 +914,13 @@ export default function PlayQuizPage() {
           >
             {/* Question Header */}
             <div className="flex items-start gap-3">
-              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-semibold text-sm shrink-0">
-                {idx + 1}
-              </span>
-              <div className="flex-1">
+              <div className="flex-1 space-y-2">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                  Question {idx + 1}
+                </span>
                 <p className="font-medium text-lg">{question.content}</p>
                 {userAnswers[question.id] === undefined && (
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-sm text-muted-foreground">
                     Select an answer
                   </p>
                 )}
@@ -932,19 +928,19 @@ export default function PlayQuizPage() {
             </div>
 
             {/* Options */}
-            <div className="space-y-2 pl-11">
+            <div className="space-y-2">
               {question.options.map((option, optIdx) => (
                 <div
                   key={optIdx}
                   onClick={() => handleAnswerSelect(question.id, optIdx)}
-                  className={`flex items-center gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                  className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
                     userAnswers[question.id] === optIdx
                       ? "border-primary bg-primary/10"
                       : "border-zinc-200 dark:border-zinc-700 hover:border-primary/50"
                   }`}
                 >
                   <span
-                    className={`text-sm font-semibold px-2.5 py-1 rounded min-w-[32px] text-center ${
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
                       userAnswers[question.id] === optIdx
                         ? "bg-primary text-primary-foreground"
                         : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"

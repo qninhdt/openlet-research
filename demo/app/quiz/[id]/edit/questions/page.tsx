@@ -87,29 +87,51 @@ export default function QuestionsPage() {
               </span>
               <h4 className="font-medium">{stat.content}</h4>
             </div>
-            <div className={`px-3 py-1 rounded-full text-sm font-medium ${
-              stat.correctRate >= 70 ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" :
-              stat.correctRate >= 50 ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400" :
-              "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
-            }`}>
+            <div
+              className={`px-3 py-1 rounded-full text-sm font-medium ${
+                stat.correctRate >= 70
+                  ? "bg-success-light text-success"
+                  : stat.correctRate >= 50
+                  ? "bg-warning-light text-warning"
+                  : "bg-error-light text-error"
+              }`}
+            >
               {stat.correctRate.toFixed(0)}% correct
             </div>
           </div>
           <div className="space-y-2">
             {stat.options.map((opt) => (
-              <div key={opt.label} className={`flex items-center gap-3 p-3 rounded-lg border ${
-                opt.isCorrect ? "border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-900/20" : ""
-              }`}>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                  opt.isCorrect ? "bg-green-500 text-white" : "bg-zinc-200 dark:bg-zinc-700"
-                }`}>
+              <div
+                key={opt.label}
+                className={`flex items-center gap-3 p-3 rounded-lg border ${
+                  opt.isCorrect
+                    ? "border-success bg-success-light dark:bg-success-light"
+                    : ""
+                }`}
+              >
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                    opt.isCorrect
+                      ? "bg-success text-success-foreground"
+                      : "bg-zinc-200 dark:bg-zinc-700"
+                  }`}
+                >
                   {opt.label}
                 </div>
                 <div className="flex-1 min-w-0 text-sm truncate">{opt.text}</div>
                 <div className="flex items-center gap-2">
                   <div className="w-20 h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
-                    <div className={`h-full ${opt.isCorrect ? "bg-green-500" : "bg-zinc-400"}`}
-                      style={{ width: `${stat.totalAttempts > 0 ? (opt.count / stat.totalAttempts) * 100 : 0}%` }}
+                    <div
+                      className={`h-full ${
+                        opt.isCorrect ? "bg-success" : "bg-zinc-400"
+                      }`}
+                      style={{
+                        width: `${
+                          stat.totalAttempts > 0
+                            ? (opt.count / stat.totalAttempts) * 100
+                            : 0
+                        }%`,
+                      }}
                     />
                   </div>
                   <span className="text-sm text-muted-foreground w-12 text-right">

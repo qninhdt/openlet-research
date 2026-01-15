@@ -29,7 +29,8 @@ export function DashboardPage() {
 
   useEffect(() => {
     if (!user) {
-      setLoading(false);
+      // Use setTimeout to avoid synchronous setState in effect
+      setTimeout(() => setLoading(false), 0);
       return;
     }
 
@@ -56,13 +57,6 @@ export function DashboardPage() {
     return () => unsubscribe();
   }, [user]);
 
-  const handleDeleteQuiz = async (quizId: string) => {
-    try {
-      await deleteDoc(doc(db, "quizzes", quizId));
-    } catch (error) {
-      console.error("Error deleting quiz:", error);
-    }
-  };
 
   const handleCreateQuiz = () => {
     router.push("/quiz/new/edit");
@@ -126,11 +120,7 @@ export function DashboardPage() {
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {quizzes.map((quiz) => (
-              <QuizCard
-                key={quiz.id}
-                quiz={quiz}
-                onDelete={() => quiz.id && handleDeleteQuiz(quiz.id)}
-              />
+              <QuizCard key={quiz.id} quiz={quiz} />
             ))}
           </div>
         )}
