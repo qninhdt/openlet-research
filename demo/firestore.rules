@@ -20,7 +20,6 @@ service cloud.firestore {
                       request.resource.data.userId == request.auth.uid;
       
       // Allow update ONLY if user is the owner
-      // Note: Attempts are now stored in subcollection, no need for publicAttempts updates from clients
       allow update: if request.auth != null && resource.data.userId == request.auth.uid;
       
       // Allow delete if authenticated and user is the owner

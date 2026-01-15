@@ -91,7 +91,7 @@ export function QuizCard({ quiz, onDelete }: QuizCardProps) {
   ].includes(quiz.status);
 
   const questionCount = quiz.questions?.length || 0;
-  const publicAttemptCount = quiz.publicAttempts?.length || 0;
+  const publicAttemptCount = quiz.metrics?.totalResponses || 0;
 
   const formatDate = (date: Date | { toDate: () => Date }) => {
     const d = "toDate" in date ? date.toDate() : date;
