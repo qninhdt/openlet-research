@@ -1,0 +1,19 @@
+meta:
+  title: string
+  type: article|blog|post|report|research
+  topic: [string]
+  keywords: [string]
+  tone: [string]
+  author: string
+  date: string
+context:
+  summary: string
+  main_points:
+    - string
+entities:
+  - name: string
+    type: person|organization|location|thing|concept
+    attr_name: string|date|number|boolean (or list of these)
+relationships:
+  - [entity_1, action, entity_2]
+  - [entity_1, action, entity_2, context (optional)]

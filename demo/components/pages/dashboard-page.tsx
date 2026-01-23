@@ -7,8 +7,6 @@ import {
   where,
   orderBy,
   onSnapshot,
-  deleteDoc,
-  doc,
 } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { db } from "@/lib/firebase";
@@ -56,7 +54,6 @@ export function DashboardPage() {
 
     return () => unsubscribe();
   }, [user]);
-
 
   const handleCreateQuiz = () => {
     router.push("/quiz/new/edit");

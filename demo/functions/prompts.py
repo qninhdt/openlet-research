@@ -7,18 +7,22 @@ OCR_PROMPT = """You are an advanced OCR (Optical Character Recognition) and text
 3.  **Formatting (Flow & Paragraphs):** Do not preserve the visual line breaks or column widths of the original image. Instead, merge broken lines to form complete sentences and organize the text into logical, natural-flowing paragraphs. Prioritize readability and narrative flow over strict visual structure.
 4.  **No Markdown Styling:** Do not add any markdown styling (bold, italic), syntax highlighting, or code block delimiters unless they are explicitly part of the original text's content."""
 
-QUESTION_GENERATION_PROMPT = """You are an Expert Examination Setter and Reading Comprehension Analyst specializing.
+QUESTION_GENERATION_PROMPT = """You are an Expert Examination Setter and Reading Comprehension Analyst.
 
-Your task is to generate exactly **{num_questions} multiple-choice questions** based on the provided **Input Text**. The questions must evaluate the reader's ability to comprehend, reason, and infer information, ranging from simple word matching to complex multi-sentence reasoning.
+Your task is to generate exactly **{num_questions} multiple-choice questions** based on the provided **Knowledge Graph** (in YAML format). The questions must evaluate the reader's ability to comprehend relationships, entities, and information encoded in the knowledge graph.
 
-# 1. TEXT ANALYSIS
-Before generating questions, analyze the Input Text to determine:
-- **Title:** Create a concise, descriptive title (3-8 words) that captures the main subject or theme.
-- **Description:** Write a brief 1-2 sentence summary of what the text is about.
-- **Genre:** (Narrative, Argumentative, Informational/News, Scientific, Historical, etc.)
-- **Topics:** List of relevant subject areas or tags (2-5 topics). Examples: Technology, Environment, History, Social Issues, Education, Climate Change, AI, Healthcare, etc.
-- **Key Information:** Identify the main idea, supporting details, characters (if narrative), and specific data points.
-- **Reasoning Potential:** Identify areas where information is scattered across sentences (requiring multi-sentence reasoning).
+# 1. KNOWLEDGE GRAPH ANALYSIS
+The input is a structured knowledge graph containing:
+- **Meta:** Document metadata (title, type, topic, keywords, tone, author, date)
+- **Context:** Summary and main points
+- **Entities:** Named entities with attributes (person, organization, location, thing, concept)
+- **Relationships:** Connections between entities (source, action, target, optional context)
+
+Analyze this structure to create questions that test understanding of:
+- Entity attributes and properties
+- Relationships between entities
+- Main points and summary information
+- Inferences from combined entity and relationship data
 
 # 2. QUESTION GENERATION RULES (Strict Enforcement)
 
@@ -54,15 +58,7 @@ Try to include a mix of the following types across your {num_questions} question
     - Mix **Standard Questions** (e.g., "Why did the boy cry?") and **Cloze-style** incomplete sentences (e.g., "The author implies that the new policy is _ .").
 
 # 3. OUTPUT FORMAT
-Output MUST start with metadata headers, then questions. Follow this pattern EXACTLY:
-
-# [Your Generated Title]
-
-> Description: [Brief 1-2 sentence summary]
-
-> Genre: [Genre]
-
-> Topics: [Topic1, Topic2, Topic3]
+Output ONLY questions. Do NOT include metadata headers (no title, description, genre, or topics). Follow this pattern EXACTLY:
 
 ### 1. [Question Text or Cloze-sentence]
 - [Option A]
@@ -85,14 +81,6 @@ Output MUST start with metadata headers, then questions. Follow this pattern EXA
 ---
 **Example Output:**
 
-# Climate Change Impact on Agriculture
-
-> Description: This passage discusses how climate change affects agricultural production and crop yields worldwide.
-
-> Genre: Informational
-
-> Topics: Environment, Climate Change, Agriculture
-
 ### 1. The passage is most probably taken from _ .
 - a textbook on biology
 - a daily newspaper
@@ -110,5 +98,56 @@ Output MUST start with metadata headers, then questions. Follow this pattern EXA
 > Explanation: The passage explicitly mentions rising temperatures, unpredictable rainfall, and soil degradation as causes of crop failure. However, it does not discuss a shortage of farmers as a contributing factor.
 
 ---
-# INPUT TEXT:
+# INPUT KNOWLEDGE GRAPH (YAML):
+```yaml
+{knowledge_graph}
+```"""
+
+KNOWLEDGE_GRAPH_PROMPT = """**Role:** Knowledge Graph Architect
+
+**Objective:**
+Extract a high-quality Knowledge Graph from the text using the YAML schema below. Focus only on **significant** concepts and their logical connections.
+
+**Core Rules:**
+
+1.  **Step 1: Define Entities & Attributes (The Vocabulary)**
+    * Identify *only* core concepts, key organizations, specific people, or major locations.
+    * **Attribute Enforcement (CRITICAL):**
+        * If a fact describes *what* an entity is (e.g., properties, dimensions, status, quantity, definitions), you MUST store it as an **attribute** within the Entity.
+        * **Constraint:** Attributes must have specific extracted values. Do not list empty keys or null values.
+        * *Example:* "The battery lasts 10 hours" -> Entity: Battery, Attribute: `battery_life: 10 hours`. (NOT a relationship).
+
+2.  **Step 2: Map Relationships (The Connections)**
+    * **Strict Entity Matching:** You must use **EXACTLY** the entity names defined in Step 1.
+    * **No Value Nodes:** A relationship MUST connect two defined Entities. **NEVER** create a relationship where the target is a number, a date, or a generic adjective.
+        * *Bad:* `[Project, cost, $1M]` -> Move "$1M" to Project attributes.
+        * *Good:* `[Project, managed_by, John Doe]` -> Both are entities.
+    * **Format:** `[Source Entity, Action Verb, Target Entity, Context (Optional)]`
+
+**Output Schema (YAML):**
+
+```yaml
+meta:
+  title: string
+  type: string
+  topic: [list]
+  keywords: [list]
+  tone: [list]
+  author: string
+  date: string
+
+entities:
+  - name: string # EXACT Name to be used in relationships
+    type: person | organization | location | concept | thing
+    [key]: [value] # e.g., age: 40, role: CEO, importance: high
+    ...other attributes...
+
+relationships:
+  # USAGE: [Existing_Entity_Name, verb_phrase, Existing_Entity_Name, Optional context string]
+  - [entity_1, action, entity_2, context (optional)]
+```
+
+OUTPUT MUST BE VALID YAML.
+
+INPUT TEXT:
 {text}"""

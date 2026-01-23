@@ -33,7 +33,14 @@ function getStatusInfo(status: QuizStatus) {
         label: "Reading text...",
         icon: Loader2,
         color: "text-purple-500",
-        progress: 45,
+        progress: 35,
+      };
+    case "extracting_info":
+      return {
+        label: "Extracting insights...",
+        icon: Loader2,
+        color: "text-cyan-500",
+        progress: 55,
       };
     case "generating_quiz":
       return {
@@ -74,6 +81,7 @@ export function QuizCard({ quiz }: QuizCardProps) {
   const isProcessing = [
     "uploading",
     "processing_ocr",
+    "extracting_info",
     "generating_quiz",
   ].includes(quiz.status);
 

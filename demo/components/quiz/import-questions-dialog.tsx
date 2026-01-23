@@ -57,8 +57,8 @@ export function ImportQuestionsDialog() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [inputType, setInputType] = useState<InputType>("images");
-  const [ocrModel, setOcrModel] = useState("google/gemini-2.5-flash");
-  const [questionModel, setQuestionModel] = useState("google/gemini-2.5-flash");
+  const [ocrModel, setOcrModel] = useState("google/gemini-3-flash-preview");
+  const [questionModel, setQuestionModel] = useState("google/gemini-3-flash-preview");
   const [targetQuestionCount, setTargetQuestionCount] = useState(5);
   const [extractPassage, setExtractPassage] = useState(true);
 
@@ -171,10 +171,13 @@ export function ImportQuestionsDialog() {
           if (!data) return;
 
           if (data.status === "processing_ocr") {
-            setProgress(60);
+            setProgress(50);
             setStatusMessage("Extracting text from documents...");
+          } else if (data.status === "extracting_info") {
+            setProgress(65);
+            setStatusMessage("Analyzing content & building knowledge graph...");
           } else if (data.status === "generating_quiz") {
-            setProgress(80);
+            setProgress(85);
             setStatusMessage("Generating questions with AI...");
           } else if (data.status === "ready" && data.questions) {
             setProgress(100);
@@ -204,6 +207,12 @@ export function ImportQuestionsDialog() {
             // Extract passage from OCR text if checkbox is checked
             if (extractPassage && data.ocrText && !currentQuiz?.passage) {
               updates.passage = data.ocrText;
+            }
+
+            // Copy knowledge graph and set AI analytics flag
+            if (data.knowledgeGraph) {
+              updates.knowledgeGraph = data.knowledgeGraph;
+              updates.aiAnalyticsEnabled = true;
             }
 
             if (Object.keys(updates).length > 0) {

@@ -8,3 +8,5 @@ aiohttp>=3.9.0
 # PDF processing
 PyMuPDF>=1.24.0
 
+# YAML parsing for knowledge graph
+PyYAML>=6.0.0

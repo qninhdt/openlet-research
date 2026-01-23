@@ -41,7 +41,7 @@ export default function QuizEditorPage() {
   useEffect(() => {
     const initQuiz = async () => {
       if (!user) return;
-      
+
       // Redirect anonymous users
       if (user.isAnonymous) {
         router.push("/");
@@ -129,6 +129,13 @@ export default function QuizEditorPage() {
         genre: currentQuiz.genre || "",
         topics: currentQuiz.topics || [],
         questions: currentQuiz.questions || [],
+        // Preserve AI analytics data if it exists
+        ...(currentQuiz.knowledgeGraph && {
+          knowledgeGraph: currentQuiz.knowledgeGraph,
+        }),
+        ...(currentQuiz.aiAnalyticsEnabled !== undefined && {
+          aiAnalyticsEnabled: currentQuiz.aiAnalyticsEnabled,
+        }),
         updatedAt: Timestamp.now(),
       };
 
@@ -252,129 +259,130 @@ export default function QuizEditorPage() {
 
       {/* Content with top padding for fixed header */}
       <div className="pt-20 space-y-6">
-
-      {/* Main Content */}
-      <div className="space-y-6">
-        {/* Quiz Metadata Card */}
-        <div className="bg-white dark:bg-zinc-800 rounded-xl border p-6 space-y-4">
-          {/* Title */}
-          <Input
-            value={currentQuiz.title || ""}
-            onChange={(e) => updateQuizMetadata({ title: e.target.value })}
-            placeholder="Untitled Quiz"
-            className="text-2xl font-bold border-0 border-b rounded-none px-0 focus-visible:ring-0 focus-visible:border-primary"
-          />
-
-          {/* Description */}
-          <Textarea
-            value={currentQuiz.description || ""}
-            onChange={(e) =>
-              updateQuizMetadata({ description: e.target.value })
-            }
-            placeholder="Add a description (optional)"
-            className="resize-none border-0 px-0 focus-visible:ring-0 text-muted-foreground"
-            rows={2}
-          />
-
-          {/* Passage/Document */}
-          <div className="pt-2">
-            <Label className="text-sm text-muted-foreground mb-2 block">
-              Passage
-            </Label>
-            <Textarea
-              value={currentQuiz.passage || ""}
-              onChange={(e) => updateQuizMetadata({ passage: e.target.value })}
-              placeholder="Paste the original passage or document text here (optional)..."
-              className="resize-none min-h-[120px]"
-              rows={5}
+        {/* Main Content */}
+        <div className="space-y-6">
+          {/* Quiz Metadata Card */}
+          <div className="bg-white dark:bg-zinc-800 rounded-xl border p-6 space-y-4">
+            {/* Title */}
+            <Input
+              value={currentQuiz.title || ""}
+              onChange={(e) => updateQuizMetadata({ title: e.target.value })}
+              placeholder="Untitled Quiz"
+              className="text-2xl font-bold border-0 border-b rounded-none px-0 focus-visible:ring-0 focus-visible:border-primary"
             />
-          </div>
 
-          {/* Tags */}
-          <div className="space-y-2">
-            <div className="flex flex-wrap gap-2">
-              {(currentQuiz.topics || []).map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-sm bg-primary/10 text-primary"
-                >
-                  {tag}
-                  <button
-                    onClick={() => handleRemoveTag(tag)}
-                    className="hover:bg-primary/20 rounded-full p-0.5"
+            {/* Description */}
+            <Textarea
+              value={currentQuiz.description || ""}
+              onChange={(e) =>
+                updateQuizMetadata({ description: e.target.value })
+              }
+              placeholder="Add a description (optional)"
+              className="resize-none border-0 px-0 focus-visible:ring-0 text-muted-foreground"
+              rows={2}
+            />
+
+            {/* Passage/Document */}
+            <div className="pt-2">
+              <Label className="text-sm text-muted-foreground mb-2 block">
+                Passage
+              </Label>
+              <Textarea
+                value={currentQuiz.passage || ""}
+                onChange={(e) =>
+                  updateQuizMetadata({ passage: e.target.value })
+                }
+                placeholder="Paste the original passage or document text here (optional)..."
+                className="resize-none min-h-[120px]"
+                rows={5}
+              />
+            </div>
+
+            {/* Tags */}
+            <div className="space-y-2">
+              <div className="flex flex-wrap gap-2">
+                {(currentQuiz.topics || []).map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-sm bg-primary/10 text-primary"
                   >
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              ))}
-              <div className="flex items-center gap-1">
-                <Input
-                  value={newTag}
-                  onChange={(e) => setNewTag(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      handleAddTag();
-                    }
-                  }}
-                  placeholder="Add tag..."
-                  className="h-8 w-28 text-sm"
-                />
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleAddTag}
-                  disabled={!newTag.trim()}
-                >
-                  <Plus className="w-4 h-4" />
-                </Button>
+                    {tag}
+                    <button
+                      onClick={() => handleRemoveTag(tag)}
+                      className="hover:bg-primary/20 rounded-full p-0.5"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                ))}
+                <div className="flex items-center gap-1">
+                  <Input
+                    value={newTag}
+                    onChange={(e) => setNewTag(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleAddTag();
+                      }
+                    }}
+                    placeholder="Add tag..."
+                    className="h-8 w-28 text-sm"
+                  />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleAddTag}
+                    disabled={!newTag.trim()}
+                  >
+                    <Plus className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Questions List */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
-              Questions ({currentQuiz.questions?.length || 0})
-            </h2>
+          {/* Questions List */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
+                Questions ({currentQuiz.questions?.length || 0})
+              </h2>
+            </div>
+
+            {currentQuiz.questions && currentQuiz.questions.length > 0 ? (
+              <div className="space-y-4">
+                {currentQuiz.questions.map((question, index) => (
+                  <QuestionEditorCard
+                    key={question.id}
+                    question={question}
+                    index={index}
+                    onUpdate={updateQuestion}
+                    onDelete={deleteQuestion}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12 bg-white dark:bg-zinc-800 rounded-xl border border-dashed">
+                <p className="text-muted-foreground mb-4">
+                  No questions yet. Add your first question!
+                </p>
+              </div>
+            )}
+
+            {/* Add Question Button */}
+            <Button
+              onClick={addQuestion}
+              variant="outline"
+              className="w-full h-16 border-2 border-dashed hover:border-primary hover:bg-primary/5"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Add Question
+            </Button>
           </div>
-
-          {currentQuiz.questions && currentQuiz.questions.length > 0 ? (
-            <div className="space-y-4">
-              {currentQuiz.questions.map((question, index) => (
-                <QuestionEditorCard
-                  key={question.id}
-                  question={question}
-                  index={index}
-                  onUpdate={updateQuestion}
-                  onDelete={deleteQuestion}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 bg-white dark:bg-zinc-800 rounded-xl border border-dashed">
-              <p className="text-muted-foreground mb-4">
-                No questions yet. Add your first question!
-              </p>
-            </div>
-          )}
-
-          {/* Add Question Button */}
-          <Button
-            onClick={addQuestion}
-            variant="outline"
-            className="w-full h-16 border-2 border-dashed hover:border-primary hover:bg-primary/5"
-          >
-            <Plus className="w-5 h-5 mr-2" />
-            Add Question
-          </Button>
         </div>
-      </div>
 
-      {/* Import Dialog */}
-      <ImportQuestionsDialog />
+        {/* Import Dialog */}
+        <ImportQuestionsDialog />
       </div>
     </>
   );

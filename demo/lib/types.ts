@@ -24,6 +24,11 @@ export const AVAILABLE_MODELS: ModelInfo[] = [
     category: "open-source",
   },
   {
+    id: "google/gemini-3-flash-preview",
+    displayName: "Gemini 3 Flash (Preview)",
+    category: "proprietary",
+  },
+  {
     id: "google/gemini-2.5-flash",
     displayName: "Gemini 2.5 Flash",
     category: "proprietary",
@@ -44,9 +49,46 @@ export const AVAILABLE_MODELS: ModelInfo[] = [
 export type QuizStatus =
   | "uploading"
   | "processing_ocr"
+  | "extracting_info"
   | "generating_quiz"
   | "ready"
   | "error";
+
+// Knowledge Graph types
+export interface KnowledgeGraphMeta {
+  title: string;
+  type: string;
+  topic: string[];
+  keywords: string[];
+  tone: string[];
+  author: string;
+  date: string;
+}
+
+export interface KnowledgeGraphContext {
+  summary: string;
+  mainPoints: string[];
+}
+
+export interface KnowledgeGraphEntity {
+  name: string;
+  type: "person" | "organization" | "location" | "thing" | "concept";
+  attributes: Record<string, string | number | boolean | string[]>;
+}
+
+export interface KnowledgeGraphRelationship {
+  source: string;
+  action: string;
+  target: string;
+  context?: string;
+}
+
+export interface KnowledgeGraph {
+  meta: KnowledgeGraphMeta;
+  context: KnowledgeGraphContext;
+  entities: KnowledgeGraphEntity[];
+  relationships: KnowledgeGraphRelationship[];
+}
 
 // Question type for generated questions
 export interface Question {
@@ -179,6 +221,9 @@ export interface Quiz {
   userAttempts?: UserAttempt[];
   metrics?: QuizMetrics;
   topPerformers?: TopPerformer[];
+  // AI Analytics
+  aiAnalyticsEnabled?: boolean;
+  knowledgeGraph?: KnowledgeGraph;
   // Timestamps
   createdAt: Timestamp | Date;
   updatedAt?: Timestamp | Date;

@@ -19,6 +19,7 @@ import {
   BarChart3,
   Users,
   FileText,
+  BrainCircuit,
 } from "lucide-react";
 import {
   Dialog,
@@ -112,6 +113,7 @@ export default function QuizLayout({
     if (pathname.endsWith("/responses")) return "responses";
     if (pathname.endsWith("/content")) return "content";
     if (pathname.endsWith("/settings")) return "settings";
+    if (pathname.endsWith("/analytics")) return "analytics";
     return "overview";
   };
 
@@ -158,7 +160,9 @@ export default function QuizLayout({
                   <ArrowLeft className="w-5 h-5" />
                 </Button>
                 <div className="min-w-0">
-                  <h1 className="text-base sm:text-lg font-bold truncate">{quizTitle}</h1>
+                  <h1 className="text-base sm:text-lg font-bold truncate">
+                    {quizTitle}
+                  </h1>
                 </div>
               </div>
               <div className="flex items-center gap-1 sm:gap-2 shrink-0">
@@ -249,6 +253,16 @@ export default function QuizLayout({
                   <Users className="w-4 h-4 sm:mr-2" />
                   <span className="hidden sm:inline">Responses</span>
                 </TabsTrigger>
+                {quiz?.aiAnalyticsEnabled && (
+                  <TabsTrigger
+                    value="analytics"
+                    onClick={() => router.push(`/quiz/${quizId}/analytics`)}
+                    className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none flex-shrink-0"
+                  >
+                    <BrainCircuit className="w-4 h-4 sm:mr-2" />
+                    <span className="hidden sm:inline">AI Analytics</span>
+                  </TabsTrigger>
+                )}
                 <TabsTrigger
                   value="settings"
                   onClick={() => router.push(`/quiz/${quizId}/settings`)}

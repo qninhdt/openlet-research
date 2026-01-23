@@ -8,12 +8,13 @@ from urllib.parse import unquote
 
 import aiohttp
 import pymupdf
+import yaml
 from firebase_admin import firestore as admin_firestore
 from firebase_admin import initialize_app, storage
 from firebase_functions import firestore_fn, https_fn, options, params
 
-from parser import parse_llm_output
-from prompts import OCR_PROMPT, QUESTION_GENERATION_PROMPT
+from parser import parse_llm_output, parse_knowledge_graph
+from prompts import OCR_PROMPT, QUESTION_GENERATION_PROMPT, KNOWLEDGE_GRAPH_PROMPT
 
 # Initialize Firebase Admin
 initialize_app()
@@ -25,8 +26,8 @@ OPENROUTER_API_KEY = params.SecretParam("OPENROUTER_API_KEY")
 NOVITAAI_API_KEY = params.SecretParam("NOVITAAI_API_KEY")
 
 # Default models (will be overridden by quiz document if specified)
-DEFAULT_OCR_MODEL = "google/gemini-2.5-flash"
-DEFAULT_QUESTION_MODEL = "google/gemini-2.5-flash"
+DEFAULT_OCR_MODEL = "google/gemini-3-flash-preview"
+DEFAULT_QUESTION_MODEL = "google/gemini-3-flash-preview"
 
 # Limits
 MAX_PDF_PAGES = 10
@@ -232,11 +233,11 @@ async def _process_ocr_async(
         if not ocr_text:
             raise Exception("OCR returned empty text")
 
-        # Update quiz with OCR text and move to next stage
+        # Update quiz with OCR text and move to next stage (extracting_info)
         doc_ref.update(
             {
                 "ocrText": ocr_text,
-                "status": "generating_quiz",
+                "status": "extracting_info",
                 "pageCount": len(image_bytes_list),
                 "inputType": input_type,
             }
@@ -319,9 +320,124 @@ def process_ocr(
     )
 
 
-async def _generate_questions_async(
+async def _extract_info_async(
     quiz_id: str,
     ocr_text: str,
+    question_model: str,
+    doc_ref,
+    api_key: str,
+) -> None:
+    """Async helper for knowledge graph extraction."""
+    try:
+        print(
+            f"Extracting knowledge graph for quiz {quiz_id} using model {question_model}"
+        )
+
+        # Create the full prompt with the text
+        full_prompt = KNOWLEDGE_GRAPH_PROMPT.replace("{text}", ocr_text)
+
+        # Call OpenRouter API for knowledge graph extraction
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": question_model,
+                    "messages": [{"role": "user", "content": full_prompt}],
+                    "temperature": 0.0,
+                },
+                timeout=aiohttp.ClientTimeout(total=120),
+            ) as response:
+                if response.status != 200:
+                    error_text = await response.text()
+                    raise Exception(
+                        f"Knowledge graph extraction API error: {response.status} - {error_text}"
+                    )
+
+                result = await response.json()
+                llm_output = (
+                    result.get("choices", [{}])[0]
+                    .get("message", {})
+                    .get("content", "")
+                    .strip()
+                )
+
+        # Parse the LLM output into structured knowledge graph
+        knowledge_graph = parse_knowledge_graph(llm_output)
+
+        # Update quiz with knowledge graph data and move to generating_quiz stage
+        doc_ref.update(
+            {
+                "knowledgeGraph": knowledge_graph.to_dict(),
+                "status": "generating_quiz",
+            }
+        )
+
+        print(
+            f"Knowledge graph extraction completed for quiz {quiz_id}. "
+            f"Entities: {len(knowledge_graph.entities)}, "
+            f"Relationships: {len(knowledge_graph.relationships)}"
+        )
+
+    except Exception as e:
+        print(f"Knowledge graph extraction error for quiz {quiz_id}: {e}")
+        # Don't fail the entire flow, just skip knowledge graph and move to generating_quiz
+        doc_ref.update({"status": "generating_quiz"})
+
+
+@firestore_fn.on_document_updated(
+    document="quizzes/{quiz_id}",
+    secrets=[OPENROUTER_API_KEY],
+)
+def extract_info(
+    event: firestore_fn.Event[firestore_fn.Change[firestore_fn.DocumentSnapshot]],
+) -> None:
+    """Extract knowledge graph when quiz status changes to 'extracting_info'."""
+    if event.data is None:
+        return
+
+    new_data = event.data.after.to_dict()
+    previous_data = event.data.before.to_dict()
+
+    if new_data is None or previous_data is None:
+        return
+
+    # Only process if status changed to "extracting_info"
+    if (
+        new_data.get("status") != "extracting_info"
+        or previous_data.get("status") == "extracting_info"
+    ):
+        return
+
+    quiz_id = event.params.get("quiz_id", "unknown")
+    ocr_text = new_data.get("ocrText")
+    question_model = new_data.get("questionModel", DEFAULT_QUESTION_MODEL)
+
+    doc_ref = event.data.after.reference
+
+    if not ocr_text:
+        # Skip extraction if no OCR text, move to generating_quiz
+        doc_ref.update({"status": "generating_quiz"})
+        return
+
+    # Run async function in sync context
+    asyncio.run(
+        _extract_info_async(
+            quiz_id,
+            ocr_text,
+            question_model,
+            doc_ref,
+            OPENROUTER_API_KEY.value,
+        )
+    )
+
+
+async def _generate_questions_async(
+    quiz_id: str,
+    knowledge_graph_data: dict,
     question_model: str,
     doc_ref,
     api_key: str,
@@ -329,17 +445,20 @@ async def _generate_questions_async(
     file_urls: list[str] | None = None,
     delete_files: bool = True,
 ) -> None:
-    """Async helper for question generation."""
+    """Async helper for question generation using knowledge graph as input."""
     try:
         print(
             f"Generating {target_question_count} questions for quiz {quiz_id} "
             f"using model {question_model}"
         )
 
-        # Create the full prompt with the text and question count
-        full_prompt = QUESTION_GENERATION_PROMPT.replace("{text}", ocr_text).replace(
-            "{num_questions}", str(target_question_count)
-        )
+        # Convert knowledge graph dict to YAML string
+        kg_yaml = yaml.dump(knowledge_graph_data, allow_unicode=True, sort_keys=False)
+
+        # Create the full prompt with the knowledge graph YAML and question count
+        full_prompt = QUESTION_GENERATION_PROMPT.replace(
+            "{knowledge_graph}", kg_yaml
+        ).replace("{num_questions}", str(target_question_count))
 
         # Call OpenRouter API for question generation (async)
         async with aiohttp.ClientSession() as session:
@@ -370,13 +489,24 @@ async def _generate_questions_async(
                     .strip()
                 )
 
-        # Parse the LLM output into structured questions with metadata
+        # Parse the LLM output into structured questions (no metadata)
         parsed_data = parse_llm_output(llm_output)
 
         if not parsed_data.questions:
             raise Exception("Failed to parse questions from LLM output")
 
-        # Update quiz with questions, metadata and mark as ready
+        # Extract metadata from knowledge graph
+        kg_meta = knowledge_graph_data.get("meta", {})
+        kg_context = knowledge_graph_data.get("context", {})
+
+        title = kg_meta.get("title", "Untitled Quiz")
+        description = kg_context.get("summary", "")
+        topics = kg_meta.get("topic", [])
+        if isinstance(topics, str):
+            topics = [topics]
+
+        # Update quiz with questions, metadata from KG, and mark as ready
+        # Also set aiAnalyticsEnabled flag to indicate AI import has been run
         doc_ref.update(
             {
                 "questions": [
@@ -390,19 +520,18 @@ async def _generate_questions_async(
                     }
                     for q in parsed_data.questions
                 ],
-                "title": parsed_data.title,
-                "description": parsed_data.description,
-                "genre": parsed_data.genre,
-                "topics": parsed_data.topics,
+                "title": title,
+                "description": description,
+                "topics": topics,
                 "status": "ready",
+                "aiAnalyticsEnabled": True,
             }
         )
 
         print(
             f"Question generation completed for quiz {quiz_id}, "
             f"{len(parsed_data.questions)} questions created. "
-            f'Title: "{parsed_data.title}", Genre: {parsed_data.genre}, '
-            f"Topics: [{', '.join(parsed_data.topics)}]"
+            f'Title: "{title}", Topics: [{", ".join(topics)}]'
         )
 
         # Delete temporary files after successful question generation
@@ -451,7 +580,7 @@ def generate_questions(
         return
 
     quiz_id = event.params.get("quiz_id", "unknown")
-    ocr_text = new_data.get("ocrText")
+    knowledge_graph_data = new_data.get("knowledgeGraph")
     question_model = new_data.get("questionModel", DEFAULT_QUESTION_MODEL)
 
     # Get target question count (default to 5 if not specified)
@@ -473,15 +602,17 @@ def generate_questions(
 
     doc_ref = event.data.after.reference
 
-    if not ocr_text:
-        doc_ref.update({"status": "error", "errorMessage": "No OCR text found"})
+    if not knowledge_graph_data:
+        doc_ref.update(
+            {"status": "error", "errorMessage": "No knowledge graph data found"}
+        )
         return
 
     # Run async function in sync context
     asyncio.run(
         _generate_questions_async(
             quiz_id,
-            ocr_text,
+            knowledge_graph_data,
             question_model,
             doc_ref,
             OPENROUTER_API_KEY.value,
