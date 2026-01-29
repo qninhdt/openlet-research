@@ -14,30 +14,17 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def load_prompts(prompt_folder: str = "prompts") -> Dict[str, str]:
-    """Load prompts from prompts folder for each source
+def load_prompt(prompt_path: str = "prompts/question.md") -> str:
+    """Load the single prompt file
+
+    Args:
+        prompt_path: Path to the prompt file
 
     Returns:
-        Dictionary mapping source name to prompt content
+        Prompt content as string
     """
-    prompts = {}
-    prompt_dir = Path(prompt_folder)
-
-    # Find all prompt files matching pattern: generate_{source}_questions.md
-    for prompt_file in prompt_dir.glob("generate_*_questions.md"):
-        # Extract source name from filename
-        # e.g., "generate_race_questions.md" -> "race"
-        source_name = prompt_file.stem.replace("generate_", "").replace(
-            "_questions", ""
-        )
-
-        with open(prompt_file, "r", encoding="utf-8") as f:
-            prompts[source_name] = f.read()
-
-    if not prompts:
-        raise FileNotFoundError(f"No prompt files found in {prompt_folder}")
-
-    return prompts
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        return f.read()
 
 
 def load_data(data_path: str, n: int = -1, sources: List[str] = None) -> List[dict]:
@@ -67,7 +54,7 @@ def load_data(data_path: str, n: int = -1, sources: List[str] = None) -> List[di
     return data
 
 
-def parse_llm_output(output: str) -> List[Dict]:
+def parse_llm_output(output: str, total_questions: int) -> List[Dict]:
     """Parse LLM output in the format:
 
     ### [question text]
@@ -79,7 +66,11 @@ def parse_llm_output(output: str) -> List[Dict]:
 
     Handles edge cases where LLM uses ##, #, or ### as separators
 
-    Returns list of question dictionaries
+    Returns list of question dictionaries with level field (1/2/3)
+
+    Args:
+        output: Raw LLM output text
+        total_questions: Total number of questions (3n), used to determine level boundaries
     """
     questions = []
 
@@ -87,6 +78,13 @@ def parse_llm_output(output: str) -> List[Dict]:
     # Use regex to find question markers and normalize them
     # Pattern: starts with 1-4 # at the beginning of a line
     normalized_output = re.sub(r"^#{1,4}\s+", "###", output, flags=re.MULTILINE)
+
+    # Also handle case where questions are numbered without ### (e.g., "1.", "2.", etc.)
+    # Replace patterns like "1. " at the start of a line with "###"
+    # But only if it's followed by text (not just a number in an option)
+    normalized_output = re.sub(
+        r"^\d+\.\s+(?=[A-Z])", "###", normalized_output, flags=re.MULTILINE
+    )
 
     # Split by ### to separate questions
     question_blocks = normalized_output.strip().split("###")
@@ -99,14 +97,14 @@ def parse_llm_output(output: str) -> List[Dict]:
         # Split by newlines but keep only non-empty lines
         lines = [line.strip() for line in block.strip().split("\n") if line.strip()]
 
-        # if (
-        #     len(lines) < 5
-        # ):  # Need at least: Question + 4 options + answer line (no more "Question:" prefix check)
-        #     continue
+        # Skip empty blocks
+        if not lines:
+            continue
 
         # Check if this block contains at least one option line (starts with "-")
         # and one answer line (starts with ">")
         # This helps filter out explanatory text blocks that LLM might add
+        # e.g., "### Level 3: Critical Reasoning..." or "# Introduction"
         has_options = any(line.startswith("-") for line in lines)
         has_answer = any(line.startswith(">") for line in lines)
 
@@ -132,6 +130,9 @@ def parse_llm_output(output: str) -> List[Dict]:
         answer_line = None
 
         for line in lines[1:]:
+            # Strip again for extra safety (in case of nested whitespace)
+            line = line.strip()
+
             if line.startswith(">"):
                 # This is the answer line
                 answer_line = line
@@ -172,6 +173,16 @@ def parse_llm_output(output: str) -> List[Dict]:
             }
         )
 
+    # Assign level to each question based on order (1/3 level 1, 1/3 level 2, 1/3 level 3)
+    n = total_questions // 3
+    for i, question in enumerate(questions):
+        if i < n:
+            question["level"] = 1
+        elif i < 2 * n:
+            question["level"] = 2
+        else:
+            question["level"] = 3
+
     return questions
 
 
@@ -180,6 +191,7 @@ def generate_questions(
     model: str,
     prompt_template: str,
     openrouter_api_key: str,
+    n: int = 1,
     max_retries: int = 3,
 ) -> List[Dict]:
     """Generate questions from text using simple text format
@@ -187,12 +199,13 @@ def generate_questions(
     Args:
         text: Input text to generate questions from
         model: Model ID to use
-        prompt_template: Prompt template with {text} placeholder
+        prompt_template: Prompt template with {content} and {n} placeholders
         openrouter_api_key: OpenRouter API key
+        n: Number of questions per level (total questions = 3*n)
         max_retries: Maximum number of retries
 
     Returns:
-        List of question dictionaries
+        List of question dictionaries with level field
     """
     # Initialize LLM
     llm = ChatOpenAI(
@@ -202,11 +215,13 @@ def generate_questions(
         temperature=0.0,
     )
 
-    # Create full prompt
-    full_prompt = prompt_template.replace("{text}", text)
+    # Create full prompt with content and n
+    full_prompt = prompt_template.replace("{content}", text).replace("{n}", str(n))
 
     # Retry loop
     last_error = None
+    total_questions = 3 * n
+
     for attempt in range(max_retries):
         try:
             # Generate questions
@@ -220,10 +235,7 @@ def generate_questions(
                 print(f"Warning: LLM returned empty output")
 
             # Parse output
-            questions = parse_llm_output(output)
-
-            # if len(questions) < 5:
-            #     print(f"Warning: Only got {len(questions)} questions, need 5")
+            questions = parse_llm_output(output, total_questions)
 
             return questions
 
@@ -241,57 +253,36 @@ def generate_questions(
 
 def process_single_job(
     item: dict,
-    set_idx: int,
     model: str,
-    prompts: Dict[str, str],
+    prompt: str,
     api_key: str,
+    n: int = 1,
 ) -> tuple:
-    """Process a single job (one item, one set)
+    """Process a single job (one item)
 
     Args:
         item: Data item with 'content', 'id', and 'source'
-        set_idx: Set index (0-based)
         model: Model ID to use
-        prompts: Dictionary of prompts for each source
+        prompt: Prompt template string
         api_key: OpenRouter API key
+        n: Number of questions per level
 
     Returns:
-        Tuple of (item_id, set_idx, question_set or error_dict)
+        Tuple of (item_id, question_list or error_dict)
     """
     try:
-        # Get the appropriate prompt for this item's source
-        source = item.get("source", "").lower()
-
-        # Try to find matching prompt
-        # First try exact match, then try with "race-" prefix removed
-        prompt_template = None
-        if source in prompts:
-            prompt_template = prompts[source]
-        elif source.startswith("race-"):
-            # Try "race" for "race" or "race-m"
-            race_prompt = prompts.get("race")
-            if race_prompt:
-                prompt_template = race_prompt
-
-        if not prompt_template:
-            # Fallback: use any available prompt
-            if prompts:
-                prompt_template = list(prompts.values())[0]
-                print(f"Warning: No prompt found for source '{source}', using fallback")
-            else:
-                raise ValueError(f"No prompts available for source '{source}'")
-
         result = generate_questions(
             text=item["content"],
             model=model,
-            prompt_template=prompt_template,
+            prompt_template=prompt,
             openrouter_api_key=api_key,
+            n=n,
         )
 
-        return (item["id"], set_idx, result)
+        return (item["id"], result)
 
     except Exception as e:
-        return (item["id"], set_idx, {"error": str(e)})
+        return (item["id"], {"error": str(e)})
 
 
 def main():
@@ -299,7 +290,10 @@ def main():
         description="Generate multiple-choice questions from text using LLMs"
     )
     parser.add_argument(
-        "-n", type=int, default=-1, help="Number of items to process (-1 for all)"
+        "--num-items",
+        type=int,
+        default=-1,
+        help="Number of items to process (-1 for all)",
     )
     parser.add_argument(
         "--model",
@@ -311,14 +305,13 @@ def main():
         "--workers",
         type=int,
         default=128,
-        help="Number of parallel workers (default: 5)",
+        help="Number of parallel workers (default: 128)",
     )
     parser.add_argument(
-        "-k",
-        "--num-sets",
+        "--n",
         type=int,
         default=1,
-        help="Number of independent question sets to generate per sample (default: 1)",
+        help="Number of questions per level (total = 3*n questions per sample, default: 1)",
     )
     parser.add_argument(
         "--data-path",
@@ -327,10 +320,10 @@ def main():
         help="Path to the data.json file",
     )
     parser.add_argument(
-        "--prompts-folder",
+        "--prompt-path",
         type=str,
-        default="prompts",
-        help="Folder containing prompt files",
+        default="prompts/question.md",
+        help="Path to the prompt file",
     )
     parser.add_argument(
         "--sources",
@@ -349,10 +342,10 @@ def main():
             "OpenRouter API key not found. Please set OPENROUTER_API_KEY environment variable"
         )
 
-    # Load prompts for each source
-    print(f"Loading prompts from {args.prompts_folder}...")
-    prompts = load_prompts(args.prompts_folder)
-    print(f"Loaded prompts for sources: {', '.join(prompts.keys())}")
+    # Load the single prompt file
+    print(f"Loading prompt from {args.prompt_path}...")
+    prompt = load_prompt(args.prompt_path)
+    print(f"Prompt loaded successfully")
 
     # Validate sources parameter
     if not args.sources:
@@ -367,7 +360,7 @@ def main():
     print(f"Using model: {args.model}")
     print(f"Model ID: {model_id}")
     print(f"Using {args.workers} parallel workers")
-    print(f"Generating {args.num_sets} question set(s) per sample")
+    print(f"Generating {3 * args.n} questions per sample ({args.n} per level)")
     print(f"Processing sources: {', '.join(args.sources)}")
 
     # Process each source separately
@@ -379,7 +372,7 @@ def main():
 
         # Load data for this source only
         print(f"Loading data from {args.data_path}...")
-        data = load_data(args.data_path, args.n, [source])
+        data = load_data(args.data_path, args.num_items, [source])
         print(f"Loaded {len(data)} items for {source}")
 
         if not data:
@@ -393,120 +386,79 @@ def main():
 
         print(f"Output will be saved to: {output_path}")
 
-        # Create all jobs (k jobs per sample)
-        total_jobs = len(data) * args.num_sets
-        print(f"Total jobs: {total_jobs} ({len(data)} samples × {args.num_sets} sets)")
-
         # Process items in parallel with multithreading
-        # Each job generates one set for one item
         job_results = []
+        total_jobs = len(data)
 
         with ThreadPoolExecutor(max_workers=args.workers) as executor:
-            # Submit all jobs (k * n jobs total)
+            # Submit all jobs
             future_to_job = {}
             for item in data:
-                for set_idx in range(args.num_sets):
-                    future = executor.submit(
-                        process_single_job,
-                        item,
-                        set_idx,
-                        args.model,
-                        prompts,
-                        api_key,
-                    )
-                    future_to_job[future] = (item["id"], set_idx)
+                future = executor.submit(
+                    process_single_job,
+                    item,
+                    args.model,
+                    prompt,
+                    api_key,
+                    args.n,
+                )
+                future_to_job[future] = item["id"]
 
             # Process completed jobs with progress bar
             with tqdm(
-                total=total_jobs, desc=f"Generating {source}", unit="job"
+                total=total_jobs, desc=f"Generating {source}", unit="item"
             ) as pbar:
                 for future in as_completed(future_to_job):
-                    item_id, set_idx = future_to_job[future]
+                    item_id = future_to_job[future]
                     result = future.result()
                     job_results.append(result)
 
                     # Log errors without stopping progress bar
                     if (
-                        len(result) == 3
-                        and isinstance(result[2], dict)
-                        and "error" in result[2]
+                        len(result) == 2
+                        and isinstance(result[1], dict)
+                        and "error" in result[1]
                     ):
-                        tqdm.write(
-                            f"✗ Error in item {item_id} set {set_idx}: {result[2]['error']}"
-                        )
+                        tqdm.write(f"✗ Error in item {item_id}: {result[1]['error']}")
 
                     pbar.update(1)
 
-        # Organize results by item_id
-        results_by_id = {}
-        for item_id, set_idx, question_set_or_error in job_results:
-            if item_id not in results_by_id:
-                results_by_id[item_id] = {}
-            results_by_id[item_id][set_idx] = question_set_or_error
-
         # Build final predictions
         predictions = []
-        for item in data:
-            item_id = item["id"]
-
-            if item_id not in results_by_id:
-                # All jobs failed
+        for item_id, question_list_or_error in job_results:
+            if (
+                isinstance(question_list_or_error, dict)
+                and "error" in question_list_or_error
+            ):
                 predictions.append(
                     {
                         "id": item_id,
-                        "source": item.get("source", "unknown"),
-                        "error": "All jobs failed",
-                    }
-                )
-                continue
-
-            # Collect all sets for this item
-            sets_dict = results_by_id[item_id]
-            all_sets = []
-            has_error = False
-            error_msg = None
-
-            for set_idx in range(args.num_sets):
-                if set_idx in sets_dict:
-                    result = sets_dict[set_idx]
-                    if isinstance(result, dict) and "error" in result:
-                        has_error = True
-                        error_msg = result["error"]
-                        break
-                    all_sets.append(result)
-                else:
-                    has_error = True
-                    error_msg = f"Missing set {set_idx}"
-                    break
-
-            if has_error:
-                predictions.append(
-                    {
-                        "id": item_id,
-                        "source": item.get("source", "unknown"),
-                        "error": error_msg,
+                        "source": next(
+                            (
+                                item.get("source", "unknown")
+                                for item in data
+                                if item["id"] == item_id
+                            ),
+                            "unknown",
+                        ),
+                        "error": question_list_or_error["error"],
                     }
                 )
             else:
-                # Success
-                if args.num_sets == 1:
-                    # Backward compatibility
-                    predictions.append(
-                        {
-                            "id": item_id,
-                            "source": item.get("source", "unknown"),
-                            "generated_questions": all_sets[0],
-                        }
-                    )
-                else:
-                    predictions.append(
-                        {
-                            "id": item_id,
-                            "source": item.get("source", "unknown"),
-                            "generated_questions": all_sets,
-                            "num_sets": args.num_sets,
-                        }
-                    )
+                predictions.append(
+                    {
+                        "id": item_id,
+                        "source": next(
+                            (
+                                item.get("source", "unknown")
+                                for item in data
+                                if item["id"] == item_id
+                            ),
+                            "unknown",
+                        ),
+                        "generated_questions": question_list_or_error,
+                    }
+                )
 
         # Sort predictions by ID to maintain order
         predictions.sort(key=lambda x: x["id"])
@@ -523,13 +475,13 @@ def main():
         # Print summary
         successful = sum(1 for p in predictions if "error" not in p)
         failed = len(predictions) - successful
-        total_question_sets = successful * args.num_sets
+        total_questions = successful * 3 * args.n
 
         print(f"\nSummary for {source}:")
         print(f"  Successful samples: {successful}")
         print(f"  Failed samples: {failed}")
-        print(f"  Total question sets generated: {total_question_sets}")
-        print(f"  Question sets per sample: {args.num_sets}")
+        print(f"  Total questions generated: {total_questions}")
+        print(f"  Questions per sample: {3 * args.n} ({args.n} per level)")
 
     print("\n" + "=" * 100)
     print("ALL SOURCES COMPLETE")

@@ -1,621 +1,544 @@
 import json
-import argparse
-import numpy as np
-import torch
+import os
 from pathlib import Path
 from typing import List, Dict, Tuple
-from tqdm import tqdm
-from tabulate import tabulate
+import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import re
-import torch.nn.functional as F
 
-# Thư viện cho Lexical Metrics
-import nltk
-from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
-from rouge_score import rouge_scorer
+from langchain_openai import ChatOpenAI
+from tqdm import tqdm
 
-# Thư viện cho Semantic Metrics
-from sentence_transformers import SentenceTransformer, util
+from dotenv import load_dotenv
 
-# Tải data cho NLTK (chạy 1 lần)
-try:
-    nltk.data.find("tokenizers/punkt")
-except LookupError:
-    nltk.download("punkt")
-
-# Optional MAUVE metric
-try:
-    import mauve
-
-    HAVE_MAUVE = True
-except Exception:
-    HAVE_MAUVE = False
-
-# Optional FBD metric
-try:
-    import sys
-    from pathlib import Path
-
-    # Add third_party/fbd to path
-    fbd_path = Path(__file__).parent / "third_party" / "fbd"
-    if str(fbd_path) not in sys.path:
-        sys.path.insert(0, str(fbd_path))
-
-    from fbd_score import calculate_fbd
-
-    HAVE_FBD = True
-except Exception as e:
-    HAVE_FBD = False
-    print(f"Warning: FBD not available: {e}")
-
-# Optional BLEURT metric
-try:
-    from bleurt_pytorch import (
-        BleurtConfig,
-        BleurtForSequenceClassification,
-        BleurtTokenizer,
-    )
-
-    HAVE_BLEURT = True
-except Exception as e:
-    HAVE_BLEURT = False
-    print(f"Warning: BLEURT not available: {e}")
+load_dotenv()
 
 
-def load_json(file_path: str) -> List[Dict]:
-    with open(file_path, "r", encoding="utf-8") as f:
+def load_prompt(prompt_path: str = "prompts/eval.md") -> str:
+    """Load the evaluation prompt file
+
+    Args:
+        prompt_path: Path to the prompt file
+
+    Returns:
+        Prompt content as string
+    """
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+def load_data(data_path: str) -> List[dict]:
+    """Load unified data from JSON file
+
+    Args:
+        data_path: Path to the data.json file
+
+    Returns:
+        List of data items
+    """
+    with open(data_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def get_source_from_data(data: List[Dict], sample_id: int) -> str:
-    """Get source for a given sample ID from the original data"""
-    for item in data:
-        if item["id"] == sample_id:
-            return item.get("source", "unknown")
-    return "unknown"
-
-
-def extract_questions(data: List[Dict]) -> Dict[int, List[Dict]]:
-    questions_by_id = {}
-    for item in data:
-        # Hỗ trợ cả 2 format key thường gặp
-        q_list = item.get("questions", item.get("generated_questions", []))
-
-        # Kiểm tra xem có phải format mới (k sets) không
-        # Format mới: generated_questions là list of lists
-        # Format cũ: generated_questions là list of dicts
-        if q_list and isinstance(q_list[0], list):
-            # Format mới với k sets - flatten tất cả questions từ các sets
-            flattened = []
-            for question_set in q_list:
-                flattened.extend(question_set)
-            questions_by_id[item["id"]] = flattened
-        else:
-            # Format cũ hoặc ground truth
-            questions_by_id[item["id"]] = q_list
-    return questions_by_id
-
-
-def format_question_text(question: Dict) -> str:
-    """
-    Format lại:
-    1. Chỉ lấy đáp án ĐÚNG (Correct Answer).
-    2. Nếu câu hỏi có "_", điền đáp án đúng vào đó.
-    3. Nếu không, nối đáp án đúng vào sau cùng.
-    -> Biến câu hỏi thành một câu khẳng định hoàn chỉnh (Fact).
-    """
-    content = question.get("content", question.get("question", ""))
-    options = question.get("options", [])
-    correct_idx = question.get(
-        "correct", None
-    )  # Có thể là int (0-3) hoặc str ('A'-'D')
-
-    # 1. Tìm text của đáp án đúng
-    correct_text = ""
-
-    # Trường hợp không có key 'correct' hoặc options rỗng -> Giữ nguyên content
-    if correct_idx is None or not options:
-        return content
-
-    # Xử lý lấy index thực tế
-    idx = -1
-    if isinstance(correct_idx, int):
-        idx = correct_idx
-    elif isinstance(correct_idx, str):
-        # Nếu là 'A', 'B', 'C', 'D' -> chuyển sang 0, 1, 2, 3
-        if len(correct_idx) == 1:
-            idx = ord(correct_idx.upper()) - 65
-
-    # Lấy text nếu index hợp lệ
-    if 0 <= idx < len(options):
-        raw_opt = options[idx]
-        # Clean prefix kiểu "A. ", "B. ", "[A]" bằng Regex cho sạch
-        # Pattern: Bắt đầu bằng A-D, theo sau là ., ), ] hoặc khoảng trắng
-        correct_text = re.sub(r"^\[?[A-D][\.\)\]]?\s+", "", raw_opt).strip()
-    else:
-        # Fallback nếu index sai (hiếm gặp)
-        return content
-
-    # 2. Thực hiện ghép câu (Statement Construction)
-    if "_" in content:
-        # Thay thế dấu gạch dưới đầu tiên tìm thấy
-        return content.replace("_", correct_text, 1)
-    else:
-        # Nối vào đuôi (thường là câu hỏi Wh- question)
-        # Thêm dấu cách nếu chưa có
-        return f"{content} {correct_text}"
-
-
-def extract_query_answer(question: Dict) -> Tuple[str, str]:
-    """
-    Extract query and answer for FBD metric.
-    Query = question content
-    Answer = correct answer text
-
-    Returns: (query, answer)
-    """
-    content = question.get("content", question.get("question", ""))
-    options = question.get("options", [])
-    correct_idx = question.get("correct", None)
-
-    # Default query is the content
-    query = content
-    answer = ""
-
-    if correct_idx is None or not options:
-        # No correct answer available, return empty answer
-        return query, answer
-
-    # Get correct answer index
-    idx = -1
-    if isinstance(correct_idx, int):
-        idx = correct_idx
-    elif isinstance(correct_idx, str):
-        if len(correct_idx) == 1:
-            idx = ord(correct_idx.upper()) - 65
-
-    # Extract answer text
-    if 0 <= idx < len(options):
-        raw_opt = options[idx]
-        # Clean prefix like "A. ", "B. ", "[A]"
-        answer = re.sub(r"^\[?[A-D][\.\)\]]?\s+", "", raw_opt).strip()
-
-    return query, answer
-    if 0 <= idx < len(options):
-        raw_opt = options[idx]
-        # Clean prefix kiểu "A. ", "B. ", "[A]" bằng Regex cho sạch
-        # Pattern: Bắt đầu bằng A-D, theo sau là ., ), ] hoặc khoảng trắng
-        correct_text = re.sub(r"^\[?[A-D][\.\)\]]?\s+", "", raw_opt).strip()
-    else:
-        # Fallback nếu index sai (hiếm gặp)
-        return content
-
-    # 2. Thực hiện ghép câu (Statement Construction)
-    if "_" in content:
-        # Thay thế dấu gạch dưới đầu tiên tìm thấy
-        return content.replace("_", correct_text, 1)
-    else:
-        # Nối vào đuôi (thường là câu hỏi Wh- question)
-        # Thêm dấu cách nếu chưa có
-        return f"{content} {correct_text}"
-
-
-# ==========================================
-# 1. LEXICAL METRICS (BLEU & ROUGE)
-# ==========================================
-def compute_lexical_recall(
-    gt_texts: List[str], pred_texts: List[str]
-) -> Tuple[List[Tuple[float, float, int]], float, float]:
-    """
-    Tính BLEU-4 và ROUGE-L.
-    Strategy: Recall (Max Score). Với mỗi GT, tìm Pred khớp nhất.
-    Returns: (list of (bleu, rouge, best_pred_idx), mean_bleu, mean_rouge)
-    """
-    scorer = rouge_scorer.RougeScorer(["rougeL"], use_stemmer=True)
-    smooth_fn = SmoothingFunction().method1  # Smooth cho câu ngắn đỡ bị điểm 0
-
-    # Tokenize sơ bộ cho BLEU
-    gt_tokens_list = [nltk.word_tokenize(t.lower()) for t in gt_texts]
-    pred_tokens_list = [nltk.word_tokenize(t.lower()) for t in pred_texts]
-
-    detailed_scores = []
-
-    # Duyệt từng câu Ground Truth
-    for i, gt_toks in enumerate(gt_tokens_list):
-        current_gt_text = gt_texts[i]
-
-        max_b = 0.0
-        max_r = 0.0
-        best_pred_idx = -1
-
-        # So khớp với TOÀN BỘ câu Pred để tìm câu giống nhất
-        for j, pred_toks in enumerate(pred_tokens_list):
-            # BLEU-4
-            # weights=(0.25, 0.25, 0.25, 0.25) là mặc định cho BLEU-4
-            b_score = sentence_bleu([gt_toks], pred_toks, smoothing_function=smooth_fn)
-
-            # ROUGE-L
-            r_score = scorer.score(current_gt_text, pred_texts[j])["rougeL"].fmeasure
-
-            # Use combined score to find best match
-            combined = (b_score + r_score) / 2
-            if combined > (max_b + max_r) / 2:
-                max_b = b_score
-                max_r = r_score
-                best_pred_idx = j
-
-        detailed_scores.append((max_b, max_r, best_pred_idx))
-
-    mean_bleu = np.mean([s[0] for s in detailed_scores])
-    mean_rouge = np.mean([s[1] for s in detailed_scores])
-
-    return detailed_scores, mean_bleu, mean_rouge
-
-
-# ==========================================
-# 2. FAST SEMANTIC (BI-ENCODER)
-# ==========================================
-def compute_bi_encoder_score(
-    gt_texts: List[str], pred_texts: List[str], model: SentenceTransformer, device: str
-) -> Tuple[List[Tuple[float, int]], float]:
-    """
-    Dùng Bi-Encoder + Cosine Similarity.
-    Nhanh, dùng để đo độ tương đồng tổng quát.
-    Returns: (list of (score, best_pred_idx), mean_score)
-    """
-    # Encode thành Vector
-    gt_emb = model.encode(
-        gt_texts, convert_to_tensor=True, device=device, show_progress_bar=False
-    )
-    pred_emb = model.encode(
-        pred_texts, convert_to_tensor=True, device=device, show_progress_bar=False
-    )
-
-    # Tính ma trận Cosine Similarity [n_gt, n_pred]
-    cos_scores = util.cos_sim(gt_emb, pred_emb)
-
-    # Recall Strategy: Lấy max theo hàng (mỗi GT khớp với Pred tốt nhất)
-    # values, indices = torch.max(input, dim)
-    max_scores, max_indices = torch.max(cos_scores, dim=1)
-
-    detailed_scores = [
-        (score.item(), idx.item()) for score, idx in zip(max_scores, max_indices)
-    ]
-    mean_score = torch.mean(max_scores).item()
-
-    return detailed_scores, mean_score
-
-
-# ==========================================
-# 3. BLEURT METRIC
-# ==========================================
-def compute_bleurt_score(
-    gt_texts: List[str],
-    pred_texts: List[str],
-    model,
-    tokenizer,
-    device: str,
-    batch_size: int = 32,
-) -> Tuple[List[Tuple[float, int]], float]:
-    """
-    Dùng BLEURT để tính similarity.
-    Returns: (list of (score, best_pred_idx), mean_score)
-    """
-    model.eval()
-
-    # Create all pairs (GT, Pred) for scoring
-    n_gt = len(gt_texts)
-    n_pred = len(pred_texts)
-
-    if n_gt == 0 or n_pred == 0:
-        return [(0.0, -1)] * n_gt, 0.0
-
-    # Compute scores for all pairs in batches
-    all_scores = []
-
-    with torch.no_grad():
-        for i in range(0, n_gt * n_pred, batch_size):
-            batch_refs = []
-            batch_cands = []
-
-            # Create batch of pairs
-            for idx in range(i, min(i + batch_size, n_gt * n_pred)):
-                gt_idx = idx // n_pred
-                pred_idx = idx % n_pred
-                batch_refs.append(gt_texts[gt_idx])
-                batch_cands.append(pred_texts[pred_idx])
-
-            # Tokenize and compute scores
-            inputs = tokenizer(
-                batch_refs, batch_cands, padding="longest", return_tensors="pt"
-            )
-            inputs = {k: v.to(device) for k, v in inputs.items()}
-            scores = model(**inputs).logits.flatten().tolist()
-            all_scores.extend(scores)
-
-    # Reshape to matrix [n_gt, n_pred]
-    score_matrix = np.array(all_scores).reshape(n_gt, n_pred)
-
-    # Recall Strategy: get max for each GT
-    max_scores = np.max(score_matrix, axis=1)
-    max_indices = np.argmax(score_matrix, axis=1)
-
-    detailed_scores = [
-        (float(score), int(idx)) for score, idx in zip(max_scores, max_indices)
-    ]
-    mean_score = float(np.mean(max_scores))
-
-    return detailed_scores, mean_score
-
-
-# ==========================================
-# MAIN EVALUATION LOOP
-# ==========================================
-def evaluate_sample(
-    sample_id: int,
-    gt_questions: List[Dict],
-    pred_questions: List[Dict],
-    bi_model: SentenceTransformer,
-    bleurt_model,
-    bleurt_tokenizer,
-    device: str,
-) -> Dict:
-
-    if not gt_questions or not pred_questions:
-        return {
-            "id": sample_id,
-            "n_gt": len(gt_questions) if gt_questions else 0,
-            "n_pred": len(pred_questions) if pred_questions else 0,
-            "error": "Missing questions",
-        }
-
-    gt_texts = [format_question_text(q) for q in gt_questions]
-    pred_texts = [format_question_text(q) for q in pred_questions]
-
-    # 1. Lexical (BLEU/ROUGE)
-    lexical_detailed, bleu, rouge = compute_lexical_recall(gt_texts, pred_texts)
-
-    # 2. Simple Semantic (Bi-Encoder)
-    bi_detailed, bi_score = compute_bi_encoder_score(
-        gt_texts, pred_texts, bi_model, device
-    )
-
-    # 3. BLEURT
-    bleurt_detailed, bleurt_score = compute_bleurt_score(
-        gt_texts, pred_texts, bleurt_model, bleurt_tokenizer, device
-    )
-
-    # Build individual question scores
-    question_scores = []
-    for i, gt_q in enumerate(gt_questions):
-        # Get best matching prediction index (use bleurt as primary)
-        best_pred_idx = bleurt_detailed[i][1]
-
-        # Get the matched prediction
-        matched_pred = pred_questions[best_pred_idx] if best_pred_idx >= 0 else None
-
-        question_scores.append(
-            {
-                "gt_question": gt_q,
-                "gt_text": gt_texts[i],
-                "matched_pred_idx": best_pred_idx,
-                "matched_pred_question": matched_pred,
-                "matched_pred_text": (
-                    pred_texts[best_pred_idx] if best_pred_idx >= 0 else None
-                ),
-                "scores": {
-                    "bleu4": lexical_detailed[i][0],
-                    "rougeL": lexical_detailed[i][1],
-                    "cosine_sim": bi_detailed[i][0],
-                    "bleurt": bleurt_detailed[i][0],
-                },
-            }
-        )
-
-    return {
-        "id": sample_id,
-        "n_gt": len(gt_questions),
-        "n_pred": len(pred_questions),
-        "question_scores": question_scores,
-    }
-
-
-def compute_source_metrics(
-    results: List[Dict],
-    gt_data: List[Dict],
-    gt_qs_map: Dict[int, List[Dict]],
-    pred_qs_map: Dict[int, List[Dict]],
-) -> Dict[str, Dict]:
-    """Compute aggregate metrics for each source
+def load_predictions(predictions_path: str) -> List[dict]:
+    """Load predictions from JSON file
 
     Args:
-        results: List of evaluation results per sample
-        gt_data: Original ground truth data (to get source info)
-        gt_qs_map: Ground truth questions by sample ID
-        pred_qs_map: Predicted questions by sample ID
+        predictions_path: Path to the predictions.json file
 
     Returns:
-        Dictionary mapping source name to aggregated metrics
+        List of prediction items
     """
-    # Group results by source
-    results_by_source = {}
+    with open(predictions_path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
-    for r in results:
-        if "error" in r:
+
+def format_questions_for_eval(questions: List[Dict]) -> str:
+    """Format questions list into a string for evaluation prompt
+
+    Args:
+        questions: List of question dictionaries
+
+    Returns:
+        Formatted string representation of questions
+    """
+    lines = []
+    for i, q in enumerate(questions, 1):
+        lines.append(f"### Question {i}")
+        lines.append(f"Level: {q.get('level', 'Unknown')}")
+        lines.append(f"Question: {q['content']}")
+        lines.append("Options:")
+        for j, opt in enumerate(q["options"]):
+            letter = chr(65 + j)  # A, B, C, D
+            lines.append(f"  {letter}. {opt}")
+        correct_letter = chr(65 + q["correct"])
+        lines.append(f"Correct Answer: {correct_letter}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def parse_eval_output(output: str, num_questions: int) -> List[Dict]:
+    """Parse evaluation output from LLM
+
+    Expected format:
+    ### Question [number]
+    Level: [1-3]
+    1. Solvability:
+    - Reasoning: [text]
+    - Score: [0 or 1]
+    2. Distractor Quality:
+    - Reasoning: [text]
+    - Score: [1-5]
+    3. Alignment:
+    - Reasoning: [text]
+    - Score: [0 or 1]
+
+    Args:
+        output: Raw LLM output text
+        num_questions: Expected number of questions
+
+    Returns:
+        List of evaluation dictionaries
+    """
+    evaluations = []
+
+    # Normalize ### markers
+    normalized_output = re.sub(r"^#{1,4}\s+", "###", output, flags=re.MULTILINE)
+
+    # Split by ### Question
+    blocks = re.split(r"###\s*Question\s+(\d+)", normalized_output, flags=re.IGNORECASE)
+
+    # blocks[0] is text before first question, then alternating question numbers and content
+    for i in range(1, len(blocks), 2):
+        if i + 1 >= len(blocks):
+            break
+
+        question_num = blocks[i].strip()
+        content = blocks[i + 1].strip()
+
+        try:
+            # Parse Solvability
+            solvability_reasoning = ""
+            solvability_score = None
+
+            # Find solvability section
+            solvability_match = re.search(
+                r"1\.\s*Solvability:?\s*\n\s*-\s*Reasoning:?\s*(.+?)\n\s*-\s*Score:?\s*(\d+)",
+                content,
+                re.IGNORECASE | re.DOTALL,
+            )
+            if solvability_match:
+                solvability_reasoning = solvability_match.group(1).strip()
+                solvability_score = int(solvability_match.group(2))
+
+            # Parse Distractor Quality
+            distractor_reasoning = ""
+            distractor_score = None
+
+            distractor_match = re.search(
+                r"2\.\s*Distractor Quality:?\s*\n\s*-\s*Reasoning:?\s*(.+?)\n\s*-\s*Score:?\s*(\d+)",
+                content,
+                re.IGNORECASE | re.DOTALL,
+            )
+            if distractor_match:
+                distractor_reasoning = distractor_match.group(1).strip()
+                distractor_score = int(distractor_match.group(2))
+
+            # Parse Alignment
+            alignment_reasoning = ""
+            alignment_score = None
+
+            alignment_match = re.search(
+                r"3\.\s*Alignment:?\s*\n\s*-\s*Reasoning:?\s*(.+?)\n\s*-\s*Score:?\s*(\d+)",
+                content,
+                re.IGNORECASE | re.DOTALL,
+            )
+            if alignment_match:
+                alignment_reasoning = alignment_match.group(1).strip()
+                alignment_score = int(alignment_match.group(2))
+
+            # Only add if we have at least some valid data
+            if any(
+                [
+                    solvability_score is not None,
+                    distractor_score is not None,
+                    alignment_score is not None,
+                ]
+            ):
+                evaluations.append(
+                    {
+                        "question_number": int(question_num),
+                        "solvability": {
+                            "reasoning": solvability_reasoning,
+                            "score": solvability_score,
+                        },
+                        "distractor_quality": {
+                            "reasoning": distractor_reasoning,
+                            "score": distractor_score,
+                        },
+                        "alignment": {
+                            "reasoning": alignment_reasoning,
+                            "score": alignment_score,
+                        },
+                    }
+                )
+
+        except Exception as e:
+            print(f"Warning: Failed to parse question {question_num}: {str(e)}")
             continue
 
-        # Get source for this sample
-        source = get_source_from_data(gt_data, r["id"])
+    return evaluations
 
-        if source not in results_by_source:
-            results_by_source[source] = []
 
-        results_by_source[source].append(r)
+def evaluate_questions(
+    content: str,
+    questions: List[Dict],
+    model: str,
+    prompt_template: str,
+    openrouter_api_key: str,
+    max_retries: int = 3,
+) -> List[Dict]:
+    """Evaluate questions using LLM
 
-    # Compute metrics for each source
-    source_metrics = {}
+    Args:
+        content: Source text content
+        questions: List of generated questions
+        model: Model ID to use
+        prompt_template: Prompt template with {content} and {questions} placeholders
+        openrouter_api_key: OpenRouter API key
+        max_retries: Maximum number of retries
 
-    for source, source_results in results_by_source.items():
-        # Collect all question scores across samples in this source
-        all_bleu = []
-        all_rouge = []
-        all_cosine = []
-        all_bleurt = []
+    Returns:
+        List of evaluation dictionaries
+    """
+    # Initialize LLM
+    llm = ChatOpenAI(
+        model=model,
+        openai_api_key=openrouter_api_key,
+        openai_api_base="https://openrouter.ai/api/v1",
+        temperature=0.0,
+    )
 
-        total_gt = 0
-        total_pred = 0
+    # Format questions for prompt
+    questions_text = format_questions_for_eval(questions)
 
-        # Collect all GT and Pred texts for this source (for MAUVE)
-        source_gt_texts = []
-        source_pred_texts = []
+    # Create full prompt
+    full_prompt = prompt_template.replace("{content}", content).replace(
+        "{questions}", questions_text
+    )
 
-        # Collect query-answer pairs for FBD
-        source_gt_queries = []
-        source_gt_answers = []
-        source_pred_queries = []
-        source_pred_answers = []
+    # Retry loop
+    last_error = None
+    for attempt in range(max_retries):
+        try:
+            # Generate evaluation
+            response = llm.invoke(full_prompt)
+            output = response.content
 
-        for r in source_results:
-            scores = r["question_scores"]
-            total_gt += r["n_gt"]
-            total_pred += r["n_pred"]
+            print(output)
 
-            # Get questions for this sample
-            sample_id = r["id"]
-            gt_qs = gt_qs_map.get(sample_id, [])
-            pred_qs = pred_qs_map.get(sample_id, [])
+            # Check if output is empty
+            if not output.strip():
+                print(f"Warning: LLM returned empty output")
+                return []
 
-            # Select only best matching pred for each GT (for MAUVE/FBD)
-            # This applies to ALL datasets to ensure fair comparison (n_pred = n_gt)
-            selected_pred_qs = []
-            for q_score in scores:
-                best_pred_idx = q_score["matched_pred_idx"]
-                if best_pred_idx >= 0 and best_pred_idx < len(pred_qs):
-                    selected_pred_qs.append(pred_qs[best_pred_idx])
+            # Parse output
+            evaluations = parse_eval_output(output, len(questions))
 
-            # Use selected predictions for MAUVE/FBD (n_pred = n_gt for all sources)
-            pred_qs_for_corpus = selected_pred_qs
+            return evaluations
 
-            # Format to text for MAUVE
-            source_gt_texts.extend([format_question_text(q) for q in gt_qs])
-            source_pred_texts.extend(
-                [format_question_text(q) for q in pred_qs_for_corpus]
+        except Exception as e:
+            last_error = e
+            if attempt < max_retries - 1:
+                print(f"Attempt {attempt + 1} failed: {str(e)}, retrying...")
+                continue
+            else:
+                raise Exception(
+                    f"Failed after {max_retries} attempts. Last error: {str(e)}"
+                )
+
+    raise Exception(f"Unexpected failure: {str(last_error)}")
+
+
+def print_sample_scores(item_id: str, evaluations: List[Dict]) -> None:
+    """Print detailed scores for a sample
+
+    Args:
+        item_id: Item ID
+        evaluations: List of evaluation dictionaries
+    """
+    print(f"\n{'='*80}")
+    print(f"Sample ID: {item_id}")
+    print(f"{'='*80}")
+
+    for eval_item in evaluations:
+        q_num = eval_item.get("question_number", "?")
+        level = eval_item.get("level", "?")
+
+        solv_score = eval_item.get("solvability", {}).get("score", "N/A")
+        dist_score = eval_item.get("distractor_quality", {}).get("score", "N/A")
+        align_score = eval_item.get("alignment", {}).get("score", "N/A")
+
+        print(
+            f"  Q{q_num} (L{level}): Solvability={solv_score}, Distractor={dist_score}, Alignment={align_score}"
+        )
+
+    print(f"{'='*80}\n")
+
+
+def process_single_job(
+    item_id: str,
+    content: str,
+    questions: List[Dict],
+    model: str,
+    prompt: str,
+    api_key: str,
+) -> Tuple[str, any]:
+    """Process a single evaluation job
+
+    Args:
+        item_id: Item ID
+        content: Source text content
+        questions: List of questions to evaluate
+        model: Model ID to use
+        prompt: Prompt template string
+        api_key: OpenRouter API key
+
+    Returns:
+        Tuple of (item_id, evaluations or error_dict)
+    """
+    try:
+        result = evaluate_questions(
+            content=content,
+            questions=questions,
+            model=model,
+            prompt_template=prompt,
+            openrouter_api_key=api_key,
+        )
+
+        # Add level information to each evaluation based on original question
+        # Match evaluation to question by question_number
+        if result and isinstance(result, list):
+            for eval_item in result:
+                q_num = eval_item.get("question_number")
+                if q_num and q_num <= len(questions):
+                    # Get level from original question (1-indexed)
+                    eval_item["level"] = questions[q_num - 1].get("level")
+
+            print_sample_scores(item_id, result)
+
+        return (item_id, result)
+
+    except Exception as e:
+        return (item_id, {"error": str(e)})
+
+
+def calculate_statistics(eval_results: List[dict]) -> Dict:
+    """Calculate statistics from evaluation results
+
+    Args:
+        eval_results: List of evaluation result items
+
+    Returns:
+        Dictionary with statistics
+    """
+    stats = {
+        "overall": {
+            "total_items": len(eval_results),
+            "successful_items": 0,
+            "failed_items": 0,
+            "total_questions": 0,
+        },
+        "by_level": {
+            1: {
+                "count": 0,
+                "solvability": [],
+                "distractor_quality": [],
+                "alignment": [],
+            },
+            2: {
+                "count": 0,
+                "solvability": [],
+                "distractor_quality": [],
+                "alignment": [],
+            },
+            3: {
+                "count": 0,
+                "solvability": [],
+                "distractor_quality": [],
+                "alignment": [],
+            },
+        },
+        "averages": {"overall": {}, "by_level": {}},
+    }
+
+    for item in eval_results:
+        if "error" in item:
+            stats["overall"]["failed_items"] += 1
+            continue
+
+        stats["overall"]["successful_items"] += 1
+
+        if "evaluations" in item:
+            for eval_item in item["evaluations"]:
+                level = eval_item.get("level")
+                if level not in [1, 2, 3]:
+                    continue
+
+                stats["overall"]["total_questions"] += 1
+                stats["by_level"][level]["count"] += 1
+
+                # Collect scores
+                if eval_item.get("solvability", {}).get("score") is not None:
+                    stats["by_level"][level]["solvability"].append(
+                        eval_item["solvability"]["score"]
+                    )
+
+                if eval_item.get("distractor_quality", {}).get("score") is not None:
+                    stats["by_level"][level]["distractor_quality"].append(
+                        eval_item["distractor_quality"]["score"]
+                    )
+
+                if eval_item.get("alignment", {}).get("score") is not None:
+                    stats["by_level"][level]["alignment"].append(
+                        eval_item["alignment"]["score"]
+                    )
+
+    # Calculate averages
+    all_solvability = []
+    all_distractor = []
+    all_alignment = []
+
+    for level in [1, 2, 3]:
+        level_data = stats["by_level"][level]
+        level_stats = {}
+
+        if level_data["solvability"]:
+            avg = sum(level_data["solvability"]) / len(level_data["solvability"])
+            level_stats["solvability"] = round(avg, 3)
+            all_solvability.extend(level_data["solvability"])
+
+        if level_data["distractor_quality"]:
+            avg = sum(level_data["distractor_quality"]) / len(
+                level_data["distractor_quality"]
             )
+            level_stats["distractor_quality"] = round(avg, 3)
+            all_distractor.extend(level_data["distractor_quality"])
 
-            # Extract query-answer pairs for FBD
-            for q in gt_qs:
-                query, answer = extract_query_answer(q)
-                source_gt_queries.append(query)
-                source_gt_answers.append(answer)
+        if level_data["alignment"]:
+            avg = sum(level_data["alignment"]) / len(level_data["alignment"])
+            level_stats["alignment"] = round(avg, 3)
+            all_alignment.extend(level_data["alignment"])
 
-            for q in pred_qs_for_corpus:
-                query, answer = extract_query_answer(q)
-                source_pred_queries.append(query)
-                source_pred_answers.append(answer)
+        stats["averages"]["by_level"][level] = level_stats
 
-            for q in scores:
-                all_bleu.append(q["scores"]["bleu4"])
-                all_rouge.append(q["scores"]["rougeL"])
-                all_cosine.append(q["scores"]["cosine_sim"])
-                all_bleurt.append(q["scores"]["bleurt"])
+    # Overall averages
+    if all_solvability:
+        stats["averages"]["overall"]["solvability"] = round(
+            sum(all_solvability) / len(all_solvability), 3
+        )
 
-        # Compute MAUVE for this source
-        mauve_score = None
-        if HAVE_MAUVE and source_gt_texts and source_pred_texts:
-            try:
-                device_id = 0 if torch.cuda.is_available() else -1
-                out = mauve.compute_mauve(
-                    p_text=source_gt_texts,
-                    q_text=source_pred_texts,
-                    featurize_model_name="gpt2",
-                    device_id=device_id,
-                    verbose=False,
-                )
-                mauve_score = float(getattr(out, "mauve", out))
-            except Exception as e:
-                print(f"  Warning: MAUVE computation failed for source {source}: {e}")
-                mauve_score = None
+    if all_distractor:
+        stats["averages"]["overall"]["distractor_quality"] = round(
+            sum(all_distractor) / len(all_distractor), 3
+        )
 
-        # Compute FBD for this source
-        fbd_score = None
-        if HAVE_FBD and source_gt_queries and source_pred_queries:
-            try:
-                device_str = "gpu" if torch.cuda.is_available() else "cpu"
-                # Use default BERT model path - FBD will use bert-base-uncased if not specified
-                fbd_score = calculate_fbd(
-                    source_querys=source_gt_queries,
-                    source_answers=source_gt_answers,
-                    target_querys=source_pred_queries,
-                    target_answers=source_pred_answers,
-                    is_chinese=0,  # English dataset
-                    pretrained_model_path="bert-base-uncased",
-                    batch_size=32,
-                    device=device_str,
-                )
-            except Exception as e:
-                print(f"  Warning: FBD computation failed for source {source}: {e}")
-                fbd_score = None
+    if all_alignment:
+        stats["averages"]["overall"]["alignment"] = round(
+            sum(all_alignment) / len(all_alignment), 3
+        )
 
-        source_metrics[source] = {
-            "n_samples": len(source_results),
-            "total_gt_questions": total_gt,
-            "total_pred_questions": total_pred,
-            "avg_bleu": np.mean(all_bleu) if all_bleu else 0.0,
-            "avg_rouge": np.mean(all_rouge) if all_rouge else 0.0,
-            "avg_cosine": np.mean(all_cosine) if all_cosine else 0.0,
-            "avg_bleurt": np.mean(all_bleurt) if all_bleurt else 0.0,
-            "mauve": mauve_score,
-            "fbd": fbd_score,
-        }
+    # Remove raw score lists (keep only averages)
+    for level in [1, 2, 3]:
+        del stats["by_level"][level]["solvability"]
+        del stats["by_level"][level]["distractor_quality"]
+        del stats["by_level"][level]["alignment"]
 
-    return source_metrics
+    return stats
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--ground-truth",
-        type=str,
-        default="./datasets/unified/data.json",
-        help="Path JSON GT",
+    parser = argparse.ArgumentParser(
+        description="Evaluate generated multiple-choice questions using LLMs"
     )
     parser.add_argument(
         "--model",
         type=str,
-        required=True,
-        help="Model ID (e.g., 'meta-llama_llama-3.1-8b-instruct')",
+        default="anthropic/claude-3.5-sonnet",
+        help="Model ID to use for evaluation (e.g., 'anthropic/claude-3.5-sonnet', 'openai/gpt-4')",
+    )
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=128,
+        help="Number of parallel workers (default: 128)",
+    )
+    parser.add_argument(
+        "--data-path",
+        type=str,
+        default="datasets/unified/data.json",
+        help="Path to the unified data.json file",
+    )
+    parser.add_argument(
+        "--prompt-path",
+        type=str,
+        default="prompts/eval.md",
+        help="Path to the evaluation prompt file",
+    )
+    parser.add_argument(
+        "--judge-model",
+        type=str,
+        default=None,
+        help="Judge model ID to use for evaluation (defaults to --model if not specified)",
     )
     parser.add_argument(
         "--sources",
         type=str,
         nargs="+",
-        required=True,
-        help="Dataset source(s) to evaluate (e.g., 'race', 'dream', 'reclor')",
+        default=None,
+        help="Filter by source(s) (e.g., 'race', 'dream'). Default: all sources",
     )
+
     args = parser.parse_args()
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    print(f"Running on: {device}")
-    print(f"Model: {args.model}")
-    print(f"Evaluating sources: {', '.join(args.sources)}")
+    # Set judge model (defaults to main model if not specified)
+    judge_model = args.judge_model if args.judge_model else args.model
+    judge_model_id = judge_model.replace("/", "_")
 
-    # Format model ID for path (replace / with _)
+    # Get model_id from model name
     model_id = args.model.replace("/", "_")
-    print(f"Model ID for paths: {model_id}")
 
-    # --- LOAD DATA ---
-    gt_data = load_json(args.ground_truth)
-
-    # Filter GT data by sources
-    sources_lower = [s.lower() for s in args.sources]
-    gt_data = [
-        item for item in gt_data if item.get("source", "").lower() in sources_lower
-    ]
-
-    if not gt_data:
+    # Validate sources parameter
+    if not args.sources:
         raise ValueError(
-            f"No ground truth data found for sources: {', '.join(args.sources)}"
+            "Error: --sources parameter is required. Please specify which dataset(s) to evaluate.\n"
+            "Example: --sources reclor, --sources race, or --sources race dream"
         )
+
+    # Get API key from environment variable
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    if not api_key:
+        raise ValueError(
+            "OpenRouter API key not found. Please set OPENROUTER_API_KEY environment variable"
+        )
+
+    # Load the evaluation prompt
+    print(f"Loading prompt from {args.prompt_path}...")
+    prompt = load_prompt(args.prompt_path)
+    print(f"Prompt loaded successfully")
+
+    # Load unified data
+    print(f"Loading data from {args.data_path}...")
+    data = load_data(args.data_path)
+    data_dict = {item["id"]: item for item in data}
+    print(f"Loaded {len(data)} items")
+
+    print(f"\nQuestion generation model: {args.model}")
+    print(f"Model ID: {model_id}")
+    print(f"Judge model: {judge_model}")
+    print(f"Judge model ID: {judge_model_id}")
+    print(f"Using {args.workers} parallel workers")
+    print(f"Processing sources: {', '.join(args.sources)}")
 
     # Process each source separately
     for source in args.sources:
@@ -624,215 +547,156 @@ def main():
         print(f"Processing source: {source.upper()}")
         print(f"{'='*100}")
 
-        # Load predictions for this source
-        predictions_path = Path(f"outputs/{source_lower}/{model_id}/predictions.json")
+        # Construct predictions path: outputs/{source}/{model_id}/predictions.json
+        predictions_path = (
+            Path("outputs") / source_lower / model_id / "predictions.json"
+        )
+
         if not predictions_path.exists():
             print(
                 f"Warning: Predictions file not found at {predictions_path}, skipping..."
             )
             continue
 
-        pred_data = load_json(str(predictions_path))
+        # Load predictions for this source
+        print(f"Loading predictions from {predictions_path}...")
+        predictions = load_predictions(str(predictions_path))
+        print(f"Loaded {len(predictions)} predictions")
 
-        # Filter GT and predictions for this source only
-        source_gt_data = [
-            item for item in gt_data if item.get("source", "").lower() == source_lower
-        ]
-        source_pred_data = [
-            item for item in pred_data if item.get("source", "").lower() == source_lower
-        ]
+        # Determine output path (same directory as predictions.json)
+        output_path = predictions_path.parent / "eval.json"
+        print(f"Output will be saved to: {output_path}")
 
-        if not source_gt_data:
-            print(f"Warning: No ground truth data for source {source}, skipping...")
-            continue
+        # Process items in parallel with multithreading
+        job_results = []
+        total_jobs = 0
 
-        if not source_pred_data:
-            print(f"Warning: No prediction data for source {source}, skipping...")
-            continue
+        # Count valid jobs (predictions with questions and matching data)
+        valid_predictions = []
+        for pred in predictions:
+            if "error" in pred or "generated_questions" not in pred:
+                continue
+            if pred["id"] not in data_dict:
+                print(f"Warning: No matching data found for prediction ID {pred['id']}")
+                continue
+            valid_predictions.append(pred)
 
-        gt_qs_map = extract_questions(source_gt_data)
-        pred_qs_map = extract_questions(source_pred_data)
+        total_jobs = len(valid_predictions)
+        print(f"Total jobs to process: {total_jobs}")
 
-        common_ids = sorted(list(set(gt_qs_map.keys()) & set(pred_qs_map.keys())))
+        with ThreadPoolExecutor(max_workers=args.workers) as executor:
+            # Submit all jobs
+            future_to_job = {}
+            for pred in valid_predictions:
+                item_id = pred["id"]
+                content = data_dict[item_id]["content"]
+                questions = pred["generated_questions"]
 
-        if not common_ids:
-            print(
-                f"Warning: No common samples between GT and predictions for {source}, skipping..."
-            )
-            continue
-
-        # Calculate total questions for info
-        total_gt_questions = sum(len(gt_qs_map[sid]) for sid in common_ids)
-        total_pred_questions = sum(len(pred_qs_map[sid]) for sid in common_ids)
-
-        print(f"Evaluating {len(common_ids)} common samples...")
-        print(f"Total GT questions: {total_gt_questions}")
-        print(f"Total Pred questions: {total_pred_questions} (from all sets)")
-
-        # Detect if predictions use k-sets format
-        sample_pred = source_pred_data[0] if source_pred_data else {}
-        has_multiple_sets = "num_sets" in sample_pred
-        if has_multiple_sets:
-            num_sets = sample_pred.get("num_sets", 1)
-            print(f"Detected k-sets format with k={num_sets} sets per sample")
-            print(
-                f"Evaluating with best score strategy across all questions from all sets"
-            )
-
-        # --- LOAD MODELS (only once, outside the loop would be better but keeping here for clarity) ---
-        if source == args.sources[0]:  # Load models only once
-            print("\nLoading evaluation models...")
-            print("Loading Bi-Encoder (Fast Cosine)...")
-            bi_model = SentenceTransformer(
-                "sentence-transformers/all-MiniLM-L12-v2", device=device
-            )
-
-            print("Loading BLEURT (Learned Semantic Similarity)...")
-            if not HAVE_BLEURT:
-                print(
-                    "Warning: BLEURT not available. Install bleurt-pytorch to use BLEURT metric."
+                future = executor.submit(
+                    process_single_job,
+                    item_id,
+                    content,
+                    questions,
+                    judge_model,
+                    prompt,
+                    api_key,
                 )
-                bleurt_model = None
-                bleurt_tokenizer = None
+                future_to_job[future] = item_id
+
+            # Process completed jobs with progress bar
+            with tqdm(
+                total=total_jobs, desc=f"Evaluating {source}", unit="item"
+            ) as pbar:
+                for future in as_completed(future_to_job):
+                    item_id = future_to_job[future]
+                    result = future.result()
+                    job_results.append(result)
+
+                    # Log errors without stopping progress bar
+                    if (
+                        len(result) == 2
+                        and isinstance(result[1], dict)
+                        and "error" in result[1]
+                    ):
+                        tqdm.write(f"✗ Error in item {item_id}: {result[1]['error']}")
+
+                    pbar.update(1)
+
+        # Build final evaluation results
+        eval_results = []
+        for item_id, evaluations_or_error in job_results:
+            if (
+                isinstance(evaluations_or_error, dict)
+                and "error" in evaluations_or_error
+            ):
+                eval_results.append(
+                    {
+                        "id": item_id,
+                        "source": data_dict[item_id].get("source", "unknown"),
+                        "error": evaluations_or_error["error"],
+                    }
+                )
             else:
-                from bleurt_pytorch import (
-                    BleurtConfig,
-                    BleurtForSequenceClassification,
-                    BleurtTokenizer,
+                eval_results.append(
+                    {
+                        "id": item_id,
+                        "source": data_dict[item_id].get("source", "unknown"),
+                        "evaluations": evaluations_or_error,
+                    }
                 )
 
-                bleurt_model_name = "lucadiliello/BLEURT-20-D12"
-                bleurt_config = BleurtConfig.from_pretrained(bleurt_model_name)
-                bleurt_model = BleurtForSequenceClassification.from_pretrained(
-                    bleurt_model_name
-                )
-                bleurt_tokenizer = BleurtTokenizer.from_pretrained(bleurt_model_name)
-                bleurt_model.to(device)
-                bleurt_model.eval()
+        # Sort by ID
+        eval_results.sort(key=lambda x: x["id"])
 
-        # --- EVALUATE EACH SAMPLE ---
-        results = []
+        # Calculate statistics
+        print("\nCalculating statistics...")
+        stats = calculate_statistics(eval_results)
 
-        for sid in tqdm(common_ids, desc=f"Evaluating {source}"):
-            res = evaluate_sample(
-                sid,
-                gt_qs_map[sid],
-                pred_qs_map[sid],
-                bi_model,
-                bleurt_model,
-                bleurt_tokenizer,
-                device,
-            )
-            results.append(res)
+        # Prepare final output
+        output_data = {
+            "metadata": {
+                "predictions_path": str(predictions_path),
+                "data_path": args.data_path,
+                "question_generation_model": args.model,
+                "judge_model": judge_model,
+                "judge_model_id": judge_model_id,
+                "prompt_path": args.prompt_path,
+                "source": source,
+            },
+            "statistics": stats,
+            "results": eval_results,
+        }
 
-        # --- CALCULATE AGGREGATE METRICS FOR DISPLAY ---
-        valid_res = [r for r in results if "error" not in r]
+        # Save evaluation results
+        print(f"\nSaving evaluation results to {output_path}...")
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(output_data, f, indent=2, ensure_ascii=False)
 
-        if valid_res:
-            # Compute metrics by source (including MAUVE per source)
-            print(f"\nComputing metrics for {source} (including MAUVE and FBD)...")
-            source_metrics = compute_source_metrics(
-                results, source_gt_data, gt_qs_map, pred_qs_map
-            )
+        print(
+            f"✓ Done! Evaluated {len(valid_predictions)} items for {source}, saved to {output_path}"
+        )
 
-            # Print metrics for this source
-            for src, metrics in source_metrics.items():
-                print(f"\n### Source: {src.upper()} ###")
-                print(f"  Samples: {metrics['n_samples']}")
-                print(f"  GT Questions: {metrics['total_gt_questions']}")
-                print(f"  Pred Questions: {metrics['total_pred_questions']}")
+        # Print summary for this source
+        print(f"\nSummary for {source}:")
+        print(f"  Total items: {stats['overall']['total_items']}")
+        print(f"  Successful: {stats['overall']['successful_items']}")
+        print(f"  Failed: {stats['overall']['failed_items']}")
+        print(f"  Total questions evaluated: {stats['overall']['total_questions']}")
 
-                source_table = [
-                    [
-                        "BLEU-4",
-                        f"{metrics['avg_bleu']:.4f}",
-                        "Lexical Precision (n-grams)",
-                    ],
-                    ["ROUGE-L", f"{metrics['avg_rouge']:.4f}", "Lexical Recall (LCS)"],
-                    [
-                        "Cosine Sim",
-                        f"{metrics['avg_cosine']:.4f}",
-                        "Bi-Encoder (Surface Similarity)",
-                    ],
-                    [
-                        "BLEURT",
-                        f"{metrics['avg_bleurt']:.4f}",
-                        "Learned Semantic Similarity",
-                    ],
-                ]
+        print(f"\n  Average Scores (Overall):")
+        for metric, score in stats["averages"]["overall"].items():
+            print(f"    {metric.replace('_', ' ').title()}: {score}")
 
-                # Add MAUVE if available for this source
-                if metrics.get("mauve") is not None:
-                    source_table.append(
-                        [
-                            "MAUVE",
-                            f"{metrics['mauve']:.4f}",
-                            "Corpus-level Semantic/Diversity",
-                        ]
-                    )
-
-                # Add FBD if available for this source
-                if metrics.get("fbd") is not None:
-                    source_table.append(
-                        [
-                            "FBD",
-                            f"{metrics['fbd']:.4f}",
-                            "Frechet BERT Distance (lower is better)",
-                        ]
-                    )
-
-                headers = ["Metric", "Score", "Description"]
-                print(tabulate(source_table, headers=headers, tablefmt="fancy_grid"))
-
-                # Print Excel-friendly format (tab-separated for easy copy-paste)
-                print(f"\n📊 Copy to Excel:")
-                print("-" * 80)
-                # Header row
-                excel_header = "BLEU-4 ROUGE-L Cosine Sim BLEURT MAUVE FBD"
-                print(excel_header)
-                # Data row
-                excel_data = f"{metrics['avg_bleu']:.4f} {metrics['avg_rouge']:.4f} {metrics['avg_cosine']:.4f} {metrics['avg_bleurt']:.4f} "
-                if metrics.get("mauve") is not None:
-                    excel_data += f"{metrics['mauve']:.4f} "
-                else:
-                    excel_data += "N/A "
-                if metrics.get("fbd") is not None:
-                    excel_data += f"{metrics['fbd']:.4f}"
-                else:
-                    excel_data += "N/A"
-                print(excel_data)
-                print("-" * 80)
-
-            # Count total questions
-            total_questions = sum(len(r["question_scores"]) for r in valid_res)
-            print(f"\nTotal processed: {len(valid_res)} samples")
-            print(f"Total ground truth questions evaluated: {total_questions}")
-
-            # --- SAVE RESULTS ---
-            output_dir = Path(f"outputs/{source_lower}/{model_id}")
-            output_dir.mkdir(parents=True, exist_ok=True)
-
-            # Save detailed results
-            eval_output_path = output_dir / "eval_results.json"
-            print(f"\nSaving evaluation results to {eval_output_path}...")
-
-            output_data = {
-                "source_metrics": source_metrics,
-                "detailed_results": results,
-            }
-
-            with open(eval_output_path, "w", encoding="utf-8") as f:
-                json.dump(output_data, f, indent=2, ensure_ascii=False)
-
-            print(
-                f"✓ Evaluation complete for {source}! Results saved to {eval_output_path}"
-            )
-
-        else:
-            print(f"\nNo valid results for {source}.")
+        print(f"\n  Average Scores by Level:")
+        for level in [1, 2, 3]:
+            level_stats = stats["averages"]["by_level"].get(level, {})
+            count = stats["by_level"][level]["count"]
+            print(f"    Level {level} ({count} questions):")
+            for metric, score in level_stats.items():
+                print(f"      {metric.replace('_', ' ').title()}: {score}")
 
     print("\n" + "=" * 100)
-    print("ALL EVALUATIONS COMPLETE")
+    print("ALL SOURCES COMPLETE")
     print("=" * 100)
 
 
