@@ -190,7 +190,7 @@ def compare_models(
 
     # Randomly swap positions to avoid position bias
     swap_positions = random.choice([True, False])
-    
+
     if swap_positions:
         # Model A -> Position 2, Model B -> Position 1
         output_position_1 = format_questions_for_comparison(questions_b)
@@ -224,18 +224,22 @@ def compare_models(
 
             # Parse output
             comparison = parse_macro_eval_output(output)
-            
+
             # Adjust result if positions were swapped
             # If swapped: Judge's 1 means Model B wins, 2 means Model A wins
             # We need to flip back to original: 1 = Model A, 2 = Model B
             if swap_positions and comparison.get("result") is not None:
                 original_result = comparison["result"]
                 if original_result == 1:
-                    comparison["result"] = 2  # Judge said position 1 wins -> Model B wins
+                    comparison["result"] = (
+                        2  # Judge said position 1 wins -> Model B wins
+                    )
                 elif original_result == 2:
-                    comparison["result"] = 1  # Judge said position 2 wins -> Model A wins
+                    comparison["result"] = (
+                        1  # Judge said position 2 wins -> Model A wins
+                    )
                 # result == 0 (tie) stays the same
-            
+
             # Add metadata about position swap
             comparison["position_swapped"] = swap_positions
 
@@ -254,7 +258,9 @@ def compare_models(
     raise Exception(f"Unexpected failure: {str(last_error)}")
 
 
-def print_comparison_result(item_id: str, comparison: Dict, model_a_id: str, model_b_id: str) -> None:
+def print_comparison_result(
+    item_id: str, comparison: Dict, model_a_id: str, model_b_id: str
+) -> None:
     """Print comparison result for a sample
 
     Args:
