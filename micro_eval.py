@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def load_prompt(prompt_path: str = "prompts/eval.md") -> str:
+def load_prompt(prompt_path: str = "prompts/micro_eval.md") -> str:
     """Load the evaluation prompt file
 
     Args:
@@ -482,7 +482,7 @@ def main():
     parser.add_argument(
         "--prompt-path",
         type=str,
-        default="prompts/eval.md",
+        default="prompts/micro_eval.md",
         help="Path to the evaluation prompt file",
     )
     parser.add_argument(
