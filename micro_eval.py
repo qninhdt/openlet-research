@@ -215,8 +215,10 @@ def evaluate_questions(
     llm = ChatOpenAI(
         model=model,
         openai_api_key=openrouter_api_key,
+        # openai_api_base="https://api.novita.ai/openai",
         openai_api_base="https://openrouter.ai/api/v1",
         temperature=0.0,
+        extra_body={"reasoning": {"effort": "none"}},
     )
 
     # Format questions for prompt
@@ -517,6 +519,7 @@ def main():
 
     # Get API key from environment variable
     api_key = os.environ.get("OPENROUTER_API_KEY")
+    # api_key = os.getenv("NOVITAAI_API_KEY")
     if not api_key:
         raise ValueError(
             "OpenRouter API key not found. Please set OPENROUTER_API_KEY environment variable"

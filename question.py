@@ -213,6 +213,14 @@ def generate_questions(
         openai_api_key=openrouter_api_key,
         openai_api_base="https://openrouter.ai/api/v1",
         temperature=0.0,
+        max_tokens=8192,
+        extra_body={
+            "provider": {
+                "sort": {
+                    "by": "throughput",
+                }
+            },
+        },
     )
 
     # Create full prompt with content and n

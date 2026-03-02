@@ -1,0 +1,346 @@
+%==============================================================================
+% Dàn ý chi tiết - Chapter 4: Thực nghiệm và đánh giá
+%==============================================================================
+
+\chapter{Thực nghiệm và đánh giá}
+
+%-----------------------------------------------------------------------------
+\section{Thiết lập thực nghiệm}
+%-----------------------------------------------------------------------------
+
+\subsection{Các mô hình sử dụng}
+\begin{itemize}
+    \item Danh sách các LLM được thử nghiệm:
+    \begin{itemize}
+        \item GPT-4 (OpenAI)
+        \item GPT-3.5 Turbo
+        \item Claude-3 (Opus/Sonnet/Haiku)
+        \item LLaMA-3 (8B, 70B)
+        \item Mistral/Mixtral
+    \end{itemize}
+    \begin{itemize}
+        \item Version cụ thể
+    \end{itemize}
+    \begin{itemize}
+        \item Nguồn truy cập (API, local deployment)
+    \end{itemize}
+    \begin{itemize}
+        \item So sánh các model về:
+        \begin{itemize}
+            \item Pricing
+            \item Capability
+            \item Availability
+        \end{itemize}
+    \end{itemize}
+    \item Các mô hình OCR:
+    \begin{itemize}
+        \item EasyOCR
+        \item PaddleOCR
+        \item Tesseract
+    \end{itemize}
+    \begin{itemize}
+        \item GPT-4V / Claude Vision
+    \end{itemize}
+\end{itemize}
+
+\subsection{Cấu hình thực nghiệm}
+\begin{itemize}
+    \item Hardware:
+    \begin{itemize}
+        \item Server specifications (nếu có local deployment)
+    \end{itemize}
+    \item Software environment:
+    \begin{itemize}
+        \item Python version
+        \item Key libraries (LangGraph, LangChain, etc.)
+    \end{itemize}
+    \item Hyperparameters:
+    \begin{itemize}
+        \item Temperature settings
+        \item Max tokens
+        \item Top-p
+        \item Number of generations (N)
+    \end{itemize}
+    \item Dataset splits:
+    \begin{itemize}
+        \item Số lượng samples cho test
+    \end{itemize}
+    \item Experimental settings:
+    \begin{itemize}
+        \item Số lượng câu hỏi sinh ra mỗi văn bản
+    \end{itemize}
+    \item Cost analysis
+\end{itemize}
+
+%-----------------------------------------------------------------------------
+\section{Kết quả sinh câu hỏi}
+%-----------------------------------------------------------------------------
+
+\subsection{Kết quả đánh giá vi mô (Micro Evaluation)}
+\begin{itemize}
+    \item Solvability Results:
+    \begin{itemize}
+        \item Tỷ lệ câu hỏi có thể giải được theo từng cấp độ
+        \begin{itemize}
+            \item Level 1: X\%
+            \item Level 2: Y\%
+            \item Level 3: Z\%
+        \end{itemize}
+        \item So sánh giữa các model
+    \end{itemize}
+    \item Distractor Quality Results:
+    \begin{itemize}
+        \item Điểm trung bình chất lượng distractors
+        \begin{itemize}
+            \item Theo thang điểm 1-5
+        \end{itemize}
+        \item Phân tích theo cấp độ
+    \end{itemize}
+    \item Alignment Results:
+    \begin{itemize}
+        \item Tỷ lệ câu hỏi đúng cấp độ Bloom
+        \begin{itemize}
+            \item Level 1 alignment: X\%
+            \item Level 2 alignment: Y\%
+            \item Level 3 alignment: Z\%
+        \end{itemize}
+        \item Confusion matrix (nếu có misclassification)
+    \end{itemize}
+    \item Nhận xét và phân tích
+    \begin{itemize}
+        \item Cấp độ nào có kết quả tốt/xấu nhất
+        \item Nguyên nhân
+    \end{itemize}
+\end{itemize}
+
+\subsection{Kết quả đánh giá vĩ mô -- So sánh giữa các mô hình (Macro Evaluation)}
+\begin{itemize}
+    \item Overall Quality Scores:
+    \begin{itemize}
+        \item Bảng so sánh điểm trung bình (1-5)
+        \begin{itemize}
+            \item GPT-4 vs Claude-3 vs LLaMA-3...
+        \end{itemize}
+    \end{itemize}
+    \item Chi tiết từng tiêu chí:
+    \begin{itemize}
+        \item Grammar and fluency
+        \item Clarity
+        \item Difficulty appropriateness
+        \item Relevance to passage
+    \end{itemize}
+    \item Statistical analysis:
+    \begin{itemize}
+        \item Standard deviation
+        \item Significant differences (p-value)
+    \end{itemize}
+    \item Best performing model(s)
+    \item Phân tích chi tiết từng cấp độ Bloom
+\end{itemize}
+
+\subsection{So sánh phương pháp đơn prompt và đa tác tử}
+\begin{itemize}
+    \item So sánh Micro Evaluation:
+    \begin{itemize}
+        \item Solvability
+        \item Distractor Quality
+        \item Alignment
+    \end{itemize}
+    \item So sánh Macro Evaluation:
+    \begin{itemize}
+        \item Overall quality scores
+    \end{itemize}
+    \item Format evaluation:
+    \begin{itemize}
+        \item Error rates
+    \end{itemize}
+    \item Cost comparison:
+    \begin{itemize}
+        \item API calls
+        \item Total cost
+        \item Latency
+    \end{itemize}
+    \item Nhận xét:
+    \begin{itemize}
+        \item Khi nào nên dùng Single-Prompt
+        \item Khi nào nên dùng Multi-Agent
+    \end{itemize}
+    \item Trade-offs analysis
+\end{itemize}
+
+%-----------------------------------------------------------------------------
+\section{Kết quả đánh giá định dạng đầu ra}
+%-----------------------------------------------------------------------------
+
+\subsection{Tỷ lệ lỗi cú pháp (Syntax Error Rate)}
+\begin{itemize}
+    \item Định nghĩa lỗi cú pháp:
+    \begin{itemize}
+        \item Missing question mark
+        \item Invalid option format
+        \item Incorrect answer indicator
+    \end{itemize}
+    \item Kết quả:
+    \begin{itemize}
+        \item Tỷ lệ lỗi theo model
+        \item Tỷ lệ lỗi theo cấp độ
+    \end{itemize}
+    \item Phân tích nguyên nhân lỗi
+    \item So sánh Single-Prompt vs Multi-Agent
+\end{itemize}
+
+\subsection{Tỷ lệ sinh thừa và sinh thiếu (Over/Under-generation)}
+\begin{itemize}
+    \item Định nghĩa:
+    \begin{itemize}
+        \item Over-generation: Sinh nhiều hơn yêu cầu
+        \item Under-generation: Sinh ít hơn yêu cầu
+    \end{itemize}
+    \item Kết quả:
+    \begin{itemize}
+        \item Thống kê phân phối số câu hỏi sinh ra
+    \end{itemize}
+    \item Ảnh hưởng đến chất lượng
+    \item Cách xử lý trong Merge Agent
+\end{itemize}
+
+%-----------------------------------------------------------------------------
+\section{Kết quả OCR}
+%-----------------------------------------------------------------------------
+
+\subsection{Kết quả trên ảnh sạch}
+\begin{itemize}
+    \item CER (Character Error Rate):
+    \begin{itemize}
+        \item EasyOCR: X\%
+        \item PaddleOCR: Y\%
+        \item Tesseract: Z\%
+        \item GPT-4V: W\%
+    \end{itemize}
+    \item WER (Word Error Rate):
+    \begin{itemize}
+        \item So sánh tương tự
+    \end{itemize}
+    \item Nhận xét:
+    \begin{itemize}
+        \item Model nào tốt nhất cho clean images
+    \end{itemize}
+    \item Ví dụ errors (nếu có)
+\end{itemize}
+
+\subsection{Kết quả trên ảnh tăng cường}
+\begin{itemize}
+    \item CER/WER trên augmented images:
+    \begin{itemize}
+        \item So sánh giữa các phương pháp augmentation
+        \begin{itemize}
+            \item Noise
+            \item Blur
+            \item Rotation
+            \item Combined effects
+        \end{itemize}
+    \end{itemize}
+    \item Impact of augmentation level
+    \item Comparison: Traditional OCR vs VLM
+    \begin{itemize}
+        \item VLM có robust hơn không?
+    \end{itemize}
+    \item Nhận xét về robustness
+    \begin{itemize}
+        \item Các loại augmentation ảnh hưởng nhiều nhất
+    \end{itemize}
+    \item Trade-offs: Accuracy vs Speed vs Cost
+\end{itemize}
+
+%-----------------------------------------------------------------------------
+\section{Thảo luận}
+%-----------------------------------------------------------------------------
+\begin{itemize}
+    \item Tổng hợp các phát hiện chính
+    \begin{itemize}
+        \item Đánh giá tổng quan về phương pháp đề xuất
+    \end{itemize}
+    \item Phân tích sâu hơn:
+    \begin{itemize}
+        \item Tại sao LLM sinh tốt/các câu hỏi cấp độ nào
+        \item Ảnh hưởng của prompt design
+        \item Vai trò của Multi-Agent architecture
+    \end{itemize}
+    \item So sánh với các nghiên cứu liên quan:
+    \begin{itemize}
+        \item Phương pháp nào tốt hơn?
+        \item Điểm mạnh và hạn chế
+    \end{itemize}
+    \item Các yếu tố ảnh hưởng đến kết quả:
+    \begin{itemize}
+        \item Chất lượng văn bản đầu vào
+        \item Độ dài văn bản
+        \subject Complexity of content
+    \end{itemize}
+    \item Practical implications:
+    \begin{itemize}
+        \item Recommendations cho practitioners
+    \end{itemize}
+\end{itemize}
+
+%-----------------------------------------------------------------------------
+\section{Hạn chế và hướng phát triển}
+%-----------------------------------------------------------------------------
+
+\subsection{Hạn chế của nghiên cứu}
+\begin{itemize}
+    \item Hạn chế về dữ liệu:
+    \begin{itemize}
+        \item Chỉ sử dụng RACE dataset
+        \item Limited language coverage (tiếng Anh)
+    \end{itemize}
+    \item Hạn chế về phương pháp:
+    \begin{itemize}
+        \item Chỉ 3 cấp độ Bloom
+        \item Prompt engineering có thể chưa tối ưu
+    \end{itemize}
+    \item Hạn chế về đánh giá:
+    \begin{itemize}
+        \item LLM-as-a-Judge có potential bias
+        \item Không có human evaluation đầy đủ
+    \end{itemize}
+    \item Hạn chế về tài nguyên:
+    \begin{itemize}
+        \item Không test tất cả models
+        \item Limited scalability testing
+    \end{itemize}
+    \item Các giả định và simplifications
+\end{itemize}
+
+\subsection{Hướng phát triển tương lai}
+\begin{itemize}
+    \item Mở rộng phạm vi:
+    \begin{itemize}
+        \item Thêm nhiều cấp độ Bloom
+        \item Đa ngôn ngữ
+        \item Nhiều loại câu hỏi (True/False, Fill-in-blank)
+    \end{itemize}
+    \item Cải thiện phương pháp:
+    \begin{itemize}
+        \item Fine-tuning models cho question generation
+        \item Self-consistency và ensemble methods
+        \item Feedback loop cho iterative improvement
+    \end{itemize}
+    \item Cải thiện đánh giá:
+    \begin{itemize}
+        \item Human evaluation với larger scale
+        \item Cross-annotator agreement
+        \item Student performance evaluation (A/B testing)
+    \end{itemize}
+    \item Ứng dụng thực tế:
+    \begin{itemize}
+        \item Integration với LMS
+        \item Real-time generation
+        \item Adaptive testing
+    \end{itemize}
+    \item Nghiên cứu liên quan:
+    \begin{itemize}
+        \item Knowledge tracking
+        \item Item response theory integration
+    \end{itemize}
+\end{itemize}

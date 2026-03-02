@@ -1,3 +1,7 @@
 .env
 __pycache__
 augraphy_cache
+.vscode
+*.zip
+temp
+images

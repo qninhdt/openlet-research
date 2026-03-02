@@ -1,11 +1,9 @@
 import json
 import os
 from pathlib import Path
-from typing import List, Dict, TypedDict, Annotated
+from typing import List, Dict, TypedDict
 import argparse
 import re
-import operator
-import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 
@@ -29,8 +27,17 @@ class WorkflowState(TypedDict):
     level1_questions: List[Dict]  # Questions from level 1 generator
     level2_questions: List[Dict]  # Questions from level 2 generator
     level3_questions: List[Dict]  # Questions from level 3 generator
+    # Validation results: list of {id, verdict, feedback} per level
+    level1_validation: List[Dict]
+    level2_validation: List[Dict]
+    level3_validation: List[Dict]
+    # Post-fix questions per level (replaces originals if fixes were needed)
+    level1_fixed: List[Dict]
+    level2_fixed: List[Dict]
+    level3_fixed: List[Dict]
     final_questions: List[Dict]  # Combined final questions
     error: str  # Error message if any
+    verbose: bool  # Whether to print agent outputs
 
 
 def load_prompt(prompt_path: str) -> str:
@@ -94,11 +101,12 @@ def analyzer_agent(
         response = llm.invoke(full_prompt)
         analyzer_output = response.content
 
-        print(f"\n{'='*80}")
-        print(f"Analyzer Output for {state['item_id']}:")
-        print(f"{'='*80}")
-        print(analyzer_output)
-        print(f"{'='*80}\n")
+        if state.get("verbose"):
+            print(f"\n{'='*80}")
+            print(f"Analyzer Output for {state['item_id']}:")
+            print(f"{'='*80}")
+            print(analyzer_output)
+            print(f"{'='*80}\n")
 
         # Update state
         state["analyzer_output"] = analyzer_output
@@ -184,9 +192,14 @@ def parse_generator_output(
                 correct_map = {"A": 0, "B": 1, "C": 2, "D": 3}
                 correct_idx = correct_map.get(answer_letter, -1)
 
+                # Parse ID from the block
+                id_match = re.match(r"ID:\s*(\d+)", block.strip())
+                q_id = int(id_match.group(1)) if id_match else None
+
                 if correct_idx != -1:
                     questions.append(
                         {
+                            "id": q_id,
                             "question": question_text,
                             "options": options,
                             "correct_idx": correct_idx,
@@ -199,6 +212,129 @@ def parse_generator_output(
             continue
 
     return questions
+
+
+def format_questions_for_validation(questions: List[Dict]) -> str:
+    """Format questions list into text block for validator prompt
+
+    Args:
+        questions: List of question dicts with question, options, correct_idx, level
+
+    Returns:
+        Formatted string
+    """
+    lines = []
+    correct_map = {0: "A", 1: "B", 2: "C", 3: "D"}
+    for idx, q in enumerate(questions, 1):
+        lines.append(f"ID: {idx}")
+        lines.append(f"Question: {q['question']}")
+        for i, label in enumerate(["A", "B", "C", "D"]):
+            lines.append(f"{label}: {q['options'][i]}")
+        lines.append(f"Answer: {correct_map.get(q['correct_idx'], 'A')}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def format_failed_questions_for_fixer(
+    questions: List[Dict], validation: List[Dict]
+) -> str:
+    """Format failed questions with their feedback for the fixer prompt
+
+    Args:
+        questions: List of question dicts
+        validation: List of validation result dicts with id, verdict, feedback
+
+    Returns:
+        Formatted string with failed questions and feedback, or empty string if none failed
+    """
+    lines = []
+    correct_map = {0: "A", 1: "B", 2: "C", 3: "D"}
+
+    # Build a map from validation id to feedback
+    feedback_map = {}
+    for v in validation:
+        if v.get("verdict") == "FAIL":
+            feedback_map[v["id"]] = v.get("feedback", "No specific feedback")
+
+    for idx, q in enumerate(questions, 1):
+        feedback = feedback_map.get(idx)
+        if feedback:
+            lines.append(f"ID: {idx}")
+            lines.append(f"Question: {q['question']}")
+            for i, label in enumerate(["A", "B", "C", "D"]):
+                lines.append(f"{label}: {q['options'][i]}")
+            lines.append(f"Answer: {correct_map.get(q['correct_idx'], 'A')}")
+            lines.append(f"Feedback: {feedback}")
+            lines.append("")
+
+    return "\n".join(lines)
+
+
+def parse_validator_output(output: str) -> List[Dict]:
+    """Parse validator output into structured validation results
+
+    Expected format per question:
+    ID: 1
+    Solvability: PASS|FAIL
+    Distractor Quality: PASS|FAIL
+    Alignment: PASS|FAIL
+    Verdict: PASS|FAIL
+    Feedback: ...
+
+    Returns:
+        List of {id, solvability, distractor_quality, alignment, verdict, feedback}
+    """
+    results = []
+    blocks = re.split(r"\n(?=ID:\s*\d+)", output.strip())
+
+    for block in blocks:
+        block = block.strip()
+        if not block:
+            continue
+
+        try:
+            # Extract ID
+            id_match = re.match(r"ID:\s*(\d+)", block)
+            if not id_match:
+                continue
+            q_id = int(id_match.group(1))
+
+            # Extract verdict
+            verdict_match = re.search(r"Verdict:\s*(PASS|FAIL)", block, re.IGNORECASE)
+            verdict = verdict_match.group(1).upper() if verdict_match else "FAIL"
+
+            # Extract feedback
+            feedback_match = re.search(r"Feedback:\s*(.+)", block)
+            feedback = feedback_match.group(1).strip() if feedback_match else "None"
+
+            # Extract individual checks
+            solv_match = re.search(r"Solvability:\s*(PASS|FAIL)", block, re.IGNORECASE)
+            dist_match = re.search(
+                r"Distractor Quality:\s*(PASS|FAIL)", block, re.IGNORECASE
+            )
+            align_match = re.search(r"Alignment:\s*(PASS|FAIL)", block, re.IGNORECASE)
+
+            results.append(
+                {
+                    "id": q_id,
+                    "solvability": (
+                        solv_match.group(1).upper() if solv_match else "FAIL"
+                    ),
+                    "distractor_quality": (
+                        dist_match.group(1).upper() if dist_match else "FAIL"
+                    ),
+                    "alignment": (
+                        align_match.group(1).upper() if align_match else "FAIL"
+                    ),
+                    "verdict": verdict,
+                    "feedback": feedback,
+                }
+            )
+        except Exception as e:
+            print(f"Warning: Failed to parse validator block: {str(e)}")
+            continue
+
+    return results
 
 
 def generator_level1_agent(
@@ -231,11 +367,12 @@ def generator_level1_agent(
         response = llm.invoke(full_prompt)
         generator_output = response.content
 
-        print(f"\n{'='*80}")
-        print(f"Level 1 Generator Output for {state['item_id']}:")
-        print(f"{'='*80}")
-        print(generator_output)
-        print(f"{'='*80}\n")
+        if state.get("verbose"):
+            print(f"\n{'='*80}")
+            print(f"Level 1 Generator Output for {state['item_id']}:")
+            print(f"{'='*80}")
+            print(generator_output)
+            print(f"{'='*80}\n")
 
         # Parse output
         questions = parse_generator_output(generator_output, n, expected_level=1)
@@ -279,11 +416,12 @@ def generator_level2_agent(
         response = llm.invoke(full_prompt)
         generator_output = response.content
 
-        print(f"\n{'='*80}")
-        print(f"Level 2 Generator Output for {state['item_id']}:")
-        print(f"{'='*80}")
-        print(generator_output)
-        print(f"{'='*80}\n")
+        if state.get("verbose"):
+            print(f"\n{'='*80}")
+            print(f"Level 2 Generator Output for {state['item_id']}:")
+            print(f"{'='*80}")
+            print(generator_output)
+            print(f"{'='*80}\n")
 
         # Parse output
         questions = parse_generator_output(generator_output, n, expected_level=2)
@@ -327,11 +465,12 @@ def generator_level3_agent(
         response = llm.invoke(full_prompt)
         generator_output = response.content
 
-        print(f"\n{'='*80}")
-        print(f"Level 3 Generator Output for {state['item_id']}:")
-        print(f"{'='*80}")
-        print(generator_output)
-        print(f"{'='*80}\n")
+        if state.get("verbose"):
+            print(f"\n{'='*80}")
+            print(f"Level 3 Generator Output for {state['item_id']}:")
+            print(f"{'='*80}")
+            print(generator_output)
+            print(f"{'='*80}\n")
 
         # Parse output
         questions = parse_generator_output(generator_output, n, expected_level=3)
@@ -345,8 +484,250 @@ def generator_level3_agent(
         return {"error": error_msg}
 
 
+def _run_validator(
+    questions: List[Dict],
+    llm: ChatOpenAI,
+    validator_prompt: str,
+    content: str,
+    item_id: str,
+    level: int,
+    attempt: int,
+    verbose: bool = False,
+) -> List[Dict]:
+    """Run the validator LLM on a list of questions and return validation results."""
+    questions_text = format_questions_for_validation(questions)
+    full_prompt = validator_prompt.replace("{content}", content).replace(
+        "{questions}", questions_text
+    )
+    response = llm.invoke(full_prompt)
+    validator_output = response.content
+
+    if verbose:
+        print(f"\n{'='*80}")
+        print(f"Validator Level {level} (attempt {attempt}) for {item_id}:")
+        print(f"{'='*80}")
+        print(validator_output)
+        print(f"{'='*80}\n")
+
+    return parse_validator_output(validator_output)
+
+
+def _run_fixer(
+    questions: List[Dict],
+    validation: List[Dict],
+    llm: ChatOpenAI,
+    fixer_prompt: str,
+    content: str,
+    analyzer_output: str,
+    item_id: str,
+    level: int,
+    attempt: int,
+    per_question_history: Dict[int, List[str]],
+    verbose: bool = False,
+) -> List[Dict]:
+    """Run the fixer LLM on failed questions and return the merged question list."""
+    failed_text = format_failed_questions_for_fixer(questions, validation)
+    if not failed_text.strip():
+        return questions
+
+    # Build history text showing only past feedback for questions that are
+    # CURRENTLY still failing — avoids noise from already-resolved questions
+    currently_failed_ids = {v["id"] for v in validation if v.get("verdict") == "FAIL"}
+    history_lines = []
+    for q_id in sorted(currently_failed_ids):
+        past = per_question_history.get(q_id, [])
+        if past:
+            rounds = "\n".join(f"  Attempt {i + 1}: {fb}" for i, fb in enumerate(past))
+            history_lines.append(f"Q{q_id} previous feedback:\n{rounds}")
+    history_text = (
+        "\n\n".join(history_lines) if history_lines else "No previous fix attempts."
+    )
+
+    full_prompt = (
+        fixer_prompt.replace("{content}", content)
+        .replace("{analyzer_output}", analyzer_output)
+        .replace("{fix_history}", history_text)
+        .replace("{failed_questions}", failed_text)
+    )
+    response = llm.invoke(full_prompt)
+    fixer_output = response.content
+
+    if verbose:
+        print(f"\n{'='*80}")
+        print(f"Fixer Level {level} (attempt {attempt}) for {item_id}:")
+        print(f"{'='*80}")
+        print(fixer_output)
+        print(f"{'='*80}\n")
+
+    fixed_questions = parse_generator_output(
+        fixer_output, len(questions), expected_level=level
+    )
+    # Use the ID parsed from the fixer output ("ID: N") rather than enumerate position,
+    # so ordering/missing questions in LLM response don't cause mismatches.
+    fixed_map = {fq["id"]: fq for fq in fixed_questions if fq.get("id") is not None}
+
+    failed_ids = {v["id"] for v in validation if v.get("verdict") == "FAIL"}
+    merged = []
+    for idx, q in enumerate(questions):
+        q_id = idx + 1
+        if q_id in failed_ids and q_id in fixed_map:
+            merged.append(fixed_map[q_id])
+            if verbose:
+                print(f"  Level {level} Q{q_id}: FIXED (attempt {attempt})")
+        else:
+            merged.append(q)
+            if verbose:
+                print(f"  Level {level} Q{q_id}: kept (passed)")
+    return merged
+
+
+def validate_and_fix_agent(
+    state: WorkflowState,
+    llm: ChatOpenAI,
+    validator_prompt: str,
+    fixer_prompt: str,
+    level: int,
+    max_fix_retries: int,
+) -> Dict:
+    """Validate questions for a level then iteratively fix failures.
+
+    Loop:
+      1. Validate all current questions.
+      2. If no failures → done.
+      3. Fix only the failed questions (with per-question feedback).
+      4. Re-validate the fixed questions in-place.
+      5. Repeat up to max_fix_retries times.
+      6. After exhausting retries, log a WARNING for any remaining failures.
+
+    Args:
+        state: Current workflow state
+        llm: Language model
+        validator_prompt: Prompt template for this level's validator
+        fixer_prompt: Prompt template for this level's fixer
+        level: Question level (1, 2, or 3)
+        max_fix_retries: Maximum number of fix-then-revalidate attempts
+
+    Returns:
+        Dict with level{N}_validation and level{N}_fixed keys
+    """
+    level_key = f"level{level}_questions"
+    validation_key = f"level{level}_validation"
+    fixed_key = f"level{level}_fixed"
+
+    questions = state.get(level_key, [])
+    if not questions or state.get("error"):
+        return {validation_key: [], fixed_key: questions}
+
+    content = state["content"]
+    analyzer_output = state.get("analyzer_output", "")
+    item_id = state["item_id"]
+    verbose = state.get("verbose", False)
+
+    current_questions = questions
+    validation: List[Dict] = []
+    # per_question_history[q_id] = list of feedback strings from each failed round
+    per_question_history: Dict[int, List[str]] = {}
+
+    try:
+        # ── Initial validation ──────────────────────────────────────────────
+        validation = _run_validator(
+            current_questions,
+            llm,
+            validator_prompt,
+            content,
+            item_id,
+            level,
+            attempt=0,
+            verbose=verbose,
+        )
+        passed = sum(1 for v in validation if v["verdict"] == "PASS")
+        failed_count = len(validation) - passed
+        if verbose:
+            print(
+                f"Level {level} validation (attempt 0): {passed} passed, {failed_count} failed"
+            )
+
+        # ── Retry loop ──────────────────────────────────────────────────────
+        for attempt in range(1, max_fix_retries + 1):
+            if not any(v.get("verdict") == "FAIL" for v in validation):
+                if verbose:
+                    print(
+                        f"Level {level}: All questions passed — stopping after attempt {attempt - 1}"
+                    )
+                break
+
+            # Accumulate per-question feedback before calling fixer
+            for v in validation:
+                if v.get("verdict") == "FAIL":
+                    q_id = v["id"]
+                    per_question_history.setdefault(q_id, []).append(
+                        v.get("feedback", "no feedback")
+                    )
+
+            if verbose:
+                print(
+                    f"Level {level}: Running fix attempt {attempt}/{max_fix_retries}..."
+                )
+            current_questions = _run_fixer(
+                current_questions,
+                validation,
+                llm,
+                fixer_prompt,
+                content,
+                analyzer_output,
+                item_id,
+                level,
+                attempt,
+                per_question_history,
+                verbose=verbose,
+            )
+
+            # Re-validate to measure progress
+            validation = _run_validator(
+                current_questions,
+                llm,
+                validator_prompt,
+                content,
+                item_id,
+                level,
+                attempt,
+                verbose=verbose,
+            )
+            passed = sum(1 for v in validation if v["verdict"] == "PASS")
+            failed_count = len(validation) - passed
+            if verbose:
+                print(
+                    f"Level {level} re-validation (attempt {attempt}): {passed} passed, {failed_count} failed"
+                )
+
+            # Warn if still failing after the last attempt
+            if attempt == max_fix_retries:
+                still_failing = [v for v in validation if v.get("verdict") == "FAIL"]
+                if still_failing:
+                    failed_ids = [str(v["id"]) for v in still_failing]
+                    feedbacks = "; ".join(
+                        f"Q{v['id']}: {v.get('feedback', 'no feedback')}"
+                        for v in still_failing
+                    )
+                    print(
+                        f"WARNING: Level {level} — {len(still_failing)} question(s) still failing "
+                        f"after {max_fix_retries} fix attempt(s) for item '{item_id}'. "
+                        f"Failing IDs: [{', '.join(failed_ids)}]. "
+                        f"Feedback: {feedbacks}"
+                    )
+
+        return {validation_key: validation, fixed_key: current_questions}
+
+    except Exception as e:
+        print(f"Error in validate_and_fix level {level}: {str(e)}")
+        # On error, return original questions without blocking the pipeline
+        return {validation_key: validation, fixed_key: questions}
+
+
 def merge_questions_agent(state: WorkflowState) -> WorkflowState:
     """Merge questions from all 3 levels into final_questions
+
+    Uses fixed questions if available, otherwise falls back to originals.
 
     Args:
         state: Current workflow state
@@ -358,51 +739,35 @@ def merge_questions_agent(state: WorkflowState) -> WorkflowState:
         return state
 
     try:
-        # Combine all questions
+        # Combine all questions — prefer fixed versions
         all_questions = []
 
-        for q in state.get("level1_questions", []):
-            all_questions.append(
-                {
-                    "content": q["question"],
-                    "options": q["options"],
-                    "correct": q["correct_idx"],
-                    "level": 1,
-                    "type": "General",
-                }
-            )
+        for level in [1, 2, 3]:
+            fixed_key = f"level{level}_fixed"
+            orig_key = f"level{level}_questions"
+            questions = state.get(fixed_key, []) or state.get(orig_key, [])
 
-        for q in state.get("level2_questions", []):
-            all_questions.append(
-                {
-                    "content": q["question"],
-                    "options": q["options"],
-                    "correct": q["correct_idx"],
-                    "level": 2,
-                    "type": "General",
-                }
-            )
-
-        for q in state.get("level3_questions", []):
-            all_questions.append(
-                {
-                    "content": q["question"],
-                    "options": q["options"],
-                    "correct": q["correct_idx"],
-                    "level": 3,
-                    "type": "General",
-                }
-            )
+            for q in questions:
+                all_questions.append(
+                    {
+                        "content": q["question"],
+                        "options": q["options"],
+                        "correct": q["correct_idx"],
+                        "level": level,
+                        "type": "General",
+                    }
+                )
 
         # Sort by level, then by original order
         all_questions.sort(key=lambda x: x["level"])
 
-        print(f"\n{'='*80}")
-        print(f"Merged {len(all_questions)} questions for {state['item_id']}:")
-        print(f"{'='*80}")
-        for idx, q in enumerate(all_questions, 1):
-            print(f"Q{idx} (Level {q['level']}): {q['content'][:80]}...")
-        print(f"{'='*80}\n")
+        if state.get("verbose"):
+            print(f"\n{'='*80}")
+            print(f"Merged {len(all_questions)} questions for {state['item_id']}:")
+            print(f"{'='*80}")
+            for idx, q in enumerate(all_questions, 1):
+                print(f"Q{idx} (Level {q['level']}): {q['content'][:80]}...")
+            print(f"{'='*80}\n")
 
         state["final_questions"] = all_questions
 
@@ -419,15 +784,36 @@ def create_workflow(
     generator_level1_prompt: str,
     generator_level2_prompt: str,
     generator_level3_prompt: str,
+    validator_level1_prompt: str,
+    validator_level2_prompt: str,
+    validator_level3_prompt: str,
+    fixer_level1_prompt: str,
+    fixer_level2_prompt: str,
+    fixer_level3_prompt: str,
+    max_fix_retries: int = 1,
 ) -> StateGraph:
     """Create the multi-agent workflow using LangGraph
+
+    Flow:
+        analyzer
+            → [generator_level1, generator_level2, generator_level3]  (parallel)
+                → [validate_and_fix_level1, validate_and_fix_level2, validate_and_fix_level3]  (parallel)
+                    (each runs: validate → fix failed → re-validate, up to max_fix_retries times)
+                        → merge → END
 
     Args:
         llm: Language model
         analyzer_prompt: Prompt for analyzer agent
-        generator_level1_prompt: Prompt for Level 1 generator agent
-        generator_level2_prompt: Prompt for Level 2 generator agent
-        generator_level3_prompt: Prompt for Level 3 generator agent
+        generator_level1_prompt: Prompt for Level 1 generator
+        generator_level2_prompt: Prompt for Level 2 generator
+        generator_level3_prompt: Prompt for Level 3 generator
+        validator_level1_prompt: Prompt for Level 1 validator
+        validator_level2_prompt: Prompt for Level 2 validator
+        validator_level3_prompt: Prompt for Level 3 validator
+        fixer_level1_prompt: Prompt for Level 1 fixer
+        fixer_level2_prompt: Prompt for Level 2 fixer
+        fixer_level3_prompt: Prompt for Level 3 fixer
+        max_fix_retries: Maximum validate→fix loop iterations per level (default: 1)
 
     Returns:
         Compiled workflow graph
@@ -435,10 +821,12 @@ def create_workflow(
     # Create workflow graph
     workflow = StateGraph(WorkflowState)
 
-    # Add nodes (agents)
+    # ── Nodes ──────────────────────────────────────────────────────────────
     workflow.add_node(
         "analyzer", lambda state: analyzer_agent(state, llm, analyzer_prompt)
     )
+
+    # Generators (parallel after analyzer)
     workflow.add_node(
         "generator_level1",
         lambda state: generator_level1_agent(state, llm, generator_level1_prompt),
@@ -451,29 +839,79 @@ def create_workflow(
         "generator_level3",
         lambda state: generator_level3_agent(state, llm, generator_level3_prompt),
     )
+
+    # Validate-and-fix nodes (parallel, one per level)
+    # Each node runs the full validate → fix → re-validate loop internally
+    workflow.add_node(
+        "validate_and_fix_level1",
+        lambda state: validate_and_fix_agent(
+            state,
+            llm,
+            validator_level1_prompt,
+            fixer_level1_prompt,
+            level=1,
+            max_fix_retries=max_fix_retries,
+        ),
+    )
+    workflow.add_node(
+        "validate_and_fix_level2",
+        lambda state: validate_and_fix_agent(
+            state,
+            llm,
+            validator_level2_prompt,
+            fixer_level2_prompt,
+            level=2,
+            max_fix_retries=max_fix_retries,
+        ),
+    )
+    workflow.add_node(
+        "validate_and_fix_level3",
+        lambda state: validate_and_fix_agent(
+            state,
+            llm,
+            validator_level3_prompt,
+            fixer_level3_prompt,
+            level=3,
+            max_fix_retries=max_fix_retries,
+        ),
+    )
+
+    # Merge
     workflow.add_node("merge", merge_questions_agent)
 
-    # Define edges (flow): analyzer -> [level1, level2, level3] -> merge -> END
+    # ── Edges ──────────────────────────────────────────────────────────────
+    # analyzer → generators (fan-out)
     workflow.set_entry_point("analyzer")
     workflow.add_edge("analyzer", "generator_level1")
     workflow.add_edge("analyzer", "generator_level2")
     workflow.add_edge("analyzer", "generator_level3")
-    workflow.add_edge("generator_level1", "merge")
-    workflow.add_edge("generator_level2", "merge")
-    workflow.add_edge("generator_level3", "merge")
+
+    # generators → validate-and-fix (each level feeds its own node)
+    workflow.add_edge("generator_level1", "validate_and_fix_level1")
+    workflow.add_edge("generator_level2", "validate_and_fix_level2")
+    workflow.add_edge("generator_level3", "validate_and_fix_level3")
+
+    # validate-and-fix → merge (fan-in)
+    workflow.add_edge("validate_and_fix_level1", "merge")
+    workflow.add_edge("validate_and_fix_level2", "merge")
+    workflow.add_edge("validate_and_fix_level3", "merge")
+
     workflow.add_edge("merge", END)
 
     # Compile the graph
     return workflow.compile()
 
 
-def process_item(item: dict, n: int, workflow: StateGraph) -> Dict:
+def process_item(
+    item: dict, n: int, workflow: StateGraph, verbose: bool = False
+) -> Dict:
     """Process a single item through the workflow
 
     Args:
         item: Data item with 'id', 'content', 'source'
         n: Number of questions per level
         workflow: Compiled workflow graph
+        verbose: Whether to print agent outputs
 
     Returns:
         Result dictionary
@@ -488,8 +926,15 @@ def process_item(item: dict, n: int, workflow: StateGraph) -> Dict:
         level1_questions=[],
         level2_questions=[],
         level3_questions=[],
+        level1_validation=[],
+        level2_validation=[],
+        level3_validation=[],
+        level1_fixed=[],
+        level2_fixed=[],
+        level3_fixed=[],
         final_questions=[],
         error="",
+        verbose=verbose,
     )
 
     try:
@@ -510,12 +955,12 @@ def process_item(item: dict, n: int, workflow: StateGraph) -> Dict:
             "generated_questions": final_state["final_questions"],
         }
 
-        # Log the completed result as JSON
-        print(f"\n{'='*80}")
-        print(f"✓ Completed item {item['id']}:")
-        print(f"{'='*80}")
-        print(json.dumps(result, indent=2, ensure_ascii=False))
-        print(f"{'='*80}\n")
+        if verbose:
+            print(f"\n{'='*80}")
+            print(f"✓ Completed item {item['id']}:")
+            print(f"{'='*80}")
+            print(json.dumps(result, indent=2, ensure_ascii=False))
+            print(f"{'='*80}\n")
 
         return result
 
@@ -526,12 +971,7 @@ def process_item(item: dict, n: int, workflow: StateGraph) -> Dict:
             "error": str(e),
         }
 
-        # Log the error result as JSON
-        print(f"\n{'='*80}")
-        print(f"✗ Error for item {item['id']}:")
-        print(f"{'='*80}")
-        print(json.dumps(error_result, indent=2, ensure_ascii=False))
-        print(f"{'='*80}\n")
+        print(f"✗ Error for item {item['id']}: {str(e)}")
 
         return error_result
 
@@ -573,20 +1013,62 @@ def main():
     parser.add_argument(
         "--generator-level1-prompt-path",
         type=str,
-        default="prompts/generator_level1.md",
+        default="prompts/level1/generator.md",
         help="Path to the Level 1 generator prompt file",
     )
     parser.add_argument(
         "--generator-level2-prompt-path",
         type=str,
-        default="prompts/generator_level2.md",
+        default="prompts/level2/generator.md",
         help="Path to the Level 2 generator prompt file",
     )
     parser.add_argument(
         "--generator-level3-prompt-path",
         type=str,
-        default="prompts/generator_level3.md",
+        default="prompts/level3/generator.md",
         help="Path to the Level 3 generator prompt file",
+    )
+    parser.add_argument(
+        "--validator-level1-prompt-path",
+        type=str,
+        default="prompts/level1/validator.md",
+        help="Path to the Level 1 validator prompt file",
+    )
+    parser.add_argument(
+        "--validator-level2-prompt-path",
+        type=str,
+        default="prompts/level2/validator.md",
+        help="Path to the Level 2 validator prompt file",
+    )
+    parser.add_argument(
+        "--validator-level3-prompt-path",
+        type=str,
+        default="prompts/level3/validator.md",
+        help="Path to the Level 3 validator prompt file",
+    )
+    parser.add_argument(
+        "--fixer-level1-prompt-path",
+        type=str,
+        default="prompts/level1/fixer.md",
+        help="Path to the Level 1 fixer prompt file",
+    )
+    parser.add_argument(
+        "--fixer-level2-prompt-path",
+        type=str,
+        default="prompts/level2/fixer.md",
+        help="Path to the Level 2 fixer prompt file",
+    )
+    parser.add_argument(
+        "--fixer-level3-prompt-path",
+        type=str,
+        default="prompts/level3/fixer.md",
+        help="Path to the Level 3 fixer prompt file",
+    )
+    parser.add_argument(
+        "--max-fix-retries",
+        type=int,
+        default=5,
+        help="Maximum number of validate→fix iterations per level (default: 1)",
     )
     parser.add_argument(
         "--sources",
@@ -607,11 +1089,18 @@ def main():
         default="outputs/workflow",
         help="Directory to save output files",
     )
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        default=False,
+        help="Print full agent outputs (LLM responses, validation details). Default: off (progress bar only)",
+    )
 
     args = parser.parse_args()
 
     # Get API key from environment variable
     api_key = os.environ.get("OPENROUTER_API_KEY")
+    # api_key = os.environ.get("NOVITAAI_API_KEY")
     if not api_key:
         raise ValueError(
             "OpenRouter API key not found. Please set OPENROUTER_API_KEY environment variable"
@@ -647,12 +1136,28 @@ def main():
     generator_level3_prompt = load_prompt(args.generator_level3_prompt_path)
     print(f"Level 3 generator prompt loaded successfully")
 
+    # Load validator prompts
+    print(f"Loading validator prompts...")
+    validator_level1_prompt = load_prompt(args.validator_level1_prompt_path)
+    validator_level2_prompt = load_prompt(args.validator_level2_prompt_path)
+    validator_level3_prompt = load_prompt(args.validator_level3_prompt_path)
+    print(f"Validator prompts loaded successfully")
+
+    # Load fixer prompts
+    print(f"Loading fixer prompts...")
+    fixer_level1_prompt = load_prompt(args.fixer_level1_prompt_path)
+    fixer_level2_prompt = load_prompt(args.fixer_level2_prompt_path)
+    fixer_level3_prompt = load_prompt(args.fixer_level3_prompt_path)
+    print(f"Fixer prompts loaded successfully")
+
     # Initialize LLM
     llm = ChatOpenAI(
         model=args.model,
         openai_api_key=api_key,
         openai_api_base="https://openrouter.ai/api/v1",
+        # openai_api_base="https://api.novita.ai/openai",
         temperature=0.0,
+        extra_body={"reasoning": {"effort": "none"}},
     )
 
     # Create workflow
@@ -663,6 +1168,13 @@ def main():
         generator_level1_prompt,
         generator_level2_prompt,
         generator_level3_prompt,
+        validator_level1_prompt,
+        validator_level2_prompt,
+        validator_level3_prompt,
+        fixer_level1_prompt,
+        fixer_level2_prompt,
+        fixer_level3_prompt,
+        max_fix_retries=args.max_fix_retries,
     )
     print("Workflow created successfully\n")
 
@@ -703,27 +1215,34 @@ def main():
 
         if args.workers == 1:
             # Sequential processing
-            for i, item in enumerate(data, 1):
-                print(f"\n{'='*100}")
-                print(f"Processing item {i}/{len(data)}: {item['id']}")
-                print(f"{'='*100}")
+            with tqdm(
+                total=len(data), desc=f"Processing {source}", disable=args.verbose
+            ) as pbar:
+                for i, item in enumerate(data, 1):
+                    if args.verbose:
+                        print(f"\n{'='*100}")
+                        print(f"Processing item {i}/{len(data)}: {item['id']}")
+                        print(f"{'='*100}")
 
-                result = process_item(item, args.n, workflow)
-                results.append(result)
+                    result = process_item(item, args.n, workflow, verbose=args.verbose)
+                    results.append(result)
 
-                # Print summary for this item
-                if "error" in result:
-                    print(f"✗ Error: {result['error']}")
-                else:
-                    print(
-                        f"✓ Successfully generated {len(result['generated_questions'])} questions"
-                    )
+                    # Print summary for this item
+                    if "error" in result:
+                        tqdm.write(f"✗ {item['id']}: Error - {result['error']}")
+                    elif args.verbose:
+                        print(
+                            f"✓ Successfully generated {len(result['generated_questions'])} questions"
+                        )
+                    pbar.update(1)
         else:
             # Parallel processing
             with ThreadPoolExecutor(max_workers=args.workers) as executor:
                 # Submit all jobs
                 future_to_item = {
-                    executor.submit(process_item, item, args.n, workflow): item
+                    executor.submit(
+                        process_item, item, args.n, workflow, args.verbose
+                    ): item
                     for item in data
                 }
 

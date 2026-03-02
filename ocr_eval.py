@@ -4,6 +4,7 @@ Evaluates OCR predictions using CER (Character Error Rate) and WER (Word Error R
 """
 
 import json
+import re
 import argparse
 from pathlib import Path
 from typing import List, Dict
@@ -33,7 +34,10 @@ def normalize_model_name(model: str) -> str:
 
 def normalize_text(text: str) -> str:
     """
-    Normalize text by removing extra whitespace, newlines, and other irrelevant characters.
+    Normalize text for OCR evaluation:
+    1. Remove special tokens of the form <|...|>
+    2. Keep only alphanumeric characters (a-z, A-Z, 0-9) and spaces
+    3. Collapse multiple spaces and strip
 
     Args:
         text: Input text to normalize
@@ -44,14 +48,14 @@ def normalize_text(text: str) -> str:
     if not text:
         return ""
 
-    # Replace newlines, tabs, and multiple spaces with single space
-    text = text.replace("\n", " ").replace("\r", " ").replace("\t", " ")
+    # Remove special token substrings like <|some string here|>
+    text = re.sub(r"<\|[^|]*\|>", "", text)
 
-    # Replace multiple spaces with single space
+    # Keep only alphanumeric characters and whitespace
+    text = re.sub(r"[^a-zA-Z0-9\s]", "", text)
+
+    # Collapse all whitespace (newlines, tabs, multiple spaces) into single space
     text = " ".join(text.split())
-
-    # Strip leading/trailing whitespace
-    text = text.strip()
 
     return text
 
@@ -238,6 +242,13 @@ def main():
         default="outputs",
         help="Base directory containing OCR predictions (default: outputs)",
     )
+    parser.add_argument(
+        "--image-type",
+        type=str,
+        choices=["clean", "augmented"],
+        default="clean",
+        help="Type of images that were processed (default: clean)",
+    )
 
     args = parser.parse_args()
 
@@ -277,7 +288,11 @@ def main():
 
         # Load OCR predictions for this source
         predictions_path = (
-            Path(args.base_dir) / source_lower / model_id / "ocr_predictions.json"
+            Path(args.base_dir)
+            / source_lower
+            / model_id
+            / args.image_type
+            / "ocr_predictions.json"
         )
 
         if not predictions_path.exists():
@@ -395,7 +410,7 @@ def main():
         print(f"  Word Accuracy: {wer_accuracy:.2f}%")
 
         # Save results
-        output_dir = Path(args.base_dir) / source_lower / model_id
+        output_dir = Path(args.base_dir) / source_lower / model_id / args.image_type
         output_dir.mkdir(parents=True, exist_ok=True)
 
         eval_output_path = output_dir / "ocr_eval_results.json"

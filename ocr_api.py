@@ -29,13 +29,28 @@ API_PROVIDERS = {
         "base_url": "https://api.novita.ai/openai",
         "api_key_env": "NOVITAAI_API_KEY",
     },
+    "novitaai-dedicated": {
+        "base_url": "https://api.novita.ai/dedicated/v1/openai",
+        "api_key_env": "NOVITAAI_API_KEY",
+    },
 }
 
 # Models that require specific API providers
 PROVIDER_SPECIFIC_MODELS = {
-    "paddlepaddle/paddleocr-vl": {
-        "provider": "novitaai",
+    "PaddlePaddle/PaddleOCR-VL-1.5:de-ba683e31363d990a": {
+        "provider": "novitaai-dedicated",
         "prompt": "OCR:",
+    },
+    "kristaller486/dots.ocr-1.5:de-01b622a4ee26d67b": {
+        "provider": "novitaai-dedicated",
+        "prompt": "Extract the text content from this image.",
+    },
+    "qwen/qwen3.5-397b-a17b": {
+        "provider": "novitaai",
+    },
+    "deepseek/deepseek-ocr-2": {
+        "provider": "novitaai",
+        "prompt": "Free OCR.",
     },
 }
 
@@ -174,6 +189,7 @@ def perform_ocr(
                     {
                         "role": "user",
                         "content": [
+                            # NOTE: need to swap order of text and image for some models (dots.ocr-1.5 requires text first, while PaddleOCR-VL-1.5 requires image first)
                             {"type": "text", "text": prompt},
                             {
                                 "type": "image_url",
@@ -184,8 +200,8 @@ def perform_ocr(
                         ],
                     }
                 ],
-                max_tokens=4096,
-                # temperature=0,
+                max_tokens=8192,
+                temperature=0,
             )
 
             # Extract text from response
@@ -495,7 +511,7 @@ def main():
             continue
 
         # Prepare output directory
-        output_dir = base_dir / source_lower / model_id
+        output_dir = base_dir / source_lower / model_id / args.image_type
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Process samples with parallel workers
