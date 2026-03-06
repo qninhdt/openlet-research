@@ -99,14 +99,22 @@ def parse_llm_output(output: str) -> ParsedQuizData:
         # Normalize multiple consecutive underscores to a single underscore
         content = re.sub(r"_{2,}", "_", content)
 
-        # Parse options - look for lines starting with "-"
+        # Parse options & level — scan lines after the heading
         options: list[str] = []
         answer_line: Optional[str] = None
         explanation: str = ""
         answer_line_idx: int = -1
+        level: Optional[int] = None
 
         for idx, line in enumerate(lines[1:], start=1):
-            if line.startswith(">") and not answer_line:
+            if line.lower().startswith("level:"):
+                # Extract level number
+                level_str = line.split(":", 1)[1].strip()
+                try:
+                    level = int(level_str)
+                except ValueError:
+                    pass
+            elif line.startswith(">") and not answer_line:
                 # Check if this is an answer line (single letter A-D)
                 answer_check = line.replace(">", "").strip().upper()
                 if answer_check in ["A", "B", "C", "D"]:
@@ -115,10 +123,8 @@ def parse_llm_output(output: str) -> ParsedQuizData:
             elif line.startswith("-") and len(options) < 4:
                 # Remove "- " prefix
                 option_text = line[1:].strip()
-
                 # Remove various option prefixes that LLM might add incorrectly
                 option_text = re.sub(r"^[A-Da-d][.)/]?,?\s+", "", option_text)
-
                 options.append(option_text)
 
         if not answer_line:
@@ -133,10 +139,8 @@ def parse_llm_output(output: str) -> ParsedQuizData:
             continue
 
         # Extract explanation from the line after answer
-        # Look for "> Explanation:" in remaining lines after answer
-        for line in lines[answer_line_idx + 1 :]:
+        for line in lines[answer_line_idx + 1:]:
             if line.startswith(">") and "explanation:" in line.lower():
-                # Extract explanation text after "Explanation:"
                 explanation_match = re.search(
                     r">\s*explanation:\s*(.+)", line, re.IGNORECASE
                 )
@@ -156,11 +160,13 @@ def parse_llm_output(output: str) -> ParsedQuizData:
                 correct=correct_idx,
                 explanation=explanation,
                 type="General",
+                level=level,
             )
         )
         question_id += 1
 
     return ParsedQuizData(questions=questions)
+
 
 
 def parse_single_prompt_metadata(output: str) -> dict:

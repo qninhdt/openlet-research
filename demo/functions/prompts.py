@@ -11,57 +11,93 @@ OCR_PROMPT = """You are an advanced OCR (Optical Character Recognition) and text
 # SINGLE PROMPT MODE
 # ============================================================================
 
-SINGLE_PROMPT_QUESTION_GENERATION = """You are an Expert Examination Setter and Reading Comprehension Analyst.
+SINGLE_PROMPT_QUESTION_GENERATION = """# Role
+You are an expert Psychometrician and Exam Creator specializing in standardized testing (IELTS, SAT, LSAT, GMAT).
 
-Your task is to generate exactly **{num_questions} multiple-choice questions** based on the provided **text**. The questions must evaluate the reader's ability to comprehend the content.
+# Task
+Your task is to generate a total of **{total_questions}** multiple-choice questions based on the provided text.
+You must generate exactly:
+- **{n_1} questions for Level 1** (Retrieval)
+- **{n_2} questions for Level 2** (Inference & Synthesis)
+- **{n_3} questions for Level 3** (Critical Reasoning & Abstract Logic)
 
-# 1. INPUT TEXT
+# Input Text
 \"\"\"
 {text}
 \"\"\"
 
-# 2. QUESTION GENERATION RULES (Strict Enforcement)
+# Level Definitions & Constraints
 
-## A. Question Count Requirement
-- Generate EXACTLY **{num_questions} questions** - no more, no less.
-- Distribute questions across different types to ensure variety.
+## Level 1: Retrieval (Basic Information)
+*Standard: Elementary Reading Comprehension / Basic Fact-Checking.*
+*Goal: Test visual scanning and keyword matching.*
 
-## B. Question Types (Ensure Diversity)
-Try to include a mix of the following types across your {num_questions} questions:
-1.  **Word Matching / Detail Retrieval:**
-    - The answer is explicitly stated in the text.
-    - *Goal:* Test basic observation.
-2.  **Paraphrasing:**
-    - The answer is in the text but phrased differently (synonyms, different sentence structure).
-    - *Goal:* Test lexical understanding.
-3.  **Inference (Single or Multi-sentence Reasoning):**
-    - The answer is NOT explicitly stated. It requires connecting facts from one or multiple sentences.
-    - *Goal:* Test logical deduction (Cause-Effect, Why/How).
-4.  **Main Idea / Summarization:**
-    - Ask for the "Best title", "Main idea", or "Purpose of the passage".
-    - *Goal:* Test global comprehension.
-5.  **Attitude / Tone / Vocabulary:**
-    - Ask about the author's attitude (Critical, Objective, etc.), a character's feeling, or the meaning of a specific word/phrase in context.
-    - *Goal:* Test nuance and implied meaning.
+1. **Question Stem Features:**
+   - **Explicit Inquiry:** Ask directly about Named Entities (Who, When, Where, How many, What specific item).
+   - **Keyword Mapping:** Include 1-2 anchor words exactly as they appear in the text to allow easy location.
+   - **Single-Sentence Focus:** The answer must be found within a single sentence.
 
-## C. Formatting Constraints
-- **Option Count:** You must provide exactly **4 options** (A, B, C, D) for each question.
-- **Explanation Required:** After the correct answer letter, provide a clear, concise explanation (1-3 sentences) of why that answer is correct and/or why the others are incorrect.
-- **Distractor Quality:**
-    - Distractors must be plausible (e.g., mentioning words present in the text but used in a wrong context).
-    - Avoid "All of the above" or "None of the above" unless absolutely necessary.
-- **Question Style:**
-    - Mix **Standard Questions** (e.g., "Why did the boy cry?") and **Cloze-style** incomplete sentences (e.g., "The author implies that the new policy is _ .").
+2. **Correct Answer Features:**
+   - **Verbatim Extraction:** Copy-paste the exact phrase, number, date, or name from the text.
 
-## D. Metadata Extraction
+3. **Distractor Features:**
+   - **Factual Error:** Change the specific number or data point (e.g., change "50%" to "5%").
+   - **Jumbled Context:** Use a correct keyword/entity from the text but from a different, unrelated paragraph.
+   - **Visual Similarity:** Use words/numbers that look similar (e.g., "1945" vs "1954").
+
+---
+
+## Level 2: Inference & Synthesis (Comprehension)
+*Standard: SAT Reading, TOEFL, IELTS (High Band).*
+*Goal: Test understanding of meaning, connection, and paraphrasing. Defeat "keyword scanning".*
+
+1. **Question Stem Features:**
+   - **Synthesis:** Require combining information from at least 2 different sentences/paragraphs (e.g., A causes B, B causes C → What is the relation between A and C?).
+   - **Paraphrased Inquiry:** **DO NOT** use keywords from the text. Use synonyms or rephrased descriptions.
+   - **Global Comprehension:** Ask about Main Idea, Author's Purpose, Tone, or Implied Meaning ("It can be inferred that...").
+
+2. **Correct Answer Features:**
+   - **Semantic Equivalence:** The answer must mean the same as the text but use completely different vocabulary/structure (translation of meaning).
+
+3. **Distractor Features (CRITICAL):**
+   - **The Verbatim Trap (Copycat):** Options that contain **exact keywords** from the text but are factually incorrect or misused. (This traps Level 1 models.)
+   - **Partial Truth:** One part is correct, the other part is false.
+   - **Causality Confusion:** Reversing cause and effect.
+   - **Over-generalization:** Changing "some" to "all/always".
+
+---
+
+## Level 3: Critical Reasoning & Abstract Logic (Application)
+*Standard: LSAT Logical Reasoning, GMAT Critical Reasoning.*
+*Goal: Test logic, application, and critical evaluation. Identify logical structure independent of content.*
+
+1. **Question Stem Features:**
+   - **Abstraction & Application:** Create a **Hypothetical Scenario** NOT mentioned in the text and ask to apply the text's rules/principles to it.
+   - **Logical Evaluation:** Ask for Underlying Assumptions, Logical Flaws, or Strengthening/Weakening evidence.
+   - **Structural Mapping:** Ask to identify a parallel argument with the same logical structure.
+
+2. **Correct Answer Features:**
+   - **Necessary Consequence:** Must be logically deduced.
+   - **External Validator:** Can introduce NEW information (for strengthen/weaken questions) that logically impacts the argument.
+
+3. **Distractor Features (CRITICAL):**
+   - **The "So What?" (Irrelevance):** Facts that are true (even mentioned in text) but do not logically affect the specific argument being made.
+   - **Out of Scope:** Generalizations that go beyond the text's evidence context.
+   - **Reverse Causality:** Confusing the direction of logic.
+   - **Emotional Trap:** Options that sound ethically/politically correct but are logically irrelevant.
+
+---
+
+# Metadata Extraction
 Before generating questions, extract the following metadata from the text:
-- **Title:** A concise title for the passage
-- **Topics:** 1-3 topics covered
-- **Description:** A brief 1-2 sentence summary
+- **Title:** A concise title that captures the main topic of the text.
+- **Topics:** A comma-separated list of 1-3 main topics covered in the text.
+- **Description:** A 2-3 sentence summary of the text.
 
-# 3. OUTPUT FORMAT
-
-Start with metadata, then questions. Follow this pattern EXACTLY:
+# Output Format
+Generate the output in the following format. Do not include conversational fillers, intro or outro.
+Start with the metadata block, then all {total_questions} questions numbered sequentially.
+Each question MUST include a `Level:` tag immediately after the question heading.
 
 Title: [Extracted title]
 Topics: [Topic 1, Topic 2, ...]
@@ -69,23 +105,36 @@ Description: [Brief summary]
 
 ---
 
-### 1. [Question Text or Cloze-sentence]
+### [Number]. [Question Text]
+Level: [1|2|3]
 - [Option A]
 - [Option B]
 - [Option C]
 - [Option D]
 > [Correct Answer Letter]
-> Explanation: [1-3 sentence explanation of why this answer is correct]
+> Explanation: [1-3 sentences explaining why this answer is correct and why the others are wrong]
 
-### 2. [Question Text]
-- [Option A]
-- [Option B]
-- [Option C]
-- [Option D]
-> [Correct Answer Letter]
-> Explanation: [1-3 sentence explanation of why this answer is correct]
+### Example Output (For Reference Only)
 
-... [Continue for all {num_questions} questions]"""
+### 1. According to the text, in which year was the Treaty of Paris signed?
+Level: 1
+- 1781
+- 1783
+- 1785
+- 1873
+> B
+> Explanation: The text explicitly states "the Treaty of Paris was signed in 1783." The other options are plausible years near that period but are not mentioned in relation to this treaty.
+
+### 2. What does the author imply about the relationship between industrialization and urbanization in the second paragraph?
+Level: 2
+- They are unrelated processes in the economic cycle.
+- Urbanization is the primary cause of industrial decline.
+- Industrialization acts as a catalyst for rapid urbanization.
+- Urbanization prevents the spread of industrial technology.
+> C
+> Explanation: The author describes how factory growth drew workers into cities, implying industrialization drives urbanization. Option A contradicts this connection; B and D reverse the causal direction described in the passage."""
+
+
 
 # ============================================================================
 # MULTI-AGENT MODE: ANALYZER

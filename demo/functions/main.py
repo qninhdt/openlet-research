@@ -700,11 +700,19 @@ async def _generate_questions_async(
             )
 
         else:
-            # Single-prompt mode
+            # Single-prompt mode — generate all 3 levels in one call
+            n_2 = target_question_count // 3
+            n_3 = target_question_count // 3
+            n_1 = target_question_count - n_2 - n_3
+            total_questions = n_1 + n_2 + n_3
+
             full_prompt = (
                 SINGLE_PROMPT_QUESTION_GENERATION
                 .replace("{text}", ocr_text)
-                .replace("{num_questions}", str(target_question_count))
+                .replace("{n_1}", str(n_1))
+                .replace("{n_2}", str(n_2))
+                .replace("{n_3}", str(n_3))
+                .replace("{total_questions}", str(total_questions))
             )
 
             async with aiohttp.ClientSession() as session:
@@ -729,6 +737,7 @@ async def _generate_questions_async(
                         "correct": q.correct,
                         "explanation": q.explanation,
                         "type": q.type,
+                        "level": q.level,
                     }
                     for q in parsed_data.questions
                 ],
@@ -740,9 +749,11 @@ async def _generate_questions_async(
 
             print(
                 f"Single-prompt generation completed for quiz {quiz_id}, "
-                f"{len(parsed_data.questions)} questions. "
+                f"{len(parsed_data.questions)} questions "
+                f"(L1={n_1}, L2={n_2}, L3={n_3}). "
                 f'Title: "{title}", Topics: [{", ".join(topics)}]'
             )
+
 
         # Delete temporary files after successful question generation
         if delete_files and file_urls:
