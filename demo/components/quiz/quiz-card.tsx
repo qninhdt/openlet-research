@@ -35,9 +35,9 @@ function getStatusInfo(status: QuizStatus) {
         color: "text-purple-500",
         progress: 35,
       };
-    case "extracting_info":
+    case "analyzing":
       return {
-        label: "Extracting insights...",
+        label: "Analyzing content...",
         icon: Loader2,
         color: "text-cyan-500",
         progress: 55,
@@ -47,7 +47,21 @@ function getStatusInfo(status: QuizStatus) {
         label: "Generating questions...",
         icon: Loader2,
         color: "text-orange-500",
-        progress: 75,
+        progress: 65,
+      };
+    case "validating":
+      return {
+        label: "Validating & fixing questions...",
+        icon: Loader2,
+        color: "text-yellow-500",
+        progress: 78,
+      };
+    case "explaining":
+      return {
+        label: "Generating explanations...",
+        icon: Loader2,
+        color: "text-amber-500",
+        progress: 90,
       };
     case "ready":
       return {
@@ -81,8 +95,10 @@ export function QuizCard({ quiz }: QuizCardProps) {
   const isProcessing = [
     "uploading",
     "processing_ocr",
-    "extracting_info",
+    "analyzing",
     "generating_quiz",
+    "validating",
+    "explaining",
   ].includes(quiz.status);
 
   const questionCount = quiz.questions?.length || 0;

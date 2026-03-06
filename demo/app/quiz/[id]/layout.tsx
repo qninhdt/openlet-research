@@ -19,7 +19,6 @@ import {
   BarChart3,
   Users,
   FileText,
-  BrainCircuit,
 } from "lucide-react";
 import {
   Dialog,
@@ -253,16 +252,7 @@ export default function QuizLayout({
                   <Users className="w-4 h-4 sm:mr-2" />
                   <span className="hidden sm:inline">Responses</span>
                 </TabsTrigger>
-                {quiz?.aiAnalyticsEnabled && (
-                  <TabsTrigger
-                    value="analytics"
-                    onClick={() => router.push(`/quiz/${quizId}/analytics`)}
-                    className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none flex-shrink-0"
-                  >
-                    <BrainCircuit className="w-4 h-4 sm:mr-2" />
-                    <span className="hidden sm:inline">AI Analytics</span>
-                  </TabsTrigger>
-                )}
+
                 <TabsTrigger
                   value="settings"
                   onClick={() => router.push(`/quiz/${quizId}/settings`)}

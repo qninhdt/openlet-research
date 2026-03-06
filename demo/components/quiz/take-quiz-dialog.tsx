@@ -7,6 +7,7 @@ import { Quiz, UserAttempt } from "@/lib/types";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -130,6 +131,9 @@ export function TakeQuizDialog({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-2xl max-h-[90vh] flex flex-col">
+        <DialogDescription className="sr-only">
+          Take the quiz and submit your answers.
+        </DialogDescription>
         <DialogHeader>
           <DialogTitle>
             {viewMode === "quiz"

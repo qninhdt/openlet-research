@@ -129,13 +129,6 @@ export default function QuizEditorPage() {
         genre: currentQuiz.genre || "",
         topics: currentQuiz.topics || [],
         questions: currentQuiz.questions || [],
-        // Preserve AI analytics data if it exists
-        ...(currentQuiz.knowledgeGraph && {
-          knowledgeGraph: currentQuiz.knowledgeGraph,
-        }),
-        ...(currentQuiz.aiAnalyticsEnabled !== undefined && {
-          aiAnalyticsEnabled: currentQuiz.aiAnalyticsEnabled,
-        }),
         updatedAt: Timestamp.now(),
       };
 

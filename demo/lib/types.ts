@@ -1,5 +1,8 @@
 import { Timestamp } from "firebase/firestore";
 
+// Generation mode
+export type GenerationMode = "single_prompt" | "multi_agent";
+
 // Model configuration
 export interface ModelInfo {
   id: string;
@@ -8,29 +11,55 @@ export interface ModelInfo {
 }
 
 export const AVAILABLE_MODELS: ModelInfo[] = [
+  // Open Source sLLMs
+  {
+    id: "qwen/qwen3-8b",
+    displayName: "Qwen 3 8B",
+    category: "open-source",
+  },
   {
     id: "google/gemma-3-12b-it",
     displayName: "Gemma 3 12B",
     category: "open-source",
   },
   {
-    id: "nvidia/nemotron-nano-12b-v2-vl",
-    displayName: "Nemotron Nano 12B",
+    id: "meta-llama/llama-3.1-8b-instruct",
+    displayName: "Llama 3.1 8B",
     category: "open-source",
   },
   {
-    id: "meta-llama/llama-3.2-11b-vision-instruct",
-    displayName: "Llama 3.2 11B Vision",
+    id: "microsoft/phi-4",
+    displayName: "Phi 4",
     category: "open-source",
   },
+  // Closed Proprietary LLMs
   {
-    id: "google/gemini-3-flash-preview",
-    displayName: "Gemini 3 Flash (Preview)",
+    id: "openai/gpt-5-mini",
+    displayName: "GPT-5 Mini",
     category: "proprietary",
   },
   {
-    id: "google/gemini-2.5-flash",
-    displayName: "Gemini 2.5 Flash",
+    id: "google/gemini-3-flash-preview",
+    displayName: "Gemini 3 Flash",
+    category: "proprietary",
+  },
+  {
+    id: "x-ai/grok-4.1-fast",
+    displayName: "Grok 4.1 Fast",
+    category: "proprietary",
+  },
+  {
+    id: "anthropic/claude-haiku-4.5",
+    displayName: "Claude Haiku 4.5",
+    category: "proprietary",
+  },
+];
+
+// OCR-capable models (subset for OCR model selector)
+export const OCR_MODELS: ModelInfo[] = [
+  {
+    id: "google/gemini-3-flash-preview",
+    displayName: "Gemini 3 Flash",
     category: "proprietary",
   },
   {
@@ -49,46 +78,14 @@ export const AVAILABLE_MODELS: ModelInfo[] = [
 export type QuizStatus =
   | "uploading"
   | "processing_ocr"
-  | "extracting_info"
+  | "analyzing"
   | "generating_quiz"
+  | "validating"
+  | "explaining"
   | "ready"
   | "error";
 
-// Knowledge Graph types
-export interface KnowledgeGraphMeta {
-  title: string;
-  type: string;
-  topic: string[];
-  keywords: string[];
-  tone: string[];
-  author: string;
-  date: string;
-}
 
-export interface KnowledgeGraphContext {
-  summary: string;
-  mainPoints: string[];
-}
-
-export interface KnowledgeGraphEntity {
-  name: string;
-  type: "person" | "organization" | "location" | "thing" | "concept";
-  attributes: Record<string, string | number | boolean | string[]>;
-}
-
-export interface KnowledgeGraphRelationship {
-  source: string;
-  action: string;
-  target: string;
-  context?: string;
-}
-
-export interface KnowledgeGraph {
-  meta: KnowledgeGraphMeta;
-  context: KnowledgeGraphContext;
-  entities: KnowledgeGraphEntity[];
-  relationships: KnowledgeGraphRelationship[];
-}
 
 // Question type for generated questions
 export interface Question {
@@ -98,6 +95,7 @@ export interface Question {
   correct: number; // 0-based index (A=0, B=1, C=2, D=3)
   explanation: string; // Explanation of why the correct answer is right
   type?: string;
+  level?: number; // Question difficulty level (1=Retrieval, 2=Inference, 3=Critical Reasoning)
 }
 
 // User attempt record (for quiz owner)
@@ -221,9 +219,9 @@ export interface Quiz {
   userAttempts?: UserAttempt[];
   metrics?: QuizMetrics;
   topPerformers?: TopPerformer[];
-  // AI Analytics
-  aiAnalyticsEnabled?: boolean;
-  knowledgeGraph?: KnowledgeGraph;
+  // Generation mode
+  generationMode?: GenerationMode;
+  analyzerOutput?: string;
   // Timestamps
   createdAt: Timestamp | Date;
   updatedAt?: Timestamp | Date;

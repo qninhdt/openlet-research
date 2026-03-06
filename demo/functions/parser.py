@@ -1,269 +1,8 @@
 """Parser module for converting LLM output into structured quiz data."""
 
 import re
-import yaml
 from dataclasses import dataclass, field
-from typing import Optional, Any
-
-
-# ============== Knowledge Graph Data Classes ==============
-
-
-def fix_broken_quotes(yaml_string: str) -> str:
-    """
-    Fix malformed YAML lines caused by LLMs producing unbalanced/dangling double quotes.
-
-    Typical bad input:
-        conflict_status: "little fires" burning now
-    Fixed output:
-        conflict_status: "\"little fires\" burning now"
-
-    Strategy:
-    - Scan YAML line-by-line for simple "key: value" patterns.
-    - If the value contains a double quote but is not wrapped as a single valid
-      double-quoted YAML scalar, escape existing quotes and wrap the whole value
-      in double quotes.
-    - Skip nested structures (values starting with '{' or '[').
-    """
-    lines = yaml_string.split("\n")
-    fixed_lines: list[str] = []
-
-    # Match: [indent][optional '- '][key]:
-    # Group 1: "  key:" including trailing spaces after colon
-    # Group 2: the value part
-    pattern = r"^(\s*-?\s*[\w\-_]+:\s*)(.+)$"
-
-    for line in lines:
-        match = re.match(pattern, line)
-        if match:
-            prefix = match.group(1)
-            value = match.group(2).strip()
-
-            # Skip empty objects/arrays or nested structures
-            if value.startswith("{") or value.startswith("["):
-                fixed_lines.append(line)
-                continue
-
-            if '"' in value:
-                # If not already a clean double-quoted scalar, wrap it safely
-                if not (value.startswith('"') and value.endswith('"')):
-                    clean_value = value.replace('"', '\\"')
-                    fixed_lines.append(f'{prefix}"{clean_value}"')
-                    continue
-
-        fixed_lines.append(line)
-
-    return "\n".join(fixed_lines)
-
-
-@dataclass
-class KnowledgeGraphMeta:
-    """Metadata about the extracted knowledge graph."""
-
-    title: str = ""
-    type: str = ""
-    topic: list[str] = field(default_factory=list)
-    keywords: list[str] = field(default_factory=list)
-    tone: list[str] = field(default_factory=list)
-    author: str = ""
-    date: str = ""
-
-
-@dataclass
-class KnowledgeGraphContext:
-    """Context information including summary and main points."""
-
-    summary: str = ""
-    main_points: list[str] = field(default_factory=list)
-
-
-@dataclass
-class KnowledgeGraphEntity:
-    """An entity in the knowledge graph with dynamic attributes."""
-
-    name: str
-    type: str  # person | organization | location | thing | concept
-    attributes: dict[str, Any] = field(default_factory=dict)
-
-
-@dataclass
-class KnowledgeGraphRelationship:
-    """A relationship between two entities."""
-
-    source: str
-    action: str
-    target: str
-    context: Optional[str] = None
-
-
-@dataclass
-class KnowledgeGraph:
-    """Complete knowledge graph data structure."""
-
-    meta: KnowledgeGraphMeta = field(default_factory=KnowledgeGraphMeta)
-    context: KnowledgeGraphContext = field(default_factory=KnowledgeGraphContext)
-    entities: list[KnowledgeGraphEntity] = field(default_factory=list)
-    relationships: list[KnowledgeGraphRelationship] = field(default_factory=list)
-
-    def to_dict(self) -> dict:
-        """Convert to dictionary for Firestore."""
-        return {
-            "meta": {
-                "title": self.meta.title,
-                "type": self.meta.type,
-                "topic": self.meta.topic,
-                "keywords": self.meta.keywords,
-                "tone": self.meta.tone,
-                "author": self.meta.author,
-                "date": self.meta.date,
-            },
-            "context": {
-                "summary": self.context.summary,
-                "mainPoints": self.context.main_points,
-            },
-            "entities": [
-                {
-                    "name": e.name,
-                    "type": e.type,
-                    "attributes": e.attributes,
-                }
-                for e in self.entities
-            ],
-            "relationships": [
-                {
-                    "source": r.source,
-                    "action": r.action,
-                    "target": r.target,
-                    "context": r.context,
-                }
-                for r in self.relationships
-            ],
-        }
-
-
-def parse_knowledge_graph(output: str) -> KnowledgeGraph:
-    """
-    Parse LLM output containing a YAML knowledge graph.
-
-    Expected format:
-    ```yaml
-    meta:
-      title: ...
-      type: ...
-      ...
-    context:
-      summary: ...
-      main_points:
-        - ...
-    entities:
-      - name: ...
-        type: ...
-        {attr}: ...
-    relationships:
-      - [entity1, action, entity2]
-      - [entity1, action, entity2, context]
-    ```
-
-    Returns parsed KnowledgeGraph data structure.
-    """
-    kg = KnowledgeGraph()
-
-    # Extract YAML content from code block
-    yaml_match = re.search(r"```(?:yaml)?\s*\n(.*?)\n```", output, re.DOTALL)
-    if yaml_match:
-        yaml_content = yaml_match.group(1)
-    else:
-        # Try to parse the entire output as YAML
-        yaml_content = output
-
-    try:
-        data = yaml.safe_load(yaml_content)
-        if not isinstance(data, dict):
-            print(f"Warning: YAML parsing returned non-dict type: {type(data)}")
-            return kg
-    except yaml.YAMLError as e:
-        # Retry once after fixing common broken-quote issues
-        try:
-            fixed_yaml = fix_broken_quotes(yaml_content)
-            data = yaml.safe_load(fixed_yaml)
-            if not isinstance(data, dict):
-                print(
-                    f"Warning: YAML parsing (after fix) returned non-dict type: {type(data)}"
-                )
-                return kg
-        except yaml.YAMLError as e2:
-            print(f"Error parsing YAML (original): {e}")
-            print(f"Error parsing YAML (after fix_broken_quotes): {e2}")
-            return kg
-
-    # Parse meta section
-    if "meta" in data and isinstance(data["meta"], dict):
-        meta = data["meta"]
-        kg.meta = KnowledgeGraphMeta(
-            title=str(meta.get("title", "")),
-            type=str(meta.get("type", "")),
-            topic=_ensure_list(meta.get("topic", [])),
-            keywords=_ensure_list(meta.get("keywords", [])),
-            tone=_ensure_list(meta.get("tone", [])),
-            author=str(meta.get("author", "")),
-            date=str(meta.get("date", "")),
-        )
-
-    # Parse context section
-    if "context" in data and isinstance(data["context"], dict):
-        context = data["context"]
-        kg.context = KnowledgeGraphContext(
-            summary=str(context.get("summary", "")),
-            main_points=_ensure_list(context.get("main_points", [])),
-        )
-
-    # Parse entities section
-    if "entities" in data and isinstance(data["entities"], list):
-        for entity_data in data["entities"]:
-            if not isinstance(entity_data, dict):
-                continue
-            name = str(entity_data.get("name", ""))
-            entity_type = str(entity_data.get("type", "thing"))
-            # Extract all other attributes (excluding name and type)
-            attributes = {
-                k: v for k, v in entity_data.items() if k not in ("name", "type")
-            }
-            if name:
-                kg.entities.append(
-                    KnowledgeGraphEntity(
-                        name=name,
-                        type=entity_type,
-                        attributes=attributes,
-                    )
-                )
-
-    # Parse relationships section
-    if "relationships" in data and isinstance(data["relationships"], list):
-        for rel_data in data["relationships"]:
-            if isinstance(rel_data, list) and len(rel_data) >= 3:
-                source = str(rel_data[0])
-                action = str(rel_data[1])
-                target = str(rel_data[2])
-                context = str(rel_data[3]) if len(rel_data) > 3 else None
-                kg.relationships.append(
-                    KnowledgeGraphRelationship(
-                        source=source,
-                        action=action,
-                        target=target,
-                        context=context,
-                    )
-                )
-
-    return kg
-
-
-def _ensure_list(value: Any) -> list[str]:
-    """Ensure a value is a list of strings."""
-    if isinstance(value, list):
-        return [str(item) for item in value]
-    elif value:
-        return [str(value)]
-    return []
+from typing import Optional
 
 
 # ============== Quiz Data Classes ==============
@@ -279,6 +18,7 @@ class Question:
     correct: int  # 0-based index (A=0, B=1, C=2, D=3)
     explanation: str  # Explanation of why the correct answer is right
     type: Optional[str] = "General"
+    level: Optional[int] = None  # Question difficulty level (1, 2, 3)
 
 
 @dataclass
@@ -298,10 +38,14 @@ class ParsedQuizData:
                     "correct": q.correct,
                     "explanation": q.explanation,
                     "type": q.type,
+                    "level": q.level,
                 }
                 for q in self.questions
             ],
         }
+
+
+# ============== Single-Prompt Mode Parsers ==============
 
 
 def parse_llm_output(output: str) -> ParsedQuizData:
@@ -417,3 +161,373 @@ def parse_llm_output(output: str) -> ParsedQuizData:
         question_id += 1
 
     return ParsedQuizData(questions=questions)
+
+
+def parse_single_prompt_metadata(output: str) -> dict:
+    """
+    Parse metadata from single-prompt LLM output.
+
+    Expected format at beginning of output:
+    Title: [title]
+    Topics: [topic1, topic2, ...]
+    Description: [description]
+
+    Returns dict with title, topics, description.
+    """
+    metadata = {
+        "title": "Untitled Quiz",
+        "topics": [],
+        "description": "",
+    }
+
+    # Extract title
+    title_match = re.search(r"^Title:\s*(.+)$", output, re.MULTILINE)
+    if title_match:
+        metadata["title"] = title_match.group(1).strip()
+
+    # Extract topics
+    topics_match = re.search(r"^Topics:\s*(.+)$", output, re.MULTILINE)
+    if topics_match:
+        topics_str = topics_match.group(1).strip()
+        # Parse comma-separated topics
+        metadata["topics"] = [t.strip() for t in topics_str.split(",") if t.strip()]
+
+    # Extract description
+    desc_match = re.search(r"^Description:\s*(.+)$", output, re.MULTILINE)
+    if desc_match:
+        metadata["description"] = desc_match.group(1).strip()
+
+    return metadata
+
+
+def parse_analyzer_metadata(analyzer_output: str) -> dict:
+    """
+    Parse metadata from analyzer agent output.
+
+    Handles multiple output variants robustly:
+    - "- Title: ..."
+    - "* **Title:** ..."
+    - "**Title:** ..."
+    - "Title: ..."
+
+    Returns dict with title, topics, description.
+    """
+    metadata = {
+        "title": "Untitled Quiz",
+        "topics": [],
+        "description": "",
+    }
+
+    if not analyzer_output or not analyzer_output.strip():
+        return metadata
+
+    try:
+        # Flexible pattern: optional list markers (-, *), optional bold (**), key, colon, value
+        def extract_field(key: str) -> str | None:
+            pattern = rf"^[\-\*\s]*\**{re.escape(key)}\**:\s*(.+)$"
+            match = re.search(pattern, analyzer_output, re.MULTILINE | re.IGNORECASE)
+            if match:
+                # Strip any remaining ** markdown bold markers from the value
+                return match.group(1).replace("**", "").strip()
+            return None
+
+        title = extract_field("Title")
+        if title:
+            metadata["title"] = title
+
+        topic = extract_field("Topic")
+        if topic:
+            # Split by comma or semicolon
+            metadata["topics"] = [t.strip() for t in re.split(r"[,;]", topic) if t.strip()]
+
+        summary = extract_field("Summary")
+        if summary:
+            metadata["description"] = summary
+
+    except Exception as e:
+        print(f"Warning: parse_analyzer_metadata failed: {e}")
+
+    return metadata
+
+
+# ============== Multi-Agent Mode Parsers ==============
+
+
+def parse_generator_output(output: str, n: int, expected_level: int = None) -> list[dict]:
+    """Parse generator output into structured questions.
+
+    Expected format:
+    ID: 1
+    Question: Question text
+    A: Option A
+    B: Option B
+    C: Option C
+    D: Option D
+    Answer: A
+
+    Returns list of question dictionaries with keys:
+    id, question, options, correct_idx, level
+    """
+    questions = []
+
+    if not output or not output.strip():
+        return questions
+
+    try:
+        # Split by ID: to separate questions
+        blocks = re.split(r"\n(?=ID:\s*\d+)", output.strip())
+
+        for block in blocks:
+            if not block.strip():
+                continue
+
+            try:
+                # Find positions of key prefixes
+                question_pos = block.find("Question:")
+                a_pos = block.find("\nA:")
+                b_pos = block.find("\nB:")
+                c_pos = block.find("\nC:")
+                d_pos = block.find("\nD:")
+                answer_pos = block.find("\nAnswer:")
+
+                # Extract Question text (from "Question:" to "\nA:")
+                if question_pos == -1 or a_pos == -1:
+                    continue
+                question_text = block[question_pos + len("Question:"):a_pos].strip()
+
+                # Extract options by finding text between prefixes
+                if a_pos == -1 or b_pos == -1 or c_pos == -1 or d_pos == -1 or answer_pos == -1:
+                    continue
+
+                option_a = block[a_pos + len("\nA:"):b_pos].strip()
+                option_b = block[b_pos + len("\nB:"):c_pos].strip()
+                option_c = block[c_pos + len("\nC:"):d_pos].strip()
+                option_d = block[d_pos + len("\nD:"):answer_pos].strip()
+
+                options = [option_a, option_b, option_c, option_d]
+
+                # Extract Answer letter
+                answer_match = re.search(r"Answer:\s*([A-D])", block, re.IGNORECASE)
+                answer_letter = answer_match.group(1).strip().upper() if answer_match else None
+
+                # Only add if we have all 4 options and answer
+                if len(options) == 4 and answer_letter:
+                    correct_map = {"A": 0, "B": 1, "C": 2, "D": 3}
+                    correct_idx = correct_map.get(answer_letter, -1)
+
+                    # Parse ID from the block
+                    id_match = re.match(r"ID:\s*(\d+)", block.strip())
+                    q_id = int(id_match.group(1)) if id_match else None
+
+                    if correct_idx != -1:
+                        questions.append({
+                            "id": q_id,
+                            "question": question_text,
+                            "options": options,
+                            "correct_idx": correct_idx,
+                            "level": expected_level,
+                        })
+
+            except Exception as e:
+                print(f"Warning: Failed to parse question block: {str(e)}")
+                continue
+
+    except Exception as e:
+        print(f"Warning: parse_generator_output failed: {str(e)}")
+
+    return questions
+
+def parse_validator_output(output: str) -> list[dict]:
+    """Parse validator output into structured validation results.
+
+    Expected format per question:
+    ID: 1
+    Solvability: PASS|FAIL
+    Distractor Quality: PASS|FAIL
+    Alignment: PASS|FAIL
+    Verdict: PASS|FAIL
+    Feedback: ...
+
+    Returns list of {id, verdict, feedback}
+    """
+    results = []
+
+    if not output or not output.strip():
+        return results
+
+    try:
+        blocks = re.split(r"\n(?=ID:\s*\d+)", output.strip())
+
+        for block in blocks:
+            block = block.strip()
+            if not block:
+                continue
+
+            try:
+                # Extract ID
+                id_match = re.match(r"ID:\s*(\d+)", block)
+                if not id_match:
+                    continue
+                q_id = int(id_match.group(1))
+
+                # Extract verdict
+                verdict_match = re.search(r"Verdict:\s*(PASS|FAIL)", block, re.IGNORECASE)
+                verdict = verdict_match.group(1).upper() if verdict_match else "FAIL"
+
+                # Extract feedback
+                feedback_match = re.search(r"Feedback:\s*(.+)", block)
+                feedback = feedback_match.group(1).strip() if feedback_match else "None"
+
+                results.append({
+                    "id": q_id,
+                    "verdict": verdict,
+                    "feedback": feedback,
+                })
+            except Exception as e:
+                print(f"Warning: Failed to parse validator block: {str(e)}")
+                continue
+
+    except Exception as e:
+        print(f"Warning: parse_validator_output failed: {str(e)}")
+
+    return results
+
+
+def format_questions_for_validation(questions: list[dict]) -> str:
+    """Format questions list into text block for validator prompt.
+
+    Args:
+        questions: List of question dicts with question, options, correct_idx
+
+    Returns:
+        Formatted string
+    """
+    lines = []
+    correct_map = {0: "A", 1: "B", 2: "C", 3: "D"}
+    for idx, q in enumerate(questions, 1):
+        lines.append(f"ID: {idx}")
+        lines.append(f"Question: {q.get('question', '')}")
+        options = q.get("options", [])
+        for i, label in enumerate(["A", "B", "C", "D"]):
+            if i < len(options):
+                lines.append(f"{label}: {options[i]}")
+        lines.append(f"Answer: {correct_map.get(q.get('correct_idx', 0), 'A')}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def format_failed_questions_for_fixer(
+    questions: list[dict], validation: list[dict]
+) -> str:
+    """Format failed questions with their feedback for the fixer prompt.
+
+    Args:
+        questions: List of question dicts
+        validation: List of validation result dicts with id, verdict, feedback
+
+    Returns:
+        Formatted string with failed questions and feedback, or empty string if none failed
+    """
+    lines = []
+    correct_map = {0: "A", 1: "B", 2: "C", 3: "D"}
+
+    # Build a map from validation id to feedback
+    feedback_map = {}
+    for v in validation:
+        if v.get("verdict") == "FAIL":
+            feedback_map[v["id"]] = v.get("feedback", "No specific feedback")
+
+    for idx, q in enumerate(questions, 1):
+        feedback = feedback_map.get(idx)
+        if feedback:
+            lines.append(f"ID: {idx}")
+            lines.append(f"Question: {q['question']}")
+            for i, label in enumerate(["A", "B", "C", "D"]):
+                lines.append(f"{label}: {q['options'][i]}")
+            lines.append(f"Answer: {correct_map.get(q['correct_idx'], 'A')}")
+            lines.append(f"Feedback: {feedback}")
+            lines.append("")
+
+    return "\n".join(lines)
+
+
+def format_questions_for_explanation(questions: list[dict]) -> str:
+    """Format merged questions into text block for the explanation prompt.
+
+    Args:
+        questions: List of question dicts with content, options, correct, level, id
+
+    Returns:
+        Formatted string suitable for the EXPLANATION_PROMPT {questions} placeholder
+    """
+    lines = []
+    correct_map = {0: "A", 1: "B", 2: "C", 3: "D"}
+    for q in questions:
+        q_id = q.get("id", "?")
+        level = q.get("level", "?")
+        lines.append(f"ID: {q_id}  (Level {level})")
+        lines.append(f"Question: {q.get('content', q.get('question', ''))}")
+        options = q.get("options", [])
+        for i, label in enumerate(["A", "B", "C", "D"]):
+            if i < len(options):
+                lines.append(f"{label}: {options[i]}")
+        correct = q.get("correct", q.get("correct_idx", 0))
+        lines.append(f"Answer: {correct_map.get(correct, 'A')}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def parse_explanation_output(output: str, num_questions: int) -> dict[int, str]:
+    """Parse explanation agent output into a mapping of question ID → explanation.
+
+    Handles multiple formats robustly:
+    - Standard:  ID: 1\\nExplanation: ...
+    - Multiline: Explanation text spanning several lines until next ID block
+    - Missing IDs or malformed blocks are skipped gracefully
+
+    Args:
+        output: Raw LLM output from the explanation agent
+        num_questions: Expected number of questions (used for fallback)
+
+    Returns:
+        Dict mapping question ID (int) → explanation string.
+        If parsing fails entirely, returns an empty dict.
+    """
+    explanations: dict[int, str] = {}
+
+    if not output or not output.strip():
+        return explanations
+
+    try:
+        # Split by "ID:" blocks
+        blocks = re.split(r"\n(?=ID:\s*\d+)", output.strip())
+
+        for block in blocks:
+            block = block.strip()
+            if not block:
+                continue
+
+            try:
+                # Extract ID
+                id_match = re.match(r"ID:\s*(\d+)", block)
+                if not id_match:
+                    continue
+                q_id = int(id_match.group(1))
+
+                # Extract explanation — everything after "Explanation:" until end of block
+                explanation_match = re.search(
+                    r"Explanation:\s*(.+)", block, re.DOTALL
+                )
+                if explanation_match:
+                    explanation = explanation_match.group(1).strip()
+                    # Clean up: collapse multiple newlines into spaces for single-paragraph
+                    explanation = re.sub(r"\n+", " ", explanation).strip()
+                    if explanation:
+                        explanations[q_id] = explanation
+            except (ValueError, AttributeError):
+                continue
+
+    except Exception as e:
+        print(f"Warning: Failed to parse explanation output: {e}")
+
+    return explanations
