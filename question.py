@@ -281,7 +281,7 @@ def generate_questions(
         max_tokens=8192,
         extra_body={
             "provider": {
-                # "order": ["deepinfra", "atlas-cloud"],
+                "order": ["deepinfra", "atlas-cloud", "google-ai-studio", "openai", "google-vertex"],
                 "allow_fallbacks": False,
                 "sort": {
                     "by": "price",

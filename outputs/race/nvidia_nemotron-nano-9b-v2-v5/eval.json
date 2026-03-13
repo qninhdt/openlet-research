@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "predictions_path": "outputs/race/nvidia_nemotron-nano-9b-v2-v5/predictions.json",
+    "data_path": "datasets/unified/data.json",
+    "prompt_path": "prompts/eval.md",
+    "generation_model": "nvidia/nemotron-nano-9b-v2-v5",
+    "judge_model": "google/gemini-3-flash-preview",
+    "api_base": "https://openrouter.ai/api/v1",
+    "source": "race"
+  },
+  "statistics": {
+    "overall": {
+      "total_items": 0,
+      "successful_items": 0,
+      "failed_items": 0,
+      "total_questions": 0,
+      "solvability": 0.0,
+      "alignment": 0.0,
+      "acceptance": 0.0
+    },
+    "by_level": {}
+  },
+  "results": []
+}
