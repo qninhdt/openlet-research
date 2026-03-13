@@ -96,6 +96,14 @@ For **EACH** question, provide an analysis on 3 metrics. **You must provide the 
 * **Criteria:** Does the question strictly follow the features of its **Target Level**?
 * **Score:** `1` (Aligned), `0` (Misaligned).
 
+### 4. Clarity (Scale: 1-5)
+* **Criteria:**
+    * Is the question stem grammatically correct and free of typos or awkward phrasing?
+    * Are all answer options written in parallel structure and easy to understand?
+    * Is the question concise and unambiguous in its wording (separate from whether it is *solvable*)?
+    * Could a fluent English speaker immediately understand what is being asked?
+* **Score:** `1` to `5` (1=Very unclear/poorly written, 5=Perfectly clear and well-written).
+
 # Output Format
 
 For each question, provide the evaluation strictly following the template below. Use the Example as a reference for the expected length and style of the "Reasoning".
@@ -113,6 +121,9 @@ Level: [1 to 3]
 3. Alignment:
 - Reasoning: [Brief check: Does the question strictly match the Question Stem & Answer features of the Target Level?]
 - Score: [0 or 1]
+4. Clarity:
+- Reasoning: [Brief evaluation: Is the language clear, grammatical, and unambiguous?]
+- Score: [1 to 5]
 
 ---
 
@@ -129,3 +140,6 @@ Level: 2
 3. Alignment:
 - Reasoning: The question uses synonyms instead of keywords (Paraphrased Inquiry) and requires combining two sentences (Synthesis). It aligns perfectly with Level 2.
 - Score: 1
+4. Clarity:
+- Reasoning: The question stem is grammatically correct, concise, and easy to understand. All options are written in parallel structure with no ambiguous phrasing.
+- Score: 5

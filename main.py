@@ -11,8 +11,78 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, END
 
 from dotenv import load_dotenv
+import threading
 
 load_dotenv()
+
+# ---------------------------------------------------------------------------
+# Global cost tracking (thread-safe)
+# ---------------------------------------------------------------------------
+_cost_lock = threading.Lock()
+_total_cost = 0.0
+# Per-item cost tracked by item_id (works across LangGraph's internal threads)
+_item_cost_lock = threading.Lock()
+_item_costs: Dict[str, float] = {}
+
+
+def _add_cost(response, item_id: str = "") -> float:
+    """Thread-safely accumulate cost from an OpenRouter LLM response.
+
+    Args:
+        response: LangChain AIMessage response
+        item_id: Sample ID to attribute cost to
+
+    Returns:
+        Cost of this call in USD (0.0 if unavailable)
+    """
+    global _total_cost
+    try:
+        meta = getattr(response, "response_metadata", {}) or {}
+        cost = _extract_cost(meta)
+        if cost > 0:
+            with _cost_lock:
+                _total_cost += cost
+            if item_id:
+                with _item_cost_lock:
+                    _item_costs[item_id] = _item_costs.get(item_id, 0.0) + cost
+        return cost
+    except Exception:
+        return 0.0
+
+
+def _extract_cost(meta: dict) -> float:
+    """Extract cost from LangChain response_metadata.
+
+    OpenRouter puts `cost` inside token_usage (response_metadata["token_usage"]["cost"]).
+    """
+    token_usage = meta.get("token_usage") or {}
+    if isinstance(token_usage, dict):
+        val = token_usage.get("cost")
+        if val is not None:
+            try:
+                return float(val)
+            except (TypeError, ValueError):
+                pass
+
+    for key in ("cost", "openrouter_cost"):
+        val = meta.get(key)
+        if val is not None:
+            try:
+                return float(val)
+            except (TypeError, ValueError):
+                pass
+
+    headers = meta.get("headers") or {}
+    if isinstance(headers, dict):
+        for key in ("x-openrouter-cost", "X-Openrouter-Cost"):
+            val = headers.get(key)
+            if val is not None:
+                try:
+                    return float(val)
+                except (TypeError, ValueError):
+                    pass
+
+    return 0.0
 
 
 # Define the state structure for the workflow
@@ -99,6 +169,7 @@ def analyzer_agent(
 
         # Invoke LLM
         response = llm.invoke(full_prompt)
+        _add_cost(response, item_id=state["item_id"])
         analyzer_output = response.content
 
         if state.get("verbose"):
@@ -254,17 +325,20 @@ def format_failed_questions_for_fixer(
     feedback_map = {}
     for v in validation:
         if v.get("verdict") == "FAIL":
-            feedback_map[v["id"]] = v.get("feedback", "No specific feedback")
+            feedback_map[v["id"]] = v
 
     for idx, q in enumerate(questions, 1):
-        feedback = feedback_map.get(idx)
-        if feedback:
+        v = feedback_map.get(idx)
+        if v:
             lines.append(f"ID: {idx}")
             lines.append(f"Question: {q['question']}")
             for i, label in enumerate(["A", "B", "C", "D"]):
                 lines.append(f"{label}: {q['options'][i]}")
             lines.append(f"Answer: {correct_map.get(q['correct_idx'], 'A')}")
-            lines.append(f"Feedback: {feedback}")
+            lines.append(f"Feedback: {v.get('feedback', 'No specific feedback')}")
+            lines.append(f"Solvability: {v.get('solvability', 'FAIL')}")
+            lines.append(f"Distractor Quality: {v.get('distractor_quality', 'FAIL')}")
+            lines.append(f"Alignment: {v.get('alignment', 'FAIL')}")
             lines.append("")
 
     return "\n".join(lines)
@@ -365,6 +439,7 @@ def generator_level1_agent(
 
         # Invoke LLM
         response = llm.invoke(full_prompt)
+        _add_cost(response, item_id=state["item_id"])
         generator_output = response.content
 
         if state.get("verbose"):
@@ -414,6 +489,7 @@ def generator_level2_agent(
 
         # Invoke LLM
         response = llm.invoke(full_prompt)
+        _add_cost(response, item_id=state["item_id"])
         generator_output = response.content
 
         if state.get("verbose"):
@@ -463,6 +539,7 @@ def generator_level3_agent(
 
         # Invoke LLM
         response = llm.invoke(full_prompt)
+        _add_cost(response, item_id=state["item_id"])
         generator_output = response.content
 
         if state.get("verbose"):
@@ -500,6 +577,7 @@ def _run_validator(
         "{questions}", questions_text
     )
     response = llm.invoke(full_prompt)
+    _add_cost(response, item_id=item_id)
     validator_output = response.content
 
     if verbose:
@@ -550,6 +628,7 @@ def _run_fixer(
         .replace("{failed_questions}", failed_text)
     )
     response = llm.invoke(full_prompt)
+    _add_cost(response, item_id=item_id)
     fixer_output = response.content
 
     if verbose:
@@ -938,20 +1017,29 @@ def process_item(
     )
 
     try:
+        # Reset per-item cost accumulator
+        with _item_cost_lock:
+            _item_costs[item["id"]] = 0.0
+
         # Run workflow
         final_state = workflow.invoke(initial_state)
+        item_cost = _item_costs.get(item["id"], 0.0)
+        with _item_cost_lock:
+            _item_costs.pop(item["id"], None)
 
         # Check for errors
         if final_state.get("error"):
             return {
                 "id": item["id"],
                 "source": item.get("source", "unknown"),
+                "cost": item_cost,
                 "error": final_state["error"],
             }
 
         result = {
             "id": item["id"],
             "source": item.get("source", "unknown"),
+            "cost": item_cost,
             "generated_questions": final_state["final_questions"],
         }
 
@@ -965,9 +1053,13 @@ def process_item(
         return result
 
     except Exception as e:
+        item_cost = _item_costs.get(item["id"], 0.0)
+        with _item_cost_lock:
+            _item_costs.pop(item["id"], None)
         error_result = {
             "id": item["id"],
             "source": item.get("source", "unknown"),
+            "cost": item_cost,
             "error": str(e),
         }
 
@@ -1157,7 +1249,12 @@ def main():
         openai_api_base="https://openrouter.ai/api/v1",
         # openai_api_base="https://api.novita.ai/openai",
         temperature=0.0,
-        extra_body={"reasoning": {"effort": "none"}},
+        extra_body={
+            "reasoning": {"effort": "none"},
+            "provider": {
+                "sort": "price",
+            },
+        },
     )
 
     # Create workflow
@@ -1211,6 +1308,8 @@ def main():
         print(f"Using {args.workers} worker(s) for parallel processing")
 
         # Process items with ThreadPoolExecutor
+        # Track cost for this source
+        source_cost_start = _total_cost
         results = []
 
         if args.workers == 1:
@@ -1230,9 +1329,9 @@ def main():
                     # Print summary for this item
                     if "error" in result:
                         tqdm.write(f"✗ {item['id']}: Error - {result['error']}")
-                    elif args.verbose:
-                        print(
-                            f"✓ Successfully generated {len(result['generated_questions'])} questions"
+                    else:
+                        tqdm.write(
+                            f"✓ {item['id']}: cost=${result.get('cost', 0.0):.6f}"
                         )
                     pbar.update(1)
         else:
@@ -1259,7 +1358,7 @@ def main():
                                 tqdm.write(f"✗ {item['id']}: Error - {result['error']}")
                             else:
                                 tqdm.write(
-                                    f"✓ {item['id']}: Generated {len(result['generated_questions'])} questions"
+                                    f"✓ {item['id']}: cost=${result.get('cost', 0.0):.6f}"
                                 )
                         except Exception as e:
                             tqdm.write(f"✗ {item['id']}: Exception - {str(e)}")
@@ -1267,6 +1366,7 @@ def main():
                                 {
                                     "id": item["id"],
                                     "source": item.get("source", "unknown"),
+                                    "cost": 0.0,
                                     "content": item["content"],
                                     "error": str(e),
                                 }
@@ -1292,14 +1392,18 @@ def main():
             len(r.get("generated_questions", [])) for r in results if "error" not in r
         )
 
+        source_cost = _total_cost - source_cost_start
+
         print(f"\nSummary for {source}:")
         print(f"  Successful samples: {successful}")
         print(f"  Failed samples: {failed}")
         print(f"  Total questions generated: {total_questions}")
         print(f"  Questions per sample: {3 * args.n} ({args.n} per level)")
+        print(f"  Cost (this source): ${source_cost:.6f}")
 
     print("\n" + "=" * 100)
     print("ALL SOURCES COMPLETE")
+    print(f"Total cost (all sources): ${_total_cost:.6f}")
     print("=" * 100)
 
 

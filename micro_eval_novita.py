@@ -301,9 +301,8 @@ def evaluate_questions(
     llm = ChatOpenAI(
         model=model,
         openai_api_key=openrouter_api_key,
-        # openai_api_base="https://api.novita.ai/openai",
+        openai_api_base="https://api.novita.ai/openai",
         # openai_api_base="https://openrouter.ai/api/v1",
-        openai_api_base="https://chat.trollllm.xyz/v1",
         temperature=0.0,
         max_tokens=8192,
         extra_body={
@@ -633,10 +632,7 @@ def main():
 
     # Get API key from environment variable
     # api_key = os.environ.get("OPENROUTER_API_KEY")
-    # api_key = os.getenv("NOVITAAI_API_KEY")
-    api_key = (
-        "sk-trollllm-7cdd4de167d8bfb3acf67156866fd8b4585b865e8e226d780b7538f0f80804c0"
-    )
+    api_key = os.getenv("NOVITAAI_API_KEY")
 
     if not api_key:
         raise ValueError(
@@ -728,7 +724,6 @@ def main():
                 future_to_job[future] = item_id
 
             # Process completed jobs with progress bar
-            current_evals = []
             with tqdm(
                 total=total_jobs, desc=f"Evaluating {source}", unit="item"
             ) as pbar:
@@ -744,22 +739,8 @@ def main():
                         and "error" in result[1]
                     ):
                         tqdm.write(f"✗ Error in item {item_id}: {result[1]['error']}")
-                        current_evals.append({"error": result[1]["error"]})
                     else:
                         tqdm.write(f"✓ {item_id}: cost=${result[2]:.6f}")
-                        current_evals.append({"evaluations": result[1]})
-
-                    # Calculate and display running stats
-                    stats = calculate_statistics(current_evals)
-                    avgs = stats.get("averages", {}).get("overall", {})
-                    if avgs:
-                        postfix_data = {
-                            "Solv": f"{avgs.get('solvability', 0):.3f}",
-                            "Dist": f"{avgs.get('distractor_quality', 0):.3f}",
-                            "Align": f"{avgs.get('alignment', 0):.3f}",
-                            "Clar": f"{avgs.get('clarity', 0):.3f}"
-                        }
-                        pbar.set_postfix(postfix_data)
 
                     pbar.update(1)
 

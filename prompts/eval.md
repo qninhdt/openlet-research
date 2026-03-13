@@ -1,16 +1,25 @@
 # Role
-You are an expert Exam Creator specializing in reading testing.
-
-# Task
-Generate exactly **{n} questions for Level 1**, **{n} questions for Level 2**, and **{n} questions for Level 3** (Total: {n3} questions).
-Please ensure the question index starts exactly from 1 and ends at {n3}.
+You are an expert exam evaluator and a top-tier student. Your task is to solve a multiple-choice quiz and accurately classify each question's cognitive difficulty level based on strict criteria.
 
 # Source Text
 """
 {content}
 """
 
-# Level Definitions
+# Quiz
+"""
+{quiz}
+"""
+
+# Instructions
+1. This is a multiple-response test (Select All That Apply). Each question may have one, multiple, or zero correct options. 
+2. Evaluate every single choice against the source document. You must identify ALL correct options.
+3. Classify the question's cognitive difficulty level (1, 2, or 3) by strictly matching it against the provided "Level Definitions".
+4. Briefly justify why you selected those specific choices (and rejected others), and explain why you assigned that specific difficulty level.
+5. Strictly follow the exact Output Format below. Do not generate any conversational filler.
+6. Return NONE if all options are incorrect or the question is not relevant to the source document.
+
+# Level Definitions 
 
 ## Level 1: Simple Extraction & Basic Comprehension
 Objective: Assess the ability to extract explicit facts and understand surface-level information.
@@ -28,30 +37,24 @@ Question Generation Requirements: DO NOT generate simple factual questions. Crea
 Answer & Distractor Criteria: Arriving at the correct answer must require the reader to synthesize at least 2-3 pieces of information separated by significant distance within the text. Distractors must be sophisticated traps: they should misapply the text's logic, reverse cause-and-effect relationships, or present plausible real-world assumptions that are NOT supported by the provided text.
 
 # Output Format
-Output ONLY the questions in this format:
 
-### 1. [Question Text]
-- [Option A]
-- [Option B]
-- [Option C]
-- [Option D]
-> [Correct Answer Letter]
+ID: [ID]
+Reason: [Brief explanation of why the choices are correct or incorrect, and why the question is a certain level]
+Type: [1, 2, or 3]
+Choices: [A, B, C, D, or NONE]
 
-# Output Examples
+# Output Example
+ID: 1
+Reason: [...]
+Type: 3
+Choices: A,C
 
-### 1. When did Florey and Chain successfully purify penicillin?
-- A. 1928
-- B. 1940
-- C. Before World War I
-- D. After they received the Nobel Prize
-> B
+ID: 2
+Reason: [...]
+Type: 3
+Choices: NONE
 
-[... Other questions ...]
-
-### {n3}. What is the main idea conveyed by the author regarding the history of penicillin?
-- A. Fleming’s initial discovery was purely accidental and thus lacks true scientific merit.
-- B. The practical realization of the drug relied heavily on subsequent collaborative and logistical efforts.
-- C. Florey and Chain intentionally stole the public spotlight from Fleming’s groundbreaking research.
-- D. The US government was solely responsible for the discovery of the first antibiotic.
-> B
-
+ID: 3
+Reason: [...]
+Type: 1
+Choices: B

@@ -10,8 +10,73 @@ from langchain_openai import ChatOpenAI
 from tqdm import tqdm
 
 from dotenv import load_dotenv
+import threading
 
 load_dotenv()
+
+# ---------------------------------------------------------------------------
+# Global cost tracking (thread-safe)
+# ---------------------------------------------------------------------------
+_cost_lock = threading.Lock()
+_total_cost = 0.0
+_thread_local = threading.local()
+
+
+def _add_cost(response) -> float:
+    """Thread-safely accumulate cost from an OpenRouter LLM response.
+
+    Args:
+        response: LangChain AIMessage response
+
+    Returns:
+        Cost of this call in USD (0.0 if unavailable)
+    """
+    global _total_cost
+    try:
+        meta = getattr(response, "response_metadata", {}) or {}
+        cost = _extract_cost(meta)
+        if cost > 0:
+            with _cost_lock:
+                _total_cost += cost
+            _thread_local.cost = getattr(_thread_local, "cost", 0.0) + cost
+        return cost
+    except Exception:
+        return 0.0
+
+
+def _extract_cost(meta: dict) -> float:
+    """Extract cost from LangChain response_metadata.
+
+    OpenRouter puts `cost` inside token_usage (response_metadata["token_usage"]["cost"]).
+    """
+    token_usage = meta.get("token_usage") or {}
+    if isinstance(token_usage, dict):
+        val = token_usage.get("cost")
+        if val is not None:
+            try:
+                return float(val)
+            except (TypeError, ValueError):
+                pass
+
+    for key in ("cost", "openrouter_cost"):
+        val = meta.get(key)
+        if val is not None:
+            try:
+                return float(val)
+            except (TypeError, ValueError):
+                pass
+
+    headers = meta.get("headers") or {}
+    if isinstance(headers, dict):
+        for key in ("x-openrouter-cost", "X-Openrouter-Cost"):
+            val = headers.get(key)
+            if val is not None:
+                try:
+                    return float(val)
+                except (TypeError, ValueError):
+                    pass
+
+    return 0.0
 
 
 def load_prompt(prompt_path: str = "prompts/question.md") -> str:
@@ -216,15 +281,23 @@ def generate_questions(
         max_tokens=8192,
         extra_body={
             "provider": {
+                # "order": ["deepinfra", "atlas-cloud"],
+                "allow_fallbacks": False,
                 "sort": {
-                    "by": "throughput",
+                    "by": "price",
                 }
             },
+            "reasoning": {"effort": "none"},
         },
     )
 
-    # Create full prompt with content and n
-    full_prompt = prompt_template.replace("{content}", text).replace("{n}", str(n))
+    # Create full prompt with content, n, and n3
+    n3 = n * 3
+    full_prompt = (
+        prompt_template.replace("{content}", text)
+        .replace("{n}", str(n))
+        .replace("{n3}", str(n3))
+    )
 
     # Retry loop
     last_error = None
@@ -234,6 +307,7 @@ def generate_questions(
         try:
             # Generate questions
             response = llm.invoke(full_prompt)
+            _add_cost(response)
             output = response.content
 
             print(output)
@@ -276,8 +350,9 @@ def process_single_job(
         n: Number of questions per level
 
     Returns:
-        Tuple of (item_id, question_list or error_dict)
+        Tuple of (item_id, question_list or error_dict, cost)
     """
+    _thread_local.cost = 0.0
     try:
         result = generate_questions(
             text=item["content"],
@@ -287,10 +362,10 @@ def process_single_job(
             n=n,
         )
 
-        return (item["id"], result)
+        return (item["id"], result, getattr(_thread_local, "cost", 0.0))
 
     except Exception as e:
-        return (item["id"], {"error": str(e)})
+        return (item["id"], {"error": str(e)}, getattr(_thread_local, "cost", 0.0))
 
 
 def main():
@@ -394,6 +469,9 @@ def main():
 
         print(f"Output will be saved to: {output_path}")
 
+        # Track cost for this source
+        source_cost_start = _total_cost
+
         # Process items in parallel with multithreading
         job_results = []
         total_jobs = len(data)
@@ -423,17 +501,19 @@ def main():
 
                     # Log errors without stopping progress bar
                     if (
-                        len(result) == 2
+                        len(result) == 3
                         and isinstance(result[1], dict)
                         and "error" in result[1]
                     ):
                         tqdm.write(f"✗ Error in item {item_id}: {result[1]['error']}")
+                    else:
+                        tqdm.write(f"✓ {item_id}: cost=${result[2]:.6f}")
 
                     pbar.update(1)
 
         # Build final predictions
         predictions = []
-        for item_id, question_list_or_error in job_results:
+        for item_id, question_list_or_error, item_cost in job_results:
             if (
                 isinstance(question_list_or_error, dict)
                 and "error" in question_list_or_error
@@ -449,6 +529,7 @@ def main():
                             ),
                             "unknown",
                         ),
+                        "cost": item_cost,
                         "error": question_list_or_error["error"],
                     }
                 )
@@ -464,6 +545,7 @@ def main():
                             ),
                             "unknown",
                         ),
+                        "cost": item_cost,
                         "generated_questions": question_list_or_error,
                     }
                 )
@@ -485,14 +567,18 @@ def main():
         failed = len(predictions) - successful
         total_questions = successful * 3 * args.n
 
+        source_cost = _total_cost - source_cost_start
+
         print(f"\nSummary for {source}:")
         print(f"  Successful samples: {successful}")
         print(f"  Failed samples: {failed}")
         print(f"  Total questions generated: {total_questions}")
         print(f"  Questions per sample: {3 * args.n} ({args.n} per level)")
+        print(f"  Cost (this source): ${source_cost:.6f}")
 
     print("\n" + "=" * 100)
     print("ALL SOURCES COMPLETE")
+    print(f"Total cost (all sources): ${_total_cost:.6f}")
     print("=" * 100)
 
 

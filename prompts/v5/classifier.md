@@ -1,13 +1,14 @@
 # Role
-You are an expert Exam Creator specializing in reading testing.
-
-# Task
-Generate exactly **{n} questions for Level 1**, **{n} questions for Level 2**, and **{n} questions for Level 3** (Total: {n3} questions).
-Please ensure the question index starts exactly from 1 and ends at {n3}.
+You are an expert psychometrician. Your task is to verify the cognitive level of each multiple-choice question.
 
 # Source Text
 """
 {content}
+"""
+
+# Quiz
+"""
+{quiz}
 """
 
 # Level Definitions
@@ -27,31 +28,12 @@ Objective: Assess the ability to connect disjointed facts, evaluate argument str
 Question Generation Requirements: DO NOT generate simple factual questions. Create questions that demand multi-hop reasoning (e.g., connecting a premise in Paragraph A to a consequence in Paragraph C). Alternatively, generate logical reasoning questions such as: "What is the core unstated assumption of the author?", "Which of the following, if true, would most weaken/strengthen the argument?", or "Apply the principle discussed in the text to a novel hypothetical scenario."
 Answer & Distractor Criteria: Arriving at the correct answer must require the reader to synthesize at least 2-3 pieces of information separated by significant distance within the text. Distractors must be sophisticated traps: they should misapply the text's logic, reverse cause-and-effect relationships, or present plausible real-world assumptions that are NOT supported by the provided text.
 
+# Instructions
+Step 1: Evidence Tracing (The "Hop" Test). Identify exactly where the evidence for the correct answer is located. Is it in one sentence (L1), one paragraph's context (L2), or does it strictly require connecting independent facts from completely different paragraphs (L3)?
+Step 2: Distractor Diagnostic. Are distractors obvious lies (L1), deceptive partial truths (L2), or sophisticated logical fallacies/unsupported assumptions (L3)?
+Step 3: Output Level based strictly on the highest cognitive hurdle identified in Steps 1 and 2.
+
 # Output Format
-Output ONLY the questions in this format:
-
-### 1. [Question Text]
-- [Option A]
-- [Option B]
-- [Option C]
-- [Option D]
-> [Correct Answer Letter]
-
-# Output Examples
-
-### 1. When did Florey and Chain successfully purify penicillin?
-- A. 1928
-- B. 1940
-- C. Before World War I
-- D. After they received the Nobel Prize
-> B
-
-[... Other questions ...]
-
-### {n3}. What is the main idea conveyed by the author regarding the history of penicillin?
-- A. Fleming’s initial discovery was purely accidental and thus lacks true scientific merit.
-- B. The practical realization of the drug relied heavily on subsequent collaborative and logistical efforts.
-- C. Florey and Chain intentionally stole the public spotlight from Fleming’s groundbreaking research.
-- D. The US government was solely responsible for the discovery of the first antibiotic.
-> B
-
+ID: [ID]
+Reason: [Explanation of the cognitive level]
+Level: [1|2|3]
