@@ -984,7 +984,13 @@ def main():
         max_tokens=8192,
         extra_body={
             "reasoning": {"effort": "none"},
-            "provider": {"sort": "price"},
+            "provider": {
+                "order": ["deepinfra", "atlas-cloud", "google-ai-studio", "openai", "google-vertex"],
+                "allow_fallbacks": False,
+                "sort": {
+                    "by": "price",
+                }
+            },
         },
     )
 
@@ -996,7 +1002,13 @@ def main():
         max_tokens=8192,
         extra_body={
             "reasoning": {"effort": "none"},
-            "provider": {"sort": "price"},
+            "provider": {
+                "order": ["deepinfra", "atlas-cloud", "google-ai-studio", "openai", "google-vertex"],
+                "allow_fallbacks": False,
+                "sort": {
+                    "by": "price",
+                }
+            },
         },
     )
 
