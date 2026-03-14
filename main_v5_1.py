@@ -27,7 +27,7 @@ from typing import Dict, List, Tuple, Any
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, END
-from langgraph.constants import Send
+from langgraph.types import Send
 from typing_extensions import TypedDict, Annotated
 
 from rich.console import Console
@@ -756,8 +756,8 @@ def controller_node(state: WorkflowState) -> Dict:
             positive_samples[lvl].append(f"- {q['question']}")
         else:
             if "predicted_level" in q and q["predicted_level"] != lvl:
-                 negative_samples[lvl].append(f"- {q['question']}")
-                 
+                negative_samples[lvl].append(f"- {q['question']}")
+
         if st == "PENDING_CLASSIFY":
             queues["classify"].append(q)
         elif st == "PENDING_STUDENT":
@@ -777,9 +777,21 @@ def controller_node(state: WorkflowState) -> Dict:
         stem_retries += 1
         for lvl in [1, 2, 3]:
             if gen_counts[lvl] > 0:
-                pos_samples_text = "\n".join(random.sample(positive_samples[lvl], min(5, len(positive_samples[lvl])))) if positive_samples[lvl] else "(none yet)"
-                neg_samples_text = "\n".join(negative_samples[lvl]) if negative_samples[lvl] else "(none yet)"
-                
+                pos_samples_text = (
+                    "\n".join(
+                        random.sample(
+                            positive_samples[lvl], min(5, len(positive_samples[lvl]))
+                        )
+                    )
+                    if positive_samples[lvl]
+                    else "(none yet)"
+                )
+                neg_samples_text = (
+                    "\n".join(negative_samples[lvl])
+                    if negative_samples[lvl]
+                    else "(none yet)"
+                )
+
                 gen_tasks.append(
                     {
                         "level": lvl,
@@ -985,11 +997,18 @@ def main():
         extra_body={
             "reasoning": {"effort": "none"},
             "provider": {
-                "order": ["deepinfra", "atlas-cloud", "google-ai-studio", "openai", "google-vertex"],
+                "order": [
+                    "deepinfra",
+                    "atlas-cloud",
+                    "google-ai-studio",
+                    "openai",
+                    "google-vertex",
+                    "groq",
+                ],
                 "allow_fallbacks": False,
                 "sort": {
                     "by": "price",
-                }
+                },
             },
         },
     )
@@ -1003,11 +1022,18 @@ def main():
         extra_body={
             "reasoning": {"effort": "none"},
             "provider": {
-                "order": ["deepinfra", "atlas-cloud", "google-ai-studio", "openai", "google-vertex"],
+                "order": [
+                    "deepinfra",
+                    "atlas-cloud",
+                    "google-ai-studio",
+                    "openai",
+                    "google-vertex",
+                    "groq",
+                ],
                 "allow_fallbacks": False,
                 "sort": {
                     "by": "price",
-                }
+                },
             },
         },
     )

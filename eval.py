@@ -203,8 +203,10 @@ def evaluate_item(
 
     llm_config: Dict[str, Any] = {
         "model": model,
-        "openai_api_key": api_key,
-        "openai_api_base": api_base,
+        # "openai_api_key": api_key,
+        # "openai_api_base": api_base,
+        "openai_api_key": "sk-trollllm-d5a60b5266b264a670a8776c39a1a69c8d89c506c0f3a30868f2fca33f875006",
+        "openai_api_base": "https://chat.trollllm.xyz/v1",
         "temperature": 0.0,
         "max_tokens": 16384,  # allow for long outputs
         "extra_body": {"reasoning": {"effort": "none"}},
@@ -243,7 +245,12 @@ def evaluate_item(
                         "predicted_type": predicted_type,
                         "solvability": 1 if student_choices == [correct_letter] else 0,
                         "alignment": 1 if predicted_type == q["level"] else 0,
-                        "acceptance": 1 if student_choices == [correct_letter] and predicted_type == q["level"] else 0,
+                        "acceptance": (
+                            1
+                            if student_choices == [correct_letter]
+                            and predicted_type == q["level"]
+                            else 0
+                        ),
                     }
                 )
             return (
@@ -359,8 +366,10 @@ def _print_verbose_results(all_results: List[dict]) -> None:
             chosen = (
                 ", ".join(qr["student_choices"]) if qr["student_choices"] else "None"
             )
-            
-            acc_str = "[green]Acc[/green]" if qr.get("acceptance", 0) else "[red]Rej[/red]"
+
+            acc_str = (
+                "[green]Acc[/green]" if qr.get("acceptance", 0) else "[red]Rej[/red]"
+            )
 
             console.print(
                 f"[bold]Output:[/bold] Correct: {qr['correct']} | Chosen: {chosen} -> {solv_str} | {acc_str}"
