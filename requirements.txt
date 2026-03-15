@@ -1,18 +1,22 @@
-# LangChain and OpenAI dependencies
-langchain>=0.1.0
+# LangChain, LangGraph, and OpenAI dependencies
 langchain-openai>=0.0.5
-langchain-core>=0.1.0
+langgraph>=0.1.0
+openai>=1.0.0
 
-# Pydantic for structured outputs
-pydantic>=2.0.0
-
-# Evaluation metrics
-sentence-transformers>=2.2.0
-torch>=2.0.0
+# Evaluation metrics and utilities
 numpy>=1.24.0
 tabulate>=0.9.0
+jiwer>=3.0.0
+
+# Image and PDF processing
+augraphy>=8.2.0
+opencv-python>=4.8.0
 
 # Other utilities
 python-dotenv>=1.0.0
 tqdm>=4.66.0
 json-repair>=0.25.0
+rich>=13.0.0
+pyppeteer>=2.0.0
+nest-asyncio>=1.5.0
+typing-extensions>=4.5.0

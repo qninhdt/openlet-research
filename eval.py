@@ -134,6 +134,24 @@ def format_quiz(questions: List[Dict]) -> str:
     return "\n".join(lines)
 
 
+def format_distractor_quiz(questions: List[Dict]) -> str:
+    """Format accepted questions for the distractor eval prompt.
+
+    Each entry includes the correct answer letter and cognitive level so the
+    LLM knows which distractor criteria to apply and which option to skip.
+    """
+    lines = []
+    for q in questions:
+        lines.append(f"ID: {q['eval_id']}")
+        lines.append(f"Question: {q['question']}")
+        for i, label in enumerate(["A", "B", "C", "D"]):
+            lines.append(f"{label}: {q['options'][i]}")
+        lines.append(f"Correct: {q['correct']}")
+        lines.append(f"Level: {q['level']}")
+        lines.append("")
+    return "\n".join(lines)
+
+
 # ---------------------------------------------------------------------------
 # Output parsing
 # ---------------------------------------------------------------------------
@@ -141,6 +159,51 @@ def _normalize(text: str) -> str:
     text = text.replace("**", "").replace("__", "")
     text = re.sub(r"(?m)^#{1,4}\s+", "", text)
     return text
+
+
+def parse_distractor_output(output: str) -> List[Dict]:
+    """Parse distractor eval LLM output → list of {id, level, reason, valid_distractors}."""
+    blocks = re.split(r"(?:^|\n)(?=ID:\s*\d+)", _normalize(output).strip())
+    results = []
+    for block in blocks:
+        block = block.strip()
+        if not block or not re.match(r"ID:\s*\d+", block):
+            continue
+        try:
+            id_m = re.match(r"ID:\s*(\d+)", block)
+            if not id_m:
+                continue
+            q_id = int(id_m.group(1))
+
+            level_m = re.search(r"Level:\s*(\d+)", block, re.IGNORECASE)
+            level = int(level_m.group(1)) if level_m else 0
+
+            reason_m = re.search(
+                r"Reason:\s*(.+?)(?=\nValid_Distractors:)",
+                block,
+                re.DOTALL | re.IGNORECASE,
+            )
+            reason = reason_m.group(1).strip() if reason_m else ""
+
+            vd_m = re.search(r"Valid_Distractors:\s*(.+)", block, re.IGNORECASE)
+            vd_raw = vd_m.group(1).strip().upper() if vd_m else "NONE"
+            valid_distractors = (
+                [] if vd_raw in ("NONE", "") else sorted(re.findall(r"[A-D]", vd_raw))
+            )
+
+            results.append(
+                {
+                    "id": q_id,
+                    "level": level,
+                    "reason": reason,
+                    "valid_distractors": valid_distractors,
+                }
+            )
+        except Exception as e:
+            console.print(
+                f"[yellow][warn][/yellow] Failed to parse distractor block: {e}"
+            )
+    return results
 
 
 def parse_eval_output(output: str) -> List[Dict]:
@@ -188,7 +251,7 @@ def evaluate_item(
     api_base: str,
     prompt_template: str,
     max_retries: int = 3,
-) -> Tuple[int, object, float]:
+) -> Tuple[int, dict, float]:
     _thread_local.cost = 0.0
 
     # Shuffle first, then assign sequential eval IDs 1→N
@@ -205,7 +268,7 @@ def evaluate_item(
         "model": model,
         # "openai_api_key": api_key,
         # "openai_api_base": api_base,
-        "openai_api_key": "sk-trollllm-d5a60b5266b264a670a8776c39a1a69c8d89c506c0f3a30868f2fca33f875006",
+        "openai_api_key": "sk-trollllm-fa2543c2f7852f19c969ba57fb160f8d289f2547ad1cf56990dd2f3b191412ba",
         "openai_api_base": "https://chat.trollllm.xyz/v1",
         "temperature": 0.0,
         "max_tokens": 16384,  # allow for long outputs
@@ -270,6 +333,144 @@ def evaluate_item(
 
 
 # ---------------------------------------------------------------------------
+# Distractor evaluation (runs on accepted questions from eval)
+# ---------------------------------------------------------------------------
+def evaluate_distractor_item(
+    item_id: int,
+    content: str,
+    accepted_questions: List[Dict],
+    model: str,
+    api_key: str,
+    api_base: str,
+    prompt_template: str,
+    max_retries: int = 3,
+) -> Tuple[int, dict, float]:
+    """Run distractor_eval.md on the accepted questions for one content item."""
+    _thread_local.cost = 0.0
+
+    if not accepted_questions:
+        return (item_id, {"distractor_results": []}, 0.0)
+
+    shuffled = list(accepted_questions)
+    random.shuffle(shuffled)
+    indexed = [{**q, "eval_id": i + 1} for i, q in enumerate(shuffled)]
+
+    full_prompt = prompt_template.replace("{content}", content).replace(
+        "{quiz}", format_distractor_quiz(indexed)
+    )
+
+    llm_config: Dict[str, Any] = {
+        "model": model,
+        "openai_api_key": "sk-trollllm-fa2543c2f7852f19c969ba57fb160f8d289f2547ad1cf56990dd2f3b191412ba",
+        "openai_api_base": "https://chat.trollllm.xyz/v1",
+        "temperature": 0.0,
+        "max_tokens": 16384,
+        "extra_body": {"reasoning": {"effort": "none"}},
+    }
+    llm = ChatOpenAI(**llm_config)
+
+    last_error: Exception = Exception("No attempts made")
+    for attempt in range(max_retries):
+        try:
+            response = llm.invoke(full_prompt)
+            _add_cost(response)
+            output = str(response.content)
+
+            if not output.strip():
+                last_error = Exception("Empty LLM output")
+                continue
+
+            parsed = {p["id"]: p for p in parse_distractor_output(output)}
+
+            results = []
+            for q in indexed:
+                eid = q["eval_id"]
+                p = parsed.get(eid, {})
+                valid_distractors = p.get("valid_distractors", [])
+                results.append(
+                    {
+                        "eval_id": eid,
+                        "level": q["level"],
+                        "question": q.get("question", ""),
+                        "options": q.get("options", []),
+                        "correct": q.get("correct", ""),
+                        "reason": p.get("reason", ""),
+                        "valid_distractors": valid_distractors,
+                        "valid_count": len(valid_distractors),
+                    }
+                )
+
+            return (
+                item_id,
+                {"distractor_results": results, "raw_output": output},
+                getattr(_thread_local, "cost", 0.0),
+            )
+
+        except Exception as e:
+            last_error = e
+            if attempt < max_retries - 1:
+                console.print(
+                    f"[yellow]Attempt {attempt + 1} failed for distractor item {item_id}: {e}[/yellow]"
+                )
+
+    return (item_id, {"error": str(last_error)}, getattr(_thread_local, "cost", 0.0))
+
+
+# ---------------------------------------------------------------------------
+# Pipeline Execution
+# ---------------------------------------------------------------------------
+def evaluate_pipeline(
+    item_id: int,
+    content: str,
+    questions: List[Dict],
+    model: str,
+    api_key: str,
+    api_base: str,
+    prompt_template: str,
+    distractor_prompt_template: str | None,
+    max_retries: int = 3,
+) -> Tuple[int, dict, float]:
+    rid, eval_out, cost1 = evaluate_item(
+        item_id,
+        content,
+        questions,
+        model,
+        api_key,
+        api_base,
+        prompt_template,
+        max_retries,
+    )
+    if "error" in eval_out:
+        return rid, eval_out, cost1
+
+    accepted_qs = [
+        qr
+        for qr in eval_out.get("question_results", [])
+        if qr.get("acceptance", 0) == 1
+    ]
+
+    if distractor_prompt_template and accepted_qs:
+        _, dist_out, cost2 = evaluate_distractor_item(
+            item_id,
+            content,
+            accepted_qs,
+            model,
+            api_key,
+            api_base,
+            distractor_prompt_template,
+            max_retries,
+        )
+        if "error" not in dist_out:
+            eval_out["distractor_results"] = dist_out.get("distractor_results", [])
+            eval_out["distractor_raw_output"] = dist_out.get("raw_output", "")
+        else:
+            eval_out["distractor_error"] = dist_out["error"]
+        return rid, eval_out, cost1 + cost2
+
+    return rid, eval_out, cost1
+
+
+# ---------------------------------------------------------------------------
 # Statistics
 # ---------------------------------------------------------------------------
 def calculate_statistics(all_results: List[dict]) -> Dict:
@@ -326,6 +527,93 @@ def calculate_statistics(all_results: List[dict]) -> Dict:
         }
 
     return stats
+
+
+def calculate_distractor_statistics(all_distractor_results: List[dict]) -> Dict:
+    """Compute distractor quality metrics.
+
+    Per-level:
+        distractor_quality = sum(valid_distractors_count per question) / N_accepted / 3
+
+    The division by 3 normalises to [0, 1] since each question has exactly 3 distractors.
+    """
+    level_counts: Dict[int, List[int]] = {}
+
+    for item in all_distractor_results:
+        if "error" in item:
+            continue
+        for dr in item.get("distractor_results", []):
+            level = dr["level"]
+            level_counts.setdefault(level, []).append(dr.get("valid_count", 0))
+
+    stats: Dict = {"by_level": {}, "overall": {}}
+    total_valid = 0
+    total_questions = 0
+
+    for level in sorted(level_counts):
+        counts = level_counts[level]
+        n = len(counts)
+        s = sum(counts)
+        dq = round(s / n / 3, 4) if n > 0 else 0.0
+        stats["by_level"][level] = {
+            "accepted_questions": n,
+            "total_valid_distractors": s,
+            "distractor_quality": dq,
+        }
+        total_valid += s
+        total_questions += n
+
+    if total_questions > 0:
+        # User requirement: distractor quality = sum(Distractor quality của mỗi level) / 3
+        sum_of_level_dq = sum(
+            lvl_stats["distractor_quality"] for lvl_stats in stats["by_level"].values()
+        )
+        overall_dq = (
+            round(sum_of_level_dq / 3, 4) if len(stats["by_level"]) > 0 else 0.0
+        )
+        stats["overall"] = {
+            "accepted_questions": total_questions,
+            "total_valid_distractors": total_valid,
+            "distractor_quality": overall_dq,
+        }
+    else:
+        stats["overall"] = {
+            "accepted_questions": 0,
+            "total_valid_distractors": 0,
+            "distractor_quality": 0.0,
+        }
+
+    return stats
+
+
+def _print_distractor_summary_table(stats: Dict, source: str, cost: float) -> None:
+    table = Table(title=f"Distractor Quality — {source.upper()}", show_lines=True)
+    table.add_column("Level", style="cyan", justify="center")
+    table.add_column("Accepted Qs", justify="right")
+    table.add_column("Valid Distractors", justify="right", style="green")
+    table.add_column("Distractor Quality", justify="right", style="bold magenta")
+
+    for level in sorted(stats["by_level"]):
+        ls = stats["by_level"][level]
+        table.add_row(
+            f"L{level}",
+            str(ls["accepted_questions"]),
+            str(ls["total_valid_distractors"]),
+            f"{ls['distractor_quality']:.4f}",
+        )
+
+    ov = stats["overall"]
+    table.add_row(
+        "[bold]Overall[/bold]",
+        f"[bold]{ov['accepted_questions']}[/bold]",
+        f"[bold green]{ov['total_valid_distractors']}[/bold green]",
+        f"[bold magenta]{ov['distractor_quality']:.4f}[/bold magenta]",
+    )
+
+    console.print(table)
+    console.print(
+        f"  [dim]Distractor eval cost: [bold magenta]${cost:.6f}[/bold magenta][/dim]"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -424,9 +712,10 @@ def _build_live_eval_renderable(
     progress: Progress,
     completed: float,
     total: int,
-    running_solv: List[int],
-    running_align: List[int],
-    running_acc: List[int],
+    running_solv: List[float],
+    running_align: List[float],
+    running_acc: List[float],
+    running_dq: List[float],
     recent_items: deque,
 ) -> Panel:
     metrics = Table.grid(expand=True)
@@ -438,19 +727,25 @@ def _build_live_eval_renderable(
     align = sum(running_align) / n_q if n_q else 0.0
     acc = sum(running_acc) / n_q if n_q else 0.0
 
+    n_dq = len(running_dq)
+    dq_val = sum(running_dq) / (n_dq * 3) if n_dq else 0.0
+
     metrics.add_row("Completed", f"[bold]{completed}[/bold]/{total}")
     metrics.add_row("Questions", f"[bold]{n_q}[/bold]")
     metrics.add_row("Solvability", f"[green]{solv:.4f}[/green]")
     metrics.add_row("Alignment", f"[yellow]{align:.4f}[/yellow]")
     metrics.add_row("Acceptance", f"[magenta]{acc:.4f}[/magenta]")
+    if n_dq > 0:
+        metrics.add_row("Dist Qual", f"[blue]{dq_val:.4f}[/blue] (n={n_dq})")
 
     recent_table = Table(title="Recent Items", expand=True, show_lines=True)
     recent_table.add_column("Item", width=8, justify="right")
     recent_table.add_column("Status", width=10, justify="center")
-    recent_table.add_column("Solv", width=8, justify="right")
-    recent_table.add_column("Align", width=8, justify="right")
-    recent_table.add_column("Acc", width=8, justify="right")
-    recent_table.add_column("Cost", width=12, justify="right")
+    recent_table.add_column("Solv", width=6, justify="right")
+    recent_table.add_column("Align", width=6, justify="right")
+    recent_table.add_column("Acc", width=6, justify="right")
+    recent_table.add_column("DQ", width=6, justify="right")
+    recent_table.add_column("Cost", width=10, justify="right")
     recent_table.add_column("Note", overflow="fold")
 
     if recent_items:
@@ -461,11 +756,14 @@ def _build_live_eval_renderable(
                 item["solv"],
                 item["align"],
                 item["acc"],
+                item.get("dq", "—"),
                 item["cost"],
                 item["note"],
             )
     else:
-        recent_table.add_row("—", "—", "—", "—", "—", "—", "Waiting for results...")
+        recent_table.add_row(
+            "—", "—", "—", "—", "—", "—", "—", "Waiting for results..."
+        )
 
     live_table = Table.grid(expand=True)
     live_table.add_row(progress)
@@ -523,6 +821,12 @@ def main():
         help="Path to the eval prompt markdown file",
     )
     parser.add_argument(
+        "--distractor-prompt-path",
+        type=str,
+        default="prompts/distractor_eval.md",
+        help="Path to the distractor eval prompt markdown file (set to empty string to skip)",
+    )
+    parser.add_argument(
         "--sources",
         type=str,
         nargs="+",
@@ -550,6 +854,13 @@ def main():
 
     console.print(f"[dim]Loading prompt  : {args.prompt_path}[/dim]")
     prompt_template = load_prompt(args.prompt_path)
+
+    distractor_prompt_template: str | None = None
+    if args.distractor_prompt_path:
+        console.print(
+            f"[dim]Loading distractor prompt: {args.distractor_prompt_path}[/dim]"
+        )
+        distractor_prompt_template = load_prompt(args.distractor_prompt_path)
 
     console.print(f"[dim]Loading data     : {args.data_path}[/dim]")
     data = load_data(args.data_path)
@@ -615,6 +926,7 @@ def main():
         _running_solv: list = []
         _running_align: list = []
         _running_acc: list = []
+        _running_dq: list = []
         recent_items = deque(maxlen=8)
         _lock = threading.Lock()
 
@@ -642,6 +954,7 @@ def main():
                         "solv": "—",
                         "align": "—",
                         "acc": "—",
+                        "dq": "—",
                         "cost": f"${cost_res:.6f}",
                         "note": qr_or_err_res["error"],
                     }
@@ -649,14 +962,25 @@ def main():
             else:
                 qr_list = qr_or_err_res.get("question_results", [])
                 raw_output = qr_or_err_res.get("raw_output", "")
-                all_results.append(
-                    {
-                        "id": rid_res,
-                        "cost": cost_res,
-                        "question_results": qr_list,
-                        "raw_output": raw_output,
-                    }
-                )
+
+                dr_list = qr_or_err_res.get("distractor_results", [])
+                dr_raw = qr_or_err_res.get("distractor_raw_output", "")
+
+                res_dict = {
+                    "id": rid_res,
+                    "cost": cost_res,
+                    "question_results": qr_list,
+                    "raw_output": raw_output,
+                }
+
+                if dr_list or dr_raw or "distractor_error" in qr_or_err_res:
+                    res_dict["distractor_results"] = dr_list
+                    res_dict["distractor_raw_output"] = dr_raw
+                    if "distractor_error" in qr_or_err_res:
+                        res_dict["distractor_error"] = qr_or_err_res["distractor_error"]
+
+                all_results.append(res_dict)
+
                 item_solv = (
                     sum(qr["solvability"] for qr in qr_list) / len(qr_list)
                     if qr_list
@@ -672,11 +996,24 @@ def main():
                     if qr_list
                     else 0.0
                 )
+
+                dq_str = "—"
+                if dr_list:
+                    item_dq_valid = sum(dr.get("valid_count", 0) for dr in dr_list)
+                    item_dq_total = len(dr_list)
+                    item_dq = (
+                        item_dq_valid / (item_dq_total * 3) if item_dq_total else 0.0
+                    )
+                    dq_str = f"{item_dq:.2f}"
+
                 with _lock:
                     for qr in qr_list:
                         _running_solv.append(qr["solvability"])
                         _running_align.append(qr["alignment"])
                         _running_acc.append(qr.get("acceptance", 0))
+                    for dr in dr_list:
+                        _running_dq.append(dr.get("valid_count", 0))
+
                 recent_items.appendleft(
                     {
                         "id": rid_res,
@@ -684,6 +1021,7 @@ def main():
                         "solv": f"{item_solv:.2f}",
                         "align": f"{item_align:.2f}",
                         "acc": f"{item_acc:.2f}",
+                        "dq": dq_str,
                         "cost": f"${cost_res:.6f}",
                         "note": f"{len(qr_list)} questions",
                     }
@@ -691,15 +1029,7 @@ def main():
 
                 if args.verbose:
                     with _lock:
-                        _print_verbose_results(
-                            [
-                                {
-                                    "id": rid_res,
-                                    "question_results": qr_list,
-                                    "raw_output": raw_output,
-                                }
-                            ]
-                        )
+                        _print_verbose_results([res_dict])
 
             progress.advance(task_id)
             live.update(
@@ -711,6 +1041,7 @@ def main():
                     running_solv=_running_solv,
                     running_align=_running_align,
                     running_acc=_running_acc,
+                    running_dq=_running_dq,
                     recent_items=recent_items,
                 )
             )
@@ -724,6 +1055,7 @@ def main():
                 running_solv=_running_solv,
                 running_align=_running_align,
                 running_acc=_running_acc,
+                running_dq=_running_dq,
                 recent_items=recent_items,
             ),
             console=console,
@@ -732,7 +1064,7 @@ def main():
             if args.workers == 1:
                 sorted_valid = sorted(valid, key=lambda x: x["id"])
                 for pred in sorted_valid:
-                    rid, qr_or_err, cost = evaluate_item(
+                    rid, qr_or_err, cost = evaluate_pipeline(
                         pred["id"],
                         data_dict[pred["id"]]["content"],
                         pred["generated_questions"],
@@ -740,13 +1072,14 @@ def main():
                         api_key,
                         args.api_base,
                         prompt_template,
+                        distractor_prompt_template,
                     )
                     process_result(rid, qr_or_err, cost)
             else:
                 with ThreadPoolExecutor(max_workers=args.workers) as executor:
                     future_map = {
                         executor.submit(
-                            evaluate_item,
+                            evaluate_pipeline,
                             pred["id"],
                             data_dict[pred["id"]]["content"],
                             pred["generated_questions"],
@@ -754,6 +1087,7 @@ def main():
                             api_key,
                             args.api_base,
                             prompt_template,
+                            distractor_prompt_template,
                         ): pred["id"]
                         for pred in valid
                     }
@@ -779,12 +1113,19 @@ def main():
             "results": all_results,
         }
 
+        distractor_stats = None
+        if distractor_prompt_template:
+            distractor_stats = calculate_distractor_statistics(all_results)
+            output_data["distractor_statistics"] = distractor_stats
+
         console.print(f"\n[dim]Saving → {output_path}[/dim]")
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(output_data, f, indent=2, ensure_ascii=False)
         console.print(f"[bold green]✓ Saved {output_path}[/bold green]")
 
         _print_summary_table(stats, source, source_cost)
+        if distractor_stats:
+            _print_distractor_summary_table(distractor_stats, source, source_cost)
 
     console.print(
         Panel(

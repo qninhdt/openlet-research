@@ -1,1410 +1,1127 @@
+"""
+DCP v5 — Multi-Agent Question Generation Pipeline (LangGraph Refactored)
+
+Architecture:
+    Hub-and-Spoke with Dynamic Fan-out (Map-Reduce) and Pre-allocated Sequential IDs.
+
+Key Mechanisms:
+    - Independent Phase Loops: Generation Phase (Stem) and Evaluation Phase (Option)
+      maintain isolated retry trackers (gen_loop, fix_count) per item.
+    - Forced Progression: Items exceeding their phase-specific max_loops are forcefully
+      progressed (STEM_FAILED -> PENDING_STUDENT, PENDING_FIX -> PASSED) to prevent infinite deadlocks.
+    - ID Pre-allocation: Global sequential IDs (1 -> N) are pre-allocated by the Controller.
+    - Anti-Bias Classification: Classifier evaluates via an ephemeral ID map (1 -> M).
+"""
+
+import argparse
 import json
 import os
-from pathlib import Path
-from typing import List, Dict, TypedDict
-import argparse
+import random
 import re
+import traceback
+import operator
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from tqdm import tqdm
-
-from langchain_openai import ChatOpenAI
-from langgraph.graph import StateGraph, END
+from pathlib import Path
+from typing import Dict, List, Tuple, Any
 
 from dotenv import load_dotenv
-import threading
+from langchain_openai import ChatOpenAI
+from langgraph.graph import StateGraph, END
+from langgraph.types import Send
+from typing_extensions import TypedDict, Annotated
+
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich import box
+from rich.text import Text
 
 load_dotenv()
+console = Console()
+
+DATA_PATH = "datasets/unified/data.json"
+
 
 # ---------------------------------------------------------------------------
-# Global cost tracking (thread-safe)
+# Core Utilities & Prompt Management
 # ---------------------------------------------------------------------------
-_cost_lock = threading.Lock()
-_total_cost = 0.0
-# Per-item cost tracked by item_id (works across LangGraph's internal threads)
-_item_cost_lock = threading.Lock()
-_item_costs: Dict[str, float] = {}
-
-
-def _add_cost(response, item_id: str = "") -> float:
-    """Thread-safely accumulate cost from an OpenRouter LLM response.
-
-    Args:
-        response: LangChain AIMessage response
-        item_id: Sample ID to attribute cost to
-
-    Returns:
-        Cost of this call in USD (0.0 if unavailable)
-    """
-    global _total_cost
-    try:
-        meta = getattr(response, "response_metadata", {}) or {}
-        cost = _extract_cost(meta)
-        if cost > 0:
-            with _cost_lock:
-                _total_cost += cost
-            if item_id:
-                with _item_cost_lock:
-                    _item_costs[item_id] = _item_costs.get(item_id, 0.0) + cost
-        return cost
-    except Exception:
-        return 0.0
-
-
 def _extract_cost(meta: dict) -> float:
-    """Extract cost from LangChain response_metadata.
-
-    OpenRouter puts `cost` inside token_usage (response_metadata["token_usage"]["cost"]).
-    """
-    token_usage = meta.get("token_usage") or {}
-    if isinstance(token_usage, dict):
-        val = token_usage.get("cost")
-        if val is not None:
-            try:
-                return float(val)
-            except (TypeError, ValueError):
-                pass
-
-    for key in ("cost", "openrouter_cost"):
+    """Extract inference cost securely from LLM response metadata."""
+    for key in ["token_usage", "cost", "openrouter_cost"]:
         val = meta.get(key)
+        if isinstance(val, dict) and "cost" in val:
+            return float(val["cost"])
         if val is not None:
             try:
                 return float(val)
             except (TypeError, ValueError):
-                pass
+                continue
 
-    headers = meta.get("headers") or {}
+    headers = meta.get("headers", {})
     if isinstance(headers, dict):
-        for key in ("x-openrouter-cost", "X-Openrouter-Cost"):
-            val = headers.get(key)
-            if val is not None:
+        for key in ["x-openrouter-cost", "X-Openrouter-Cost"]:
+            if headers.get(key):
                 try:
-                    return float(val)
+                    return float(headers[key])
                 except (TypeError, ValueError):
                     pass
-
     return 0.0
 
 
-# Define the state structure for the workflow
-class WorkflowState(TypedDict):
-    """State passed between agents in the workflow"""
-
-    content: str  # Input text
-    item_id: str  # Sample ID
-    source: str  # Source name
-    n: int  # Number of questions per level
-    analyzer_output: str  # Output from analyzer agent
-    level1_questions: List[Dict]  # Questions from level 1 generator
-    level2_questions: List[Dict]  # Questions from level 2 generator
-    level3_questions: List[Dict]  # Questions from level 3 generator
-    # Validation results: list of {id, verdict, feedback} per level
-    level1_validation: List[Dict]
-    level2_validation: List[Dict]
-    level3_validation: List[Dict]
-    # Post-fix questions per level (replaces originals if fixes were needed)
-    level1_fixed: List[Dict]
-    level2_fixed: List[Dict]
-    level3_fixed: List[Dict]
-    final_questions: List[Dict]  # Combined final questions
-    error: str  # Error message if any
-    verbose: bool  # Whether to print agent outputs
+_prompt_cache: Dict[str, str] = {}
 
 
-def load_prompt(prompt_path: str) -> str:
-    """Load prompt from file
-
-    Args:
-        prompt_path: Path to the prompt file
-
-    Returns:
-        Prompt content as string
-    """
-    with open(prompt_path, "r", encoding="utf-8") as f:
-        return f.read()
+def load_prompt(name: str, base_dir: str = "prompts") -> str:
+    """Load and cache prompt templates from disk."""
+    key = f"{base_dir}/{name}"
+    if key not in _prompt_cache:
+        path = Path(base_dir) / f"{name}.md"
+        _prompt_cache[key] = path.read_text(encoding="utf-8")
+    return _prompt_cache[key]
 
 
-def load_data(data_path: str, n: int = -1, sources: List[str] = None) -> List[dict]:
-    """Load data from JSON file
-
-    Args:
-        data_path: Path to the data.json file
-        n: Number of items to load (-1 for all)
-        sources: List of sources to filter by (None for all sources)
-
-    Returns:
-        List of data items
-    """
-    with open(data_path, "r", encoding="utf-8") as f:
+def load_data(sources: List[str], limit: int = None) -> Dict[str, List[dict]]:
+    """Load data from the unified data file, grouped by source."""
+    with open(DATA_PATH, encoding="utf-8") as f:
         data = json.load(f)
 
-    # Filter by sources if specified
-    if sources:
-        sources_lower = [s.lower() for s in sources]
-        data = [
-            item for item in data if item.get("source", "").lower() in sources_lower
-        ]
+    sources_lower = [s.lower() for s in sources]
+    grouped: Dict[str, List[dict]] = {s: [] for s in sources_lower}
+    for item in data:
+        src = item.get("source", "").lower()
+        if src in grouped:
+            grouped[src].append(item)
 
-    if n > 0:
-        data = data[:n]
+    if limit is not None:
+        grouped = {s: items[:limit] for s, items in grouped.items()}
 
-    return data
+    return grouped
 
 
-def analyzer_agent(
-    state: WorkflowState, llm: ChatOpenAI, analyzer_prompt: str
-) -> WorkflowState:
-    """Analyzer agent - extracts useful information from text
+# ---------------------------------------------------------------------------
+# State Schema & Reducers
+# ---------------------------------------------------------------------------
+def merge_dicts(a: dict, b: dict) -> dict:
+    """Reducer: Merges state dictionaries seamlessly during Graph Fan-in."""
+    c = a.copy() if a else {}
+    if b:
+        c.update(b)
+    return c
 
-    Args:
-        state: Current workflow state
-        llm: Language model
-        analyzer_prompt: Prompt template for analyzer
 
-    Returns:
-        Updated state with analyzer_output
-    """
-    try:
-        # Create prompt with content
-        full_prompt = analyzer_prompt.replace("{content}", state["content"])
+class WorkflowState(TypedDict):
+    item_id: str
+    content: str
+    n: int
+    max_loops: int
+    verbose: bool
 
-        # Invoke LLM
-        response = llm.invoke(full_prompt)
-        _add_cost(response, item_id=state["item_id"])
-        analyzer_output = response.content
+    questions: Annotated[Dict[int, Any], merge_dicts]
+    next_global_id: int
 
-        if state.get("verbose"):
-            print(f"\n{'='*80}")
-            print(f"Analyzer Output for {state['item_id']}:")
-            print(f"{'='*80}")
-            print(analyzer_output)
-            print(f"{'='*80}\n")
+    gen_tasks: List[Dict]
+    classify_queue: List[Dict]
+    student_queue: List[Dict]
+    fixer_queue: List[Dict]
 
-        # Update state
-        state["analyzer_output"] = analyzer_output
+    cost: Annotated[float, operator.add]
+    loop_count: int
+    stem_retries: int
+    final_questions: List[Dict]
+    error: str
 
-    except Exception as e:
-        state["error"] = f"Analyzer failed: {str(e)}"
-        print(f"Error in analyzer: {str(e)}")
 
-    return state
+# ---------------------------------------------------------------------------
+# UI Formatting
+# ---------------------------------------------------------------------------
+def _print_parsed_questions(items: List[Dict], title: str, border_style: str = "dim"):
+    """Visually renders parsed data ensuring proper reason formatting and correct answer highlighting."""
+    if not items:
+        return
+    lines = []
+    for item in items:
+        q_id = item.get("id", "?")
+        lvl = item.get("level", "?")
+        lines.append(f"[bold cyan]ID: {q_id}[/bold cyan] [dim](L{lvl})[/dim]")
+
+        if item.get("reason"):
+            lines.append(f"[dim italic]Reason: {item['reason']}[/dim italic]")
+
+        if item.get("is_classifier"):
+            color = "green" if item["val"] == item["level"] else "red"
+            lines.append(
+                f"Predicted Level: [bold {color}]{item['val']}[/bold {color}] (Expected: {item['level']})"
+            )
+        elif item.get("is_student"):
+            ans_str = (
+                ", ".join(item["val"])
+                if isinstance(item["val"], list)
+                else str(item["val"])
+            )
+            color = "green" if item["val"] == [item.get("correct_letter")] else "red"
+            lines.append(
+                f"Student Choice: [bold {color}]{ans_str}[/bold {color}] (Key: {item.get('correct_letter')})"
+            )
+        elif item.get("is_fixer_wrong"):
+            if item.get("hint"):
+                lines.append(f"[dim]Hint: {item['hint']}[/dim]")
+            lines.append("[bold red]Verdict: STUDENT_WRONG[/bold red]")
+        else:
+            if item.get("question"):
+                lines.append(f"[bold]Q:[/bold] {item['question']}")
+
+            options = item.get("options", [])
+            correct_idx = item.get("correct_idx", -1)
+            for i, opt in enumerate(options):
+                prefix = "[bold green]*[/bold green]" if i == correct_idx else " "
+                lines.append(f"  {prefix} {chr(65+i)}: [white]{opt}[/white]")
+
+        lines.append("")
+
+    console.print(
+        Panel(
+            "\n".join(lines).strip(),
+            title=f"[bold {border_style}]{title}[/bold {border_style}]",
+            border_style=border_style,
+        )
+    )
+
+
+# ---------------------------------------------------------------------------
+# Parsing & Normalization
+# ---------------------------------------------------------------------------
+CORRECT_MAP = {0: "A", 1: "B", 2: "C", 3: "D"}
+
+
+def _normalize_llm_output(text: str) -> str:
+    """Standardize markdown variations and list formats from LLM outputs."""
+    text = text.replace("**", "").replace("__", "")
+    text = re.sub(r"(?m)^#{1,4}\s+", "", text)
+    text = re.sub(
+        r"(?m)^\s*(\d+)\.\s*Question\s*:\s*",
+        r"ID: \1\nQuestion: ",
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(
+        r"(?m)^\s*(\d+)\.\s+(?!Question\b)(?=[A-Z])", r"ID: \1\nQuestion: ", text
+    )
+    text = re.sub(r"(?m)^(?:#{1,4}\s*|\*{1,2})(ID:\s*\d+)\**", r"\1", text)
+    text = re.sub(r"(?m)^\s*[-–•]\s*([A-D][.:\)])", r"\1", text)
+    text = re.sub(
+        r"(?m)^\s+((?:Answer|Correct|Solvability|Alignment|Reasoning|Reason|Verdict|Question|ID|Level|Choices)\s*[:\-])",
+        r"\1",
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(r"(?m)^\s+([A-D][.:\)])", r"\1", text)
+    return text
 
 
 def parse_generator_output(
-    output: str, n: int, expected_level: int = None
+    output: str, expected_level: int, start_id: int, gen_loop: int
 ) -> List[Dict]:
-    """Parse generator output into structured questions
-
-    Expected format:
-    ID: 1
-    Question: Question text
-    A: Option A
-    B: Option B
-    C: Option C
-    D: Option D
-    Answer: A
-
-    Args:
-        output: Raw generator output
-        n: Number of questions expected
-        expected_level: Expected level (assigned to all questions)
-
-    Returns:
-        List of question dictionaries
-    """
+    """Parse generated questions, attach sequential IDs and tracking metadata."""
+    normalized = _normalize_llm_output(output)
+    blocks = re.split(r"(?:^|\n)(?=ID:\s*\d+)", normalized.strip())
     questions = []
+    opt_pat = re.compile(
+        r"^\s*\(?([A-D])\)?[.:\)]\s*(.+?)(?=\n\s*\(?[A-D]\)?[.:\)]|\n\s*(?:Answer|Correct)\b|\Z)",
+        re.DOTALL | re.MULTILINE | re.IGNORECASE,
+    )
 
-    # Split by ID: to separate questions
-    blocks = re.split(r"\n(?=ID:\s*\d+)", output.strip())
-
+    current_id = start_id
     for block in blocks:
-        if not block.strip():
+        block = block.strip()
+        if not block or not re.match(r"ID:\s*\d+", block):
             continue
-
         try:
-            # Find positions of key prefixes
-            question_pos = block.find("Question:")
-            a_pos = block.find("\nA:")
-            b_pos = block.find("\nB:")
-            c_pos = block.find("\nC:")
-            d_pos = block.find("\nD:")
-            answer_pos = block.find("\nAnswer:")
+            level = expected_level
 
-            # Extract Question text (from "Question:" to "\nA:")
-            if question_pos == -1 or a_pos == -1:
-                continue
-            question_text = block[question_pos + len("Question:") : a_pos].strip()
-
-            # Extract options by finding text between prefixes
-            if (
-                a_pos == -1
-                or b_pos == -1
-                or c_pos == -1
-                or d_pos == -1
-                or answer_pos == -1
-            ):
+            q_m = re.search(
+                r"Question:\s*(.+?)(?=\n\s*(?:\(?[A-D][.:\)]|\([A-D]\)\s))",
+                block,
+                re.DOTALL | re.IGNORECASE,
+            )
+            if not q_m:
                 continue
 
-            option_a = block[a_pos + len("\nA:") : b_pos].strip()
-            option_b = block[b_pos + len("\nB:") : c_pos].strip()
-            option_c = block[c_pos + len("\nC:") : d_pos].strip()
-            option_d = block[d_pos + len("\nD:") : answer_pos].strip()
-
-            options = [option_a, option_b, option_c, option_d]
-
-            # Extract Answer letter
-            answer_match = re.search(r"Answer:\s*([A-D])", block, re.IGNORECASE)
-            answer_letter = (
-                answer_match.group(1).strip().upper() if answer_match else None
+            reason_m = re.search(
+                r"(?:Reasoning|Reason):\s*(.+?)(?=\nQuestion:)",
+                block,
+                re.DOTALL | re.IGNORECASE,
             )
 
-            # Only add if we have all 4 options and answer
-            if len(options) == 4 and answer_letter:
-                # Map answer letter to index
-                correct_map = {"A": 0, "B": 1, "C": 2, "D": 3}
-                correct_idx = correct_map.get(answer_letter, -1)
+            opts = {
+                m.group(1).upper(): m.group(2).strip() for m in opt_pat.finditer(block)
+            }
+            if len(opts) < 4:
+                continue
 
-                # Parse ID from the block
-                id_match = re.match(r"ID:\s*(\d+)", block.strip())
-                q_id = int(id_match.group(1)) if id_match else None
+            ans_m = re.search(
+                r"(?:Answer|Correct(?:\s+Answer)?)\s*[:\-]\s*\(?([A-D])\)?",
+                block,
+                re.IGNORECASE,
+            )
+            if not ans_m:
+                continue
 
-                if correct_idx != -1:
-                    questions.append(
-                        {
-                            "id": q_id,
-                            "question": question_text,
-                            "options": options,
-                            "correct_idx": correct_idx,
-                            "level": expected_level,  # Use the expected level from the generator
-                        }
-                    )
+            correct_letter = ans_m.group(1).upper()
+            options_in_order = [opts.get(l, "") for l in ["A", "B", "C", "D"]]
+            correct_text = opts.get(correct_letter, "")
 
-        except Exception as e:
-            print(f"Warning: Failed to parse question block: {str(e)}")
-            continue
+            shuffled = options_in_order[:]
+            random.shuffle(shuffled)
+            correct_idx = (
+                shuffled.index(correct_text) if correct_text in shuffled else 0
+            )
 
+            questions.append(
+                {
+                    "id": current_id,
+                    "reason": reason_m.group(1).strip() if reason_m else None,
+                    "question": q_m.group(1).strip(),
+                    "options": shuffled,
+                    "correct_idx": correct_idx,
+                    "level": level,
+                    "status": "PENDING_CLASSIFY",
+                    "gen_loop": gen_loop,
+                    "fix_count": 0,
+                    "flags": [],
+                }
+            )
+            current_id += 1
+        except Exception:
+            pass
     return questions
 
 
-def format_questions_for_validation(questions: List[Dict]) -> str:
-    """Format questions list into text block for validator prompt
-
-    Args:
-        questions: List of question dicts with question, options, correct_idx, level
-
-    Returns:
-        Formatted string
-    """
-    lines = []
-    correct_map = {0: "A", 1: "B", 2: "C", 3: "D"}
-    for idx, q in enumerate(questions, 1):
-        lines.append(f"ID: {idx}")
-        lines.append(f"Question: {q['question']}")
-        for i, label in enumerate(["A", "B", "C", "D"]):
-            lines.append(f"{label}: {q['options'][i]}")
-        lines.append(f"Answer: {correct_map.get(q['correct_idx'], 'A')}")
-        lines.append("")
-    return "\n".join(lines)
-
-
-def format_failed_questions_for_fixer(
-    questions: List[Dict], validation: List[Dict]
-) -> str:
-    """Format failed questions with their feedback for the fixer prompt
-
-    Args:
-        questions: List of question dicts
-        validation: List of validation result dicts with id, verdict, feedback
-
-    Returns:
-        Formatted string with failed questions and feedback, or empty string if none failed
-    """
-    lines = []
-    correct_map = {0: "A", 1: "B", 2: "C", 3: "D"}
-
-    # Build a map from validation id to feedback
-    feedback_map = {}
-    for v in validation:
-        if v.get("verdict") == "FAIL":
-            feedback_map[v["id"]] = v
-
-    for idx, q in enumerate(questions, 1):
-        v = feedback_map.get(idx)
-        if v:
-            lines.append(f"ID: {idx}")
-            lines.append(f"Question: {q['question']}")
-            for i, label in enumerate(["A", "B", "C", "D"]):
-                lines.append(f"{label}: {q['options'][i]}")
-            lines.append(f"Answer: {correct_map.get(q['correct_idx'], 'A')}")
-            lines.append(f"Feedback: {v.get('feedback', 'No specific feedback')}")
-            lines.append(f"Solvability: {v.get('solvability', 'FAIL')}")
-            lines.append(f"Distractor Quality: {v.get('distractor_quality', 'FAIL')}")
-            lines.append(f"Alignment: {v.get('alignment', 'FAIL')}")
-            lines.append("")
-
-    return "\n".join(lines)
-
-
-def parse_validator_output(output: str) -> List[Dict]:
-    """Parse validator output into structured validation results
-
-    Expected format per question:
-    ID: 1
-    Solvability: PASS|FAIL
-    Distractor Quality: PASS|FAIL
-    Alignment: PASS|FAIL
-    Verdict: PASS|FAIL
-    Feedback: ...
-
-    Returns:
-        List of {id, solvability, distractor_quality, alignment, verdict, feedback}
-    """
+def parse_agent_output(output: str, has_choices=False) -> List[Dict]:
+    """Generic parser reading ID-mapped responses (Classifier / Student)."""
+    normalized = _normalize_llm_output(output)
+    blocks = re.split(r"(?:^|\n)(?=ID:\s*\d+)", normalized.strip())
     results = []
-    blocks = re.split(r"\n(?=ID:\s*\d+)", output.strip())
 
     for block in blocks:
         block = block.strip()
-        if not block:
+        if not block or not re.match(r"ID:\s*\d+", block):
             continue
-
         try:
-            # Extract ID
-            id_match = re.match(r"ID:\s*(\d+)", block)
-            if not id_match:
+            id_m = re.match(r"ID:\s*(\d+)", block)
+            if not id_m:
                 continue
-            q_id = int(id_match.group(1))
+            parsed_id = int(id_m.group(1))
 
-            # Extract verdict
-            verdict_match = re.search(r"Verdict:\s*(PASS|FAIL)", block, re.IGNORECASE)
-            verdict = verdict_match.group(1).upper() if verdict_match else "FAIL"
-
-            # Extract feedback
-            feedback_match = re.search(r"Feedback:\s*(.+)", block)
-            feedback = feedback_match.group(1).strip() if feedback_match else "None"
-
-            # Extract individual checks
-            solv_match = re.search(r"Solvability:\s*(PASS|FAIL)", block, re.IGNORECASE)
-            dist_match = re.search(
-                r"Distractor Quality:\s*(PASS|FAIL)", block, re.IGNORECASE
+            target_key = "Choices" if has_choices else "Level"
+            reason_m = re.search(
+                rf"Reason:\s*(.+?)(?=\n{target_key}:)", block, re.DOTALL | re.IGNORECASE
             )
-            align_match = re.search(r"Alignment:\s*(PASS|FAIL)", block, re.IGNORECASE)
+
+            if has_choices:
+                choices_m = re.search(r"Choices:\s*(.+)", block, re.IGNORECASE)
+                choices_raw = (
+                    choices_m.group(1).strip().upper() if choices_m else "NONE"
+                )
+                val = (
+                    []
+                    if choices_raw in ["NONE", ""]
+                    else re.findall(r"[A-D]", choices_raw)
+                )
+            else:
+                level_m = re.search(r"Level:\s*(\d+)", block, re.IGNORECASE)
+                val = int(level_m.group(1)) if level_m else 0
 
             results.append(
                 {
-                    "id": q_id,
-                    "solvability": (
-                        solv_match.group(1).upper() if solv_match else "FAIL"
-                    ),
-                    "distractor_quality": (
-                        dist_match.group(1).upper() if dist_match else "FAIL"
-                    ),
-                    "alignment": (
-                        align_match.group(1).upper() if align_match else "FAIL"
-                    ),
-                    "verdict": verdict,
-                    "feedback": feedback,
+                    "parsed_id": parsed_id,
+                    "val": val,
+                    "reason": reason_m.group(1).strip() if reason_m else "",
                 }
             )
-        except Exception as e:
-            print(f"Warning: Failed to parse validator block: {str(e)}")
-            continue
-
+        except Exception:
+            pass
     return results
 
 
-def generator_level1_agent(
-    state: WorkflowState, llm: ChatOpenAI, generator_prompt: str
-) -> Dict:
-    """Generator agent for Level 1 questions
+def parse_option_fixer_output(output: str) -> Dict[int, Dict]:
+    """Parse option-fixer output into structured resolutions."""
+    normalized = _normalize_llm_output(output)
+    blocks = re.split(r"(?:^|\n)(?=ID:\s*\d+)", normalized.strip())
+    fixed_map = {}
+    opt_pat = re.compile(r"(?m)^\s*([A-D])[.:\)]\s*(.+)$")
 
-    Args:
-        state: Current workflow state
-        llm: Language model
-        generator_prompt: Prompt template for Level 1 generator
+    for block in blocks:
+        block = block.strip()
+        if not block or not re.match(r"ID:\s*\d+", block):
+            continue
+        id_m = re.match(r"ID:\s*(\d+)", block)
+        if not id_m:
+            continue
+        parsed_id = int(id_m.group(1))
 
-    Returns:
-        Dict with level1_questions key only
-    """
-    if state.get("error"):
-        return {}
+        reason_m = re.search(r"Reason\s*:\s*(.+)", block, re.IGNORECASE)
+        opts = {m.group(1).upper(): m.group(2).strip() for m in opt_pat.finditer(block)}
+        if len(opts) != 4:
+            continue
 
-    try:
-        n = state["n"]
-
-        # Create prompt
-        full_prompt = (
-            generator_prompt.replace("{content}", state["content"])
-            .replace("{analyzer_output}", state["analyzer_output"])
-            .replace("{n}", str(n))
+        ans_m = re.search(
+            r"(?:Answer|Correct(?:\s+Answer)?)\s*[:\-]\s*\(?([A-D])\)?",
+            block,
+            re.IGNORECASE,
         )
+        if not ans_m:
+            continue
 
-        # Invoke LLM
-        response = llm.invoke(full_prompt)
-        _add_cost(response, item_id=state["item_id"])
-        generator_output = response.content
-
-        if state.get("verbose"):
-            print(f"\n{'='*80}")
-            print(f"Level 1 Generator Output for {state['item_id']}:")
-            print(f"{'='*80}")
-            print(generator_output)
-            print(f"{'='*80}\n")
-
-        # Parse output
-        questions = parse_generator_output(generator_output, n, expected_level=1)
-
-        # Return only the key this agent updates
-        return {"level1_questions": questions}
-
-    except Exception as e:
-        error_msg = f"Level 1 Generator failed: {str(e)}"
-        print(f"Error in Level 1 generator: {str(e)}")
-        return {"error": error_msg}
+        fixed_map[parsed_id] = {
+            "options": [opts.get(l, "") for l in ["A", "B", "C", "D"]],
+            "correct_idx": ["A", "B", "C", "D"].index(ans_m.group(1).upper()),
+            "reason": reason_m.group(1).strip() if reason_m else "",
+        }
+    return fixed_map
 
 
-def generator_level2_agent(
-    state: WorkflowState, llm: ChatOpenAI, generator_prompt: str
-) -> Dict:
-    """Generator agent for Level 2 questions
-
-    Args:
-        state: Current workflow state
-        llm: Language model
-        generator_prompt: Prompt template for Level 2 generator
-
-    Returns:
-        Dict with level2_questions key only
-    """
-    if state.get("error"):
-        return {}
-
-    try:
-        n = state["n"]
-
-        # Create prompt
-        full_prompt = (
-            generator_prompt.replace("{content}", state["content"])
-            .replace("{analyzer_output}", state["analyzer_output"])
-            .replace("{n}", str(n))
-        )
-
-        # Invoke LLM
-        response = llm.invoke(full_prompt)
-        _add_cost(response, item_id=state["item_id"])
-        generator_output = response.content
-
-        if state.get("verbose"):
-            print(f"\n{'='*80}")
-            print(f"Level 2 Generator Output for {state['item_id']}:")
-            print(f"{'='*80}")
-            print(generator_output)
-            print(f"{'='*80}\n")
-
-        # Parse output
-        questions = parse_generator_output(generator_output, n, expected_level=2)
-
-        # Return only the key this agent updates
-        return {"level2_questions": questions}
-
-    except Exception as e:
-        error_msg = f"Level 2 Generator failed: {str(e)}"
-        print(f"Error in Level 2 generator: {str(e)}")
-        return {"error": error_msg}
-
-
-def generator_level3_agent(
-    state: WorkflowState, llm: ChatOpenAI, generator_prompt: str
-) -> Dict:
-    """Generator agent for Level 3 questions
-
-    Args:
-        state: Current workflow state
-        llm: Language model
-        generator_prompt: Prompt template for Level 3 generator
-
-    Returns:
-        Dict with level3_questions key only
-    """
-    if state.get("error"):
-        return {}
-
-    try:
-        n = state["n"]
-
-        # Create prompt
-        full_prompt = (
-            generator_prompt.replace("{content}", state["content"])
-            .replace("{analyzer_output}", state["analyzer_output"])
-            .replace("{n}", str(n))
-        )
-
-        # Invoke LLM
-        response = llm.invoke(full_prompt)
-        _add_cost(response, item_id=state["item_id"])
-        generator_output = response.content
-
-        if state.get("verbose"):
-            print(f"\n{'='*80}")
-            print(f"Level 3 Generator Output for {state['item_id']}:")
-            print(f"{'='*80}")
-            print(generator_output)
-            print(f"{'='*80}\n")
-
-        # Parse output
-        questions = parse_generator_output(generator_output, n, expected_level=3)
-
-        # Return only the key this agent updates
-        return {"level3_questions": questions}
-
-    except Exception as e:
-        error_msg = f"Level 3 Generator failed: {str(e)}"
-        print(f"Error in Level 3 generator: {str(e)}")
-        return {"error": error_msg}
-
-
-def _run_validator(
-    questions: List[Dict],
-    llm: ChatOpenAI,
-    validator_prompt: str,
-    content: str,
-    item_id: str,
-    level: int,
-    attempt: int,
-    verbose: bool = False,
-) -> List[Dict]:
-    """Run the validator LLM on a list of questions and return validation results."""
-    questions_text = format_questions_for_validation(questions)
-    full_prompt = validator_prompt.replace("{content}", content).replace(
-        "{questions}", questions_text
-    )
-    response = llm.invoke(full_prompt)
-    _add_cost(response, item_id=item_id)
-    validator_output = response.content
-
-    if verbose:
-        print(f"\n{'='*80}")
-        print(f"Validator Level {level} (attempt {attempt}) for {item_id}:")
-        print(f"{'='*80}")
-        print(validator_output)
-        print(f"{'='*80}\n")
-
-    return parse_validator_output(validator_output)
-
-
-def _run_fixer(
-    questions: List[Dict],
-    validation: List[Dict],
-    llm: ChatOpenAI,
-    fixer_prompt: str,
-    content: str,
-    analyzer_output: str,
-    item_id: str,
-    level: int,
-    attempt: int,
-    per_question_history: Dict[int, List[str]],
-    verbose: bool = False,
-) -> List[Dict]:
-    """Run the fixer LLM on failed questions and return the merged question list."""
-    failed_text = format_failed_questions_for_fixer(questions, validation)
-    if not failed_text.strip():
-        return questions
-
-    # Build history text showing only past feedback for questions that are
-    # CURRENTLY still failing — avoids noise from already-resolved questions
-    currently_failed_ids = {v["id"] for v in validation if v.get("verdict") == "FAIL"}
-    history_lines = []
-    for q_id in sorted(currently_failed_ids):
-        past = per_question_history.get(q_id, [])
-        if past:
-            rounds = "\n".join(f"  Attempt {i + 1}: {fb}" for i, fb in enumerate(past))
-            history_lines.append(f"Q{q_id} previous feedback:\n{rounds}")
-    history_text = (
-        "\n\n".join(history_lines) if history_lines else "No previous fix attempts."
+# ---------------------------------------------------------------------------
+# Worker Nodes (LLM Execution)
+# ---------------------------------------------------------------------------
+def generator_node(request: dict, llm) -> Dict:
+    level, count = request["level"], request["count"]
+    prompt = (
+        load_prompt(f"l{level}_generator", "prompts/v5")
+        .replace("{content}", request["content"])
+        .replace("{n}", str(count))
+        .replace("{positive_samples}", request["positive_samples"])
+        .replace("{negative_samples}", request["negative_samples"])
     )
 
-    full_prompt = (
-        fixer_prompt.replace("{content}", content)
-        .replace("{analyzer_output}", analyzer_output)
-        .replace("{fix_history}", history_text)
-        .replace("{failed_questions}", failed_text)
-    )
-    response = llm.invoke(full_prompt)
-    _add_cost(response, item_id=item_id)
-    fixer_output = response.content
+    resp = llm.invoke(prompt)
+    gen_loop = request.get("gen_loop", 0)
+    start_id = request["start_id"]
+    qs = parse_generator_output(resp.content, level, start_id, gen_loop)
 
-    if verbose:
-        print(f"\n{'='*80}")
-        print(f"Fixer Level {level} (attempt {attempt}) for {item_id}:")
-        print(f"{'='*80}")
-        print(fixer_output)
-        print(f"{'='*80}\n")
+    result: Dict[int, Dict] = {q["id"]: q for q in qs}
 
-    fixed_questions = parse_generator_output(
-        fixer_output, len(questions), expected_level=level
-    )
-    # Use the ID parsed from the fixer output ("ID: N") rather than enumerate position,
-    # so ordering/missing questions in LLM response don't cause mismatches.
-    fixed_map = {fq["id"]: fq for fq in fixed_questions if fq.get("id") is not None}
+    parsed_count = len(qs)
+    for offset in range(parsed_count, count):
+        placeholder_id = start_id + offset
+        result[placeholder_id] = {
+            "id": placeholder_id,
+            "question": "",
+            "options": ["", "", "", ""],
+            "correct_idx": 0,
+            "level": level,
+            "status": "STEM_FAILED",
+            "gen_loop": gen_loop,
+            "fix_count": 0,
+            "flags": [],
+        }
 
-    failed_ids = {v["id"] for v in validation if v.get("verdict") == "FAIL"}
-    merged = []
-    for idx, q in enumerate(questions):
-        q_id = idx + 1
-        if q_id in failed_ids and q_id in fixed_map:
-            merged.append(fixed_map[q_id])
-            if verbose:
-                print(f"  Level {level} Q{q_id}: FIXED (attempt {attempt})")
-        else:
-            merged.append(q)
-            if verbose:
-                print(f"  Level {level} Q{q_id}: kept (passed)")
-    return merged
-
-
-def validate_and_fix_agent(
-    state: WorkflowState,
-    llm: ChatOpenAI,
-    validator_prompt: str,
-    fixer_prompt: str,
-    level: int,
-    max_fix_retries: int,
-) -> Dict:
-    """Validate questions for a level then iteratively fix failures.
-
-    Loop:
-      1. Validate all current questions.
-      2. If no failures → done.
-      3. Fix only the failed questions (with per-question feedback).
-      4. Re-validate the fixed questions in-place.
-      5. Repeat up to max_fix_retries times.
-      6. After exhausting retries, log a WARNING for any remaining failures.
-
-    Args:
-        state: Current workflow state
-        llm: Language model
-        validator_prompt: Prompt template for this level's validator
-        fixer_prompt: Prompt template for this level's fixer
-        level: Question level (1, 2, or 3)
-        max_fix_retries: Maximum number of fix-then-revalidate attempts
-
-    Returns:
-        Dict with level{N}_validation and level{N}_fixed keys
-    """
-    level_key = f"level{level}_questions"
-    validation_key = f"level{level}_validation"
-    fixed_key = f"level{level}_fixed"
-
-    questions = state.get(level_key, [])
-    if not questions or state.get("error"):
-        return {validation_key: [], fixed_key: questions}
-
-    content = state["content"]
-    analyzer_output = state.get("analyzer_output", "")
-    item_id = state["item_id"]
-    verbose = state.get("verbose", False)
-
-    current_questions = questions
-    validation: List[Dict] = []
-    # per_question_history[q_id] = list of feedback strings from each failed round
-    per_question_history: Dict[int, List[str]] = {}
-
-    try:
-        # ── Initial validation ──────────────────────────────────────────────
-        validation = _run_validator(
-            current_questions,
-            llm,
-            validator_prompt,
-            content,
-            item_id,
-            level,
-            attempt=0,
-            verbose=verbose,
+    if request.get("verbose"):
+        _print_parsed_questions(
+            qs, f"Generator L{level} Parsed Output", border_style="cyan"
         )
-        passed = sum(1 for v in validation if v["verdict"] == "PASS")
-        failed_count = len(validation) - passed
-        if verbose:
-            print(
-                f"Level {level} validation (attempt 0): {passed} passed, {failed_count} failed"
+        if parsed_count < count:
+            console.print(
+                f"[yellow]Generator L{level}: {count - parsed_count} question(s) failed to parse[/yellow]"
             )
 
-        # ── Retry loop ──────────────────────────────────────────────────────
-        for attempt in range(1, max_fix_retries + 1):
-            if not any(v.get("verdict") == "FAIL" for v in validation):
-                if verbose:
-                    print(
-                        f"Level {level}: All questions passed — stopping after attempt {attempt - 1}"
-                    )
-                break
-
-            # Accumulate per-question feedback before calling fixer
-            for v in validation:
-                if v.get("verdict") == "FAIL":
-                    q_id = v["id"]
-                    per_question_history.setdefault(q_id, []).append(
-                        v.get("feedback", "no feedback")
-                    )
-
-            if verbose:
-                print(
-                    f"Level {level}: Running fix attempt {attempt}/{max_fix_retries}..."
-                )
-            current_questions = _run_fixer(
-                current_questions,
-                validation,
-                llm,
-                fixer_prompt,
-                content,
-                analyzer_output,
-                item_id,
-                level,
-                attempt,
-                per_question_history,
-                verbose=verbose,
-            )
-
-            # Re-validate to measure progress
-            validation = _run_validator(
-                current_questions,
-                llm,
-                validator_prompt,
-                content,
-                item_id,
-                level,
-                attempt,
-                verbose=verbose,
-            )
-            passed = sum(1 for v in validation if v["verdict"] == "PASS")
-            failed_count = len(validation) - passed
-            if verbose:
-                print(
-                    f"Level {level} re-validation (attempt {attempt}): {passed} passed, {failed_count} failed"
-                )
-
-            # Warn if still failing after the last attempt
-            if attempt == max_fix_retries:
-                still_failing = [v for v in validation if v.get("verdict") == "FAIL"]
-                if still_failing:
-                    failed_ids = [str(v["id"]) for v in still_failing]
-                    feedbacks = "; ".join(
-                        f"Q{v['id']}: {v.get('feedback', 'no feedback')}"
-                        for v in still_failing
-                    )
-                    print(
-                        f"WARNING: Level {level} — {len(still_failing)} question(s) still failing "
-                        f"after {max_fix_retries} fix attempt(s) for item '{item_id}'. "
-                        f"Failing IDs: [{', '.join(failed_ids)}]. "
-                        f"Feedback: {feedbacks}"
-                    )
-
-        return {validation_key: validation, fixed_key: current_questions}
-
-    except Exception as e:
-        print(f"Error in validate_and_fix level {level}: {str(e)}")
-        # On error, return original questions without blocking the pipeline
-        return {validation_key: validation, fixed_key: questions}
+    return {
+        "questions": result,
+        "cost": _extract_cost(resp.response_metadata),
+    }
 
 
-def merge_questions_agent(state: WorkflowState) -> WorkflowState:
-    """Merge questions from all 3 levels into final_questions
+def classifier_node(request: dict, llm) -> Dict:
+    batch = [q for q in request["batch"] if q.get("status") != "STEM_FAILED"]
+    if not batch:
+        return {"questions": {}, "cost": 0.0}
+    random.shuffle(batch)
 
-    Uses fixed questions if available, otherwise falls back to originals.
+    fake_map = {i + 1: q for i, q in enumerate(batch)}
+    quiz_text = "\n".join(
+        f"ID: {fake_id}\nQuestion: {q['question']}\n"
+        + "\n".join(f"{chr(65+j)}: {opt}" for j, opt in enumerate(q["options"]))
+        + "\n"
+        for fake_id, q in fake_map.items()
+    )
 
-    Args:
-        state: Current workflow state
+    prompt = (
+        load_prompt("classifier", "prompts/v5")
+        .replace("{content}", request["content"])
+        .replace("{quiz}", quiz_text)
+    )
+    resp = llm.invoke(prompt)
+    parsed = parse_agent_output(resp.content, has_choices=False)
 
-    Returns:
-        Updated state with final_questions
-    """
-    if state.get("error"):
-        return state
+    updates = {}
+    display_list = []
 
-    try:
-        # Combine all questions — prefer fixed versions
-        all_questions = []
-
-        for level in [1, 2, 3]:
-            fixed_key = f"level{level}_fixed"
-            orig_key = f"level{level}_questions"
-            questions = state.get(fixed_key, []) or state.get(orig_key, [])
-
-            for q in questions:
-                all_questions.append(
+    for p in parsed:
+        fake_id = p["parsed_id"]
+        if fake_id in fake_map:
+            q = fake_map[fake_id].copy()
+            q["classifier_reason"] = p["reason"]
+            q["predicted_level"] = p["val"]
+            if p["val"] == q["level"]:
+                q["status"] = "PENDING_STUDENT"
+            else:
+                q["status"] = "STEM_FAILED"
+            updates[q["id"]] = q
+            if request.get("verbose"):
+                display_list.append(
                     {
-                        "content": q["question"],
-                        "options": q["options"],
-                        "correct": q["correct_idx"],
-                        "level": level,
-                        "type": "General",
+                        "id": q["id"],
+                        "level": q["level"],
+                        "reason": p["reason"],
+                        "val": p["val"],
+                        "is_classifier": True,
                     }
                 )
 
-        # Sort by level, then by original order
-        all_questions.sort(key=lambda x: x["level"])
+    for q in fake_map.values():
+        if q["id"] not in updates:
+            q_copy = q.copy()
+            q_copy["status"] = "STEM_FAILED"
+            updates[q["id"]] = q_copy
 
-        if state.get("verbose"):
-            print(f"\n{'='*80}")
-            print(f"Merged {len(all_questions)} questions for {state['item_id']}:")
-            print(f"{'='*80}")
-            for idx, q in enumerate(all_questions, 1):
-                print(f"Q{idx} (Level {q['level']}): {q['content'][:80]}...")
-            print(f"{'='*80}\n")
+    if request.get("verbose"):
+        _print_parsed_questions(
+            display_list, "Classifier Verification Results", border_style="blue"
+        )
 
-        state["final_questions"] = all_questions
-
-    except Exception as e:
-        state["error"] = f"Merge failed: {str(e)}"
-        print(f"Error in merge: {str(e)}")
-
-    return state
+    return {"questions": updates, "cost": _extract_cost(resp.response_metadata)}
 
 
-def create_workflow(
-    llm: ChatOpenAI,
-    analyzer_prompt: str,
-    generator_level1_prompt: str,
-    generator_level2_prompt: str,
-    generator_level3_prompt: str,
-    validator_level1_prompt: str,
-    validator_level2_prompt: str,
-    validator_level3_prompt: str,
-    fixer_level1_prompt: str,
-    fixer_level2_prompt: str,
-    fixer_level3_prompt: str,
-    max_fix_retries: int = 1,
-) -> StateGraph:
-    """Create the multi-agent workflow using LangGraph
+def student_node(request: dict, llm) -> Dict:
+    batch = request["batch"]
+    batch.sort(key=lambda x: (x["level"], x["id"]))
 
-    Flow:
-        analyzer
-            → [generator_level1, generator_level2, generator_level3]  (parallel)
-                → [validate_and_fix_level1, validate_and_fix_level2, validate_and_fix_level3]  (parallel)
-                    (each runs: validate → fix failed → re-validate, up to max_fix_retries times)
-                        → merge → END
+    def _build_question_block(q: dict) -> str:
+        lines = [f"ID: {q['id']}\nQuestion: {q['question']}"]
+        lines += [f"{chr(65+j)}: {opt}" for j, opt in enumerate(q["options"])]
+        if q.get("fixer_hint"):
+            lines.append(f"Hint: {q['fixer_hint']}")
+        lines.append("")
+        return "\n".join(lines)
 
-    Args:
-        llm: Language model
-        analyzer_prompt: Prompt for analyzer agent
-        generator_level1_prompt: Prompt for Level 1 generator
-        generator_level2_prompt: Prompt for Level 2 generator
-        generator_level3_prompt: Prompt for Level 3 generator
-        validator_level1_prompt: Prompt for Level 1 validator
-        validator_level2_prompt: Prompt for Level 2 validator
-        validator_level3_prompt: Prompt for Level 3 validator
-        fixer_level1_prompt: Prompt for Level 1 fixer
-        fixer_level2_prompt: Prompt for Level 2 fixer
-        fixer_level3_prompt: Prompt for Level 3 fixer
-        max_fix_retries: Maximum validate→fix loop iterations per level (default: 1)
+    quiz_text = "\n".join(_build_question_block(q) for q in batch)
 
-    Returns:
-        Compiled workflow graph
+    prompt = (
+        load_prompt("student", "prompts/v5")
+        .replace("{content}", request["content"])
+        .replace("{quiz}", quiz_text)
+    )
+    resp = llm.invoke(prompt)
+    parsed = parse_agent_output(resp.content, has_choices=True)
+
+    updates = {}
+    batch_map = {q["id"]: q for q in batch}
+    display_list = []
+
+    for p in parsed:
+        real_id = p["parsed_id"]
+        if real_id in batch_map:
+            q = batch_map[real_id].copy()
+            correct_letter = CORRECT_MAP.get(q["correct_idx"], "A")
+            q["status"] = "PASSED" if p["val"] == [correct_letter] else "PENDING_FIX"
+            q["student_choices"] = p["val"]
+            q["student_reason"] = p["reason"]
+            q.pop("fixer_hint", None)
+            updates[q["id"]] = q
+            if request.get("verbose"):
+                display_list.append(
+                    {
+                        "id": q["id"],
+                        "level": q["level"],
+                        "reason": p["reason"],
+                        "val": p["val"],
+                        "correct_letter": correct_letter,
+                        "is_student": True,
+                    }
+                )
+
+    for q in batch:
+        if q["id"] not in updates:
+            q_copy = q.copy()
+            q_copy["status"] = "PENDING_FIX"
+            q_copy.pop("fixer_hint", None)
+            updates[q["id"]] = q_copy
+
+    if request.get("verbose"):
+        _print_parsed_questions(
+            display_list, "Student Solving Results", border_style="magenta"
+        )
+
+    return {"questions": updates, "cost": _extract_cost(resp.response_metadata)}
+
+
+def fixer_node(request: dict, llm) -> Dict:
+    batch = request["batch"]
+    batch.sort(key=lambda x: (x["level"], x["id"]))
+
+    lines = []
+    for q in batch:
+        lines.append(f"ID: {q['id']}\nLevel: {q['level']}\nQuestion: {q['question']}")
+        for j, opt in enumerate(q["options"]):
+            lines.append(f"{chr(65+j)}: {opt}")
+        lines.append(f"Answer: {CORRECT_MAP.get(q['correct_idx'], 'A')}")
+        lines.append(f"Student Choices: {', '.join(q.get('student_choices', []))}")
+        lines.append(f"Student Reason: {q.get('student_reason', 'N/A')}\n")
+
+    prompt = (
+        load_prompt("fixer", "prompts/v5")
+        .replace("{content}", request["content"])
+        .replace("{failed_questions}", "\n".join(lines))
+    )
+    resp = llm.invoke(prompt)
+    fixed_map = parse_option_fixer_output(resp.content)
+
+    updates = {}
+    display_list = []
+
+    for q in batch:
+        q_copy = q.copy()
+        q_copy["fix_count"] = q_copy.get("fix_count", 0) + 1
+        real_id = q_copy["id"]
+
+        if real_id in fixed_map:
+            fix = fixed_map[real_id]
+            q_copy["status"] = "PENDING_STUDENT"
+            q_copy["options"] = fix["options"]
+            q_copy["correct_idx"] = fix["correct_idx"]
+            q_copy["reason"] = fix.get("reason") or q_copy.get("reason")
+            if request.get("verbose"):
+                display_list.append(
+                    {
+                        "id": real_id,
+                        "level": q["level"],
+                        "question": q["question"],
+                        "options": fix["options"],
+                        "correct_idx": fix["correct_idx"],
+                        "reason": fix["reason"],
+                    }
+                )
+        else:
+            q_copy["status"] = "PENDING_FIX"
+
+        updates[q_copy["id"]] = q_copy
+
+    if request.get("verbose"):
+        _print_parsed_questions(
+            display_list, "Fixer Resolutions", border_style="yellow"
+        )
+
+    return {"questions": updates, "cost": _extract_cost(resp.response_metadata)}
+
+
+# ---------------------------------------------------------------------------
+# Hub Routing & Execution Management
+# ---------------------------------------------------------------------------
+def _print_status_table(
+    qs: Dict,
+    max_loops: int,
+    gen_counts: Dict[int, int],
+    n: int,
+    stem_retries: int = 0,
+):
+    """Rich UI Helper: Renders the processing matrix with Phase 1/2 retry counters.
+
+    STEM_FAILED is computed as remainder (N - others) per level so every column
+    always sums to exactly N and the grand total is always 3*N.
     """
-    # Create workflow graph
+    curr_p1 = max(stem_retries, 0)
+    curr_p2 = max((q.get("fix_count", 0) for q in qs.values()), default=0)
+
+    table_title = (
+        f"🚀 Processing Matrix | "
+        f"Phase 1 (Stem): [bold yellow]{curr_p1}/{max_loops}[/bold yellow] | "
+        f"Phase 2 (Option): [bold green]{curr_p2}/{max_loops}[/bold green]"
+    )
+
+    table = Table(title=table_title, box=box.ROUNDED, expand=True)
+    table.add_column("Phase", style="cyan", justify="left")
+    table.add_column("Level 1", justify="center")
+    table.add_column("Level 2", justify="center")
+    table.add_column("Level 3", justify="center")
+    table.add_column("Total", style="bold magenta", justify="center")
+
+    stats = {
+        "PASSED": {1: 0, 2: 0, 3: 0},
+        "PENDING_CLASSIFY": {1: 0, 2: 0, 3: 0},
+        "PENDING_STUDENT": {1: 0, 2: 0, 3: 0},
+        "PENDING_FIX": {1: 0, 2: 0, 3: 0},
+    }
+
+    for q in qs.values():
+        lvl = q.get("level", 1)
+        st = q["status"]
+        if st in stats and lvl in stats[st]:
+            stats[st][lvl] += 1
+
+    stem_failed_display = {1: 0, 2: 0, 3: 0}
+    for lvl in [1, 2, 3]:
+        other = (
+            gen_counts[lvl]
+            + stats["PENDING_CLASSIFY"][lvl]
+            + stats["PENDING_STUDENT"][lvl]
+            + stats["PENDING_FIX"][lvl]
+            + stats["PASSED"][lvl]
+        )
+        stem_failed_display[lvl] = max(0, n - other)
+
+    fmt = lambda d: f"{sum(d.values())}"
+
+    table.add_row(
+        "⚙️  Generate",
+        f"[yellow]{gen_counts[1]}[/yellow]",
+        f"[yellow]{gen_counts[2]}[/yellow]",
+        f"[yellow]{gen_counts[3]}[/yellow]",
+        f"[bold yellow]{sum(gen_counts.values())}[/bold yellow]",
+    )
+    table.add_row(
+        "❌ Stem Failed",
+        f"[red]{stem_failed_display[1]}[/red]",
+        f"[red]{stem_failed_display[2]}[/red]",
+        f"[red]{stem_failed_display[3]}[/red]",
+        f"[bold red]{fmt(stem_failed_display)}[/bold red]",
+    )
+    table.add_row(
+        "⏳ Classify",
+        f"{stats['PENDING_CLASSIFY'][1]}",
+        f"{stats['PENDING_CLASSIFY'][2]}",
+        f"{stats['PENDING_CLASSIFY'][3]}",
+        fmt(stats["PENDING_CLASSIFY"]),
+    )
+    table.add_row(
+        "⏳ Solve",
+        f"{stats['PENDING_STUDENT'][1]}",
+        f"{stats['PENDING_STUDENT'][2]}",
+        f"{stats['PENDING_STUDENT'][3]}",
+        fmt(stats["PENDING_STUDENT"]),
+    )
+    table.add_row(
+        "🔧 Fixer",
+        f"{stats['PENDING_FIX'][1]}",
+        f"{stats['PENDING_FIX'][2]}",
+        f"{stats['PENDING_FIX'][3]}",
+        fmt(stats["PENDING_FIX"]),
+    )
+    table.add_row(
+        "✅ Passed",
+        f"{stats['PASSED'][1]}",
+        f"{stats['PASSED'][2]}",
+        f"{stats['PASSED'][3]}",
+        fmt(stats["PASSED"]),
+    )
+
+    console.print(table)
+
+
+def controller_node(state: WorkflowState) -> Dict:
+    qs = state.get("questions", {})
+    loop = state.get("loop_count", 0) + 1
+    next_id = state.get("next_global_id", 1)
+    stem_retries = state.get("stem_retries", -1)
+    n = state["n"]
+
+    updates = {}
+    for q_id, q in qs.items():
+        st = q["status"]
+        changed = False
+
+        if st == "STEM_FAILED" and q.get("gen_loop", 0) >= state["max_loops"] - 1:
+            q["status"] = "PENDING_STUDENT"
+            q.setdefault("flags", []).append("stem_forced")
+            changed = True
+
+        if st == "PENDING_FIX" and q.get("fix_count", 0) >= state["max_loops"]:
+            q["status"] = "PASSED"
+            q.setdefault("flags", []).append("option_forced")
+            changed = True
+
+        if changed:
+            updates[q_id] = q
+
+    if updates:
+        qs = {**qs, **updates}
+
+    valid = {1: 0, 2: 0, 3: 0}
+    positive_samples = {1: [], 2: [], 3: []}
+    negative_samples = {1: [], 2: [], 3: []}
+    queues = {"classify": [], "student": [], "fixer": []}
+
+    for q in qs.values():
+        st, lvl = q["status"], q["level"]
+        if st != "STEM_FAILED":
+            valid[lvl] += 1
+            positive_samples[lvl].append(f"- {q['question']}")
+        else:
+            if "predicted_level" in q and q["predicted_level"] != lvl:
+                negative_samples[lvl].append(f"- {q['question']}")
+
+        if st == "PENDING_CLASSIFY":
+            queues["classify"].append(q)
+        elif st == "PENDING_STUDENT":
+            queues["student"].append(q)
+        elif st == "PENDING_FIX":
+            queues["fixer"].append(q)
+
+    gen_counts = {1: 0, 2: 0, 3: 0}
+    gen_tasks = []
+
+    for lvl in [1, 2, 3]:
+        need = n - valid[lvl]
+        if need > 0:
+            gen_counts[lvl] = need
+
+    if any(v > 0 for v in gen_counts.values()):
+        stem_retries += 1
+        for lvl in [1, 2, 3]:
+            if gen_counts[lvl] > 0:
+                pos_samples_text = (
+                    "\n".join(
+                        random.sample(
+                            positive_samples[lvl], min(5, len(positive_samples[lvl]))
+                        )
+                    )
+                    if positive_samples[lvl]
+                    else "(none yet)"
+                )
+                neg_samples_text = (
+                    "\n".join(negative_samples[lvl])
+                    if negative_samples[lvl]
+                    else "(none yet)"
+                )
+
+                gen_tasks.append(
+                    {
+                        "level": lvl,
+                        "count": gen_counts[lvl],
+                        "content": state["content"],
+                        "positive_samples": pos_samples_text,
+                        "negative_samples": neg_samples_text,
+                        "start_id": next_id,
+                        "verbose": state["verbose"],
+                        "gen_loop": state.get("loop_count", 0),
+                    }
+                )
+                next_id += gen_counts[lvl]
+
+    if state.get("verbose"):
+        _print_status_table(qs, state["max_loops"], gen_counts, n, stem_retries)
+
+    return {
+        "questions": updates,
+        "loop_count": loop,
+        "stem_retries": stem_retries,
+        "next_global_id": next_id,
+        "gen_tasks": gen_tasks,
+        "classify_queue": queues["classify"],
+        "student_queue": queues["student"],
+        "fixer_queue": queues["fixer"],
+    }
+
+
+def dispatch_edges(state: WorkflowState) -> List[Send]:
+    tasks = []
+    for task in state.get("gen_tasks", []):
+        tasks.append(Send("generator", task))
+
+    if state.get("classify_queue"):
+        tasks.append(
+            Send(
+                "classifier",
+                {
+                    "batch": state["classify_queue"],
+                    "content": state["content"],
+                    "verbose": state["verbose"],
+                },
+            )
+        )
+    if state.get("student_queue"):
+        tasks.append(
+            Send(
+                "student",
+                {
+                    "batch": state["student_queue"],
+                    "content": state["content"],
+                    "verbose": state["verbose"],
+                },
+            )
+        )
+    if state.get("fixer_queue"):
+        tasks.append(
+            Send(
+                "fixer",
+                {
+                    "batch": state["fixer_queue"],
+                    "content": state["content"],
+                    "verbose": state["verbose"],
+                },
+            )
+        )
+
+    return tasks if tasks else ["merge"]
+
+
+def merge_node(state: WorkflowState) -> Dict:
+    n = state["n"]
+    qs = state.get("questions", {})
+
+    by_level: Dict[int, List[Dict]] = {1: [], 2: [], 3: []}
+    for q in sorted(qs.values(), key=lambda x: x.get("id", 0)):
+        if q["status"] == "PASSED":
+            by_level.setdefault(q["level"], []).append(q)
+
+    final_questions = []
+    for lvl in [1, 2, 3]:
+        for q in by_level[lvl][:n]:
+            final_questions.append(
+                {
+                    "id": q["id"],
+                    "content": q["question"],
+                    "options": q["options"],
+                    "correct": q["correct_idx"],
+                    "level": lvl,
+                    "flags": q.get("flags", []),
+                }
+            )
+
+    flagged = [q for q in final_questions if q["flags"]]
+    if flagged:
+        lines = [
+            f"Q{q['id']} (L{q['level']}): {', '.join(q['flags'])}" for q in flagged
+        ]
+        console.print(
+            Panel("\n".join(lines), title="Flagged Questions", border_style="yellow")
+        )
+
+    console.print(
+        Panel(
+            Text.assemble(
+                ("Output: ", "bold"),
+                (f"{len(final_questions)}\n", "green"),
+                ("Flagged: ", "bold"),
+                (f"{len(flagged)}\n", "yellow" if flagged else "green"),
+                ("Cost: ", "bold"),
+                (f"${state.get('cost', 0):.4f}", "yellow"),
+            ),
+            title=f"Done [{state['item_id']}]",
+            border_style="green",
+        )
+    )
+    return {"final_questions": final_questions}
+
+
+# ---------------------------------------------------------------------------
+# Pipeline Constructor
+# ---------------------------------------------------------------------------
+def build_workflow(llm, student_llm):
     workflow = StateGraph(WorkflowState)
+    workflow.add_node("controller", controller_node)
+    workflow.add_node("generator", lambda req: generator_node(req, llm))
+    workflow.add_node("classifier", lambda req: classifier_node(req, llm))
+    workflow.add_node("student", lambda req: student_node(req, student_llm))
+    workflow.add_node("fixer", lambda req: fixer_node(req, llm))
+    workflow.add_node("merge", merge_node)
 
-    # ── Nodes ──────────────────────────────────────────────────────────────
-    workflow.add_node(
-        "analyzer", lambda state: analyzer_agent(state, llm, analyzer_prompt)
+    workflow.set_entry_point("controller")
+    workflow.add_conditional_edges(
+        "controller",
+        dispatch_edges,
+        ["generator", "classifier", "student", "fixer", "merge"],
     )
 
-    # Generators (parallel after analyzer)
-    workflow.add_node(
-        "generator_level1",
-        lambda state: generator_level1_agent(state, llm, generator_level1_prompt),
-    )
-    workflow.add_node(
-        "generator_level2",
-        lambda state: generator_level2_agent(state, llm, generator_level2_prompt),
-    )
-    workflow.add_node(
-        "generator_level3",
-        lambda state: generator_level3_agent(state, llm, generator_level3_prompt),
-    )
-
-    # Validate-and-fix nodes (parallel, one per level)
-    # Each node runs the full validate → fix → re-validate loop internally
-    workflow.add_node(
-        "validate_and_fix_level1",
-        lambda state: validate_and_fix_agent(
-            state,
-            llm,
-            validator_level1_prompt,
-            fixer_level1_prompt,
-            level=1,
-            max_fix_retries=max_fix_retries,
-        ),
-    )
-    workflow.add_node(
-        "validate_and_fix_level2",
-        lambda state: validate_and_fix_agent(
-            state,
-            llm,
-            validator_level2_prompt,
-            fixer_level2_prompt,
-            level=2,
-            max_fix_retries=max_fix_retries,
-        ),
-    )
-    workflow.add_node(
-        "validate_and_fix_level3",
-        lambda state: validate_and_fix_agent(
-            state,
-            llm,
-            validator_level3_prompt,
-            fixer_level3_prompt,
-            level=3,
-            max_fix_retries=max_fix_retries,
-        ),
-    )
-
-    # Merge
-    workflow.add_node("merge", merge_questions_agent)
-
-    # ── Edges ──────────────────────────────────────────────────────────────
-    # analyzer → generators (fan-out)
-    workflow.set_entry_point("analyzer")
-    workflow.add_edge("analyzer", "generator_level1")
-    workflow.add_edge("analyzer", "generator_level2")
-    workflow.add_edge("analyzer", "generator_level3")
-
-    # generators → validate-and-fix (each level feeds its own node)
-    workflow.add_edge("generator_level1", "validate_and_fix_level1")
-    workflow.add_edge("generator_level2", "validate_and_fix_level2")
-    workflow.add_edge("generator_level3", "validate_and_fix_level3")
-
-    # validate-and-fix → merge (fan-in)
-    workflow.add_edge("validate_and_fix_level1", "merge")
-    workflow.add_edge("validate_and_fix_level2", "merge")
-    workflow.add_edge("validate_and_fix_level3", "merge")
+    for node in ["generator", "classifier", "student", "fixer"]:
+        workflow.add_edge(node, "controller")
 
     workflow.add_edge("merge", END)
-
-    # Compile the graph
     return workflow.compile()
 
 
-def process_item(
-    item: dict, n: int, workflow: StateGraph, verbose: bool = False
-) -> Dict:
-    """Process a single item through the workflow
+def process_item(item: Dict, n: int, workflow, max_loops: int, verbose: bool) -> Dict:
+    item_id = item["id"]
 
-    Args:
-        item: Data item with 'id', 'content', 'source'
-        n: Number of questions per level
-        workflow: Compiled workflow graph
-        verbose: Whether to print agent outputs
-
-    Returns:
-        Result dictionary
-    """
-    # Initialize state
-    initial_state = WorkflowState(
-        content=item["content"],
-        item_id=item["id"],
-        source=item.get("source", "unknown"),
-        n=n,
-        analyzer_output="",
-        level1_questions=[],
-        level2_questions=[],
-        level3_questions=[],
-        level1_validation=[],
-        level2_validation=[],
-        level3_validation=[],
-        level1_fixed=[],
-        level2_fixed=[],
-        level3_fixed=[],
-        final_questions=[],
-        error="",
-        verbose=verbose,
+    console.print(
+        f"\n[bold black on white] STARTING ITEM: {item_id} [/bold black on white]"
     )
 
+    init_state = {
+        "item_id": item_id,
+        "content": item["content"],
+        "n": n,
+        "max_loops": max_loops,
+        "verbose": verbose,
+        "questions": {},
+        "next_global_id": 1,
+        "cost": 0.0,
+        "loop_count": 0,
+        "stem_retries": -1,
+    }
+
     try:
-        # Reset per-item cost accumulator
-        with _item_cost_lock:
-            _item_costs[item["id"]] = 0.0
-
-        # Run workflow
-        final_state = workflow.invoke(initial_state)
-        item_cost = _item_costs.get(item["id"], 0.0)
-        with _item_cost_lock:
-            _item_costs.pop(item["id"], None)
-
-        # Check for errors
-        if final_state.get("error"):
-            return {
-                "id": item["id"],
-                "source": item.get("source", "unknown"),
-                "cost": item_cost,
-                "error": final_state["error"],
-            }
-
-        result = {
-            "id": item["id"],
-            "source": item.get("source", "unknown"),
-            "cost": item_cost,
-            "generated_questions": final_state["final_questions"],
+        final_state = workflow.invoke(init_state, {"recursion_limit": 100})
+        return {
+            "id": item_id,
+            "cost": final_state.get("cost", 0.0),
+            "generated_questions": final_state.get("final_questions", []),
         }
-
-        if verbose:
-            print(f"\n{'='*80}")
-            print(f"✓ Completed item {item['id']}:")
-            print(f"{'='*80}")
-            print(json.dumps(result, indent=2, ensure_ascii=False))
-            print(f"{'='*80}\n")
-
-        return result
-
     except Exception as e:
-        item_cost = _item_costs.get(item["id"], 0.0)
-        with _item_cost_lock:
-            _item_costs.pop(item["id"], None)
-        error_result = {
-            "id": item["id"],
-            "source": item.get("source", "unknown"),
-            "cost": item_cost,
-            "error": str(e),
-        }
-
-        print(f"✗ Error for item {item['id']}: {str(e)}")
-
-        return error_result
+        console.print(f"[bold red]❌ Critical Failure on {item_id}: {e}[/bold red]")
+        traceback.print_exc()
+        return {"id": item_id, "cost": 0.0, "error": str(e)}
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Multi-agent workflow for generating questions from text"
+        description="DCP v5 — Optimized LangGraph Pipeline"
     )
-    parser.add_argument(
-        "--num-items",
-        type=int,
-        default=-1,
-        help="Number of items to process (-1 for all)",
-    )
-    parser.add_argument(
-        "--model",
-        type=str,
-        default="anthropic/claude-3.5-sonnet",
-        help="Model ID to use (e.g., 'anthropic/claude-3.5-sonnet', 'openai/gpt-4')",
-    )
-    parser.add_argument(
-        "--n",
-        type=int,
-        default=1,
-        help="Number of questions per level (total = 3*n questions per sample, default: 1)",
-    )
-    parser.add_argument(
-        "--data-path",
-        type=str,
-        default="datasets/unified/data.json",
-        help="Path to the data.json file",
-    )
-    parser.add_argument(
-        "--analyzer-prompt-path",
-        type=str,
-        default="prompts/analyzer.md",
-        help="Path to the analyzer prompt file",
-    )
-    parser.add_argument(
-        "--generator-level1-prompt-path",
-        type=str,
-        default="prompts/level1/generator.md",
-        help="Path to the Level 1 generator prompt file",
-    )
-    parser.add_argument(
-        "--generator-level2-prompt-path",
-        type=str,
-        default="prompts/level2/generator.md",
-        help="Path to the Level 2 generator prompt file",
-    )
-    parser.add_argument(
-        "--generator-level3-prompt-path",
-        type=str,
-        default="prompts/level3/generator.md",
-        help="Path to the Level 3 generator prompt file",
-    )
-    parser.add_argument(
-        "--validator-level1-prompt-path",
-        type=str,
-        default="prompts/level1/validator.md",
-        help="Path to the Level 1 validator prompt file",
-    )
-    parser.add_argument(
-        "--validator-level2-prompt-path",
-        type=str,
-        default="prompts/level2/validator.md",
-        help="Path to the Level 2 validator prompt file",
-    )
-    parser.add_argument(
-        "--validator-level3-prompt-path",
-        type=str,
-        default="prompts/level3/validator.md",
-        help="Path to the Level 3 validator prompt file",
-    )
-    parser.add_argument(
-        "--fixer-level1-prompt-path",
-        type=str,
-        default="prompts/level1/fixer.md",
-        help="Path to the Level 1 fixer prompt file",
-    )
-    parser.add_argument(
-        "--fixer-level2-prompt-path",
-        type=str,
-        default="prompts/level2/fixer.md",
-        help="Path to the Level 2 fixer prompt file",
-    )
-    parser.add_argument(
-        "--fixer-level3-prompt-path",
-        type=str,
-        default="prompts/level3/fixer.md",
-        help="Path to the Level 3 fixer prompt file",
-    )
-    parser.add_argument(
-        "--max-fix-retries",
-        type=int,
-        default=5,
-        help="Maximum number of validate→fix iterations per level (default: 1)",
-    )
-    parser.add_argument(
-        "--sources",
-        type=str,
-        nargs="+",
-        default=None,
-        help="Filter by source(s) (e.g., 'race', 'dream'). Default: all sources",
-    )
-    parser.add_argument(
-        "--workers",
-        type=int,
-        default=1,
-        help="Number of parallel workers for processing items (default: 1, sequential processing)",
-    )
-    parser.add_argument(
-        "--output-dir",
-        type=str,
-        default="outputs/workflow",
-        help="Directory to save output files",
-    )
-    parser.add_argument(
-        "--verbose",
-        action="store_true",
-        default=False,
-        help="Print full agent outputs (LLM responses, validation details). Default: off (progress bar only)",
-    )
-
+    parser.add_argument("--model", type=str, default="google/gemma-3-12b-it")
+    parser.add_argument("--n", type=int, default=5)
+    parser.add_argument("--max-loops", type=int, default=8)
+    parser.add_argument("--workers", type=int, default=2)
+    parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument("--sources", type=str, nargs="+", required=True)
+    parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
 
-    # Get API key from environment variable
     api_key = os.environ.get("OPENROUTER_API_KEY")
-    # api_key = os.environ.get("NOVITAAI_API_KEY")
     if not api_key:
-        raise ValueError(
-            "OpenRouter API key not found. Please set OPENROUTER_API_KEY environment variable"
-        )
+        raise ValueError("OPENROUTER_API_KEY must not be empty!")
 
-    # Validate sources parameter
-    if not args.sources:
-        raise ValueError(
-            "Error: --sources parameter is required. Please specify which dataset(s) to process.\n"
-            "Example: --sources reclor, --sources race, or --sources race dream"
-        )
-
-    # Load prompts
-    print(f"Loading analyzer prompt from {args.analyzer_prompt_path}...")
-    analyzer_prompt = load_prompt(args.analyzer_prompt_path)
-    print(f"Analyzer prompt loaded successfully")
-
-    print(
-        f"Loading Level 1 generator prompt from {args.generator_level1_prompt_path}..."
-    )
-    generator_level1_prompt = load_prompt(args.generator_level1_prompt_path)
-    print(f"Level 1 generator prompt loaded successfully")
-
-    print(
-        f"Loading Level 2 generator prompt from {args.generator_level2_prompt_path}..."
-    )
-    generator_level2_prompt = load_prompt(args.generator_level2_prompt_path)
-    print(f"Level 2 generator prompt loaded successfully")
-
-    print(
-        f"Loading Level 3 generator prompt from {args.generator_level3_prompt_path}..."
-    )
-    generator_level3_prompt = load_prompt(args.generator_level3_prompt_path)
-    print(f"Level 3 generator prompt loaded successfully")
-
-    # Load validator prompts
-    print(f"Loading validator prompts...")
-    validator_level1_prompt = load_prompt(args.validator_level1_prompt_path)
-    validator_level2_prompt = load_prompt(args.validator_level2_prompt_path)
-    validator_level3_prompt = load_prompt(args.validator_level3_prompt_path)
-    print(f"Validator prompts loaded successfully")
-
-    # Load fixer prompts
-    print(f"Loading fixer prompts...")
-    fixer_level1_prompt = load_prompt(args.fixer_level1_prompt_path)
-    fixer_level2_prompt = load_prompt(args.fixer_level2_prompt_path)
-    fixer_level3_prompt = load_prompt(args.fixer_level3_prompt_path)
-    print(f"Fixer prompts loaded successfully")
-
-    # Initialize LLM
     llm = ChatOpenAI(
         model=args.model,
         openai_api_key=api_key,
         openai_api_base="https://openrouter.ai/api/v1",
-        # openai_api_base="https://api.novita.ai/openai",
         temperature=0.0,
+        max_tokens=8192,
         extra_body={
             "reasoning": {"effort": "none"},
             "provider": {
-                "sort": "price",
+                "order": [
+                    "deepinfra",
+                    "atlas-cloud",
+                    "google-ai-studio",
+                    "openai",
+                    "google-vertex",
+                    "groq",
+                ],
+                "allow_fallbacks": False,
+                "sort": {
+                    "by": "price",
+                },
             },
         },
     )
 
-    # Create workflow
-    print("Creating multi-agent workflow...")
-    workflow = create_workflow(
-        llm,
-        analyzer_prompt,
-        generator_level1_prompt,
-        generator_level2_prompt,
-        generator_level3_prompt,
-        validator_level1_prompt,
-        validator_level2_prompt,
-        validator_level3_prompt,
-        fixer_level1_prompt,
-        fixer_level2_prompt,
-        fixer_level3_prompt,
-        max_fix_retries=args.max_fix_retries,
+    student_llm = ChatOpenAI(
+        model=args.model,
+        openai_api_key=api_key,
+        openai_api_base="https://openrouter.ai/api/v1",
+        temperature=0.3,
+        max_tokens=8192,
+        extra_body={
+            "reasoning": {"effort": "none"},
+            "provider": {
+                "order": [
+                    "deepinfra",
+                    "atlas-cloud",
+                    "google-ai-studio",
+                    "openai",
+                    "google-vertex",
+                    "groq",
+                ],
+                "allow_fallbacks": False,
+                "sort": {
+                    "by": "price",
+                },
+            },
+        },
     )
-    print("Workflow created successfully\n")
 
-    # Get model_id from model name with suffix
-    model_id = args.model.replace("/", "_") + "-new"
+    workflow = build_workflow(llm, student_llm)
 
-    print(f"\nUsing model: {args.model}")
-    print(f"Model ID: {model_id}")
-    print(f"Generating {3 * args.n} questions per sample ({args.n} per level)")
-    print(f"Processing sources: {', '.join(args.sources)}")
+    try:
+        grouped = load_data(args.sources, args.limit)
+    except FileNotFoundError:
+        console.print(f"[bold red]Data file not found: {DATA_PATH}[/bold red]")
+        return
 
-    # Process each source separately
+    model_id = args.model.replace("/", "_")
+    grand_total_cost = 0.0
+
     for source in args.sources:
         source_lower = source.lower()
-        print(f"\n{'='*100}")
-        print(f"Processing source: {source.upper()}")
-        print(f"{'='*100}")
-
-        # Load data for this source only
-        print(f"Loading data from {args.data_path}...")
-        data = load_data(args.data_path, args.num_items, [source])
-        print(f"Loaded {len(data)} items for {source}")
+        data = grouped.get(source_lower, [])
+        console.print(f"\n[bold cyan]{'='*80}[/bold cyan]")
+        console.print(
+            f"[bold]Processing source:[/bold] {source.upper()} — {len(data)} items"
+        )
+        console.print(f"[bold cyan]{'='*80}[/bold cyan]")
 
         if not data:
-            print(f"Warning: No data found for source {source}, skipping...")
+            console.print(
+                f"[yellow]Warning: No data found for source '{source}', skipping.[/yellow]"
+            )
             continue
 
-        # Create output directory similar to question.py
-        output_dir = Path("outputs") / source_lower / model_id
+        output_dir = Path("outputs") / source_lower / (model_id + "-v5")
         output_dir.mkdir(parents=True, exist_ok=True)
         output_path = output_dir / "predictions.json"
 
-        print(f"Output will be saved to: {output_path}")
-        print(f"Using {args.workers} worker(s) for parallel processing")
-
-        # Process items with ThreadPoolExecutor
-        # Track cost for this source
-        source_cost_start = _total_cost
-        results = []
+        results, source_cost = [], 0.0
 
         if args.workers == 1:
-            # Sequential processing
-            with tqdm(
-                total=len(data), desc=f"Processing {source}", disable=args.verbose
-            ) as pbar:
-                for i, item in enumerate(data, 1):
-                    if args.verbose:
-                        print(f"\n{'='*100}")
-                        print(f"Processing item {i}/{len(data)}: {item['id']}")
-                        print(f"{'='*100}")
-
-                    result = process_item(item, args.n, workflow, verbose=args.verbose)
-                    results.append(result)
-
-                    # Print summary for this item
-                    if "error" in result:
-                        tqdm.write(f"✗ {item['id']}: Error - {result['error']}")
-                    else:
-                        tqdm.write(
-                            f"✓ {item['id']}: cost=${result.get('cost', 0.0):.6f}"
-                        )
-                    pbar.update(1)
+            for item in data:
+                res = process_item(item, args.n, workflow, args.max_loops, args.verbose)
+                results.append(res)
+                source_cost += res.get("cost", 0.0)
         else:
-            # Parallel processing
             with ThreadPoolExecutor(max_workers=args.workers) as executor:
-                # Submit all jobs
-                future_to_item = {
+                futures = [
                     executor.submit(
-                        process_item, item, args.n, workflow, args.verbose
-                    ): item
+                        process_item,
+                        item,
+                        args.n,
+                        workflow,
+                        args.max_loops,
+                        args.verbose,
+                    )
                     for item in data
-                }
+                ]
+                for future in as_completed(futures):
+                    res = future.result()
+                    results.append(res)
+                    source_cost += res.get("cost", 0.0)
 
-                # Process completed jobs with progress bar
-                with tqdm(total=len(data), desc=f"Processing {source}") as pbar:
-                    for future in as_completed(future_to_item):
-                        item = future_to_item[future]
-                        try:
-                            result = future.result()
-                            results.append(result)
-
-                            # Print summary for this item
-                            if "error" in result:
-                                tqdm.write(f"✗ {item['id']}: Error - {result['error']}")
-                            else:
-                                tqdm.write(
-                                    f"✓ {item['id']}: cost=${result.get('cost', 0.0):.6f}"
-                                )
-                        except Exception as e:
-                            tqdm.write(f"✗ {item['id']}: Exception - {str(e)}")
-                            results.append(
-                                {
-                                    "id": item["id"],
-                                    "source": item.get("source", "unknown"),
-                                    "cost": 0.0,
-                                    "content": item["content"],
-                                    "error": str(e),
-                                }
-                            )
-                        pbar.update(1)
-
-        # Sort results by ID to maintain order (like question.py)
         results.sort(key=lambda x: x["id"])
 
-        # Save results
-        print(f"\nSaving results to {output_path}...")
         with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(results, f, indent=2, ensure_ascii=False)
+            json.dump(results, f, ensure_ascii=False, indent=2)
 
-        print(
-            f"✓ Done! Processed {len(data)} items for {source}, saved to {output_path}"
-        )
-
-        # Print summary
+        grand_total_cost += source_cost
         successful = sum(1 for r in results if "error" not in r)
-        failed = len(results) - successful
         total_questions = sum(
             len(r.get("generated_questions", [])) for r in results if "error" not in r
         )
 
-        source_cost = _total_cost - source_cost_start
+        console.print(
+            Panel(
+                f"Successful: [green]{successful}/{len(data)}[/green]  |  "
+                f"Questions generated: [cyan]{total_questions}[/cyan]  |  "
+                f"Cost: [yellow]${source_cost:.4f}[/yellow]\n"
+                f"Saved to: [bold]{output_path}[/bold]",
+                title=f"[bold green]✅ {source.upper()} Complete[/bold green]",
+                border_style="green",
+            )
+        )
 
-        print(f"\nSummary for {source}:")
-        print(f"  Successful samples: {successful}")
-        print(f"  Failed samples: {failed}")
-        print(f"  Total questions generated: {total_questions}")
-        print(f"  Questions per sample: {3 * args.n} ({args.n} per level)")
-        print(f"  Cost (this source): ${source_cost:.6f}")
-
-    print("\n" + "=" * 100)
-    print("ALL SOURCES COMPLETE")
-    print(f"Total cost (all sources): ${_total_cost:.6f}")
-    print("=" * 100)
+    console.print(
+        Panel(
+            f"Total API cost: [bold yellow]${grand_total_cost:.4f}[/bold yellow]",
+            title="[bold green]🎉 All Sources Complete[/bold green]",
+            border_style="green",
+        )
+    )
 
 
 if __name__ == "__main__":

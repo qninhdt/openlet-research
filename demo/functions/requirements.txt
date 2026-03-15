@@ -9,4 +9,4 @@ aiohttp>=3.9.0
 PyMuPDF>=1.24.0
 
 # YAML parsing for knowledge graph
-PyYAML>=6.0.0
+# (Removed PyYAML as it is unused in Python files)

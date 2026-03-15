@@ -22,18 +22,21 @@ PROMPT_JSON = """You are an Expert Examination Setter specializing in multiple-c
 Your task is to generate exactly {num_questions} multiple-choice questions based on the provided text. Each question must have exactly 4 options (A, B, C, D) and one correct answer.
 
 Output the questions in JSON format as an array of objects. Each object must have:
-- "content": the question text
+- "index": the index of the question (starting from 1 to {num_questions})
+- "content": the question text 
 - "options": array of 4 option strings
 - "correct": the index of correct option (0 for A, 1 for B, 2 for C, 3 for D)
 
 Example output format:
 [
   {{
+    "index": 1,
     "content": "What is the main idea of the passage?",
     "options": ["Option A", "Option B", "Option C", "Option D"],
     "correct": 1
   }},
   {{
+    "index": 2,
     "content": "According to the text, why did the event occur?",
     "options": ["Reason A", "Reason B", "Reason C", "Reason D"],
     "correct": 0
@@ -46,41 +49,7 @@ Text:
 {text}"""
 
 
-PROMPT_CUSTOM_NO_INDEX = """You are an Expert Examination Setter specializing in multiple-choice question generation.
-
-Your task is to generate exactly {num_questions} multiple-choice questions based on the provided text. Each question must have exactly 4 options and one correct answer.
-
-Output the questions in this format:
-
-### [Question text]
-- [Option A]
-- [Option B]
-- [Option C]
-- [Option D]
-> [Correct answer: A|B|C|D]
-
-Example:
-### What is the main idea of the passage?
-- The history of technology
-- Modern innovations in science
-- Environmental challenges
-- Economic development strategies
-> B
-
-### According to the text, why did the event occur?
-- Political pressure
-- Economic factors
-- Social unrest
-- Natural causes
-> A
-
-Generate exactly {num_questions} questions. Follow the format exactly. Do not output empty text.
-
-Text:
-{text}"""
-
-
-PROMPT_CUSTOM_WITH_INDEX = """You are an Expert Examination Setter specializing in multiple-choice question generation.
+PROMPT_CUSTOM = """You are an Expert Examination Setter specializing in multiple-choice question generation.
 
 Your task is to generate exactly {num_questions} multiple-choice questions based on the provided text. Each question must have exactly 4 options and one correct answer.
 
@@ -156,10 +125,6 @@ def parse_json_output(output: str, expected_count: int) -> Tuple[List[Dict], boo
         # Try to parse as JSON
         questions = json_repair.loads(output)
 
-        # remove json blocks if present
-        # output = re.sub(r"```json(.*?)```", r"\1", output, flags=re.DOTALL).strip()
-        # questions = json.loads(output)
-
         if not isinstance(questions, list):
             return [], True, 0
 
@@ -171,9 +136,10 @@ def parse_json_output(output: str, expected_count: int) -> Tuple[List[Dict], boo
                 and "content" in q
                 and "options" in q
                 and "correct" in q
+                and q["correct"] in [0, 1, 2, 3]
+                and len(q["options"]) == 4
             ):
-                if isinstance(q["options"], list) and isinstance(q["correct"], int):
-                    valid_questions.append(q)
+                valid_questions.append(q)
 
         # If no valid questions were parsed, it's a syntax error
         if len(valid_questions) == 0:
@@ -190,7 +156,7 @@ def parse_json_output(output: str, expected_count: int) -> Tuple[List[Dict], boo
 def parse_custom_output(
     output: str, expected_count: int
 ) -> Tuple[List[Dict], bool, int]:
-    """Parse custom format output (with or without index)
+    """Parse custom format output
 
     This is adapted from the parse_llm_output function in question.py
 
@@ -305,7 +271,7 @@ def generate_questions(
     Args:
         text: Input text
         model: Model ID
-        format_type: One of 'json', 'custom', 'custom-indexed'
+        format_type: One of 'json', 'custom'
         num_questions: Expected number of questions to generate
         openrouter_api_key: API key
         max_retries: Maximum number of retries for empty output (default: 3)
@@ -319,15 +285,30 @@ def generate_questions(
         openai_api_key=openrouter_api_key,
         openai_api_base="https://openrouter.ai/api/v1",
         temperature=0.0,
+        extra_body={
+            "reasoning": {"effort": "none"},
+            "provider": {
+                "order": [
+                    "deepinfra",
+                    "atlas-cloud",
+                    "google-ai-studio",
+                    "openai",
+                    "google-vertex",
+                    "groq",
+                ],
+                "allow_fallbacks": False,
+                "sort": {
+                    "by": "price",
+                },
+            },
+        },
     )
 
     # Select prompt based on format
     if format_type == "json":
         prompt_template = PROMPT_JSON
     elif format_type == "custom":
-        prompt_template = PROMPT_CUSTOM_NO_INDEX
-    elif format_type == "custom-indexed":
-        prompt_template = PROMPT_CUSTOM_WITH_INDEX
+        prompt_template = PROMPT_CUSTOM
     else:
         raise ValueError(f"Unknown format type: {format_type}")
 
@@ -361,7 +342,7 @@ def generate_questions(
             questions, has_syntax_error, actual_count = parse_json_output(
                 output, num_questions
             )
-        else:  # custom or custom-indexed
+        else:  # custom
             questions, has_syntax_error, actual_count = parse_custom_output(
                 output, num_questions
             )
@@ -383,13 +364,13 @@ def process_single_sample(
     Args:
         item: Data item with 'content' and 'id'
         model: Model ID
-        format_type: Format type ('json', 'custom', 'custom-indexed')
+        format_type: Format type ('json', 'custom')
         api_key: API key
 
     Returns:
         Result dictionary
     """
-    num_questions = random.randint(10, 20)
+    num_questions = random.randint(15, 30)
 
     try:
         questions, has_syntax_error, expected, actual = generate_questions(
@@ -438,8 +419,8 @@ def main():
         "--format",
         type=str,
         required=True,
-        choices=["json", "custom", "custom-indexed"],
-        help="Output format: 'json' (traditional JSON), 'custom' (no index), 'custom-indexed' (with index)",
+        choices=["json", "custom"],
+        help="Output format: 'json' (traditional JSON), 'custom' (with index)",
     )
     parser.add_argument(
         "--source",
@@ -450,7 +431,7 @@ def main():
     parser.add_argument(
         "--workers",
         type=int,
-        default=128,
+        default=4,
         help="Number of parallel workers",
     )
     parser.add_argument(
