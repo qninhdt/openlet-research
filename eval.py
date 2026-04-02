@@ -1,5 +1,5 @@
 """
-eval.py — Compute Solvability & Alignment for generated questions.
+eval.py - Compute Solvability & Alignment for generated questions.
 
 A single LLM prompt acts as a student solving a shuffled multiple-select quiz
 AND classifies each question's cognitive level (type).
@@ -587,7 +587,7 @@ def calculate_distractor_statistics(all_distractor_results: List[dict]) -> Dict:
 
 
 def _print_distractor_summary_table(stats: Dict, source: str, cost: float) -> None:
-    table = Table(title=f"Distractor Quality — {source.upper()}", show_lines=True)
+    table = Table(title=f"Distractor Quality - {source.upper()}", show_lines=True)
     table.add_column("Level", style="cyan", justify="center")
     table.add_column("Accepted Qs", justify="right")
     table.add_column("Valid Distractors", justify="right", style="green")
@@ -625,7 +625,7 @@ def _print_verbose_results(all_results: List[dict]) -> None:
         item_id = item["id"]
         if "error" in item:
             console.print(
-                f"[bold red]Item {item_id}: ERROR — {item['error']}[/bold red]"
+                f"[bold red]Item {item_id}: ERROR - {item['error']}[/bold red]"
             )
             continue
 
@@ -673,7 +673,7 @@ def _print_verbose_results(all_results: List[dict]) -> None:
 
 
 def _print_summary_table(stats: Dict, source: str, cost: float) -> None:
-    table = Table(title=f"Results — {source.upper()}", show_lines=True)
+    table = Table(title=f"Results - {source.upper()}", show_lines=True)
     table.add_column("Level", style="cyan", justify="center")
     table.add_column("Questions", justify="right")
     table.add_column("Solvability", justify="right", style="green")
@@ -756,13 +756,13 @@ def _build_live_eval_renderable(
                 item["solv"],
                 item["align"],
                 item["acc"],
-                item.get("dq", "—"),
+                item.get("dq", "-"),
                 item["cost"],
                 item["note"],
             )
     else:
         recent_table.add_row(
-            "—", "—", "—", "—", "—", "—", "—", "Waiting for results..."
+            "-", "-", "-", "-", "-", "-", "-", "Waiting for results..."
         )
 
     live_table = Table.grid(expand=True)
@@ -772,7 +772,7 @@ def _build_live_eval_renderable(
 
     return Panel(
         live_table,
-        title=f"[bold cyan]Live Eval — {source.upper()}[/bold cyan]",
+        title=f"[bold cyan]Live Eval - {source.upper()}[/bold cyan]",
         border_style="cyan",
     )
 
@@ -951,10 +951,10 @@ def main():
                     {
                         "id": rid_res,
                         "status": "[red]ERROR[/red]",
-                        "solv": "—",
-                        "align": "—",
-                        "acc": "—",
-                        "dq": "—",
+                        "solv": "-",
+                        "align": "-",
+                        "acc": "-",
+                        "dq": "-",
                         "cost": f"${cost_res:.6f}",
                         "note": qr_or_err_res["error"],
                     }
@@ -997,7 +997,7 @@ def main():
                     else 0.0
                 )
 
-                dq_str = "—"
+                dq_str = "-"
                 if dr_list:
                     item_dq_valid = sum(dr.get("valid_count", 0) for dr in dr_list)
                     item_dq_total = len(dr_list)

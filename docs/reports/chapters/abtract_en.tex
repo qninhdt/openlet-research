@@ -1,0 +1,15 @@
+% [NEW]: English abstract - written from scratch
+\begin{center}
+\textbf{\large{Abstract}}
+\end{center}
+
+\addcontentsline{toc}{chapter}{Abstract}
+\begin{small}
+
+% [MODIFIED]: Align the abstract with the current DCP v5 description in Chapter 3 by replacing the outdated acronym expansion and explicitly mentioning the repair loop.
+Automatic multiple-choice question (MCQ) generation from educational documents is an essential yet challenging task, particularly when relying on proprietary large language models (LLMs) that incur high costs and require persistent internet connectivity. This thesis proposes the multi-agent architecture, to leverage small large language models (sLLMs) for high-quality MCQ generation from document images. The system deploys three parallel question-generation agents for different Bloom levels, together with a Classifier Agent for cognitive-level verification, a Student Agent for solvability checking, and a Fixer Agent for repairing answer options that fail quality control. A three-criteria evaluation framework (Solvability, Distractor Quality, Alignment) combined with the LLM-as-a-Judge methodology is developed for automated quality assessment. Additionally, a synthetic OCR data generation pipeline using Browser Engineering and Augraphy is introduced to create diverse evaluation datasets. Experimental results demonstrate that the multi-agent architecture improves sLLM quality by 30-90\% across the main metrics compared to direct generation, at a cost below \$0.50 per 100 passages. Notably, the best-performing sLLM (Gemma 3 with multi-agent orchestration) achieves competitive performance with proprietary LLMs at all Bloom levels. The Openlet web application is developed as a full-stack demonstration integrating the complete research architecture.
+
+\vspace*{1cm}
+\textbf{Keywords}: Small Large Language Model, Multi-Agent System, Multiple-Choice Question, Optical Character Recognition, Bloom's Taxonomy, LLM-as-a-Judge
+
+\end{small}

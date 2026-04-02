@@ -30,24 +30,14 @@
       },
       {
         "content": "What percentage of the time do trained lie spotters successfully identify the truth?",
-        "options": [
-          "54%",
-          "75%",
-          "90%",
-          "100%"
-        ],
+        "options": ["54%", "75%", "90%", "100%"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "According to the passage, which group of people lies more about themselves than about others?",
-        "options": [
-          "Coworkers",
-          "Men",
-          "Women",
-          "College students"
-        ],
+        "options": ["Coworkers", "Men", "Women", "College students"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -193,12 +183,7 @@
     "generated_questions": [
       {
         "content": "How long has it been since Alberto Torres was last able to see?",
-        "options": [
-          "4 years",
-          "11 years",
-          "13 years",
-          "19 years"
-        ],
+        "options": ["4 years", "11 years", "13 years", "19 years"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -229,24 +214,14 @@
       },
       {
         "content": "At what time does Mr. Torres typically wake up to begin his day?",
-        "options": [
-          "3 a.m.",
-          "4 a.m.",
-          "5 a.m.",
-          "6 a.m."
-        ],
+        "options": ["3 a.m.", "4 a.m.", "5 a.m.", "6 a.m."],
         "correct": 0,
         "type": "General",
         "level": 1
       },
       {
         "content": "According to the text, how much does Mr. Torres earn annually?",
-        "options": [
-          "$13,000",
-          "$15,000",
-          "$20,000",
-          "$37,000"
-        ],
+        "options": ["$13,000", "$15,000", "$20,000", "$37,000"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -603,12 +578,7 @@
       },
       {
         "content": "How many times was the fence whitewashed by the end of the afternoon?",
-        "options": [
-          "One time",
-          "Two times",
-          "Three times",
-          "Four times"
-        ],
+        "options": ["One time", "Two times", "Three times", "Four times"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -766,12 +736,7 @@
       },
       {
         "content": "Who was the general that trained his soldiers at the site during the Three Kingdoms Period?",
-        "options": [
-          "Zhang Shuo",
-          "Teng Zijing",
-          "Lu Su",
-          "Fan Zhongyan"
-        ],
+        "options": ["Zhang Shuo", "Teng Zijing", "Lu Su", "Fan Zhongyan"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -790,12 +755,7 @@
       },
       {
         "content": "Which famous poet was invited to write \"A Panegyric of the Yueyang Tower\"?",
-        "options": [
-          "Du Fu",
-          "Zhang Shuo",
-          "Zhou Yu",
-          "Fan Zhongyan"
-        ],
+        "options": ["Du Fu", "Zhang Shuo", "Zhou Yu", "Fan Zhongyan"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -1128,12 +1088,7 @@
     "generated_questions": [
       {
         "content": "What month was it when Mira went down to the beach?",
-        "options": [
-          "April",
-          "September",
-          "December",
-          "June"
-        ],
+        "options": ["April", "September", "December", "June"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -1550,12 +1505,7 @@
       },
       {
         "content": "How many specific Thursday dates are listed for the sessions with Danielle and Marina?",
-        "options": [
-          "4 days",
-          "5 days",
-          "6 days",
-          "8 days"
-        ],
+        "options": ["4 days", "5 days", "6 days", "8 days"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -1689,12 +1639,7 @@
     "generated_questions": [
       {
         "content": "How long was the author in a coma following the motorbike accident?",
-        "options": [
-          "Three weeks",
-          "Three months",
-          "One year",
-          "Eighteen days"
-        ],
+        "options": ["Three weeks", "Three months", "One year", "Eighteen days"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -1725,12 +1670,7 @@
       },
       {
         "content": "How old is the author at the time of telling this story?",
-        "options": [
-          "18",
-          "21",
-          "36",
-          "46"
-        ],
+        "options": ["18", "21", "36", "46"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -2250,12 +2190,7 @@
     "generated_questions": [
       {
         "content": "According to Passage 1, how many hours do we receive as a \"gift\" every morning?",
-        "options": [
-          "10 hours",
-          "12 hours",
-          "24 hours",
-          "60 hours"
-        ],
+        "options": ["10 hours", "12 hours", "24 hours", "60 hours"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -2274,12 +2209,7 @@
       },
       {
         "content": "According to the second paragraph of Passage 1, what is a source of joy that we breathe?",
-        "options": [
-          "The blue sky",
-          "The air",
-          "Memories",
-          "Music"
-        ],
+        "options": ["The blue sky", "The air", "Memories", "Music"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -2437,12 +2367,7 @@
     "generated_questions": [
       {
         "content": "How many years did Bernard Jackson spend in prison before being freed?",
-        "options": [
-          "Two years",
-          "Five years",
-          "Twelve years",
-          "Ten years"
-        ],
+        "options": ["Two years", "Five years", "Twelve years", "Ten years"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -3221,12 +3146,7 @@
       },
       {
         "content": "How long did the fire in Moscow last during the war against Napoleon?",
-        "options": [
-          "One night",
-          "Sixty-four days",
-          "Seven days",
-          "Two weeks"
-        ],
+        "options": ["One night", "Sixty-four days", "Seven days", "Two weeks"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -3257,12 +3177,7 @@
       },
       {
         "content": "Based on the context of the first paragraph, the word \"trapped\" most nearly means:",
-        "options": [
-          "Confined",
-          "Deceived",
-          "Eliminated",
-          "Released"
-        ],
+        "options": ["Confined", "Deceived", "Eliminated", "Released"],
         "correct": 0,
         "type": "General",
         "level": 2
@@ -3384,36 +3299,21 @@
       },
       {
         "content": "At what age did Artie Shaw begin his career as a professional musician?",
-        "options": [
-          "Ten",
-          "Fourteen",
-          "Fifteen",
-          "Twenty-eight"
-        ],
+        "options": ["Ten", "Fourteen", "Fifteen", "Twenty-eight"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "Where did Artie Shaw travel in 1928 to listen to Louis Armstrong?",
-        "options": [
-          "New York City",
-          "New Haven",
-          "Eastern Europe",
-          "Chicago"
-        ],
+        "options": ["New York City", "New Haven", "Eastern Europe", "Chicago"],
         "correct": 3,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which instrument did Artie Shaw learn to play first?",
-        "options": [
-          "Clarinet",
-          "Trumpet",
-          "Saxophone",
-          "Piano"
-        ],
+        "options": ["Clarinet", "Trumpet", "Saxophone", "Piano"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -3559,12 +3459,7 @@
     "generated_questions": [
       {
         "content": "In what year did the author begin her teaching career in western New Jersey?",
-        "options": [
-          "1914",
-          "1960",
-          "1974",
-          "1989"
-        ],
+        "options": ["1914", "1960", "1974", "1989"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -3945,12 +3840,7 @@
       },
       {
         "content": "What is the name of the family dog that Daniel tried to wash?",
-        "options": [
-          "Laura",
-          "Jasper",
-          "Angela",
-          "Brownie"
-        ],
+        "options": ["Laura", "Jasper", "Angela", "Brownie"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -4295,12 +4185,7 @@
     "generated_questions": [
       {
         "content": "What is the specific term used in the text for the earth's pull?",
-        "options": [
-          "Magnetism",
-          "Gravity",
-          "Weight",
-          "Speed"
-        ],
+        "options": ["Magnetism", "Gravity", "Weight", "Speed"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -4482,12 +4367,7 @@
     "generated_questions": [
       {
         "content": "Which city is described as the second largest in China?",
-        "options": [
-          "Shanghai",
-          "Beijing",
-          "Siem Reap",
-          "Kyoto"
-        ],
+        "options": ["Shanghai", "Beijing", "Siem Reap", "Kyoto"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -4530,12 +4410,7 @@
       },
       {
         "content": "Which city is located in the northwestern part of its country?",
-        "options": [
-          "Beijing",
-          "Kathmandu",
-          "Kyoto",
-          "Siem Reap"
-        ],
+        "options": ["Beijing", "Kathmandu", "Kyoto", "Siem Reap"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -4614,12 +4489,7 @@
       },
       {
         "content": "A traveler is looking for a destination that offers a blend of colonial influence and local traditional performances. Which city should they prioritize?",
-        "options": [
-          "Beijing",
-          "Siem Reap",
-          "Kathmandu",
-          "Kyoto"
-        ],
+        "options": ["Beijing", "Siem Reap", "Kathmandu", "Kyoto"],
         "correct": 1,
         "type": "General",
         "level": 3
@@ -4904,12 +4774,7 @@
       },
       {
         "content": "According to the text, what was Jenny's hearing capacity after her multiple operations?",
-        "options": [
-          "100%",
-          "40%",
-          "60%",
-          "0%"
-        ],
+        "options": ["100%", "40%", "60%", "0%"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -5043,24 +4908,14 @@
     "generated_questions": [
       {
         "content": "On which day of the week did the kidnapping occur?",
-        "options": [
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday"
-        ],
+        "options": ["Wednesday", "Thursday", "Friday", "Saturday"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "How many women were among the three kidnapped UN staff members?",
-        "options": [
-          "One",
-          "Two",
-          "Three",
-          "None"
-        ],
+        "options": ["One", "Two", "Three", "None"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -5218,12 +5073,7 @@
     "generated_questions": [
       {
         "content": "In what year did Daniel Defoe write the novel Robinson Crusoe?",
-        "options": [
-          "1719",
-          "1690",
-          "1760",
-          "1819"
-        ],
+        "options": ["1719", "1690", "1760", "1819"],
         "correct": 0,
         "type": "General",
         "level": 1
@@ -5405,12 +5255,7 @@
     "generated_questions": [
       {
         "content": "How long had The Times been in existence before it changed its size?",
-        "options": [
-          "100 years",
-          "221 years",
-          "50 years",
-          "300 years"
-        ],
+        "options": ["100 years", "221 years", "50 years", "300 years"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -5441,12 +5286,7 @@
       },
       {
         "content": "What specific term does The Times use to describe its new, smaller size?",
-        "options": [
-          "Tabloid",
-          "Broadsheet",
-          "Compact",
-          "Miniature"
-        ],
+        "options": ["Tabloid", "Broadsheet", "Compact", "Miniature"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -5791,24 +5631,14 @@
       },
       {
         "content": "How long has Schouten & Nielsen been involved in soft skills training?",
-        "options": [
-          "10 years",
-          "20 years",
-          "30 years",
-          "50 years"
-        ],
+        "options": ["10 years", "20 years", "30 years", "50 years"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which of the following is NOT included in the tuition fee for the residential weeks?",
-        "options": [
-          "Housing",
-          "Food",
-          "Participation",
-          "Travel costs"
-        ],
+        "options": ["Housing", "Food", "Participation", "Travel costs"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -5978,12 +5808,7 @@
       },
       {
         "content": "In what year did Noah Webster complete his 70,000-word dictionary?",
-        "options": [
-          "1758",
-          "1828",
-          "1843",
-          "2008"
-        ],
+        "options": ["1758", "1828", "1843", "2008"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -6002,12 +5827,7 @@
       },
       {
         "content": "According to the text, what was Webster’s profession?",
-        "options": [
-          "Biographer",
-          "Soldier",
-          "Teacher",
-          "Politician"
-        ],
+        "options": ["Biographer", "Soldier", "Teacher", "Politician"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -6153,12 +5973,7 @@
     "generated_questions": [
       {
         "content": "According to the text, what must be built to help people enter buildings?",
-        "options": [
-          "Stairs",
-          "Ramps",
-          "Escalators",
-          "Ladders"
-        ],
+        "options": ["Stairs", "Ramps", "Escalators", "Ladders"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -6539,24 +6354,14 @@
       },
       {
         "content": "At what income level does the federal tax rate increase from 15 percent to 28 percent?",
-        "options": [
-          "$4,000",
-          "$5,000",
-          "$15,000",
-          "$17,850"
-        ],
+        "options": ["$4,000", "$5,000", "$15,000", "$17,850"],
         "correct": 3,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which type of tax is specifically described as a percentage charged on items that people purchase?",
-        "options": [
-          "Property tax",
-          "Excise tax",
-          "Sales tax",
-          "Income tax"
-        ],
+        "options": ["Property tax", "Excise tax", "Sales tax", "Income tax"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -6726,12 +6531,7 @@
       },
       {
         "content": "According to the text, what percentage of housework is done by working wives in the United States?",
-        "options": [
-          "25%",
-          "50%",
-          "75%",
-          "100%"
-        ],
+        "options": ["25%", "50%", "75%", "100%"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -6901,12 +6701,7 @@
     "generated_questions": [
       {
         "content": "In what year did Albert Einstein publish the equation E = mc2?",
-        "options": [
-          "1905",
-          "1929",
-          "1933",
-          "1939"
-        ],
+        "options": ["1905", "1929", "1933", "1939"],
         "correct": 0,
         "type": "General",
         "level": 1
@@ -6937,12 +6732,7 @@
       },
       {
         "content": "When was the first letter signed by Einstein delivered to President Roosevelt?",
-        "options": [
-          "July 1939",
-          "August 1939",
-          "October 1939",
-          "April 1940"
-        ],
+        "options": ["July 1939", "August 1939", "October 1939", "April 1940"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -7112,12 +6902,7 @@
       },
       {
         "content": "Which of the following was NOT mentioned as a type of cup provided?",
-        "options": [
-          "Porcelain",
-          "Crystal",
-          "Plastic",
-          "Glass"
-        ],
+        "options": ["Porcelain", "Crystal", "Plastic", "Glass"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -7275,12 +7060,7 @@
     "generated_questions": [
       {
         "content": "In what year were Ugg boots originally created?",
-        "options": [
-          "1969",
-          "1973",
-          "1983",
-          "2001"
-        ],
+        "options": ["1969", "1973", "1983", "2001"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -7462,12 +7242,7 @@
     "generated_questions": [
       {
         "content": "What is the price of the Generic Elementary School-pak for students in grades one through five?",
-        "options": [
-          "$75.00",
-          "$23.28",
-          "$320.00",
-          "$30.00"
-        ],
+        "options": ["$75.00", "$23.28", "$320.00", "$30.00"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -7486,24 +7261,14 @@
       },
       {
         "content": "How many physical store locations does \"Play It Again Sports\" have?",
-        "options": [
-          "46",
-          "1,000",
-          "320",
-          "2009"
-        ],
+        "options": ["46", "1,000", "320", "2009"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "According to the text, what is the minimum number of kits required to qualify for free shipping on schoolpak.com?",
-        "options": [
-          "10,000 kits",
-          "30 kits",
-          "75 kits",
-          "46 kits"
-        ],
+        "options": ["10,000 kits", "30 kits", "75 kits", "46 kits"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -7848,12 +7613,7 @@
       },
       {
         "content": "According to the text, how tall is the tree named \"Michael's Triumph\"?",
-        "options": [
-          "50 feet",
-          "100 feet",
-          "150 feet",
-          "200 feet"
-        ],
+        "options": ["50 feet", "100 feet", "150 feet", "200 feet"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -8210,12 +7970,7 @@
     "generated_questions": [
       {
         "content": "What is the price for a child to attend the Gateway Buffet Package?",
-        "options": [
-          "$68.00",
-          "$51.00",
-          "$103.00",
-          "$83.00"
-        ],
+        "options": ["$68.00", "$51.00", "$103.00", "$83.00"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -8234,12 +7989,7 @@
       },
       {
         "content": "How many Polynesian islands or villages are featured across the various tours?",
-        "options": [
-          "Five",
-          "Six",
-          "Seven",
-          "Ten"
-        ],
+        "options": ["Five", "Six", "Seven", "Ten"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -8608,12 +8358,7 @@
       },
       {
         "content": "Which country is currently the world's largest producer of coffee?",
-        "options": [
-          "Ethiopia",
-          "Peru",
-          "Ireland",
-          "Brazil"
-        ],
+        "options": ["Ethiopia", "Peru", "Ireland", "Brazil"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -8632,12 +8377,7 @@
       },
       {
         "content": "Where did the coffee plant originally come from?",
-        "options": [
-          "Arabia",
-          "Brazil",
-          "Ethiopia",
-          "London"
-        ],
+        "options": ["Arabia", "Brazil", "Ethiopia", "London"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -8958,24 +8698,14 @@
     "generated_questions": [
       {
         "content": "How many women did Lance Gerrard-Wright date during the filming of the show Mr. Right?",
-        "options": [
-          "Two",
-          "Seven",
-          "Fifteen",
-          "Forty"
-        ],
+        "options": ["Two", "Seven", "Fifteen", "Forty"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "Where was the host of the show, Ulrika Jonsson, originally from?",
-        "options": [
-          "England",
-          "Sweden",
-          "London",
-          "Varmdo"
-        ],
+        "options": ["England", "Sweden", "London", "Varmdo"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -9006,12 +8736,7 @@
       },
       {
         "content": "How many guests were invited to the wedding ceremony at Jonsson’s home?",
-        "options": [
-          "15",
-          "35",
-          "40",
-          "100"
-        ],
+        "options": ["15", "35", "40", "100"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -9356,12 +9081,7 @@
       },
       {
         "content": "According to the study in Seattle, by what percentage did helmets reduce the risk of brain injury?",
-        "options": [
-          "15%",
-          "60%",
-          "85%",
-          "88%"
-        ],
+        "options": ["15%", "60%", "85%", "88%"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -9706,12 +9426,7 @@
     "generated_questions": [
       {
         "content": "How many people were traveling together in the train carriage?",
-        "options": [
-          "Two",
-          "Three",
-          "Four",
-          "Five"
-        ],
+        "options": ["Two", "Three", "Four", "Five"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -9730,12 +9445,7 @@
       },
       {
         "content": "Where was the train traveling when these events occurred?",
-        "options": [
-          "Russia",
-          "Cuba",
-          "England",
-          "America"
-        ],
+        "options": ["Russia", "Cuba", "England", "America"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -9754,12 +9464,7 @@
       },
       {
         "content": "Which specific item did the Cuban share with the other men?",
-        "options": [
-          "Vodka",
-          "Havana Cigars",
-          "English tea",
-          "Business cards"
-        ],
+        "options": ["Vodka", "Havana Cigars", "English tea", "Business cards"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -9893,36 +9598,21 @@
     "generated_questions": [
       {
         "content": "What kind of animal is Zip?",
-        "options": [
-          "A keep dog",
-          "A sheep dog",
-          "A cat",
-          "A bird"
-        ],
+        "options": ["A keep dog", "A sheep dog", "A cat", "A bird"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What color was the shoe that Zip brought home?",
-        "options": [
-          "Blue",
-          "Red",
-          "Green",
-          "Yellow"
-        ],
+        "options": ["Blue", "Red", "Green", "Yellow"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "What material was the shoe made of?",
-        "options": [
-          "Leather",
-          "Silk",
-          "Cotton",
-          "Plastic"
-        ],
+        "options": ["Leather", "Silk", "Cotton", "Plastic"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -10478,24 +10168,14 @@
       },
       {
         "content": "What percentage of Chinese men smoke more than 15 cigarettes daily?",
-        "options": [
-          "25%",
-          "50%",
-          "70%",
-          "100%"
-        ],
+        "options": ["25%", "50%", "70%", "100%"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which specific disease is explicitly mentioned as being caused by smoking?",
-        "options": [
-          "Diabetes",
-          "Lung cancer",
-          "Asthma",
-          "Liver failure"
-        ],
+        "options": ["Diabetes", "Lung cancer", "Asthma", "Liver failure"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -10641,12 +10321,7 @@
     "generated_questions": [
       {
         "content": "According to the British Heart Foundation, how many young people in England start smoking on a regular basis each year?",
-        "options": [
-          "11 per cent",
-          "200,000",
-          "15,000",
-          "2,000"
-        ],
+        "options": ["11 per cent", "200,000", "15,000", "2,000"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -11015,12 +10690,7 @@
     "generated_questions": [
       {
         "content": "How much are families charged per month for each child in the Healthy Families Program?",
-        "options": [
-          "$10.00",
-          "$7.00",
-          "$17.00",
-          "It is free for all children"
-        ],
+        "options": ["$10.00", "$7.00", "$17.00", "It is free for all children"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -11214,24 +10884,14 @@
       },
       {
         "content": "In what year did the New School for Social Research first change its name to New School University?",
-        "options": [
-          "1997",
-          "2001",
-          "2005",
-          "2009"
-        ],
+        "options": ["1997", "2001", "2005", "2009"],
         "correct": 0,
         "type": "General",
         "level": 1
       },
       {
         "content": "Where is the marketing firm Lippmann Hearne located?",
-        "options": [
-          "New Jersey",
-          "San Francisco",
-          "Chicago",
-          "New York"
-        ],
+        "options": ["New Jersey", "San Francisco", "Chicago", "New York"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -11286,12 +10946,7 @@
       },
       {
         "content": "Which word best fits the blank in the fourth paragraph regarding the university's decision on its name?",
-        "options": [
-          "Abandoned",
-          "Selected",
-          "Criticized",
-          "Postponed"
-        ],
+        "options": ["Abandoned", "Selected", "Criticized", "Postponed"],
         "correct": 1,
         "type": "General",
         "level": 2
@@ -11389,12 +11044,7 @@
     "generated_questions": [
       {
         "content": "According to the text, what is the specific weight of the obese patient at the start of the clinical study?",
-        "options": [
-          "51.4 kg",
-          "175 kg",
-          "35 kg",
-          "23 kg"
-        ],
+        "options": ["51.4 kg", "175 kg", "35 kg", "23 kg"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -11425,12 +11075,7 @@
       },
       {
         "content": "In what year did American microbiologist Jeffrey Gordon find a link between obesity and gut microbiota in mice?",
-        "options": [
-          "2004",
-          "2012",
-          "1998",
-          "2023"
-        ],
+        "options": ["2004", "2012", "1998", "2023"],
         "correct": 0,
         "type": "General",
         "level": 1
@@ -11588,12 +11233,7 @@
       },
       {
         "content": "What does the extra \"s\" in \"https://\" stand for?",
-        "options": [
-          "System",
-          "Screen",
-          "Secure",
-          "Simple"
-        ],
+        "options": ["System", "Screen", "Secure", "Simple"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -11775,24 +11415,14 @@
       },
       {
         "content": "What was John’s job title after several years of working hard?",
-        "options": [
-          "Manager",
-          "Supervisor",
-          "Ordinary employee",
-          "Director"
-        ],
+        "options": ["Manager", "Supervisor", "Ordinary employee", "Director"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "How much did the watermelon seller charge per kilogram?",
-        "options": [
-          "$1.0",
-          "$1.2",
-          "$10",
-          "$2.0"
-        ],
+        "options": ["$1.0", "$1.2", "$10", "$2.0"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -11859,12 +11489,7 @@
       },
       {
         "content": "Which word best characterizes Bobby’s approach to the task assigned by the boss?",
-        "options": [
-          "Hasty",
-          "Comprehensive",
-          "Obedient",
-          "Cautious"
-        ],
+        "options": ["Hasty", "Comprehensive", "Obedient", "Cautious"],
         "correct": 1,
         "type": "General",
         "level": 2
@@ -11998,12 +11623,7 @@
       },
       {
         "content": "On which day of the week did the couple stop at the restaurant?",
-        "options": [
-          "Friday",
-          "Saturday",
-          "Sunday",
-          "Monday"
-        ],
+        "options": ["Friday", "Saturday", "Sunday", "Monday"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -12137,12 +11757,7 @@
     "generated_questions": [
       {
         "content": "In what year was the European Work Experience Program established?",
-        "options": [
-          "1981",
-          "1991",
-          "2005",
-          "1998"
-        ],
+        "options": ["1981", "1991", "2005", "1998"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -12185,12 +11800,7 @@
       },
       {
         "content": "What is the minimum duration an applicant must be able to work in the UK?",
-        "options": [
-          "One month",
-          "Two months",
-          "Six months",
-          "One year"
-        ],
+        "options": ["One month", "Two months", "Six months", "One year"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -12770,12 +12380,7 @@
       },
       {
         "content": "In the context of the passage, the word \"mandatory\" in the final paragraph most nearly means:",
-        "options": [
-          "Optional",
-          "Compulsory",
-          "Suggested",
-          "Traditional"
-        ],
+        "options": ["Optional", "Compulsory", "Suggested", "Traditional"],
         "correct": 1,
         "type": "General",
         "level": 2
@@ -13060,48 +12665,28 @@
     "generated_questions": [
       {
         "content": "How many youth teams participated in the experimental tournament?",
-        "options": [
-          "Two teams",
-          "Three teams",
-          "Four teams",
-          "Five teams"
-        ],
+        "options": ["Two teams", "Three teams", "Four teams", "Five teams"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "According to the text, what was the average distance from the action when referees made a correct decision?",
-        "options": [
-          "12 meters",
-          "17 meters",
-          "20 meters",
-          "23 meters"
-        ],
+        "options": ["12 meters", "17 meters", "20 meters", "23 meters"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What is the current mandatory retirement age for FIFA referees mentioned in the passage?",
-        "options": [
-          "40",
-          "45",
-          "50",
-          "60"
-        ],
+        "options": ["40", "45", "50", "60"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "How long did each individual period last during the experimental matches?",
-        "options": [
-          "20 minutes",
-          "60 minutes",
-          "90 minutes",
-          "One hour"
-        ],
+        "options": ["20 minutes", "60 minutes", "90 minutes", "One hour"],
         "correct": 0,
         "type": "General",
         "level": 1
@@ -13259,12 +12844,7 @@
       },
       {
         "content": "How many people visited the exhibition on its opening day?",
-        "options": [
-          "1,500",
-          "10,000",
-          "4,000",
-          "73"
-        ],
+        "options": ["1,500", "10,000", "4,000", "73"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -13434,12 +13014,7 @@
     "generated_questions": [
       {
         "content": "Where were the narrator and his wife traveling from when they stopped at the gas station?",
-        "options": [
-          "College Station",
-          "Houston",
-          "Austin",
-          "Dallas"
-        ],
+        "options": ["College Station", "Houston", "Austin", "Dallas"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -13621,24 +13196,14 @@
       },
       {
         "content": "According to the text, what are the main elements in skin, hair, and milk?",
-        "options": [
-          "DNA",
-          "Antibiotics",
-          "Proteins",
-          "Chemicals"
-        ],
+        "options": ["DNA", "Antibiotics", "Proteins", "Chemicals"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which specific part of the egg contains the disease-treating drugs?",
-        "options": [
-          "The shell",
-          "The yolk",
-          "The egg white",
-          "The membrane"
-        ],
+        "options": ["The shell", "The yolk", "The egg white", "The membrane"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -14153,7 +13718,7 @@
         "content": "Which of the following best describes the logical connection between the \"cleaner air\" mentioned in paragraph six and the \"extra saved years\" mentioned in the final paragraph?",
         "options": [
           "Cleaner air is the primary reason why walking and cycling are more beneficial than driving low-polluting cars.",
-          "Both are distinct pathways—one through reduced toxicity and one through physical exertion—that contribute to the same goal of life extension.",
+          "Both are distinct pathways-one through reduced toxicity and one through physical exertion-that contribute to the same goal of life extension.",
           "The \"cleaner air\" is a speculative benefit, whereas the \"extra saved years\" are based on concrete data from cook stoves.",
           "The text suggests that cleaner air only benefits residents of London, while residents of Delhi only benefit from exercise."
         ],
@@ -14453,12 +14018,7 @@
       },
       {
         "content": "Which word best describes the tone of the carpenter’s final statement: \"I have more bridges to build\"?",
-        "options": [
-          "Arrogant",
-          "Purposeful",
-          "Regretful",
-          "Sarcastic"
-        ],
+        "options": ["Arrogant", "Purposeful", "Regretful", "Sarcastic"],
         "correct": 1,
         "type": "General",
         "level": 2
@@ -14755,12 +14315,7 @@
       },
       {
         "content": "What was John Blanchard’s military rank?",
-        "options": [
-          "Captain",
-          "Sailor",
-          "Lieutenant",
-          "General"
-        ],
+        "options": ["Captain", "Sailor", "Lieutenant", "General"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -14942,12 +14497,7 @@
       },
       {
         "content": "In Joke 4, what is the name of the husband's wife?",
-        "options": [
-          "Jenny",
-          "Martha",
-          "Sarah",
-          "Linda"
-        ],
+        "options": ["Jenny", "Martha", "Sarah", "Linda"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -15105,12 +14655,7 @@
       },
       {
         "content": "What percentage of first marriages in the U.S. are reported to end in divorce?",
-        "options": [
-          "Around 25%",
-          "Around 50%",
-          "Exactly 75%",
-          "Less than 10%"
-        ],
+        "options": ["Around 25%", "Around 50%", "Exactly 75%", "Less than 10%"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -15678,12 +15223,7 @@
       },
       {
         "content": "Which country is mentioned as building long canals to transport water?",
-        "options": [
-          "Algeria",
-          "Mauritania",
-          "Iran",
-          "India"
-        ],
+        "options": ["Algeria", "Mauritania", "Iran", "India"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -15853,12 +15393,7 @@
       },
       {
         "content": "Who does the author mention can get homesick besides children?",
-        "options": [
-          "Only pets",
-          "Only teenagers",
-          "Grownups",
-          "No one else"
-        ],
+        "options": ["Only pets", "Only teenagers", "Grownups", "No one else"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -16227,24 +15762,14 @@
       },
       {
         "content": "How many \"high hats\" did the student prepare?",
-        "options": [
-          "Ten",
-          "One",
-          "One hundred",
-          "Fifty"
-        ],
+        "options": ["Ten", "One", "One hundred", "Fifty"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "For how long had the student been studying under the teacher?",
-        "options": [
-          "One year",
-          "Five years",
-          "Ten years",
-          "Twenty years"
-        ],
+        "options": ["One year", "Five years", "Ten years", "Twenty years"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -16589,12 +16114,7 @@
       },
       {
         "content": "Which group of people in North America is described as being more knowledgeable about the subtle messages in clothing?",
-        "options": [
-          "Men",
-          "Doctors",
-          "Women",
-          "English punks"
-        ],
+        "options": ["Men", "Doctors", "Women", "English punks"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -16776,12 +16296,7 @@
       },
       {
         "content": "According to the text, how much muscle power can a runner save by using this device?",
-        "options": [
-          "5%",
-          "50%",
-          "30%",
-          "7.5%"
-        ],
+        "options": ["5%", "50%", "30%", "7.5%"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -16800,12 +16315,7 @@
       },
       {
         "content": "How much does the entire kit currently weigh?",
-        "options": [
-          "3kg",
-          "5kg",
-          "7.5kg",
-          "30kg"
-        ],
+        "options": ["3kg", "5kg", "7.5kg", "30kg"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -16848,12 +16358,7 @@
       },
       {
         "content": "In the context of the passage, the word \"lessen\" in the second paragraph most nearly means:",
-        "options": [
-          "Diminish",
-          "Simplify",
-          "Shorten",
-          "Optimize"
-        ],
+        "options": ["Diminish", "Simplify", "Shorten", "Optimize"],
         "correct": 0,
         "type": "General",
         "level": 2
@@ -17150,12 +16655,7 @@
       },
       {
         "content": "At what time does the coffee shop finish its daily operations?",
-        "options": [
-          "8:00 a.m.",
-          "9:00 a.m.",
-          "9:20 a.m.",
-          "10:30 a.m."
-        ],
+        "options": ["8:00 a.m.", "9:00 a.m.", "9:20 a.m.", "10:30 a.m."],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -17512,24 +17012,14 @@
     "generated_questions": [
       {
         "content": "On what date did the fiery two-car accident occur?",
-        "options": [
-          "Tuesday morning",
-          "March 25",
-          "March 6",
-          "May 10"
-        ],
+        "options": ["Tuesday morning", "March 25", "March 6", "May 10"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "Who was the first person to arrive at the scene of the crash?",
-        "options": [
-          "Anthony Russo",
-          "Bozeman",
-          "Clemmons",
-          "Bonge"
-        ],
+        "options": ["Anthony Russo", "Bozeman", "Clemmons", "Bonge"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -17711,12 +17201,7 @@
       },
       {
         "content": "Who performed the household chores for the young man?",
-        "options": [
-          "His wife",
-          "His mother",
-          "A servant",
-          "A neighbor"
-        ],
+        "options": ["His wife", "His mother", "A servant", "A neighbor"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -17735,24 +17220,14 @@
       },
       {
         "content": "What object did the young man place in the servant's bed on Tuesday?",
-        "options": [
-          "Brushes",
-          "Shoes",
-          "Mud",
-          "Coffee"
-        ],
+        "options": ["Brushes", "Shoes", "Mud", "Coffee"],
         "correct": 0,
         "type": "General",
         "level": 1
       },
       {
         "content": "On which day did the young man promise to stop being unkind?",
-        "options": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday"
-        ],
+        "options": ["Monday", "Tuesday", "Wednesday", "Thursday"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -17922,12 +17397,7 @@
       },
       {
         "content": "How long of a walk is mentioned to help burn off extra calories?",
-        "options": [
-          "10 minutes",
-          "20 minutes",
-          "45 minutes",
-          "60 minutes"
-        ],
+        "options": ["10 minutes", "20 minutes", "45 minutes", "60 minutes"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -18073,12 +17543,7 @@
     "generated_questions": [
       {
         "content": "According to the 2014 IET survey, what percentage of engineering companies were concerned about skill shortages?",
-        "options": [
-          "15%",
-          "50%",
-          "59%",
-          "90%"
-        ],
+        "options": ["15%", "50%", "59%", "90%"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -18145,12 +17610,7 @@
       },
       {
         "content": "In the context of the fourth paragraph, the word \"crucial\" most nearly means:",
-        "options": [
-          "Optional",
-          "Traditional",
-          "Essential",
-          "Complicated"
-        ],
+        "options": ["Optional", "Traditional", "Essential", "Complicated"],
         "correct": 2,
         "type": "General",
         "level": 2
@@ -18272,12 +17732,7 @@
       },
       {
         "content": "How many customers does Jane have on her paper route?",
-        "options": [
-          "5",
-          "15",
-          "50",
-          "100"
-        ],
+        "options": ["5", "15", "50", "100"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -18459,12 +17914,7 @@
       },
       {
         "content": "What is the price of the chicken sandwich ordered by the author?",
-        "options": [
-          "$4.75",
-          "$4.99",
-          "$5.25",
-          "$6.75"
-        ],
+        "options": ["$4.75", "$4.99", "$5.25", "$6.75"],
         "correct": 0,
         "type": "General",
         "level": 1

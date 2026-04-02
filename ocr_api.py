@@ -8,6 +8,7 @@ import argparse
 import os
 import re
 import time
+import mimetypes
 from pathlib import Path
 from typing import List, Dict
 from tqdm import tqdm
@@ -159,6 +160,14 @@ def encode_image_to_base64(image_path: str) -> str:
         return base64.b64encode(image_file.read()).decode("utf-8")
 
 
+def get_image_media_type(image_path: str) -> str:
+    """Infer the correct media type for an image file."""
+    media_type, _ = mimetypes.guess_type(image_path)
+    if media_type and media_type.startswith("image/"):
+        return media_type
+    return "image/png"
+
+
 def perform_ocr(
     client: OpenAI, model: str, image_path: str, prompt: str, max_retries: int = 5
 ) -> str:
@@ -181,6 +190,7 @@ def perform_ocr(
         try:
             # Encode image
             base64_image = encode_image_to_base64(image_path)
+            image_media_type = get_image_media_type(image_path)
 
             # Call API
             response = client.chat.completions.create(
@@ -194,7 +204,7 @@ def perform_ocr(
                             {
                                 "type": "image_url",
                                 "image_url": {
-                                    "url": f"data:image/jpeg;base64,{base64_image}"
+                                    "url": f"data:{image_media_type};base64,{base64_image}"
                                 },
                             },
                         ],

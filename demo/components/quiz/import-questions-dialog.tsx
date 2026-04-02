@@ -3,7 +3,15 @@
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { addDoc, collection, onSnapshot, Timestamp, updateDoc, doc, deleteDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  Timestamp,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db, storage } from "@/lib/firebase";
 import { useAuthStore, useQuizStore, useUIStore } from "@/lib/store";
 import {
@@ -69,7 +77,7 @@ export function ImportQuestionsDialog() {
     useState<GenerationMode>("single_prompt");
   const [ocrModel, setOcrModel] = useState("google/gemini-3-flash-preview");
   const [questionModel, setQuestionModel] = useState(
-    "google/gemini-3-flash-preview"
+    "google/gemini-3-flash-preview",
   );
   const [targetQuestionCount, setTargetQuestionCount] = useState(5);
   const [extractPassage, setExtractPassage] = useState(true);
@@ -86,12 +94,12 @@ export function ImportQuestionsDialog() {
     setGenerationMode(mode);
     if (mode === "multi_agent") {
       const isCurrentModelOpenSource = AVAILABLE_MODELS.find(
-        (m) => m.id === questionModel && m.category === "open-source"
+        (m) => m.id === questionModel && m.category === "open-source",
       );
       if (!isCurrentModelOpenSource) {
         // Default to first open-source model
         const firstOpenSource = AVAILABLE_MODELS.find(
-          (m) => m.category === "open-source"
+          (m) => m.category === "open-source",
         );
         if (firstOpenSource) {
           setQuestionModel(firstOpenSource.id);
@@ -162,7 +170,7 @@ export function ImportQuestionsDialog() {
       setStatusMessage("Uploading files...");
 
       if (inputType === "text") {
-        // Plain text — skip OCR entirely, write text and jump straight to generation
+        // Plain text - skip OCR entirely, write text and jump straight to generation
         const nextStatus =
           generationMode === "multi_agent" ? "analyzing" : "generating_quiz";
         await updateDoc(doc(db, "quizzes", importJobRef.id), {
@@ -173,7 +181,7 @@ export function ImportQuestionsDialog() {
         const file = selectedFiles[0];
         const storageRef = ref(
           storage,
-          `imports/${user.uid}/${importJobRef.id}/document.pdf`
+          `imports/${user.uid}/${importJobRef.id}/document.pdf`,
         );
         await uploadBytes(storageRef, file);
         const pdfUrl = await getDownloadURL(storageRef);
@@ -191,7 +199,7 @@ export function ImportQuestionsDialog() {
           const file = selectedFiles[i];
           const storageRef = ref(
             storage,
-            `imports/${user.uid}/${importJobRef.id}/image_${i + 1}`
+            `imports/${user.uid}/${importJobRef.id}/image_${i + 1}`,
           );
           await uploadBytes(storageRef, file);
           const imageUrl = await getDownloadURL(storageRef);
@@ -285,7 +293,7 @@ export function ImportQuestionsDialog() {
             // Clean up on error
             await deleteDoc(doc(db, "quizzes", importJobRef.id));
           }
-        }
+        },
       );
     } catch (err) {
       console.error("Import error:", err);
@@ -323,7 +331,7 @@ export function ImportQuestionsDialog() {
         ...acceptedFiles.map((f) => URL.createObjectURL(f)),
       ]);
     },
-    [selectedFiles.length]
+    [selectedFiles.length],
   );
 
   const onDropPdf = useCallback((acceptedFiles: File[]) => {
@@ -459,7 +467,7 @@ export function ImportQuestionsDialog() {
                           <SelectGroup>
                             <SelectLabel>Open Source</SelectLabel>
                             {AVAILABLE_MODELS.filter(
-                              (m) => m.category === "open-source"
+                              (m) => m.category === "open-source",
                             ).map((model) => (
                               <SelectItem key={model.id} value={model.id}>
                                 {model.displayName}
@@ -469,7 +477,7 @@ export function ImportQuestionsDialog() {
                           <SelectGroup>
                             <SelectLabel>Proprietary</SelectLabel>
                             {AVAILABLE_MODELS.filter(
-                              (m) => m.category === "proprietary"
+                              (m) => m.category === "proprietary",
                             ).map((model) => (
                               <SelectItem key={model.id} value={model.id}>
                                 {model.displayName}
@@ -495,14 +503,14 @@ export function ImportQuestionsDialog() {
                   value={targetQuestionCount}
                   onChange={(e) =>
                     setTargetQuestionCount(
-                      Math.max(1, parseInt(e.target.value) || 5)
+                      Math.max(1, parseInt(e.target.value) || 5),
                     )
                   }
                   className="h-9 w-24"
                 />
               </div>
 
-              {/* Passage extraction — only for file-based inputs */}
+              {/* Passage extraction - only for file-based inputs */}
               {inputType !== "text" && (
                 <div className="flex items-center space-x-2">
                   <input
@@ -697,15 +705,15 @@ export function ImportQuestionsDialog() {
                     step === "done"
                       ? "text-success"
                       : step === "error"
-                      ? "text-error"
-                      : ""
+                        ? "text-error"
+                        : ""
                   }`}
                 >
                   {step === "done"
                     ? "Questions imported successfully!"
                     : step === "error"
-                    ? "Import failed"
-                    : statusMessage}
+                      ? "Import failed"
+                      : statusMessage}
                 </span>
               </div>
               {step !== "done" && step !== "error" && (

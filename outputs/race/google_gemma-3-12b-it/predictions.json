@@ -54,12 +54,7 @@
       },
       {
         "content": "What percentage of the time are trained lie spotters accurate?",
-        "options": [
-          "54%",
-          "90%",
-          "75%",
-          "100%"
-        ],
+        "options": ["54%", "90%", "75%", "100%"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -790,12 +785,7 @@
       },
       {
         "content": "[Level 1] What is the height of the main tower of Yueyang Tower?",
-        "options": [
-          "1044 meters",
-          "21.35 meters",
-          "3 stories",
-          "716 meters"
-        ],
+        "options": ["1044 meters", "21.35 meters", "3 stories", "716 meters"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -941,12 +931,7 @@
     "generated_questions": [
       {
         "content": "According to the passage, approximately how many Americans have disabilities?",
-        "options": [
-          "17.5 million",
-          "20 million",
-          "35 million",
-          "50 million"
-        ],
+        "options": ["17.5 million", "20 million", "35 million", "50 million"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -1176,12 +1161,7 @@
       },
       {
         "content": "[Level 1] What did Mira think she saw when the turtle swam away?",
-        "options": [
-          "A shark",
-          "A smile",
-          "Another turtle",
-          "Her parents"
-        ],
+        "options": ["A shark", "A smile", "Another turtle", "Her parents"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -1315,12 +1295,7 @@
     "generated_questions": [
       {
         "content": "According to the passage, where did Lieberman grow up?",
-        "options": [
-          "Italy",
-          "Germany",
-          "Philadelphia",
-          "Yale"
-        ],
+        "options": ["Italy", "Germany", "Philadelphia", "Yale"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -1689,12 +1664,7 @@
     "generated_questions": [
       {
         "content": "[Level 1] How old was the narrator when the motorbike accident occurred?",
-        "options": [
-          "16",
-          "18",
-          "26",
-          "46"
-        ],
+        "options": ["16", "18", "26", "46"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -2437,12 +2407,7 @@
     "generated_questions": [
       {
         "content": "[Level 1] According to the passage, what crime was Bernard Jackson wrongly convicted of?",
-        "options": [
-          "Robbery",
-          "Assault",
-          "Rape",
-          "Murder"
-        ],
+        "options": ["Robbery", "Assault", "Rape", "Murder"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -3396,12 +3361,7 @@
       },
       {
         "content": "[Level 1] At what age did Artie Shaw begin playing the saxophone?",
-        "options": [
-          "Fifteen",
-          "Fourteen",
-          "Twelve",
-          "Sixteen"
-        ],
+        "options": ["Fifteen", "Fourteen", "Twelve", "Sixteen"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -3770,12 +3730,7 @@
       },
       {
         "content": "Where did the first wheat supposedly originate, according to the text?",
-        "options": [
-          "Europe",
-          "Asia",
-          "The Middle East",
-          "Africa"
-        ],
+        "options": ["Europe", "Asia", "The Middle East", "Africa"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -3913,7 +3868,7 @@
         "level": 3
       },
       {
-        "content": "The author uses the phrase \"Men began civilization—after women invented agriculture.\" This statement most strongly suggests that:",
+        "content": "The author uses the phrase \"Men began civilization-after women invented agriculture.\" This statement most strongly suggests that:",
         "options": [
           "Men were incapable of creating civilization without women's prior contribution.",
           "The development of civilization was a gradual process with multiple contributing factors.",
@@ -3933,12 +3888,7 @@
     "generated_questions": [
       {
         "content": "[Level 1] What is the name of Daniel's baby sister?",
-        "options": [
-          "Angela",
-          "Jasper",
-          "Laura",
-          "Brown"
-        ],
+        "options": ["Angela", "Jasper", "Laura", "Brown"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -3957,24 +3907,14 @@
       },
       {
         "content": "[Level 1] What color is Daniel's hair?",
-        "options": [
-          "Brown",
-          "Black",
-          "Golden",
-          "Red"
-        ],
+        "options": ["Brown", "Black", "Golden", "Red"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "[Level 1] What did Daniel give his mother?",
-        "options": [
-          "A flower",
-          "A book",
-          "A toy",
-          "A smile"
-        ],
+        "options": ["A flower", "A book", "A toy", "A smile"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -4307,12 +4247,7 @@
     "generated_questions": [
       {
         "content": "What is the force that pulls you back down when you throw a ball into the air?",
-        "options": [
-          "Wind",
-          "Gravity",
-          "Friction",
-          "Magnetism"
-        ],
+        "options": ["Wind", "Gravity", "Friction", "Magnetism"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -4355,12 +4290,7 @@
       },
       {
         "content": "What is the approximate height a good high-jumper can jump?",
-        "options": [
-          "Ten feet",
-          "Five feet",
-          "Seven feet",
-          "Twelve feet"
-        ],
+        "options": ["Ten feet", "Five feet", "Seven feet", "Twelve feet"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -4681,12 +4611,7 @@
     "generated_questions": [
       {
         "content": "According to the passage, how old was Jordan Romero when he climbed Mount Everest?",
-        "options": [
-          "16",
-          "20",
-          "13",
-          "17"
-        ],
+        "options": ["16", "20", "13", "17"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -4705,12 +4630,7 @@
       },
       {
         "content": "From which side of Mount Everest did Jordan Romero climb?",
-        "options": [
-          "Nepal",
-          "China",
-          "Tibetan",
-          "Kathmandu"
-        ],
+        "options": ["Nepal", "China", "Tibetan", "Kathmandu"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -4904,24 +4824,14 @@
       },
       {
         "content": "[Level 1] What instrument did Jenny play in the band?",
-        "options": [
-          "Piano",
-          "Drums",
-          "The text does not specify.",
-          "Guitar"
-        ],
+        "options": ["Piano", "Drums", "The text does not specify.", "Guitar"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "[Level 1] What percentage of her hearing did Jenny regain after multiple operations?",
-        "options": [
-          "100%",
-          "50%",
-          "60%",
-          "80%"
-        ],
+        "options": ["100%", "50%", "60%", "80%"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -5477,12 +5387,7 @@
       },
       {
         "content": "What term does The Times use to describe its new size instead of \"tabloid\"?",
-        "options": [
-          "Broad",
-          "Small",
-          "Compact",
-          "Modern"
-        ],
+        "options": ["Broad", "Small", "Compact", "Modern"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -6014,12 +5919,7 @@
       },
       {
         "content": "[Level 1] Approximately how many words were included in Webster's dictionary when it was completed?",
-        "options": [
-          "250",
-          "70,000",
-          "1775",
-          "1828"
-        ],
+        "options": ["250", "70,000", "1775", "1828"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -6038,12 +5938,7 @@
       },
       {
         "content": "[Level 1] What is the meaning of the word \"preposterous\" as used in the text?",
-        "options": [
-          "Reasonable",
-          "Unreasonable",
-          "Important",
-          "Republican"
-        ],
+        "options": ["Reasonable", "Unreasonable", "Important", "Republican"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -6575,24 +6470,14 @@
       },
       {
         "content": "How many levels of government are mentioned in the United States that collect taxes?",
-        "options": [
-          "One",
-          "Two",
-          "Three",
-          "Four"
-        ],
+        "options": ["One", "Two", "Three", "Four"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "What is the cutoff salary mentioned in the passage for the federal income tax?",
-        "options": [
-          "$4,000",
-          "$5,000",
-          "$17,850",
-          "$28,000"
-        ],
+        "options": ["$4,000", "$5,000", "$17,850", "$28,000"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -6695,12 +6580,7 @@
       },
       {
         "content": "The passage describes a tiered federal income tax system. Applying this principle to a hypothetical scenario, if a person earns $20,000 per year, what percentage of their income would be taxed at the higher rate, according to the passage?",
-        "options": [
-          "0%",
-          "15%",
-          "28%",
-          "50%"
-        ],
+        "options": ["0%", "15%", "28%", "50%"],
         "correct": 2,
         "type": "General",
         "level": 3
@@ -6750,24 +6630,14 @@
       },
       {
         "content": "What is NOT mentioned as something a woman can do at Mother's Camp?",
-        "options": [
-          "Sleep",
-          "Read",
-          "Cook",
-          "Watch TV"
-        ],
+        "options": ["Sleep", "Read", "Cook", "Watch TV"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "What percentage of women in the United States work outside the home?",
-        "options": [
-          "25%",
-          "50%",
-          "75%",
-          "100%"
-        ],
+        "options": ["25%", "50%", "75%", "100%"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -6937,12 +6807,7 @@
       },
       {
         "content": "In what year did Einstein publicly declare his opposition to participating in war?",
-        "options": [
-          "1905",
-          "1929",
-          "1933",
-          "1939"
-        ],
+        "options": ["1905", "1929", "1933", "1939"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -7311,12 +7176,7 @@
       },
       {
         "content": "What year did Shane Stedman sell the rights to his Ugg boot design?",
-        "options": [
-          "1973",
-          "1983",
-          "2003",
-          "1969"
-        ],
+        "options": ["1973", "1983", "2003", "1969"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -7498,12 +7358,7 @@
       },
       {
         "content": "What is the price of the Generic Elementary School-pak for first through fifth graders?",
-        "options": [
-          "$23.28",
-          "$30.00",
-          "$10.00",
-          "$75.00"
-        ],
+        "options": ["$23.28", "$30.00", "$10.00", "$75.00"],
         "correct": 0,
         "type": "General",
         "level": 1
@@ -8246,12 +8101,7 @@
       },
       {
         "content": "What is the price for a child's Gateway Buffet Package?",
-        "options": [
-          "$68.00",
-          "$51.00",
-          "$103.00",
-          "$69.00"
-        ],
+        "options": ["$68.00", "$51.00", "$103.00", "$69.00"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -8644,12 +8494,7 @@
       },
       {
         "content": "[Level 1] Where is Brazil the world's largest grower of?",
-        "options": [
-          "Potatoes",
-          "Coffee",
-          "Chocolate",
-          "Cacao"
-        ],
+        "options": ["Potatoes", "Coffee", "Chocolate", "Cacao"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -8807,24 +8652,14 @@
       },
       {
         "content": "What does the Martian visitor describe Earthmen as living in?",
-        "options": [
-          "Round balls",
-          "Tall boxes",
-          "Boxes",
-          "Moving pictures"
-        ],
+        "options": ["Round balls", "Tall boxes", "Boxes", "Moving pictures"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "What are the \"smaller boxes on wheels\" mentioned in the passage?",
-        "options": [
-          "Footballs",
-          "Big boxes",
-          "Cars",
-          "Glowing boxes"
-        ],
+        "options": ["Footballs", "Big boxes", "Cars", "Glowing boxes"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -9018,12 +8853,7 @@
       },
       {
         "content": "How many weeks did Lance Gerrard-Wright date the contestants on \"Mr. Right\"?",
-        "options": [
-          "Five weeks",
-          "Six weeks",
-          "Seven weeks",
-          "Eight weeks"
-        ],
+        "options": ["Five weeks", "Six weeks", "Seven weeks", "Eight weeks"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -9368,12 +9198,7 @@
       },
       {
         "content": "What is the primary time of year when most drowning accidents occur?",
-        "options": [
-          "Winter",
-          "Spring",
-          "Summer",
-          "Autumn"
-        ],
+        "options": ["Winter", "Spring", "Summer", "Autumn"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -9603,12 +9428,7 @@
       },
       {
         "content": "The author uses the phrase \"quite a problem\" to describe the issue of oil pollution in shellfish. What is the author's likely attitude towards this problem?",
-        "options": [
-          "Indifference",
-          "Concern",
-          "Optimism",
-          "Amusement"
-        ],
+        "options": ["Indifference", "Concern", "Optimism", "Amusement"],
         "correct": 1,
         "type": "General",
         "level": 2
@@ -9742,12 +9562,7 @@
       },
       {
         "content": "What country does the Cuban man originate from?",
-        "options": [
-          "Russia",
-          "America",
-          "Cuba",
-          "England"
-        ],
+        "options": ["Russia", "America", "Cuba", "England"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -9917,12 +9732,7 @@
     "generated_questions": [
       {
         "content": "What does the narrator call their dog?",
-        "options": [
-          "A sheep dog",
-          "A keep dog",
-          "Tom's dog",
-          "A green dog"
-        ],
+        "options": ["A sheep dog", "A keep dog", "Tom's dog", "A green dog"],
         "correct": 0,
         "type": "General",
         "level": 1
@@ -9941,12 +9751,7 @@
       },
       {
         "content": "What material was the shoe made of?",
-        "options": [
-          "Silk",
-          "Green",
-          "Cleaning material",
-          "Leather"
-        ],
+        "options": ["Silk", "Green", "Cleaning material", "Leather"],
         "correct": 0,
         "type": "General",
         "level": 1
@@ -9965,12 +9770,7 @@
       },
       {
         "content": "What did the narrator suggest they do with the shoe?",
-        "options": [
-          "Keep it",
-          "Clean it",
-          "Take it back",
-          "Give it to Tom"
-        ],
+        "options": ["Keep it", "Clean it", "Take it back", "Give it to Tom"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -10478,12 +10278,7 @@
     "generated_questions": [
       {
         "content": "According to the passage, approximately how many deaths are caused by smoking each year worldwide?",
-        "options": [
-          "600,000",
-          "3 million",
-          "7 million",
-          "10 million"
-        ],
+        "options": ["600,000", "3 million", "7 million", "10 million"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -10514,12 +10309,7 @@
       },
       {
         "content": "What percentage of Chinese men, according to the passage, smoke more than 15 cigarettes daily?",
-        "options": [
-          "15%",
-          "25%",
-          "50%",
-          "70%"
-        ],
+        "options": ["15%", "25%", "50%", "70%"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -10677,12 +10467,7 @@
       },
       {
         "content": "What percentage of regular smokers aged 11-15 in England and Wales get their cigarettes from vending machines?",
-        "options": [
-          "10 per cent",
-          "11 per cent",
-          "20 per cent",
-          "22 per cent"
-        ],
+        "options": ["10 per cent", "11 per cent", "20 per cent", "22 per cent"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -10924,12 +10709,7 @@
       },
       {
         "content": "[Level 2] The phrase \"hairs on his neck stand up\" suggests that Jack felt…",
-        "options": [
-          "Cold.",
-          "Curious.",
-          "Frightened.",
-          "Annoyed."
-        ],
+        "options": ["Cold.", "Curious.", "Frightened.", "Annoyed."],
         "correct": 2,
         "type": "General",
         "level": 2
@@ -11039,12 +10819,7 @@
     "generated_questions": [
       {
         "content": "[Level 1] According to the text, how much does the Healthy Families Program charge per month for each child?",
-        "options": [
-          "$10.00",
-          "$7.00",
-          "$17.00",
-          "$0.00"
-        ],
+        "options": ["$10.00", "$7.00", "$17.00", "$0.00"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -11262,12 +11037,7 @@
       },
       {
         "content": "What did Arcadia University's average student's test score increase by after the name change?",
-        "options": [
-          "20 points",
-          "40 points",
-          "60 points",
-          "80 points"
-        ],
+        "options": ["20 points", "40 points", "60 points", "80 points"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -11461,12 +11231,7 @@
       },
       {
         "content": "What was the initial weight of the obese patient mentioned in the clinical study?",
-        "options": [
-          "175 kg",
-          "51.4 kg",
-          "23 kg",
-          "100 kg"
-        ],
+        "options": ["175 kg", "51.4 kg", "23 kg", "100 kg"],
         "correct": 0,
         "type": "General",
         "level": 1
@@ -11624,12 +11389,7 @@
       },
       {
         "content": "[Level 1] What does the extra \"s\" in \"https://\" stand for?",
-        "options": [
-          "Speed",
-          "Security",
-          "System",
-          "Shopping"
-        ],
+        "options": ["Speed", "Security", "System", "Shopping"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -11811,24 +11571,14 @@
       },
       {
         "content": "[Level 1] How much did the watermelon seller charge per kilogram, according to John's first visit to the market?",
-        "options": [
-          "$10",
-          "$1.2",
-          "$2",
-          "$3.4"
-        ],
+        "options": ["$10", "$1.2", "$2", "$3.4"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "[Level 1] How many melons did the watermelon seller have on his table?",
-        "options": [
-          "340",
-          "58",
-          "2",
-          "10"
-        ],
+        "options": ["340", "58", "2", "10"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -12010,12 +11760,7 @@
       },
       {
         "content": "What did the narrator initially think the homeless man might need?",
-        "options": [
-          "Money",
-          "A warm drink",
-          "A new car",
-          "A place to sleep"
-        ],
+        "options": ["Money", "A warm drink", "A new car", "A place to sleep"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -12185,12 +11930,7 @@
       },
       {
         "content": "[Level 1] Which of the following countries are NOT eligible for the E.W.E.P. program according to the text?",
-        "options": [
-          "Norway",
-          "Iceland",
-          "Germany",
-          "Switzerland"
-        ],
+        "options": ["Norway", "Iceland", "Germany", "Switzerland"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -12209,12 +11949,7 @@
       },
       {
         "content": "[Level 1] What is the total fee for the E.W.E.P. services, as stated in the text?",
-        "options": [
-          "PS264.35",
-          "PS394.63",
-          "PS264.63",
-          "PS394.35"
-        ],
+        "options": ["PS264.35", "PS394.63", "PS264.63", "PS394.35"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -13108,36 +12843,21 @@
       },
       {
         "content": "[Level 1] How many periods were there in each match during the experimental tournament?",
-        "options": [
-          "Two",
-          "Four",
-          "Three",
-          "Five"
-        ],
+        "options": ["Two", "Four", "Three", "Five"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "[Level 1] Approximately how many mistakes did each referee make, when converted to a standard 90-minute match?",
-        "options": [
-          "61",
-          "12",
-          "17",
-          "23"
-        ],
+        "options": ["61", "12", "17", "23"],
         "correct": 3,
         "type": "General",
         "level": 1
       },
       {
         "content": "[Level 1] What was the average distance between referees and the action when they made correct decisions?",
-        "options": [
-          "12 meters",
-          "20 meters",
-          "17 meters",
-          "4 meters"
-        ],
+        "options": ["12 meters", "20 meters", "17 meters", "4 meters"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -13283,12 +13003,7 @@
     "generated_questions": [
       {
         "content": "[Level 1] According to the article, approximately how many visitors had seen the exhibition by the time the article was written?",
-        "options": [
-          "4,000",
-          "7,000",
-          "10,000",
-          "72,000"
-        ],
+        "options": ["4,000", "7,000", "10,000", "72,000"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -13482,12 +13197,7 @@
       },
       {
         "content": "[Level 1] What did the narrator and his wife decide to get at the gas station?",
-        "options": [
-          "Coffee",
-          "Gas",
-          "Something to eat",
-          "Souvenirs"
-        ],
+        "options": ["Coffee", "Gas", "Something to eat", "Souvenirs"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -13693,12 +13403,7 @@
       },
       {
         "content": "[Level 1] What part of the egg does the text say the drugs are found in?",
-        "options": [
-          "The yolk",
-          "The shell",
-          "The egg white",
-          "The membrane"
-        ],
+        "options": ["The yolk", "The shell", "The egg white", "The membrane"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -14242,12 +13947,7 @@
       },
       {
         "content": "[Level 1] In what city have some restaurants started banning customers from taking photos of their food?",
-        "options": [
-          "Madrid",
-          "London",
-          "New York City",
-          "Barcelona"
-        ],
+        "options": ["Madrid", "London", "New York City", "Barcelona"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -14453,12 +14153,7 @@
       },
       {
         "content": "[Level 1] What did the carpenter ultimately build instead of a fence?",
-        "options": [
-          "A small house.",
-          "A bridge.",
-          "A garden.",
-          "A well."
-        ],
+        "options": ["A small house.", "A bridge.", "A garden.", "A well."],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -14966,12 +14661,7 @@
     "generated_questions": [
       {
         "content": "(Level 1) In Joke 1, what was the name of the horse the man bet on?",
-        "options": [
-          "Martha",
-          "Jenny",
-          "Wife",
-          "Horse"
-        ],
+        "options": ["Martha", "Jenny", "Wife", "Horse"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -15014,12 +14704,7 @@
       },
       {
         "content": "(Level 1) What did the wife use to hit the man in Joke 1, initially?",
-        "options": [
-          "A book",
-          "A frying pan",
-          "A pillow",
-          "A newspaper"
-        ],
+        "options": ["A book", "A frying pan", "A pillow", "A newspaper"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -15177,24 +14862,14 @@
       },
       {
         "content": "What is the approximate divorce rate mentioned in the passage?",
-        "options": [
-          "25%",
-          "50%",
-          "75%",
-          "100%"
-        ],
+        "options": ["25%", "50%", "75%", "100%"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "According to the passage, how long can it take to rebuild your credit after financial difficulties?",
-        "options": [
-          "1-2 years",
-          "3-5 years",
-          "7-10 years",
-          "15-20 years"
-        ],
+        "options": ["1-2 years", "3-5 years", "7-10 years", "15-20 years"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -16136,12 +15811,7 @@
       },
       {
         "content": "[Level 1] According to Lee Ann, what can be trained in dogs?",
-        "options": [
-          "To fly",
-          "To do a lot of things",
-          "To cook",
-          "To speak"
-        ],
+        "options": ["To fly", "To do a lot of things", "To cook", "To speak"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -16860,24 +16530,14 @@
       },
       {
         "content": "Approximately how much does the motorized knee device weigh?",
-        "options": [
-          "2kg",
-          "5kg",
-          "7.5kg",
-          "10kg"
-        ],
+        "options": ["2kg", "5kg", "7.5kg", "10kg"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What is the speed at which runners wearing the device could jog, as mentioned in the passage?",
-        "options": [
-          "5kmh",
-          "7.5kmh",
-          "10kmh",
-          "15kmh"
-        ],
+        "options": ["5kmh", "7.5kmh", "10kmh", "15kmh"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -17246,12 +16906,7 @@
       },
       {
         "content": "[Level 1] Approximately how many drinks does the shop usually sell by closing time?",
-        "options": [
-          "50",
-          "70",
-          "90",
-          "110"
-        ],
+        "options": ["50", "70", "90", "110"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -17771,12 +17426,7 @@
     "generated_questions": [
       {
         "content": "Who did the work in the young man's house?",
-        "options": [
-          "His wife",
-          "A servant",
-          "A friend",
-          "No one"
-        ],
+        "options": ["His wife", "A servant", "A friend", "No one"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -17795,24 +17445,14 @@
       },
       {
         "content": "How did the servant react to the young man's actions?",
-        "options": [
-          "He got angry.",
-          "He cried.",
-          "He smiled.",
-          "He ran away."
-        ],
+        "options": ["He got angry.", "He cried.", "He smiled.", "He ran away."],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "On what day did the young man put brushes in the servant's bed?",
-        "options": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday"
-        ],
+        "options": ["Monday", "Tuesday", "Wednesday", "Thursday"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -17982,12 +17622,7 @@
       },
       {
         "content": "[Level 1] How long does the text suggest a walk can help burn off extra calories?",
-        "options": [
-          "10 minutes",
-          "20 minutes",
-          "30 minutes",
-          "40 minutes"
-        ],
+        "options": ["10 minutes", "20 minutes", "30 minutes", "40 minutes"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -18332,12 +17967,7 @@
     "generated_questions": [
       {
         "content": "According to the passage, how many customers does Jane have?",
-        "options": [
-          "Five",
-          "Fifty",
-          "Three",
-          "Ten"
-        ],
+        "options": ["Five", "Fifty", "Three", "Ten"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -18555,12 +18185,7 @@
       },
       {
         "content": "[Level 1] How much did the author pay for the chicken sandwich?",
-        "options": [
-          "$4.99",
-          "$5.25",
-          "$4.75",
-          "$6.75"
-        ],
+        "options": ["$4.99", "$5.25", "$4.75", "$6.75"],
         "correct": 2,
         "type": "General",
         "level": 1

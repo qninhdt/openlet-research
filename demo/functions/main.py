@@ -17,9 +17,11 @@ from parser import (
     parse_single_prompt_metadata,
     parse_analyzer_metadata,
     parse_generator_output,
-    parse_validator_output,
+    parse_classifier_output,
+    parse_student_output,
+    parse_fixer_output,
     parse_explanation_output,
-    format_questions_for_validation,
+    format_questions_for_quiz,
     format_failed_questions_for_fixer,
     format_questions_for_explanation,
 )
@@ -29,14 +31,11 @@ from prompts import (
     ANALYZER_PROMPT,
     EXPLANATION_PROMPT,
     LEVEL1_GENERATOR_PROMPT,
-    LEVEL1_VALIDATOR_PROMPT,
-    LEVEL1_FIXER_PROMPT,
     LEVEL2_GENERATOR_PROMPT,
-    LEVEL2_VALIDATOR_PROMPT,
-    LEVEL2_FIXER_PROMPT,
     LEVEL3_GENERATOR_PROMPT,
-    LEVEL3_VALIDATOR_PROMPT,
-    LEVEL3_FIXER_PROMPT,
+    CLASSIFIER_PROMPT,
+    STUDENT_PROMPT,
+    FIXER_PROMPT,
 )
 
 # Initialize Firebase Admin
@@ -54,7 +53,6 @@ DEFAULT_QUESTION_MODEL = "google/gemini-3-flash-preview"
 
 # Limits
 MAX_PDF_PAGES = 10
-MAX_FIX_RETRIES = 2  # Max validator→fixer iterations per level in multi-agent mode
 
 
 def _get_mime_type(file_path: str) -> str:
@@ -259,7 +257,9 @@ async def _process_ocr_async(
 
         # Determine next stage based on generation mode
         generation_mode = doc_ref.get().to_dict().get("generationMode", "single_prompt")
-        next_status = "analyzing" if generation_mode == "multi_agent" else "generating_quiz"
+        next_status = (
+            "analyzing" if generation_mode == "multi_agent" else "generating_quiz"
+        )
 
         # Update quiz with OCR text and move to next stage
         doc_ref.update(
@@ -348,7 +348,13 @@ def process_ocr(
     )
 
 
-async def _call_llm(session: aiohttp.ClientSession, api_key: str, model: str, prompt: str, timeout: int = 180) -> str:
+async def _call_llm(
+    session: aiohttp.ClientSession,
+    api_key: str,
+    model: str,
+    prompt: str,
+    timeout: int = 180,
+) -> str:
     """Call OpenRouter API and return the content string."""
     async with session.post(
         "https://openrouter.ai/api/v1/chat/completions",
@@ -375,10 +381,7 @@ async def _call_llm(session: aiohttp.ClientSession, api_key: str, model: str, pr
             raise Exception(f"API error: {response.status} - {error_text}")
         result = await response.json()
         return (
-            result.get("choices", [{}])[0]
-            .get("message", {})
-            .get("content", "")
-            .strip()
+            result.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
         )
 
 
@@ -394,8 +397,7 @@ async def _run_generator(
 ) -> list[dict]:
     """Run a level generator and return parsed questions."""
     full_prompt = (
-        generator_prompt
-        .replace("{content}", content)
+        generator_prompt.replace("{content}", content)
         .replace("{analyzer_output}", analyzer_output)
         .replace("{n}", str(n))
     )
@@ -405,124 +407,128 @@ async def _run_generator(
     return questions
 
 
-async def _run_validator(
+async def _run_classifier(
     session: aiohttp.ClientSession,
     api_key: str,
     model: str,
-    validator_prompt: str,
     content: str,
     questions: list[dict],
-) -> list[dict]:
-    """Run the validator and return validation results."""
-    questions_text = format_questions_for_validation(questions)
-    full_prompt = (
-        validator_prompt
-        .replace("{content}", content)
-        .replace("{questions}", questions_text)
+) -> tuple[list[dict], list[dict]]:
+    """Run the classifier to verify question difficulty levels.
+
+    Returns (passed, rejected) where passed questions have correct predicted level.
+    """
+    if not questions:
+        return [], []
+
+    quiz_text = format_questions_for_quiz(questions)
+    full_prompt = CLASSIFIER_PROMPT.replace("{content}", content).replace(
+        "{quiz}", quiz_text
     )
     output = await _call_llm(session, api_key, model, full_prompt)
-    return parse_validator_output(output)
+    predictions = parse_classifier_output(output)
+
+    prediction_map = {p["id"]: p for p in predictions}
+    passed = []
+    rejected = []
+
+    for q in questions:
+        pred = prediction_map.get(q["id"])
+        if pred and pred["predicted_level"] == q["level"]:
+            passed.append(q)
+        else:
+            rejected.append(q)
+
+    print(
+        f"  Classifier: {len(passed)} passed, {len(rejected)} rejected "
+        f"(out of {len(questions)})"
+    )
+    return passed, rejected
 
 
-async def _run_fixer(
+async def _run_student(
     session: aiohttp.ClientSession,
     api_key: str,
     model: str,
-    fixer_prompt: str,
+    content: str,
+    questions: list[dict],
+) -> tuple[list[dict], list[dict], list[dict]]:
+    """Run the student to attempt solving questions.
+
+    Returns (passed, failed, student_results) where:
+    - passed: questions the student answered correctly
+    - failed: questions the student got wrong
+    - student_results: raw student output for use by fixer
+    """
+    if not questions:
+        return [], [], []
+
+    quiz_text = format_questions_for_quiz(questions)
+    full_prompt = STUDENT_PROMPT.replace("{content}", content).replace(
+        "{quiz}", quiz_text
+    )
+    output = await _call_llm(session, api_key, model, full_prompt)
+    student_results = parse_student_output(output)
+
+    correct_map = {0: "A", 1: "B", 2: "C", 3: "D"}
+    result_map = {r["id"]: r for r in student_results}
+    passed = []
+    failed = []
+
+    for q in questions:
+        result = result_map.get(q["id"])
+        correct_letter = correct_map.get(q.get("correct_idx", 0), "A")
+
+        if result and result["choices"] == [correct_letter]:
+            passed.append(q)
+        else:
+            failed.append(q)
+
+    print(
+        f"  Student: {len(passed)} passed, {len(failed)} failed "
+        f"(out of {len(questions)})"
+    )
+    return passed, failed, student_results
+
+
+async def _run_option_fixer(
+    session: aiohttp.ClientSession,
+    api_key: str,
+    model: str,
     content: str,
     analyzer_output: str,
-    questions: list[dict],
-    validation: list[dict],
-    per_question_history: dict[int, list[str]],
-    level: int,
+    failed_questions: list[dict],
+    student_results: list[dict],
 ) -> list[dict]:
-    """Run the fixer on failed questions and return merged question list."""
-    failed_text = format_failed_questions_for_fixer(questions, validation)
-    if not failed_text.strip():
-        return questions
+    """Fix options for questions the student got wrong.
 
-    # Build history text for currently failing questions
-    currently_failed_ids = {v["id"] for v in validation if v.get("verdict") == "FAIL"}
-    history_lines = []
-    for q_id in sorted(currently_failed_ids):
-        past = per_question_history.get(q_id, [])
-        if past:
-            rounds = "\n".join(f"  Attempt {i + 1}: {fb}" for i, fb in enumerate(past))
-            history_lines.append(f"Q{q_id} previous feedback:\n{rounds}")
-    history_text = "\n\n".join(history_lines) if history_lines else "No previous fix attempts."
+    Returns fixed questions with updated options/correct_idx.
+    """
+    if not failed_questions:
+        return []
 
+    failed_text = format_failed_questions_for_fixer(failed_questions, student_results)
     full_prompt = (
-        fixer_prompt
-        .replace("{content}", content)
+        FIXER_PROMPT.replace("{content}", content)
         .replace("{analyzer_output}", analyzer_output)
-        .replace("{fix_history}", history_text)
         .replace("{failed_questions}", failed_text)
     )
     output = await _call_llm(session, api_key, model, full_prompt)
-    fixed_questions = parse_generator_output(output, len(questions), expected_level=level)
+    fixed_results = parse_fixer_output(output)
 
-    # Merge: replace only fixed questions by ID
-    fixed_map = {fq["id"]: fq for fq in fixed_questions if fq.get("id") is not None}
-    failed_ids = {v["id"] for v in validation if v.get("verdict") == "FAIL"}
-    merged = []
-    for idx, q in enumerate(questions):
-        q_id = idx + 1
-        if q_id in failed_ids and q_id in fixed_map:
-            merged.append(fixed_map[q_id])
-        else:
-            merged.append(q)
-    return merged
+    fixed_map = {f["id"]: f for f in fixed_results}
+    result = []
 
+    for q in failed_questions:
+        q_copy = q.copy()
+        fix = fixed_map.get(q["id"])
+        if fix:
+            q_copy["options"] = fix["options"]
+            q_copy["correct_idx"] = fix["correct_idx"]
+        result.append(q_copy)
 
-async def _validate_and_fix_level(
-    session: aiohttp.ClientSession,
-    api_key: str,
-    model: str,
-    validator_prompt: str,
-    fixer_prompt: str,
-    content: str,
-    analyzer_output: str,
-    questions: list[dict],
-    level: int,
-    max_fix_retries: int = MAX_FIX_RETRIES,
-) -> list[dict]:
-    """Validate questions for a level, then iteratively fix failures."""
-    if not questions:
-        return questions
-
-    current_questions = questions
-    per_question_history: dict[int, list[str]] = {}
-
-    # Initial validation
-    validation = await _run_validator(session, api_key, model, validator_prompt, content, current_questions)
-    passed = sum(1 for v in validation if v["verdict"] == "PASS")
-    print(f"  Level {level} validation: {passed}/{len(validation)} passed")
-
-    # Retry loop
-    for attempt in range(1, max_fix_retries + 1):
-        if not any(v.get("verdict") == "FAIL" for v in validation):
-            print(f"  Level {level}: All questions passed")
-            break
-
-        # Accumulate per-question feedback
-        for v in validation:
-            if v.get("verdict") == "FAIL":
-                per_question_history.setdefault(v["id"], []).append(
-                    v.get("feedback", "no feedback")
-                )
-
-        print(f"  Level {level}: Fix attempt {attempt}/{max_fix_retries}...")
-        current_questions = await _run_fixer(
-            session, api_key, model, fixer_prompt, content, analyzer_output,
-            current_questions, validation, per_question_history, level,
-        )
-
-        # Re-validate
-        validation = await _run_validator(session, api_key, model, validator_prompt, content, current_questions)
-        passed = sum(1 for v in validation if v["verdict"] == "PASS")
-        print(f"  Level {level} re-validation (attempt {attempt}): {passed}/{len(validation)} passed")
-
-    return current_questions
+    print(f"  Fixer: {len(fixed_map)} questions fixed (out of {len(failed_questions)})")
+    return result
 
 
 async def _generate_questions_multi_agent(
@@ -532,14 +538,12 @@ async def _generate_questions_multi_agent(
     analyzer_output: str,
     api_key: str,
     target_question_count: int = 6,
-    max_fix_retries: int = MAX_FIX_RETRIES,
     doc_ref=None,
 ) -> tuple[list[dict], dict]:
-    """Run the full multi-agent pipeline: generate → validate → fix → explain.
+    """Run the full multi-agent pipeline: generate → classify → student → fix → explain.
 
     Returns (final_questions, metadata) where questions have 'content', 'options', 'correct', 'level', 'type'.
     """
-    # Distribute questions across levels: n_2 = n_3 = total // 3, n_1 = total - n_2 - n_3
     n_2 = target_question_count // 3
     n_3 = target_question_count // 3
     n_1 = target_question_count - n_2 - n_3
@@ -547,69 +551,160 @@ async def _generate_questions_multi_agent(
     print(f"Multi-agent pipeline for quiz {quiz_id}: L1={n_1}, L2={n_2}, L3={n_3}")
 
     level_configs = [
-        (1, n_1, LEVEL1_GENERATOR_PROMPT, LEVEL1_VALIDATOR_PROMPT, LEVEL1_FIXER_PROMPT),
-        (2, n_2, LEVEL2_GENERATOR_PROMPT, LEVEL2_VALIDATOR_PROMPT, LEVEL2_FIXER_PROMPT),
-        (3, n_3, LEVEL3_GENERATOR_PROMPT, LEVEL3_VALIDATOR_PROMPT, LEVEL3_FIXER_PROMPT),
+        (1, n_1, LEVEL1_GENERATOR_PROMPT),
+        (2, n_2, LEVEL2_GENERATOR_PROMPT),
+        (3, n_3, LEVEL3_GENERATOR_PROMPT),
     ]
 
     async with aiohttp.ClientSession() as session:
-        # Step 1: Generate questions for all 3 levels (can run concurrently)
+        # Step 1: Generate questions for all 3 levels in parallel
         generator_tasks = []
-        for level, n, gen_prompt, _, _ in level_configs:
+        for level, n, gen_prompt in level_configs:
             if n > 0:
                 generator_tasks.append(
-                    _run_generator(session, api_key, question_model, gen_prompt, ocr_text, analyzer_output, n, level)
+                    _run_generator(
+                        session,
+                        api_key,
+                        question_model,
+                        gen_prompt,
+                        ocr_text,
+                        analyzer_output,
+                        n,
+                        level,
+                    )
                 )
             else:
+
                 async def _empty():
                     return []
+
                 generator_tasks.append(_empty())
 
-        level_questions = list(await asyncio.gather(*generator_tasks, return_exceptions=True))
+        level_questions = list(
+            await asyncio.gather(*generator_tasks, return_exceptions=True)
+        )
 
-        # Handle exceptions in generator results
         for i, result in enumerate(level_questions):
             if isinstance(result, Exception):
                 print(f"  Level {i+1} generator failed: {result}")
                 level_questions[i] = []
 
-        # Step 2: Validate and fix all levels in parallel
+        # Step 2a: Merge all generated questions with sequential IDs
+        all_generated = []
+        for level_idx, questions in enumerate(level_questions):
+            if isinstance(questions, Exception):
+                continue
+            level = level_idx + 1
+            for q in questions:
+                q["level"] = level
+                all_generated.append(q)
+        for idx, q in enumerate(all_generated, 1):
+            q["id"] = idx
+
+        # Step 2b: Classifier (single pass)
+        if doc_ref:
+            doc_ref.update({"status": "classifying"})
+
+        classified, rejected = await _run_classifier(
+            session, api_key, question_model, ocr_text, all_generated
+        )
+
+        # Step 2c: Regenerate rejected levels ONCE
+        rejected_counts = {1: 0, 2: 0, 3: 0}
+        for q in rejected:
+            rejected_counts[q["level"]] += 1
+
+        if any(v > 0 for v in rejected_counts.values()):
+            print(
+                f"  Regenerating rejected questions: "
+                f"L1={rejected_counts[1]}, L2={rejected_counts[2]}, L3={rejected_counts[3]}"
+            )
+            regen_tasks = []
+            regen_levels = []
+            for level, gen_prompt_tup in [
+                (1, LEVEL1_GENERATOR_PROMPT),
+                (2, LEVEL2_GENERATOR_PROMPT),
+                (3, LEVEL3_GENERATOR_PROMPT),
+            ]:
+                count = rejected_counts[level]
+                if count > 0:
+                    regen_levels.append(level)
+                    regen_tasks.append(
+                        _run_generator(
+                            session,
+                            api_key,
+                            question_model,
+                            gen_prompt_tup,
+                            ocr_text,
+                            analyzer_output,
+                            count,
+                            level,
+                        )
+                    )
+
+            regen_results = await asyncio.gather(*regen_tasks, return_exceptions=True)
+
+            # Merge regenerated questions and assign new IDs
+            new_questions = []
+            for i, result in enumerate(regen_results):
+                if isinstance(result, Exception):
+                    print(f"  Level {regen_levels[i]} regeneration failed: {result}")
+                    continue
+                for q in result:
+                    q["level"] = regen_levels[i]
+                    new_questions.append(q)
+
+            start_id = len(classified) + 1
+            for idx, q in enumerate(new_questions, start_id):
+                q["id"] = idx
+
+            # Re-classify regenerated questions (second rejection is final - dropped)
+            if new_questions:
+                reclassified, dropped = await _run_classifier(
+                    session, api_key, question_model, ocr_text, new_questions
+                )
+                if dropped:
+                    print(
+                        f"  {len(dropped)} questions dropped after second classification"
+                    )
+                classified = classified + reclassified
+
+        # Step 2d: Student (single pass)
         if doc_ref:
             doc_ref.update({"status": "validating"})
 
-        async def _val_fix_for_level(i, level, val_prompt, fix_prompt):
-            questions = level_questions[i] if not isinstance(level_questions[i], Exception) else []
-            if not questions:
-                return []
-            return await _validate_and_fix_level(
-                session, api_key, question_model, val_prompt, fix_prompt,
-                ocr_text, analyzer_output, questions, level, max_fix_retries,
+        passed, failed, student_results = await _run_student(
+            session, api_key, question_model, ocr_text, classified
+        )
+
+        # Step 2e: Fixer (single pass, only if there are failures)
+        if failed:
+            fixed = await _run_option_fixer(
+                session,
+                api_key,
+                question_model,
+                ocr_text,
+                analyzer_output,
+                failed,
+                student_results,
             )
+            all_final = passed + fixed
+        else:
+            all_final = passed
 
-        val_fix_tasks = [
-            _val_fix_for_level(i, level, val_prompt, fix_prompt)
-            for i, (level, _, _, val_prompt, fix_prompt) in enumerate(level_configs)
-        ]
-        val_fix_results = await asyncio.gather(*val_fix_tasks, return_exceptions=True)
-
-        final_level_questions = [
-            [] if isinstance(r, Exception) else r
-            for r in val_fix_results
-        ]
-
-    # Step 3: Merge all questions
+    # Step 3: Merge into output format
     all_questions = []
-    for level_idx, questions in enumerate(final_level_questions):
-        level = level_idx + 1
-        for q in questions:
-            all_questions.append({
+    for q in all_final:
+        all_questions.append(
+            {
                 "content": q["question"],
                 "options": q["options"],
                 "correct": q["correct_idx"],
-                "level": level,
+                "level": q["level"],
                 "type": "General",
                 "explanation": "",
-            })
+            }
+        )
 
     # Assign sequential IDs before explanation step
     for idx, q in enumerate(all_questions, 1):
@@ -622,15 +717,16 @@ async def _generate_questions_multi_agent(
     async with aiohttp.ClientSession() as session:
         try:
             questions_text = format_questions_for_explanation(all_questions)
-            full_prompt = (
-                EXPLANATION_PROMPT
-                .replace("{content}", ocr_text)
-                .replace("{questions}", questions_text)
+            full_prompt = EXPLANATION_PROMPT.replace("{content}", ocr_text).replace(
+                "{questions}", questions_text
             )
-            explanation_output = await _call_llm(session, api_key, question_model, full_prompt)
-            explanations = parse_explanation_output(explanation_output, len(all_questions))
+            explanation_output = await _call_llm(
+                session, api_key, question_model, full_prompt
+            )
+            explanations = parse_explanation_output(
+                explanation_output, len(all_questions)
+            )
 
-            # Assign explanations to questions
             for q in all_questions:
                 q_id = q.get("id")
                 if q_id and q_id in explanations:
@@ -645,7 +741,6 @@ async def _generate_questions_multi_agent(
                 if not q.get("explanation"):
                     q["explanation"] = "No explanation available."
 
-    # Extract metadata from analyzer output
     metadata = parse_analyzer_metadata(analyzer_output)
 
     print(f"Multi-agent pipeline completed: {len(all_questions)} total questions")
@@ -674,8 +769,13 @@ async def _generate_questions_async(
         if generation_mode == "multi_agent" and analyzer_output:
             # Full multi-agent pipeline
             all_questions, metadata = await _generate_questions_multi_agent(
-                quiz_id, ocr_text, question_model, analyzer_output,
-                api_key, target_question_count, doc_ref=doc_ref,
+                quiz_id,
+                ocr_text,
+                question_model,
+                analyzer_output,
+                api_key,
+                target_question_count,
+                doc_ref=doc_ref,
             )
 
             if not all_questions:
@@ -685,13 +785,15 @@ async def _generate_questions_async(
             description = metadata.get("description", "")
             topics = metadata.get("topics", [])
 
-            doc_ref.update({
-                "questions": all_questions,
-                "title": title,
-                "description": description,
-                "topics": topics,
-                "status": "ready",
-            })
+            doc_ref.update(
+                {
+                    "questions": all_questions,
+                    "title": title,
+                    "description": description,
+                    "topics": topics,
+                    "status": "ready",
+                }
+            )
 
             print(
                 f"Multi-agent generation completed for quiz {quiz_id}, "
@@ -700,15 +802,14 @@ async def _generate_questions_async(
             )
 
         else:
-            # Single-prompt mode — generate all 3 levels in one call
+            # Single-prompt mode - generate all 3 levels in one call
             n_2 = target_question_count // 3
             n_3 = target_question_count // 3
             n_1 = target_question_count - n_2 - n_3
             total_questions = n_1 + n_2 + n_3
 
             full_prompt = (
-                SINGLE_PROMPT_QUESTION_GENERATION
-                .replace("{text}", ocr_text)
+                SINGLE_PROMPT_QUESTION_GENERATION.replace("{text}", ocr_text)
                 .replace("{n_1}", str(n_1))
                 .replace("{n_2}", str(n_2))
                 .replace("{n_3}", str(n_3))
@@ -716,7 +817,9 @@ async def _generate_questions_async(
             )
 
             async with aiohttp.ClientSession() as session:
-                llm_output = await _call_llm(session, api_key, question_model, full_prompt)
+                llm_output = await _call_llm(
+                    session, api_key, question_model, full_prompt
+                )
 
             parsed_data = parse_llm_output(llm_output)
 
@@ -728,24 +831,26 @@ async def _generate_questions_async(
             description = metadata.get("description", "")
             topics = metadata.get("topics", [])
 
-            doc_ref.update({
-                "questions": [
-                    {
-                        "id": q.id,
-                        "content": q.content,
-                        "options": q.options,
-                        "correct": q.correct,
-                        "explanation": q.explanation,
-                        "type": q.type,
-                        "level": q.level,
-                    }
-                    for q in parsed_data.questions
-                ],
-                "title": title,
-                "description": description,
-                "topics": topics,
-                "status": "ready",
-            })
+            doc_ref.update(
+                {
+                    "questions": [
+                        {
+                            "id": q.id,
+                            "content": q.content,
+                            "options": q.options,
+                            "correct": q.correct,
+                            "explanation": q.explanation,
+                            "type": q.type,
+                            "level": q.level,
+                        }
+                        for q in parsed_data.questions
+                    ],
+                    "title": title,
+                    "description": description,
+                    "topics": topics,
+                    "status": "ready",
+                }
+            )
 
             print(
                 f"Single-prompt generation completed for quiz {quiz_id}, "
@@ -753,7 +858,6 @@ async def _generate_questions_async(
                 f"(L1={n_1}, L2={n_2}, L3={n_3}). "
                 f'Title: "{title}", Topics: [{", ".join(topics)}]'
             )
-
 
         # Delete temporary files after successful question generation
         if delete_files and file_urls:
@@ -766,12 +870,13 @@ async def _generate_questions_async(
                     blob.delete()
                     print(f"Deleted temporary file for quiz {quiz_id}: {decoded_path}")
                 except Exception as delete_error:
-                    print(f"Warning: Failed to delete file for quiz {quiz_id}: {delete_error}")
+                    print(
+                        f"Warning: Failed to delete file for quiz {quiz_id}: {delete_error}"
+                    )
 
     except Exception as e:
         print(f"Question generation error for quiz {quiz_id}: {e}")
         doc_ref.update({"status": "error", "errorMessage": str(e)})
-
 
 
 async def _analyze_async(
@@ -788,13 +893,17 @@ async def _analyze_async(
         full_prompt = ANALYZER_PROMPT.replace("{content}", ocr_text)
 
         async with aiohttp.ClientSession() as session:
-            analyzer_output = await _call_llm(session, api_key, question_model, full_prompt)
+            analyzer_output = await _call_llm(
+                session, api_key, question_model, full_prompt
+            )
 
         # Update quiz with analyzer output and move to generating_quiz stage
-        doc_ref.update({
-            "analyzerOutput": analyzer_output,
-            "status": "generating_quiz",
-        })
+        doc_ref.update(
+            {
+                "analyzerOutput": analyzer_output,
+                "status": "generating_quiz",
+            }
+        )
 
         print(f"Analysis completed for quiz {quiz_id}.")
 
@@ -848,6 +957,7 @@ def analyze_content(
         )
     )
 
+
 @firestore_fn.on_document_updated(
     document="quizzes/{quiz_id}",
     secrets=[OPENROUTER_API_KEY],
@@ -898,9 +1008,7 @@ def generate_questions(
     doc_ref = event.data.after.reference
 
     if not ocr_text:
-        doc_ref.update(
-            {"status": "error", "errorMessage": "No OCR text found"}
-        )
+        doc_ref.update({"status": "error", "errorMessage": "No OCR text found"})
         return
 
     # Run async function in sync context

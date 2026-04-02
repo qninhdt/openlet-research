@@ -6,12 +6,7 @@
       {
         "id": 1,
         "content": "How many times do strangers lie within the first 10 minutes of meeting, according to the text?",
-        "options": [
-          "10 to 200 times",
-          "3 times",
-          "200 times",
-          "10 times"
-        ],
+        "options": ["10 to 200 times", "3 times", "200 times", "10 times"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -19,12 +14,7 @@
       {
         "id": 2,
         "content": "How many times more do men lie about themselves compared to others, as stated in the text?",
-        "options": [
-          "8 times",
-          "5 times",
-          "20 times",
-          "10 times"
-        ],
+        "options": ["8 times", "5 times", "20 times", "10 times"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -32,12 +22,7 @@
       {
         "id": 3,
         "content": "What is the frequency of lying in communications for married individuals, according to the text?",
-        "options": [
-          "1 in 10",
-          "3 in 10",
-          "1 in 3",
-          "1 in 5"
-        ],
+        "options": ["1 in 10", "3 in 10", "1 in 3", "1 in 5"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -58,12 +43,7 @@
       {
         "id": 5,
         "content": "What percentage of lies do trained lie spotters correctly identify, according to the text?",
-        "options": [
-          "10%",
-          "50%",
-          "90%",
-          "54%"
-        ],
+        "options": ["10%", "50%", "90%", "54%"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -140,7 +120,7 @@
           "Modern technology has reduced the need for deception in human interactions, which undermines the claim that lying has evolutionary value by suggesting it is no longer advantageous.",
           "Lying is universally condemned in all historical cultures, which is irrelevant to evolutionary value (the text does not discuss cultural condemnation).",
           "The text discusses lying's evolutionary value through its connection to intelligence, which restates the argument rather than weakening it.",
-          "Species with lower intelligence also exhibit deceptive behaviors that enhance survival in specific ecological niches, which does not weaken the argument—it could even support it by showing deception has broader evolutionary roots."
+          "Species with lower intelligence also exhibit deceptive behaviors that enhance survival in specific ecological niches, which does not weaken the argument-it could even support it by showing deception has broader evolutionary roots."
         ],
         "correct": 0,
         "level": 3,
@@ -196,9 +176,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -209,12 +187,7 @@
       {
         "id": 1,
         "content": "How old is Alberto Torres?",
-        "options": [
-          "37",
-          "4",
-          "19",
-          "13"
-        ],
+        "options": ["37", "4", "19", "13"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -347,9 +320,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 15,
@@ -401,9 +372,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -740,9 +709,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -781,9 +748,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 14,
@@ -820,12 +785,7 @@
       {
         "id": 1,
         "content": "Who wrote a poem about Yueyang Tower that is mentioned in the text?",
-        "options": [
-          "Fan Zhongyan",
-          "Zhang Shuo",
-          "Lu Su",
-          "Teng Zijing"
-        ],
+        "options": ["Fan Zhongyan", "Zhang Shuo", "Lu Su", "Teng Zijing"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -833,12 +793,7 @@
       {
         "id": 2,
         "content": "What is the height of the main tower of Yueyang Tower?",
-        "options": [
-          "30 meters",
-          "21.35 meters",
-          "10 meters",
-          "15 meters"
-        ],
+        "options": ["30 meters", "21.35 meters", "10 meters", "15 meters"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -846,12 +801,7 @@
       {
         "id": 3,
         "content": "In which year was Yueyang Tower rebuilt by General Zhang Shuo?",
-        "options": [
-          "1045",
-          "716",
-          "715",
-          "1044"
-        ],
+        "options": ["1045", "716", "715", "1044"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -1010,9 +960,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -1023,12 +971,7 @@
       {
         "id": 1,
         "content": "How many Americans are estimated to have physical, mental, or other disabilities?",
-        "options": [
-          "50 million",
-          "35 million",
-          "70 million",
-          "10 million"
-        ],
+        "options": ["50 million", "35 million", "70 million", "10 million"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -1036,12 +979,7 @@
       {
         "id": 2,
         "content": "What percentage of disabilities are classified as developmental?",
-        "options": [
-          "25%",
-          "100%",
-          "75%",
-          "50%"
-        ],
+        "options": ["25%", "100%", "75%", "50%"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -1062,12 +1000,7 @@
       {
         "id": 4,
         "content": "What proportion of qualified Americans with disabilities are unemployed?",
-        "options": [
-          "Over 75%",
-          "About 50%",
-          "All of them",
-          "Less than 25%"
-        ],
+        "options": ["Over 75%", "About 50%", "All of them", "Less than 25%"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -1396,8 +1329,8 @@
         "options": [
           "The turtles in the story were able to reach the sea despite the porch lights being on. (Irrelevant to the argument's core claim about porch lights)",
           "Sea turtles have an innate ability to navigate using the moon rather than artificial lights. (Directly counters the threat of porch lights by providing an alternative navigation method)",
-          "The number of houses built on the dunes has decreased significantly in recent years. (Unchanged—logically weak due to lack of evidence)",
-          "Artificial lights are the primary cause of turtle mortality in coastal areas. (Unchanged—strengthens the argument)"
+          "The number of houses built on the dunes has decreased significantly in recent years. (Unchanged-logically weak due to lack of evidence)",
+          "Artificial lights are the primary cause of turtle mortality in coastal areas. (Unchanged-strengthens the argument)"
         ],
         "correct": 1,
         "level": 3,
@@ -1425,12 +1358,7 @@
       {
         "id": 1,
         "content": "At what age did Lieberman begin cooking with his stay-at-home dad?",
-        "options": [
-          "Twelve",
-          "Seven",
-          "Five",
-          "Ten"
-        ],
+        "options": ["Twelve", "Seven", "Five", "Ten"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -1438,12 +1366,7 @@
       {
         "id": 2,
         "content": "Which of the following countries did Lieberman NOT study local specialties in during his year abroad?",
-        "options": [
-          "Spain",
-          "Germany",
-          "France",
-          "Italy"
-        ],
+        "options": ["Spain", "Germany", "France", "Italy"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -1550,9 +1473,7 @@
         ],
         "correct": 2,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -1617,9 +1538,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -1643,12 +1562,7 @@
       {
         "id": 2,
         "content": "On which date will Danielle and Marina NOT work with new test takers?",
-        "options": [
-          "29th, Nov",
-          "3rd, Jan",
-          "15th, Nov",
-          "10th, Dec"
-        ],
+        "options": ["29th, Nov", "3rd, Jan", "15th, Nov", "10th, Dec"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -1807,10 +1721,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       },
       {
         "id": 25,
@@ -1823,9 +1734,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -1849,12 +1758,7 @@
       {
         "id": 2,
         "content": "Who were the narrator's first words directed to after waking up?",
-        "options": [
-          "Marcus",
-          "Their mother",
-          "A friend",
-          "A doctor"
-        ],
+        "options": ["Marcus", "Their mother", "A friend", "A doctor"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -1888,12 +1792,7 @@
       {
         "id": 5,
         "content": "How old is the narrator now?",
-        "options": [
-          "46",
-          "50",
-          "40",
-          "30"
-        ],
+        "options": ["46", "50", "40", "30"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -2026,9 +1925,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -2164,13 +2061,11 @@
         ],
         "correct": 1,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 13,
-        "content": "The author’s second lesson—that his professional training almost prevented him from acting—relies on which unstated premise?",
+        "content": "The author’s second lesson-that his professional training almost prevented him from acting-relies on which unstated premise?",
         "options": [
           "That the author’s friend’s family would have provided adequate support regardless.",
           "That legal training inherently suppresses emotional responses.",
@@ -2196,7 +2091,7 @@
       },
       {
         "id": 20,
-        "content": "The author’s second lesson—that his professional training almost prevented him from acting—depends on which of the following unstated premises?",
+        "content": "The author’s second lesson-that his professional training almost prevented him from acting-depends on which of the following unstated premises?",
         "options": [
           "The author’s friend’s family would have provided sufficient support regardless of his presence.",
           "The author believed that professional training inherently fosters emotional detachment in crisis situations.",
@@ -2231,9 +2126,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -2356,9 +2249,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 25,
@@ -2384,9 +2275,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 12,
@@ -2438,9 +2327,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -2563,9 +2450,7 @@
         ],
         "correct": 3,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 36,
@@ -2578,9 +2463,7 @@
         ],
         "correct": 3,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 21,
@@ -2597,7 +2480,7 @@
       },
       {
         "id": 22,
-        "content": "If the principle in Passage 1—that joy is available in everyday moments—were applied to the author of Passage 2’s life, which outcome would most directly contradict their argument?",
+        "content": "If the principle in Passage 1-that joy is available in everyday moments-were applied to the author of Passage 2’s life, which outcome would most directly contradict their argument?",
         "options": [
           "The author would find joy in mundane activities like commuting or eating.",
           "The author would experience the present as a constant source of bliss despite their skepticism.",
@@ -2645,9 +2528,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -2658,12 +2539,7 @@
       {
         "id": 1,
         "content": "What crime was Bernard Jackson wrongly convicted of?",
-        "options": [
-          "Murder",
-          "Assault",
-          "Theft",
-          "Rape"
-        ],
+        "options": ["Murder", "Assault", "Theft", "Rape"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -2671,12 +2547,7 @@
       {
         "id": 2,
         "content": "How many witnesses testified that Bernard Jackson was not at the crime scene?",
-        "options": [
-          "Two",
-          "One",
-          "Three",
-          "Four"
-        ],
+        "options": ["Two", "One", "Three", "Four"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -2783,9 +2654,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 12,
@@ -2811,9 +2680,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 15,
@@ -2839,9 +2706,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 20,
@@ -2990,9 +2855,7 @@
         ],
         "correct": 1,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -3081,12 +2944,7 @@
       {
         "id": 2,
         "content": "What percentage of Brisbane residents reported being upset by noise according to the survey?",
-        "options": [
-          "25%",
-          "100%",
-          "50%",
-          "75%"
-        ],
+        "options": ["25%", "100%", "50%", "75%"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -3269,12 +3127,7 @@
       {
         "id": 1,
         "content": "What else does Matt grow in his garden besides vegetables and fruit?",
-        "options": [
-          "Mushrooms",
-          "Fish",
-          "Flowers",
-          "[Removed - Trees]"
-        ],
+        "options": ["Mushrooms", "Fish", "Flowers", "[Removed - Trees]"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -3394,9 +3247,7 @@
         ],
         "correct": 3,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -3435,9 +3286,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 15,
@@ -3463,9 +3312,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -3489,12 +3336,7 @@
       {
         "id": 2,
         "content": "Which city was nearly destroyed by a fire that started in a baker's shop in the 17th century?",
-        "options": [
-          "Moscow",
-          "Paris",
-          "London",
-          "Rome"
-        ],
+        "options": ["Moscow", "Paris", "London", "Rome"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -3515,12 +3357,7 @@
       {
         "id": 4,
         "content": "How long did the fire in Moscow during the war against Napoleon burn?",
-        "options": [
-          "One day",
-          "Ten days",
-          "Seven days",
-          "Three days"
-        ],
+        "options": ["One day", "Ten days", "Seven days", "Three days"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -3653,9 +3490,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 25,
@@ -3668,9 +3503,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -3694,12 +3527,7 @@
       {
         "id": 2,
         "content": "At what age did Artie Shaw start playing the saxophone?",
-        "options": [
-          "Thirteen",
-          "Fifteen",
-          "Eighteen",
-          "Fourteen"
-        ],
+        "options": ["Thirteen", "Fifteen", "Eighteen", "Fourteen"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -3806,9 +3634,7 @@
         ],
         "correct": 1,
         "level": 2,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 12,
@@ -3873,9 +3699,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -3912,12 +3736,7 @@
       {
         "id": 3,
         "content": "How many students were in the author's sixth-grade class?",
-        "options": [
-          "Twenty",
-          "Fifteen",
-          "Twelve",
-          "Twenty-two"
-        ],
+        "options": ["Twenty", "Fifteen", "Twelve", "Twenty-two"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -4063,9 +3882,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 42,
@@ -4089,12 +3906,7 @@
       {
         "id": 1,
         "content": "Who invented agriculture according to the text?",
-        "options": [
-          "Men",
-          "Scientists",
-          "Archeologists",
-          "Women"
-        ],
+        "options": ["Men", "Scientists", "Archeologists", "Women"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -4128,12 +3940,7 @@
       {
         "id": 4,
         "content": "What did women plant to enable them to stay at home?",
-        "options": [
-          "Machines",
-          "Guns",
-          "Animals",
-          "Roots and fruit trees"
-        ],
+        "options": ["Machines", "Guns", "Animals", "Roots and fruit trees"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -4214,9 +4021,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 12,
@@ -4482,9 +4287,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -4521,12 +4324,7 @@
       {
         "id": 3,
         "content": "Which of the following is required to make invisible ink using baking soda?",
-        "options": [
-          "Vinegar",
-          "Purple grape juice",
-          "Salt",
-          "Lemon juice"
-        ],
+        "options": ["Vinegar", "Purple grape juice", "Salt", "Lemon juice"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -4547,12 +4345,7 @@
       {
         "id": 5,
         "content": "What heat source is recommended for reading the invisible message?",
-        "options": [
-          "A microwave",
-          "A candle",
-          "A stove",
-          "A light bulb"
-        ],
+        "options": ["A microwave", "A candle", "A stove", "A light bulb"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -4696,12 +4489,7 @@
       {
         "id": 1,
         "content": "What is the term used to describe the pull of the earth?",
-        "options": [
-          "Magnetism",
-          "Friction",
-          "Centrifugal force",
-          "Gravity"
-        ],
+        "options": ["Magnetism", "Friction", "Centrifugal force", "Gravity"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -5035,9 +4823,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 18,
@@ -5050,9 +4836,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 23,
@@ -5091,9 +4875,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -5104,12 +4886,7 @@
       {
         "id": 1,
         "content": "How old is Jordan Romero, the youngest climber to conquer Mount Everest?",
-        "options": [
-          "18",
-          "16",
-          "20",
-          "13"
-        ],
+        "options": ["18", "16", "20", "13"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -5117,12 +4894,7 @@
       {
         "id": 2,
         "content": "How many times has Apa Sherpa reached the summit of Mount Everest according to the text?",
-        "options": [
-          "25",
-          "15",
-          "20",
-          "19"
-        ],
+        "options": ["25", "15", "20", "19"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -5130,12 +4902,7 @@
       {
         "id": 3,
         "content": "Which country does not impose an age restriction for climbing Mount Everest?",
-        "options": [
-          "China",
-          "Tibet",
-          "Nepal",
-          "United States"
-        ],
+        "options": ["China", "Tibet", "Nepal", "United States"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -5143,12 +4910,7 @@
       {
         "id": 4,
         "content": "Which mountain does Jordan Romero need to climb to achieve his goal of summiting the highest peaks on all seven continents?",
-        "options": [
-          "Vinson Massif",
-          "Denali",
-          "K2",
-          "Mount Kilimanjaro"
-        ],
+        "options": ["Vinson Massif", "Denali", "K2", "Mount Kilimanjaro"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -5281,9 +5043,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 21,
@@ -5333,12 +5093,7 @@
       {
         "id": 3,
         "content": "What percentage of hearing did Jenny regain after her ear operations?",
-        "options": [
-          "80%",
-          "60%",
-          "70%",
-          "50%"
-        ],
+        "options": ["80%", "60%", "70%", "50%"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -5497,9 +5252,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -5523,12 +5276,7 @@
       {
         "id": 2,
         "content": "How many people were kidnapped in the incident?",
-        "options": [
-          "Four",
-          "Two",
-          "Three",
-          "Five"
-        ],
+        "options": ["Four", "Two", "Three", "Five"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -5682,7 +5430,7 @@
         "options": [
           "The argument assumes responsibility for the kidnapping based solely on the Taliban's stated intent to continue holy war, without evidence of their actual involvement.",
           "The argument does not require the kidnapping to occur after US troops left Afghanistan; this is irrelevant to the flaw.",
-          "While the argument does not establish direct targeting, this is not the core flaw—it is a secondary issue.",
+          "While the argument does not establish direct targeting, this is not the core flaw-it is a secondary issue.",
           "The argument does not equate the kidnapping with a holy war against Iran and Pakistan; this misrepresents the scenario."
         ],
         "correct": 0,
@@ -5700,9 +5448,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -5765,12 +5511,7 @@
       {
         "id": 16,
         "content": "How old was Daniel Defoe when he wrote *Robinson Crusoe*?",
-        "options": [
-          "45",
-          "30",
-          "60",
-          "70"
-        ],
+        "options": ["45", "30", "60", "70"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -5914,12 +5655,7 @@
       {
         "id": 1,
         "content": "How many years has The Times existed before changing its size?",
-        "options": [
-          "100",
-          "1000",
-          "500",
-          "221"
-        ],
+        "options": ["100", "1000", "500", "221"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -5927,12 +5663,7 @@
       {
         "id": 2,
         "content": "What type of paper did The Times switch to?",
-        "options": [
-          "Weekly",
-          "Tabloid",
-          "Digital",
-          "Broadsheet"
-        ],
+        "options": ["Weekly", "Tabloid", "Digital", "Broadsheet"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -5940,12 +5671,7 @@
       {
         "id": 3,
         "content": "When did The Independent change to tabloid?",
-        "options": [
-          "Next year",
-          "Last month",
-          "Two years ago",
-          "Last year"
-        ],
+        "options": ["Next year", "Last month", "Two years ago", "Last year"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -5953,12 +5679,7 @@
       {
         "id": 4,
         "content": "What term does The Times use to describe its new size?",
-        "options": [
-          "Tabloid",
-          "Reduced",
-          "Compact",
-          "Miniature"
-        ],
+        "options": ["Tabloid", "Reduced", "Compact", "Miniature"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -5966,12 +5687,7 @@
       {
         "id": 5,
         "content": "Which newspaper is described as Britain’s best-selling tabloid?",
-        "options": [
-          "The Guardian",
-          "The Times",
-          "The Sun",
-          "Daily Telegraph"
-        ],
+        "options": ["The Guardian", "The Times", "The Sun", "Daily Telegraph"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -6039,9 +5755,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 15,
@@ -6106,9 +5820,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -6119,12 +5831,7 @@
       {
         "id": 1,
         "content": "According to the report, how many deaths occur annually due to global warming?",
-        "options": [
-          "$125 billion",
-          "325 million",
-          "300,000",
-          "90%"
-        ],
+        "options": ["$125 billion", "325 million", "300,000", "90%"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -6132,12 +5839,7 @@
       {
         "id": 2,
         "content": "What percentage of human and economic losses from climate change occur in poor countries, per the report?",
-        "options": [
-          "75%",
-          "90%",
-          "100%",
-          "50%"
-        ],
+        "options": ["75%", "90%", "100%", "50%"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -6145,12 +5847,7 @@
       {
         "id": 3,
         "content": "By what year does the report project that the number of people seriously affected by climate change will double?",
-        "options": [
-          "2040",
-          "2025",
-          "2050",
-          "2030"
-        ],
+        "options": ["2040", "2025", "2050", "2030"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -6171,12 +5868,7 @@
       {
         "id": 5,
         "content": "On what day of the week was the report scheduled for release?",
-        "options": [
-          "Friday",
-          "Monday",
-          "Wednesday",
-          "Sunday"
-        ],
+        "options": ["Friday", "Monday", "Wednesday", "Sunday"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -6218,9 +5910,7 @@
         ],
         "correct": 1,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 39,
@@ -6233,9 +5923,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 40,
@@ -6300,9 +5988,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 41,
@@ -6365,12 +6051,7 @@
       {
         "id": 4,
         "content": "How many years of soft skills training experience does Schouten & Nielsen provide for the MBA program?",
-        "options": [
-          "40 years",
-          "10 years",
-          "20 years",
-          "30 years"
-        ],
+        "options": ["40 years", "10 years", "20 years", "30 years"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -6540,12 +6221,7 @@
       {
         "id": 2,
         "content": "How many years did Noah Webster spend creating his dictionary?",
-        "options": [
-          "20 years",
-          "30 years",
-          "28 years",
-          "10 years"
-        ],
+        "options": ["20 years", "30 years", "28 years", "10 years"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -6652,9 +6328,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -7056,9 +6730,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -7147,12 +6819,7 @@
       {
         "id": 2,
         "content": "What is the federal income tax rate for salaries above $17,850 according to the text?",
-        "options": [
-          "10%",
-          "35%",
-          "28%",
-          "15%"
-        ],
+        "options": ["10%", "35%", "28%", "15%"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -7324,9 +6991,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -7337,12 +7002,7 @@
       {
         "id": 1,
         "content": "What percentage of women in the United States work outside the home?",
-        "options": [
-          "75%",
-          "50%",
-          "100%",
-          "25%"
-        ],
+        "options": ["75%", "50%", "100%", "25%"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -7350,12 +7010,7 @@
       {
         "id": 2,
         "content": "What percentage of housework do working wives in the United States do?",
-        "options": [
-          "50%",
-          "25%",
-          "75%",
-          "100%"
-        ],
+        "options": ["50%", "25%", "75%", "100%"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -7501,9 +7156,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 24,
@@ -7516,9 +7169,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 26,
@@ -7531,10 +7182,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       }
     ]
   },
@@ -7618,9 +7266,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 7,
@@ -7698,9 +7344,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 14,
@@ -7739,9 +7383,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -7765,12 +7407,7 @@
       {
         "id": 3,
         "content": "According to the professor, what is life compared to?",
-        "options": [
-          "A job",
-          "Money",
-          "A cup",
-          "Hot chocolate"
-        ],
+        "options": ["A job", "Money", "A cup", "Hot chocolate"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -7877,10 +7514,7 @@
         ],
         "correct": 3,
         "level": 2,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       },
       {
         "id": 11,
@@ -7945,9 +7579,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -7971,12 +7603,7 @@
       {
         "id": 2,
         "content": "In what year did Shane Stedman sell the rights to Ugg boots to Deckers?",
-        "options": [
-          "1990",
-          "1983",
-          "1973",
-          "2000"
-        ],
+        "options": ["1990", "1983", "1973", "2000"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -8010,12 +7637,7 @@
       {
         "id": 16,
         "content": "In what year did Shane Stedman sell the rights to Ugg boots to Deckers?",
-        "options": [
-          "1973",
-          "1990",
-          "1983",
-          "2000"
-        ],
+        "options": ["1973", "1990", "1983", "2000"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -8148,9 +7770,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -8161,12 +7781,7 @@
       {
         "id": 1,
         "content": "What is the price of the Generic Elementary School-pak for first through fifth graders?",
-        "options": [
-          "$15.00",
-          "$10.00",
-          "$30.00",
-          "$23.28"
-        ],
+        "options": ["$15.00", "$10.00", "$30.00", "$23.28"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -8325,9 +7940,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 42,
@@ -8340,9 +7953,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 43,
@@ -8355,9 +7966,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -8497,7 +8106,7 @@
       },
       {
         "id": 22,
-        "content": "If the principle described in the text—that financial independence enables women to choose their own husbands—were applied to a society where women traditionally rely on male relatives for support, what would likely occur?",
+        "content": "If the principle described in the text-that financial independence enables women to choose their own husbands-were applied to a society where women traditionally rely on male relatives for support, what would likely occur?",
         "options": [
           "Women would still choose their husbands but face social pressure to marry wealthy men.",
           "Women would prioritize financial independence over family approval when choosing husbands.",
@@ -8523,7 +8132,7 @@
       },
       {
         "id": 33,
-        "content": "If the principle described in the text—that financial independence enables women to choose their own husbands—were applied to a society where women traditionally rely on male relatives for support, what would likely occur?",
+        "content": "If the principle described in the text-that financial independence enables women to choose their own husbands-were applied to a society where women traditionally rely on male relatives for support, what would likely occur?",
         "options": [
           "Women would still choose their husbands independently, as financial independence overrides cultural norms.",
           "Women would choose husbands based on family approval rather than personal preference.",
@@ -8545,13 +8154,11 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 36,
-        "content": "If the principle described in the text—that financial independence enables women to choose their own husbands—were applied to a society where women traditionally rely on male relatives for support, what would most likely occur?",
+        "content": "If the principle described in the text-that financial independence enables women to choose their own husbands-were applied to a society where women traditionally rely on male relatives for support, what would most likely occur?",
         "options": [
           "The principle would fail because male relatives might pressure women to marry for familial approval rather than personal choice.",
           "Women would still choose husbands based on financial stability, as the principle prioritizes economic factors.",
@@ -8735,9 +8342,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 36,
@@ -8750,9 +8355,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 37,
@@ -8765,9 +8368,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -9370,9 +8971,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       }
     ]
   },
@@ -9396,12 +8995,7 @@
       {
         "id": 2,
         "content": "Where is coffee native to?",
-        "options": [
-          "Arabia",
-          "South America",
-          "Ethiopia",
-          "Peru"
-        ],
+        "options": ["Arabia", "South America", "Ethiopia", "Peru"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -9409,12 +9003,7 @@
       {
         "id": 3,
         "content": "When did Arabs first make coffee into a drink?",
-        "options": [
-          "1845",
-          "1600s",
-          "1400s",
-          "1500s"
-        ],
+        "options": ["1845", "1600s", "1400s", "1500s"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -9422,12 +9011,7 @@
       {
         "id": 4,
         "content": "Which country brought the potato to Europe from Peru?",
-        "options": [
-          "Spain",
-          "Brazil",
-          "Ireland",
-          "Ethiopia"
-        ],
+        "options": ["Spain", "Brazil", "Ireland", "Ethiopia"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -9435,12 +9019,7 @@
       {
         "id": 5,
         "content": "What caused the Irish potato famine?",
-        "options": [
-          "Crop failure",
-          "Disease",
-          "War",
-          "Overpopulation"
-        ],
+        "options": ["Crop failure", "Disease", "War", "Overpopulation"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -9774,10 +9353,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       }
     ]
   },
@@ -9788,12 +9364,7 @@
       {
         "id": 1,
         "content": "How many women did Lance Gerrard-Wright date on the show *Mr. Right*?",
-        "options": [
-          "5",
-          "20",
-          "10",
-          "15"
-        ],
+        "options": ["5", "20", "10", "15"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -9801,12 +9372,7 @@
       {
         "id": 2,
         "content": "Who was the host of the TV show *Mr. Right*?",
-        "options": [
-          "Ulrika Jonsson",
-          "Lance Gerrard-Wright",
-          "Bo",
-          "Cameron"
-        ],
+        "options": ["Ulrika Jonsson", "Lance Gerrard-Wright", "Bo", "Cameron"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -9840,12 +9406,7 @@
       {
         "id": 5,
         "content": "How many children did Ulrika Jonsson have from previous relationships?",
-        "options": [
-          "Two",
-          "Three",
-          "One",
-          "None"
-        ],
+        "options": ["Two", "Three", "One", "None"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -9978,10 +9539,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       }
     ]
   },
@@ -10104,9 +9662,7 @@
         ],
         "correct": 2,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 28,
@@ -10195,12 +9751,7 @@
       {
         "id": 1,
         "content": "According to the text, what percentage of drowning accidents happen in the summer?",
-        "options": [
-          "Three-quarters",
-          "One-third",
-          "Two-thirds",
-          "Half"
-        ],
+        "options": ["Three-quarters", "One-third", "Two-thirds", "Half"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -10221,12 +9772,7 @@
       {
         "id": 3,
         "content": "What percentage reduction in head injury risk is associated with wearing a helmet, according to the text?",
-        "options": [
-          "90%",
-          "80%",
-          "95%",
-          "85%"
-        ],
+        "options": ["90%", "80%", "95%", "85%"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -10346,9 +9892,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 20,
@@ -10374,9 +9918,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 28,
@@ -10389,9 +9931,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -10592,9 +10132,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -10657,12 +10195,7 @@
       {
         "id": 5,
         "content": "What did the Cuban pass around before throwing them out?",
-        "options": [
-          "Money",
-          "Havana cigars",
-          "Vodka",
-          "A map of Cuba"
-        ],
+        "options": ["Money", "Havana cigars", "Vodka", "A map of Cuba"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -10795,9 +10328,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       }
     ]
   },
@@ -10821,12 +10352,7 @@
       {
         "id": 2,
         "content": "What material was Zip's first present made of?",
-        "options": [
-          "Green silk",
-          "Yellow leather",
-          "Red wool",
-          "Blue cotton"
-        ],
+        "options": ["Green silk", "Yellow leather", "Red wool", "Blue cotton"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -10933,9 +10459,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -11337,9 +10861,7 @@
         ],
         "correct": 1,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -11428,12 +10950,7 @@
       {
         "id": 2,
         "content": "What percentage of Chinese men smoke more than 15 cigarettes each day, as stated in the text?",
-        "options": [
-          "70%",
-          "30%",
-          "50%",
-          "25%"
-        ],
+        "options": ["70%", "30%", "50%", "25%"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -11441,12 +10958,7 @@
       {
         "id": 3,
         "content": "How many deaths occur worldwide each year from smoking, according to the study?",
-        "options": [
-          "3 million",
-          "1 million",
-          "5 million",
-          "10 million"
-        ],
+        "options": ["3 million", "1 million", "5 million", "10 million"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -11454,12 +10966,7 @@
       {
         "id": 4,
         "content": "What percentage of global smoking deaths occur in Russia and Eastern Europe, as stated in the text?",
-        "options": [
-          "10%",
-          "75%",
-          "25%",
-          "50%"
-        ],
+        "options": ["10%", "75%", "25%", "50%"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -11540,9 +11047,7 @@
         ],
         "correct": 3,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 13,
@@ -11618,12 +11123,7 @@
       {
         "id": 1,
         "content": "When will the ban on tobacco vending machines in England take effect?",
-        "options": [
-          "Today",
-          "Tomorrow",
-          "Last year",
-          "Next month"
-        ],
+        "options": ["Today", "Tomorrow", "Last year", "Next month"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -11631,12 +11131,7 @@
       {
         "id": 2,
         "content": "What percentage of 11-to-15-year-old regular smokers in England and Wales obtain cigarettes from vending machines?",
-        "options": [
-          "50%",
-          "20%",
-          "11%",
-          "5%"
-        ],
+        "options": ["50%", "20%", "11%", "5%"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -11644,12 +11139,7 @@
       {
         "id": 3,
         "content": "Which region is implementing the first European ban on selling cigarettes from vending machines?",
-        "options": [
-          "Spain",
-          "France",
-          "England",
-          "Germany"
-        ],
+        "options": ["Spain", "France", "England", "Germany"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -11808,9 +11298,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       }
     ]
   },
@@ -12011,9 +11499,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       }
     ]
   },
@@ -12024,12 +11510,7 @@
       {
         "id": 1,
         "content": "How much does the Healthy Families Program charge per adult?",
-        "options": [
-          "$10.00",
-          "$15.00",
-          "$7.00",
-          "$5.00"
-        ],
+        "options": ["$10.00", "$15.00", "$7.00", "$5.00"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -12076,12 +11557,7 @@
       {
         "id": 5,
         "content": "What is the monthly cost for a family with one child and one adult under the Healthy Families Program?",
-        "options": [
-          "$15.00",
-          "$20.00",
-          "$17.00",
-          "$12.00"
-        ],
+        "options": ["$15.00", "$20.00", "$17.00", "$12.00"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -12251,12 +11727,7 @@
       {
         "id": 3,
         "content": "In what year did Beaver College rebrand as Arcadia University?",
-        "options": [
-          "2000",
-          "2001",
-          "2002",
-          "1999"
-        ],
+        "options": ["2000", "2001", "2002", "1999"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -12264,12 +11735,7 @@
       {
         "id": 4,
         "content": "What improvement in test scores did Arcadia University report after its name change?",
-        "options": [
-          "50 points",
-          "70 points",
-          "30 points",
-          "60 points"
-        ],
+        "options": ["50 points", "70 points", "30 points", "60 points"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -12415,9 +11881,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       }
     ]
   },
@@ -12428,12 +11892,7 @@
       {
         "id": 1,
         "content": "Which nationality of scientists discovered a bacteria linked to obesity?",
-        "options": [
-          "Chinese",
-          "French",
-          "British",
-          "American"
-        ],
+        "options": ["Chinese", "French", "British", "American"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -12454,12 +11913,7 @@
       {
         "id": 3,
         "content": "How much weight did the patient lose after treatment?",
-        "options": [
-          "23 kg",
-          "51.4 kg",
-          "35 kg",
-          "175 kg"
-        ],
+        "options": ["23 kg", "51.4 kg", "35 kg", "175 kg"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -12618,9 +12072,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -12631,12 +12083,7 @@
       {
         "id": 1,
         "content": "How many customers of CD Universe were affected by the credit-card information breach?",
-        "options": [
-          "25,000",
-          "1",
-          "78",
-          "157,828"
-        ],
+        "options": ["25,000", "1", "78", "157,828"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -12644,12 +12091,7 @@
       {
         "id": 2,
         "content": "What is the maximum amount a cardholder must pay for fraudulent spending under British law, according to the text?",
-        "options": [
-          "$25,000",
-          "$1",
-          "$157,828",
-          "$78"
-        ],
+        "options": ["$25,000", "$1", "$157,828", "$78"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -12756,9 +12198,7 @@
         ],
         "correct": 1,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -12823,9 +12263,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       }
     ]
   },
@@ -12862,12 +12300,7 @@
       {
         "id": 3,
         "content": "How many watermelons did Bobby find for sale?",
-        "options": [
-          "58.",
-          "2.",
-          "10.",
-          "340."
-        ],
+        "options": ["58.", "2.", "10.", "340."],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -13026,9 +12459,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -13091,12 +12522,7 @@
       {
         "id": 5,
         "content": "On what day of the week did the narrator and their wife stop at the restaurant?",
-        "options": [
-          "Monday.",
-          "Friday.",
-          "Saturday.",
-          "Sunday."
-        ],
+        "options": ["Monday.", "Friday.", "Saturday.", "Sunday."],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -13190,9 +12616,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 14,
@@ -13231,9 +12655,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -13244,12 +12666,7 @@
       {
         "id": 1,
         "content": "Which of the following countries are eligible to participate in the European Work Experience Program?",
-        "options": [
-          "Canada",
-          "Norway",
-          "Japan",
-          "United States"
-        ],
+        "options": ["Canada", "Norway", "Japan", "United States"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -13283,12 +12700,7 @@
       {
         "id": 4,
         "content": "What is the total fee for the European Work Experience Program services?",
-        "options": [
-          "£300",
-          "£394.35",
-          "£200",
-          "£264.63"
-        ],
+        "options": ["£300", "£394.35", "£200", "£264.63"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -13369,9 +12781,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 21,
@@ -13460,12 +12870,7 @@
       {
         "id": 2,
         "content": "What did Marisol Torres study after her marriage ended?",
-        "options": [
-          "Architecture",
-          "Cooking",
-          "Precious stones",
-          "Astronomy"
-        ],
+        "options": ["Architecture", "Cooking", "Precious stones", "Astronomy"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -13473,12 +12878,7 @@
       {
         "id": 3,
         "content": "What illness did Marisol Torres have that required her to return south?",
-        "options": [
-          "Arthritis",
-          "Cancer",
-          "Diabetes",
-          "Heart disease"
-        ],
+        "options": ["Arthritis", "Cancer", "Diabetes", "Heart disease"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -13637,9 +13037,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -13840,9 +13238,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       }
     ]
   },
@@ -13866,12 +13262,7 @@
       {
         "id": 2,
         "content": "When will the ban on drinking games like the \"dentist's chair\" begin in Britain?",
-        "options": [
-          "December",
-          "October",
-          "January",
-          "April"
-        ],
+        "options": ["December", "October", "January", "April"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -14231,10 +13622,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       },
       {
         "id": 25,
@@ -14247,9 +13635,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -14260,12 +13646,7 @@
       {
         "id": 1,
         "content": "What was the average distance referees were from the action when they made errors?",
-        "options": [
-          "12 meters",
-          "17 meters",
-          "25 meters",
-          "20 meters"
-        ],
+        "options": ["12 meters", "17 meters", "25 meters", "20 meters"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -14286,12 +13667,7 @@
       {
         "id": 3,
         "content": "What was the average distance referees were from the action during correct decisions?",
-        "options": [
-          "12 meters",
-          "20 meters",
-          "15 meters",
-          "17 meters"
-        ],
+        "options": ["12 meters", "20 meters", "15 meters", "17 meters"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -14385,9 +13761,7 @@
         ],
         "correct": 2,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -14463,12 +13837,7 @@
       {
         "id": 1,
         "content": "When did the exhibition \"Hitler and the Germans\" open?",
-        "options": [
-          "On Friday",
-          "On Saturday",
-          "On Monday",
-          "On Tuesday"
-        ],
+        "options": ["On Friday", "On Saturday", "On Monday", "On Tuesday"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -14476,12 +13845,7 @@
       {
         "id": 2,
         "content": "How many visitors attended the exhibition on its first day?",
-        "options": [
-          "10,000",
-          "4,000",
-          "5,000",
-          "1,000"
-        ],
+        "options": ["10,000", "4,000", "5,000", "1,000"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -14575,9 +13939,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 36,
@@ -14590,9 +13952,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 13,
@@ -14676,9 +14036,7 @@
         ],
         "correct": 1,
         "level": 1,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 2,
@@ -14847,9 +14205,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 28,
@@ -14886,12 +14242,7 @@
       {
         "id": 2,
         "content": "What type of molecules are the drugs produced by the engineered chickens?",
-        "options": [
-          "Proteins",
-          "Nucleic acids",
-          "Lipids",
-          "Carbohydrates"
-        ],
+        "options": ["Proteins", "Nucleic acids", "Lipids", "Carbohydrates"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -14998,9 +14349,7 @@
         ],
         "correct": 2,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 29,
@@ -15052,9 +14401,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 40,
@@ -15067,9 +14414,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -15093,12 +14438,7 @@
       {
         "id": 2,
         "content": "How old was the narrator when he was arrested?",
-        "options": [
-          "19",
-          "21",
-          "17",
-          "23"
-        ],
+        "options": ["19", "21", "17", "23"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -15257,9 +14597,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 28,
@@ -15272,9 +14610,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -15311,12 +14647,7 @@
       {
         "id": 3,
         "content": "How many lost years of life would switching to low-polluting cars save in London per million residents, according to the text?",
-        "options": [
-          "160",
-          "12,500",
-          "7,300",
-          "1,700"
-        ],
+        "options": ["160", "12,500", "7,300", "1,700"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -15410,9 +14741,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 20,
@@ -15425,9 +14754,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 21,
@@ -15440,9 +14767,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 22,
@@ -15481,10 +14806,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       }
     ]
   },
@@ -15508,12 +14830,7 @@
       {
         "id": 2,
         "content": "In which year did some New York City restaurants start banning food photography?",
-        "options": [
-          "2014",
-          "2012",
-          "2015",
-          "2013"
-        ],
+        "options": ["2014", "2012", "2015", "2013"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -15672,9 +14989,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 26,
@@ -15687,9 +15002,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -15700,12 +15013,7 @@
       {
         "id": 1,
         "content": "What did Farmer John find between the two farms that made him suspect Bob?",
-        "options": [
-          "A carpenter",
-          "A fence",
-          "A stream",
-          "A bridge"
-        ],
+        "options": ["A carpenter", "A fence", "A stream", "A bridge"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -15713,12 +15021,7 @@
       {
         "id": 2,
         "content": "What did the carpenter actually build instead of the fence Farmer John requested?",
-        "options": [
-          "A road",
-          "A wall",
-          "A gate",
-          "A bridge"
-        ],
+        "options": ["A road", "A wall", "A gate", "A bridge"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -15739,12 +15042,7 @@
       {
         "id": 4,
         "content": "What did the carpenter build that surprised Farmer John?",
-        "options": [
-          "A fence",
-          "A gate",
-          "A wall",
-          "A bridge"
-        ],
+        "options": ["A fence", "A gate", "A wall", "A bridge"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -16039,9 +15337,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 24,
@@ -16093,9 +15389,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -16111,12 +15405,7 @@
       {
         "id": 1,
         "content": "What was the name of the horse the man bet on at the races?",
-        "options": [
-          "Jenny",
-          "Tom",
-          "Bella",
-          "Max"
-        ],
+        "options": ["Jenny", "Tom", "Bella", "Max"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -16163,12 +15452,7 @@
       {
         "id": 5,
         "content": "What did the wife say she was becoming after listing the hardships?",
-        "options": [
-          "Brave",
-          "Happy",
-          "Lucky",
-          "Bad luck"
-        ],
+        "options": ["Brave", "Happy", "Lucky", "Bad luck"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -16437,9 +15721,7 @@
         ],
         "correct": 3,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -16567,12 +15849,7 @@
       {
         "id": 5,
         "content": "What is the minimum word count for an essay in the Centerville High School Essay Contest?",
-        "options": [
-          "400 words",
-          "700 words",
-          "500 words",
-          "600 words"
-        ],
+        "options": ["400 words", "700 words", "500 words", "600 words"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -16705,10 +15982,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       }
     ]
   },
@@ -16831,9 +16105,7 @@
         ],
         "correct": 1,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 37,
@@ -16935,12 +16207,7 @@
       {
         "id": 2,
         "content": "Which country is planting a wall around Nouakchott to prevent desert growth?",
-        "options": [
-          "India",
-          "USSR",
-          "Iran",
-          "Algeria"
-        ],
+        "options": ["India", "USSR", "Iran", "Algeria"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -17060,9 +16327,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 12,
@@ -17339,12 +16604,7 @@
       {
         "id": 2,
         "content": "How many commands does Jeannie understand?",
-        "options": [
-          "100",
-          "25",
-          "50",
-          "72 or more"
-        ],
+        "options": ["100", "25", "50", "72 or more"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -17464,9 +16724,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 28,
@@ -17492,10 +16750,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       },
       {
         "id": 31,
@@ -17521,9 +16776,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -17534,12 +16787,7 @@
       {
         "id": 1,
         "content": "How many high hats did the student prepare for the officials?",
-        "options": [
-          "50",
-          "10",
-          "100",
-          "200"
-        ],
+        "options": ["50", "10", "100", "200"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -17586,12 +16834,7 @@
       {
         "id": 16,
         "content": "How many high hats did the student prepare for the officials?",
-        "options": [
-          "None",
-          "A hundred",
-          "Ten",
-          "One"
-        ],
+        "options": ["None", "A hundred", "Ten", "One"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -17620,9 +16863,7 @@
         ],
         "correct": 1,
         "level": 2,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 10,
@@ -17789,12 +17030,7 @@
       {
         "id": 5,
         "content": "Which of the following is mentioned as a physical activity enjoyed by young people?",
-        "options": [
-          "Tennis.",
-          "Golf.",
-          "Skiing.",
-          "Swimming."
-        ],
+        "options": ["Tennis.", "Golf.", "Skiing.", "Swimming."],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -17927,10 +17163,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       }
     ]
   },
@@ -17975,19 +17208,12 @@
         ],
         "correct": 1,
         "level": 1,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 16,
         "content": "According to the text, which group in North America is described as more knowledgeable about clothing messages?",
-        "options": [
-          "North American women",
-          "Men",
-          "Elders",
-          "Children"
-        ],
+        "options": ["North American women", "Men", "Elders", "Children"],
         "correct": 0,
         "level": 1,
         "flags": []
@@ -18068,9 +17294,7 @@
         ],
         "correct": 1,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -18135,9 +17359,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -18148,12 +17370,7 @@
       {
         "id": 1,
         "content": "What is the approximate weight of the motorized knee device?",
-        "options": [
-          "7kg",
-          "3kg",
-          "10kg",
-          "5kg"
-        ],
+        "options": ["7kg", "3kg", "10kg", "5kg"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -18174,12 +17391,7 @@
       {
         "id": 3,
         "content": "How much less muscle power does the motorized knee device require compared to running unassisted?",
-        "options": [
-          "20%",
-          "30%",
-          "10%",
-          "40%"
-        ],
+        "options": ["20%", "30%", "10%", "40%"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -18200,12 +17412,7 @@
       {
         "id": 5,
         "content": "At what speed could runners jog while using the motorized knee device?",
-        "options": [
-          "12km/h",
-          "10km/h",
-          "5km/h",
-          "7.5km/h"
-        ],
+        "options": ["12km/h", "10km/h", "5km/h", "7.5km/h"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -18338,9 +17545,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -18463,9 +17668,7 @@
         ],
         "correct": 2,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 32,
@@ -18543,9 +17746,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       }
     ]
   },
@@ -18569,12 +17770,7 @@
       {
         "id": 2,
         "content": "How many drinks does the Dixie PIT usually sell by closing time?",
-        "options": [
-          "80",
-          "90",
-          "100",
-          "75"
-        ],
+        "options": ["80", "90", "100", "75"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -18582,12 +17778,7 @@
       {
         "id": 3,
         "content": "What type of milk is used in the drinks at the Dixie PIT to comply with nutrition guidelines?",
-        "options": [
-          "Skim milk",
-          "Non-fat milk",
-          "Whole milk",
-          "Low-fat milk"
-        ],
+        "options": ["Skim milk", "Non-fat milk", "Whole milk", "Low-fat milk"],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -18733,10 +17924,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       },
       {
         "id": 23,
@@ -18885,9 +18073,7 @@
         ],
         "correct": 0,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -18926,9 +18112,7 @@
         ],
         "correct": 3,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 17,
@@ -18954,9 +18138,7 @@
         ],
         "correct": 2,
         "level": 3,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       }
     ]
   },
@@ -18967,12 +18149,7 @@
       {
         "id": 1,
         "content": "On what date did the two-car accident occur?",
-        "options": [
-          "March 26",
-          "March 24",
-          "March 27",
-          "March 25"
-        ],
+        "options": ["March 26", "March 24", "March 27", "March 25"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -18993,12 +18170,7 @@
       {
         "id": 3,
         "content": "How many children were rescued from the wreckage?",
-        "options": [
-          "One",
-          "Three",
-          "Four",
-          "Two"
-        ],
+        "options": ["One", "Three", "Four", "Two"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -19092,9 +18264,7 @@
         ],
         "correct": 3,
         "level": 2,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 12,
@@ -19183,12 +18353,7 @@
       {
         "id": 2,
         "content": "On which day did the young man put brushes in his bed?",
-        "options": [
-          "Thursday",
-          "Monday",
-          "Wednesday",
-          "Tuesday"
-        ],
+        "options": ["Thursday", "Monday", "Wednesday", "Tuesday"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -19282,9 +18447,7 @@
         ],
         "correct": 1,
         "level": 2,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 16,
@@ -19550,9 +18713,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 30,
@@ -19565,10 +18726,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "stem_forced",
-          "option_forced"
-        ]
+        "flags": ["stem_forced", "option_forced"]
       }
     ]
   },
@@ -19579,12 +18737,7 @@
       {
         "id": 1,
         "content": "What percentage of engineering companies in the IET's 2014 survey feared skill shortages could threaten business?",
-        "options": [
-          "45%",
-          "72%",
-          "65%",
-          "59%"
-        ],
+        "options": ["45%", "72%", "65%", "59%"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -19704,9 +18857,7 @@
         ],
         "correct": 2,
         "level": 2,
-        "flags": [
-          "stem_forced"
-        ]
+        "flags": ["stem_forced"]
       },
       {
         "id": 11,
@@ -19782,12 +18933,7 @@
       {
         "id": 1,
         "content": "How many customers does Jane have?",
-        "options": [
-          "10",
-          "5",
-          "25",
-          "50"
-        ],
+        "options": ["10", "5", "25", "50"],
         "correct": 3,
         "level": 1,
         "flags": []
@@ -19834,12 +18980,7 @@
       {
         "id": 5,
         "content": "How far is the gas station from Mr. Zimmerman’s location?",
-        "options": [
-          "A quarter mile.",
-          "A half mile.",
-          "Two miles.",
-          "A mile."
-        ],
+        "options": ["A quarter mile.", "A half mile.", "Two miles.", "A mile."],
         "correct": 1,
         "level": 1,
         "flags": []
@@ -20009,12 +19150,7 @@
       {
         "id": 3,
         "content": "How much did the chicken sandwich cost?",
-        "options": [
-          "$4.99",
-          "$5.25",
-          "$4.75",
-          "$6.75"
-        ],
+        "options": ["$4.99", "$5.25", "$4.75", "$6.75"],
         "correct": 2,
         "level": 1,
         "flags": []
@@ -20121,9 +19257,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 19,
@@ -20136,9 +19270,7 @@
         ],
         "correct": 1,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 22,
@@ -20151,9 +19283,7 @@
         ],
         "correct": 0,
         "level": 3,
-        "flags": [
-          "option_forced"
-        ]
+        "flags": ["option_forced"]
       },
       {
         "id": 25,

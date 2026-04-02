@@ -99,7 +99,7 @@ def parse_llm_output(output: str) -> ParsedQuizData:
         # Normalize multiple consecutive underscores to a single underscore
         content = re.sub(r"_{2,}", "_", content)
 
-        # Parse options & level — scan lines after the heading
+        # Parse options & level - scan lines after the heading
         options: list[str] = []
         answer_line: Optional[str] = None
         explanation: str = ""
@@ -139,7 +139,7 @@ def parse_llm_output(output: str) -> ParsedQuizData:
             continue
 
         # Extract explanation from the line after answer
-        for line in lines[answer_line_idx + 1:]:
+        for line in lines[answer_line_idx + 1 :]:
             if line.startswith(">") and "explanation:" in line.lower():
                 explanation_match = re.search(
                     r">\s*explanation:\s*(.+)", line, re.IGNORECASE
@@ -166,7 +166,6 @@ def parse_llm_output(output: str) -> ParsedQuizData:
         question_id += 1
 
     return ParsedQuizData(questions=questions)
-
 
 
 def parse_single_prompt_metadata(output: str) -> dict:
@@ -244,7 +243,9 @@ def parse_analyzer_metadata(analyzer_output: str) -> dict:
         topic = extract_field("Topic")
         if topic:
             # Split by comma or semicolon
-            metadata["topics"] = [t.strip() for t in re.split(r"[,;]", topic) if t.strip()]
+            metadata["topics"] = [
+                t.strip() for t in re.split(r"[,;]", topic) if t.strip()
+            ]
 
         summary = extract_field("Summary")
         if summary:
@@ -259,7 +260,9 @@ def parse_analyzer_metadata(analyzer_output: str) -> dict:
 # ============== Multi-Agent Mode Parsers ==============
 
 
-def parse_generator_output(output: str, n: int, expected_level: int = None) -> list[dict]:
+def parse_generator_output(
+    output: str, n: int, expected_level: int = None
+) -> list[dict]:
     """Parse generator output into structured questions.
 
     Expected format:
@@ -271,8 +274,7 @@ def parse_generator_output(output: str, n: int, expected_level: int = None) -> l
     D: Option D
     Answer: A
 
-    Returns list of question dictionaries with keys:
-    id, question, options, correct_idx, level
+    Returns list of question dicts with keys: id, question, options, correct_idx, level
     """
     questions = []
 
@@ -280,7 +282,6 @@ def parse_generator_output(output: str, n: int, expected_level: int = None) -> l
         return questions
 
     try:
-        # Split by ID: to separate questions
         blocks = re.split(r"\n(?=ID:\s*\d+)", output.strip())
 
         for block in blocks:
@@ -288,7 +289,6 @@ def parse_generator_output(output: str, n: int, expected_level: int = None) -> l
                 continue
 
             try:
-                # Find positions of key prefixes
                 question_pos = block.find("Question:")
                 a_pos = block.find("\nA:")
                 b_pos = block.find("\nB:")
@@ -296,43 +296,47 @@ def parse_generator_output(output: str, n: int, expected_level: int = None) -> l
                 d_pos = block.find("\nD:")
                 answer_pos = block.find("\nAnswer:")
 
-                # Extract Question text (from "Question:" to "\nA:")
                 if question_pos == -1 or a_pos == -1:
                     continue
-                question_text = block[question_pos + len("Question:"):a_pos].strip()
+                question_text = block[question_pos + len("Question:") : a_pos].strip()
 
-                # Extract options by finding text between prefixes
-                if a_pos == -1 or b_pos == -1 or c_pos == -1 or d_pos == -1 or answer_pos == -1:
+                if (
+                    a_pos == -1
+                    or b_pos == -1
+                    or c_pos == -1
+                    or d_pos == -1
+                    or answer_pos == -1
+                ):
                     continue
 
-                option_a = block[a_pos + len("\nA:"):b_pos].strip()
-                option_b = block[b_pos + len("\nB:"):c_pos].strip()
-                option_c = block[c_pos + len("\nC:"):d_pos].strip()
-                option_d = block[d_pos + len("\nD:"):answer_pos].strip()
-
+                option_a = block[a_pos + len("\nA:") : b_pos].strip()
+                option_b = block[b_pos + len("\nB:") : c_pos].strip()
+                option_c = block[c_pos + len("\nC:") : d_pos].strip()
+                option_d = block[d_pos + len("\nD:") : answer_pos].strip()
                 options = [option_a, option_b, option_c, option_d]
 
-                # Extract Answer letter
                 answer_match = re.search(r"Answer:\s*([A-D])", block, re.IGNORECASE)
-                answer_letter = answer_match.group(1).strip().upper() if answer_match else None
+                answer_letter = (
+                    answer_match.group(1).strip().upper() if answer_match else None
+                )
 
-                # Only add if we have all 4 options and answer
                 if len(options) == 4 and answer_letter:
                     correct_map = {"A": 0, "B": 1, "C": 2, "D": 3}
                     correct_idx = correct_map.get(answer_letter, -1)
 
-                    # Parse ID from the block
                     id_match = re.match(r"ID:\s*(\d+)", block.strip())
                     q_id = int(id_match.group(1)) if id_match else None
 
                     if correct_idx != -1:
-                        questions.append({
-                            "id": q_id,
-                            "question": question_text,
-                            "options": options,
-                            "correct_idx": correct_idx,
-                            "level": expected_level,
-                        })
+                        questions.append(
+                            {
+                                "id": q_id,
+                                "question": question_text,
+                                "options": options,
+                                "correct_idx": correct_idx,
+                                "level": expected_level,
+                            }
+                        )
 
             except Exception as e:
                 print(f"Warning: Failed to parse question block: {str(e)}")
@@ -343,18 +347,16 @@ def parse_generator_output(output: str, n: int, expected_level: int = None) -> l
 
     return questions
 
-def parse_validator_output(output: str) -> list[dict]:
-    """Parse validator output into structured validation results.
 
-    Expected format per question:
+def parse_classifier_output(output: str) -> list[dict]:
+    """Parse classifier output into structured level predictions.
+
+    Expected format:
     ID: 1
-    Solvability: PASS|FAIL
-    Distractor Quality: PASS|FAIL
-    Alignment: PASS|FAIL
-    Verdict: PASS|FAIL
-    Feedback: ...
+    Reason: ...
+    Level: 2
 
-    Returns list of {id, verdict, feedback}
+    Returns list of {"id": int, "reason": str, "predicted_level": int}
     """
     results = []
 
@@ -370,89 +372,232 @@ def parse_validator_output(output: str) -> list[dict]:
                 continue
 
             try:
-                # Extract ID
                 id_match = re.match(r"ID:\s*(\d+)", block)
                 if not id_match:
                     continue
                 q_id = int(id_match.group(1))
 
-                # Extract verdict
-                verdict_match = re.search(r"Verdict:\s*(PASS|FAIL)", block, re.IGNORECASE)
-                verdict = verdict_match.group(1).upper() if verdict_match else "FAIL"
+                reason_match = re.search(
+                    r"Reason:\s*(.+?)(?=\nLevel:)", block, re.DOTALL | re.IGNORECASE
+                )
+                reason = reason_match.group(1).strip() if reason_match else ""
 
-                # Extract feedback
-                feedback_match = re.search(r"Feedback:\s*(.+)", block)
-                feedback = feedback_match.group(1).strip() if feedback_match else "None"
+                level_match = re.search(r"Level:\s*(\d+)", block, re.IGNORECASE)
+                predicted_level = int(level_match.group(1)) if level_match else 0
 
-                results.append({
-                    "id": q_id,
-                    "verdict": verdict,
-                    "feedback": feedback,
-                })
+                results.append(
+                    {
+                        "id": q_id,
+                        "reason": reason,
+                        "predicted_level": predicted_level,
+                    }
+                )
             except Exception as e:
-                print(f"Warning: Failed to parse validator block: {str(e)}")
+                print(f"Warning: Failed to parse classifier block: {str(e)}")
                 continue
 
     except Exception as e:
-        print(f"Warning: parse_validator_output failed: {str(e)}")
+        print(f"Warning: parse_classifier_output failed: {str(e)}")
 
     return results
 
 
-def format_questions_for_validation(questions: list[dict]) -> str:
-    """Format questions list into text block for validator prompt.
+def parse_student_output(output: str) -> list[dict]:
+    """Parse student output into structured answer choices.
+
+    Expected format:
+    ID: 1
+    Reason: ...
+    Choices: A|B|NONE
+
+    Returns list of {"id": int, "reason": str, "choices": list[str]}
+    """
+    results = []
+
+    if not output or not output.strip():
+        return results
+
+    try:
+        blocks = re.split(r"\n(?=ID:\s*\d+)", output.strip())
+
+        for block in blocks:
+            block = block.strip()
+            if not block:
+                continue
+
+            try:
+                id_match = re.match(r"ID:\s*(\d+)", block)
+                if not id_match:
+                    continue
+                q_id = int(id_match.group(1))
+
+                reason_match = re.search(
+                    r"Reason:\s*(.+?)(?=\nChoices:)", block, re.DOTALL | re.IGNORECASE
+                )
+                reason = reason_match.group(1).strip() if reason_match else ""
+
+                choices_match = re.search(r"Choices:\s*(.+)", block, re.IGNORECASE)
+                choices_raw = (
+                    choices_match.group(1).strip().upper() if choices_match else "NONE"
+                )
+                choices = (
+                    []
+                    if choices_raw in ["NONE", ""]
+                    else re.findall(r"[A-D]", choices_raw)
+                )
+
+                results.append(
+                    {
+                        "id": q_id,
+                        "reason": reason,
+                        "choices": choices,
+                    }
+                )
+            except Exception as e:
+                print(f"Warning: Failed to parse student block: {str(e)}")
+                continue
+
+    except Exception as e:
+        print(f"Warning: parse_student_output failed: {str(e)}")
+
+    return results
+
+
+def parse_fixer_output(output: str) -> list[dict]:
+    """Parse fixer output into structured fixed questions.
+
+    Expected format:
+    ID: 1
+    Reason: ...
+    A: Option A
+    B: Option B
+    C: Option C
+    D: Option D
+    Answer: B
+
+    Returns list of {"id": int, "reason": str, "options": [...], "correct_idx": int}
+    """
+    results = []
+
+    if not output or not output.strip():
+        return results
+
+    try:
+        blocks = re.split(r"\n(?=ID:\s*\d+)", output.strip())
+
+        for block in blocks:
+            if not block.strip():
+                continue
+
+            try:
+                id_match = re.match(r"ID:\s*(\d+)", block.strip())
+                if not id_match:
+                    continue
+                q_id = int(id_match.group(1))
+
+                reason_match = re.search(
+                    r"Reason:\s*(.+?)(?=\n[A-D]:)", block, re.DOTALL | re.IGNORECASE
+                )
+                reason = reason_match.group(1).strip() if reason_match else ""
+
+                a_pos = block.find("\nA:")
+                b_pos = block.find("\nB:")
+                c_pos = block.find("\nC:")
+                d_pos = block.find("\nD:")
+                answer_pos = block.find("\nAnswer:")
+
+                if any(p == -1 for p in [a_pos, b_pos, c_pos, d_pos, answer_pos]):
+                    continue
+
+                options = [
+                    block[a_pos + len("\nA:") : b_pos].strip(),
+                    block[b_pos + len("\nB:") : c_pos].strip(),
+                    block[c_pos + len("\nC:") : d_pos].strip(),
+                    block[d_pos + len("\nD:") : answer_pos].strip(),
+                ]
+
+                answer_match = re.search(r"Answer:\s*([A-D])", block, re.IGNORECASE)
+                if not answer_match:
+                    continue
+
+                correct_map = {"A": 0, "B": 1, "C": 2, "D": 3}
+                correct_idx = correct_map.get(answer_match.group(1).upper(), -1)
+                if correct_idx == -1:
+                    continue
+
+                results.append(
+                    {
+                        "id": q_id,
+                        "reason": reason,
+                        "options": options,
+                        "correct_idx": correct_idx,
+                    }
+                )
+
+            except Exception as e:
+                print(f"Warning: Failed to parse fixer block: {str(e)}")
+                continue
+
+    except Exception as e:
+        print(f"Warning: parse_fixer_output failed: {str(e)}")
+
+    return results
+
+
+def format_questions_for_quiz(questions: list[dict]) -> str:
+    """Format questions for Classifier and Student prompts (no Answer line).
 
     Args:
-        questions: List of question dicts with question, options, correct_idx
+        questions: List of question dicts with id, question, options, level
 
     Returns:
-        Formatted string
+        Formatted string with ID, Question, and options A-D
+    """
+    lines = []
+    for q in questions:
+        lines.append(f"ID: {q['id']}")
+        lines.append(f"Question: {q.get('question', '')}")
+        options = q.get("options", [])
+        for i, label in enumerate(["A", "B", "C", "D"]):
+            if i < len(options):
+                lines.append(f"{label}: {options[i]}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def format_failed_questions_for_fixer(
+    questions: list[dict], student_results: list[dict]
+) -> str:
+    """Format failed questions with student diagnostic info for the fixer.
+
+    Args:
+        questions: List of question dicts that the student got wrong
+        student_results: List of student result dicts with id, reason, choices
+
+    Returns:
+        Formatted string with question, options, correct answer, and student diagnostics
     """
     lines = []
     correct_map = {0: "A", 1: "B", 2: "C", 3: "D"}
-    for idx, q in enumerate(questions, 1):
-        lines.append(f"ID: {idx}")
+
+    student_map = {r["id"]: r for r in student_results}
+
+    for q in questions:
+        q_id = q["id"]
+        student = student_map.get(q_id, {})
+
+        lines.append(f"ID: {q_id}")
+        lines.append(f"Level: {q.get('level', '?')}")
         lines.append(f"Question: {q.get('question', '')}")
         options = q.get("options", [])
         for i, label in enumerate(["A", "B", "C", "D"]):
             if i < len(options):
                 lines.append(f"{label}: {options[i]}")
         lines.append(f"Answer: {correct_map.get(q.get('correct_idx', 0), 'A')}")
+        choices_str = ", ".join(student.get("choices", [])) or "NONE"
+        lines.append(f"Student Choices: {choices_str}")
+        lines.append(f"Student Reason: {student.get('reason', 'N/A')}")
         lines.append("")
-    return "\n".join(lines)
-
-
-def format_failed_questions_for_fixer(
-    questions: list[dict], validation: list[dict]
-) -> str:
-    """Format failed questions with their feedback for the fixer prompt.
-
-    Args:
-        questions: List of question dicts
-        validation: List of validation result dicts with id, verdict, feedback
-
-    Returns:
-        Formatted string with failed questions and feedback, or empty string if none failed
-    """
-    lines = []
-    correct_map = {0: "A", 1: "B", 2: "C", 3: "D"}
-
-    # Build a map from validation id to feedback
-    feedback_map = {}
-    for v in validation:
-        if v.get("verdict") == "FAIL":
-            feedback_map[v["id"]] = v.get("feedback", "No specific feedback")
-
-    for idx, q in enumerate(questions, 1):
-        feedback = feedback_map.get(idx)
-        if feedback:
-            lines.append(f"ID: {idx}")
-            lines.append(f"Question: {q['question']}")
-            for i, label in enumerate(["A", "B", "C", "D"]):
-                lines.append(f"{label}: {q['options'][i]}")
-            lines.append(f"Answer: {correct_map.get(q['correct_idx'], 'A')}")
-            lines.append(f"Feedback: {feedback}")
-            lines.append("")
 
     return "\n".join(lines)
 
@@ -520,10 +665,8 @@ def parse_explanation_output(output: str, num_questions: int) -> dict[int, str]:
                     continue
                 q_id = int(id_match.group(1))
 
-                # Extract explanation — everything after "Explanation:" until end of block
-                explanation_match = re.search(
-                    r"Explanation:\s*(.+)", block, re.DOTALL
-                )
+                # Extract explanation - everything after "Explanation:" until end of block
+                explanation_match = re.search(r"Explanation:\s*(.+)", block, re.DOTALL)
                 if explanation_match:
                     explanation = explanation_match.group(1).strip()
                     # Clean up: collapse multiple newlines into spaces for single-paragraph

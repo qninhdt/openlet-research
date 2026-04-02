@@ -1,0 +1,246 @@
+\chapter{Phương pháp đề xuất}
+
+\section{Tổng quan hệ thống}
+
+Với mục đích tự động hóa quy trình nhận dạng ký tự quan học (OCR) và sinh câu hỏi trắc ngiệm (MCQ), nghiên cứu này đề xuất và phát triển hệ thống phần mềm Openlet. Nhờ việc các tài liệu học tập được số hóa thông quá các bài tập trắc nghiệm tạo sinh, đội ngũ giáo viên được giảm bớt gánh nặng công việc và người học có thể thuận tiện cho việc ôn tập. Khảo sát nghiên cứu hiện hành cho thấy một sự đánh đổi lớn về mặt công nghệ: việc triển khai các sLLM mã nguồn mở giúp tối ưu hóa chi phí vận hành nhưng lại dẫn tới một đánh đổi lớn về mặt chất lượng của câu hỏi được sinh ra, các câu hỏi không đủ độ khó và các đáp án nhiễu không có tính sư phạm. Ngược lại, các LLM thương mại mã nguồn đóng dù đảm bảo chất lượng đầu ra vượt trội hoàn toàn nhưng lại có chi phí quá cao để có thể ứng dụng đại trà trong môi trường giáo dục. Nhằm giải quyết bài toán trên, hệ thống Openlet được nghiên cứu và phát triển với kiến trúc đa tác tử, là tập hợp gồm các sLLM phối hợp hoạt động. Bằng cách chia nhỏ quy trình suy luận phức tạp thành chuỗi các tác vụ vi mô cho từng sLLM riêng việt, hệ thống vừa tận dụng được lợi thế chi phí thấp của các mô hình nhỏ mà vừa cải thiện được chất lượng các mô hình.
+
+Về mặt tổng quan, ứng dụng Openlet được chia thành 4 mô-đun chính:
+
+\begin{enumerate}
+    \item \textbf{Mô-đun sinh câu hỏi (Question Generation Module):} Đây là thành phần cốt lõi của nghiên cứu. Mô-đun này sẽ tiếp nhận dữ liệu đầu vào là một đoạn văn bản tiếng Anh thuần túy và có đầu ra mong muốn là các câu hỏi trắc nghiệm gồm cả 3 loại trong thang đo Bloom sửa đổi về đoạn văn bản. Nghiên cứu này sẽ thực nghiệm và so sánh hai phương pháp sinh câu hỏi từ sLLM điển hình nhất là phương pháp truy vấn đơn và phương pháp đa tác tử. Việc tích hợp đồng thời hai cơ chế này hướng tới mục đích thiết lập một hệ thống đánh giá về chất lượng và chi phí trong điều kiện vận hành thực tế.
+
+    \item \textbf{Mô-đun Tiền xử lý Hình ảnh và Nhận dạng Ký tự (OCR \& Image Processing Module):} Thực tế cho thấy nguồn dữ liệu đầu vào của giáo viên và học sinh thường tồn tại dưới dạng các hình ảnh chụp từ một tài liệu học tập như sách giáo khoa, đề thi. Mô-đun này có nhiệm vụ trích xuất nội dung dưới dạng văn bản từ nguồn dữ liệu này để phục vụ cho Mô-đun sinh câu hỏi. Với mục đích đánh giá độ chính xác của các VLM hiện hành trong môi trường thực tế, nghiên cứu đã triển khai một quy trình tăng cường dữ liệu nhiễu (Data Augmentation). Quy trình này cho phép mô phỏng sự suy giảm tín hiệu thị giác như: cường độ ánh sáng kém, vết ố vàng, nhòe mực hoặc các biến dạng vật lý của bề mặt giấy. Từ đó giúp nghiên cứu có thể đánh giá được khả năng của từng VLM.
+
+    \item \textbf{Mô-đun Đánh giá Chất lượng Câu hỏi Tự động (Evaluation Module):} Yêu cầu bắt buộc đối với các hệ thống sinh câu hỏi tự động là cần có các tiêu chuẩn kiểm định chất lượng đầu ra. Để có thể kiểm tra và đánh giá dữ liệu đầu ra một cách hoàn toàn tự động, % [MODIFY]: Loai bo metric Clarity, con lai ba tieu chi danh gia
+nghiên cứu này sử dụng kỹ thuật đánh giá dựa trên LLM (LLM-as-a-judge). Nghiên cứu sử dụng bộ khung đánh giá gồm ba tiêu chí sư phạm: Khả năng giải quyết được dựa trên ngữ cảnh (Solvability); Chất lượng của phương án nhiễu (Distractor Quality) và Sự đáp ứng thang đo nhận thức (Alignment).
+
+    \item \textbf{Mô-đun Ứng dụng Web tương tác (Web Application Module):} Nhằm hiện thực hóa các kết quả nghiên cứu lý thuyết từ môi trường học thuật sang ứng dụng, nghiên cứu đã phát triển một ứng dụng Web giáo dục hiện đại - Openlet. Ứng dụng này cho phép giáo viên đăng tải các ảnh chụp tài liệu, sau đó hệ thống sẽ tự động trích xuất văn bản từ ảnh rồi tác các câu hỏi trắc nghiệm dưới một bài kiểm tra trực tuyến. Nhờ đó, học sinh có thể tham gia làm bài trực tiếp trên nền tảng một cách thuận tiện.
+
+\end{enumerate}
+
+Nhờ việc nghiên cứu và phát triển các mô-đun trên, hệ thống Openlet đã có thể trở thành một giải pháp công nghệ giáo dục (Ed-Tech) có giá trị thực tiễn cao. Bắt đầu từ một hình ảnh chụp tài liệu, được trích xuất văn bản, sinh câu hỏi trắc nghiệm và cuối cùng trở thành một học liệu số hóa đáp ứng các quy chuẩn sư phạm chuyên sâu.
+
+% [MODIFIED]: Them ghi chu ve viec Mo-dun 4 (Ung dung Web) duoc trinh bay chi tiet tai Chuong 4
+Trong đó, Mô-đun Ứng dụng Web tương tác sẽ được trình bày chi tiết tại Chương 4.
+
+% [NEW]: Figure placeholder cho so do tong quan he thong
+\begin{figure}[htbp]
+    \centering
+    % [Figure Suggestion]: Chen so do tong quan he thong Openlet voi 4 mo-dun chinh:
+    % (1) Sinh cau hoi, (2) OCR & Xu ly anh, (3) Danh gia chat luong, (4) Ung dung Web.
+    % Hien thi luong du lieu giua cac mo-dun.
+    \includegraphics[width=1\linewidth]{figures/overview.pdf}
+    \caption{Sơ đồ tổng quan hệ thống Openlet}
+    \label{fig:system-overview}
+\end{figure}
+
+\section{Phương pháp sinh câu hỏi trắc nghiệm}
+Trong nghiên cứu này, để có thể hướng dẫn các sLLM và LLM thực hiện các yêu cầu sinh câu hỏi trắc nghiệm, nghiên cứu đã triển khai và so sánh hai phương pháp: Phương pháp chỉ dẫn đơn và phương pháp đa tác tử.
+
+\subsection{Phương pháp chỉ dẫn đơn}
+Phương pháp chỉ dẫn đơn thực hiện cấu trúc hóa toàn bộ các ràng buộc về nghiệp vụ, quy định về định dạng đầu ra trong một chỉ dẫn duy nhất. Chỉ dẫn này bao gồm các thông tin về vai trò của LLM, các định nghĩa chi tiết của ba cấp độ tư duy, các tiêu chuẩn để tạo ra đáp án nhiễu, và các quy định về định dạng đầu ra. Cụ thể, dữ liệu đầu ra bắt buộc phải xuất dưới dạng văn bản Markdown hoặc JSON cố định bao gồm các trường như: mã định danh (ID), nội dung câu hỏi (Question), bốn phương án độc lập (A, B, C, D) và đáp án chính xác (Answer). Toàn bộ quy trình này diễn ra trong một lần gọi duy nhất và hệ thống nhận được kết quả là danh sách các câu hỏi của cả ba cấp độ tư duy.
+
+\textbf{Đánh giá tính khả dĩ của phương pháp:}
+
+Lợi thế cốt lõi của phương pháp này là tối ưu hóa chi phí tính toán bằng giới hạn giao tiếp với bên cung cấp dịch vụ LLM bằng một lệnh gọi API duy nhất giúp giảm triệt độ số lượng token cần xử lý và duy trì độ trễ ở mức cực thấp.
+
+Tuy nhiên, việc nén hàng loạt các quy tắc nghiệp vụ và định nghĩa của ba cấp độ vào một không gian suy luận đơn lẻ gây ra hiện tượng pha loãng ngữ cảnh (context dilution). Kết quả thực nghiệm cho thấy LLM thường thất bại trong việc phân biệt giữa các độ khó và cấp độ nhận thức, từ đó dẫn đến việc LLM có xu hướng sinh ra các câu hỏi Cấp độ 1 thay vì Cấp độ 3 như yêu cầu. Không những thế, do thiếu đi sự giám sát, các câu hỏi sinh ra có thể vi phạm những quy định sư phạm như chứa nhiều hơn một đáp án đúng, câu hỏi mơ hồ hay đáp án nhiễu quá  lộ liễu.
+
+% [MODIFY]: Loai bo ten DCP v5 khoi comment
+\subsection{Phương pháp đa tác tử}
+Nhằm giải quyết giới hạn không gian ngữ cảnh của phương pháp chỉ dẫn đơn, nghiên cứu đề xuất kiến trúc đa tác tử theo mô hình Trục-và-Nan hoa kết hợp Phân tán động (Hub-and-Spoke with Dynamic Fan-out). Hệ thống sử dụng khung điều phối LangGraph để xây dựng một đồ thị có hướng, trong đó một Nút Điều phối trung tâm đóng vai trò phân phối tác vụ tới các tác tử chuyên biệt. Khác với phương pháp chỉ dẫn đơn, mỗi tác tử trong kiến trúc này chỉ vận hành với một chỉ dẫn hẹp, chuyên biệt cho duy nhất một tác vụ nhận thức cụ thể, từ đó loại bỏ hoàn toàn hiện tượng pha loãng ngữ cảnh.
+
+Quy trình hoạt động của hệ thống đa tác tử gồm sáu khối chức năng sau:
+
+\begin{enumerate}
+
+    \item \textbf{Nút Điều phối (Controller Node):} Đây là trục trung tâm quản lý toàn bộ luồng hoạt động của hệ thống. Nút Điều phối duy trì một cấu trúc dữ liệu trạng thái dùng chung, theo dõi trạng thái của từng câu hỏi qua các giai đoạn xử lý đã được định nghĩa trước. Thành phần này triển khai hai pha thử lại độc lập: Pha 1 dành cho việc sinh thân câu hỏi (nếu Tác tử Phân loại từ chối cấp độ nhận thức của một câu hỏi, câu hỏi đó sẽ được trả về Tác tử Sinh câu hỏi để tái tạo) và Pha 2 dành cho việc sửa chữa phương án trả lời (nếu Tác tử Học sinh không thể giải đúng câu hỏi, câu hỏi đó sẽ được chuyển tới Tác tử Hiệu chỉnh). Một cải tiến quan trọng của kiến trúc này là cơ chế tiến triển cưỡng bức: sau một số vòng lặp thử lại tối đa có thể cấu hình, các câu hỏi sẽ được buộc phải chuyển sang giai đoạn tiếp theo nhằm ngăn chặn hiện tượng vòng lặp vô hạn, đồng thời các cờ chất lượng sẽ được gắn kèm để đánh dấu những câu hỏi đã phải sử dụng cơ chế tiến triển cưỡng bức.
+
+    \item \textbf{Các Tác tử Sinh câu hỏi (Generator Agents):} Hệ thống triển khai ba tác tử sinh câu hỏi hoạt động song song, mỗi tác tử chịu trách nhiệm cho một cấp độ nhận thức theo thang đo Bloom. Mỗi tác tử nhận đoạn văn bản nguồn cùng với các mẫu tích cực (các câu hỏi đạt chuẩn từ các lần sinh thành công trước đó) và các mẫu tiêu cực (các câu hỏi đã bị từ chối qua quá trình thẩm định) nhằm định hướng việc cải thiện chất lượng qua từng vòng thử lại. Hệ thống thực hiện phân bổ trước các mã định danh tuần tự toàn cục cho mỗi câu hỏi nhằm loại bỏ chi phí đồng bộ hóa trong quá trình thực thi song song.
+
+    \item \textbf{Tác tử Phân loại (Classifier Agent):} Tác tử này có nhiệm vụ xác minh rằng mỗi câu hỏi được sinh ra phù hợp với cấp độ nhận thức mong muốn. Điểm cải tiến then chốt của thành phần này là kỹ thuật ánh xạ mã định danh tạm thời nhằm chống thiên lệch: trước khi phân loại, các câu hỏi được xáo trộn ngẫu nhiên và gán các mã định danh tạm thời mới. Kỹ thuật này loại bỏ hiện tượng thiên lệch vị trí vốn có thể khiến mô hình ngôn ngữ đơn giản xác nhận cấp độ mong đợi dựa trên thứ tự câu hỏi thay vì phân tích nội dung thực tế. Các câu hỏi không vượt qua bước phân loại sẽ được gán trạng thái thất bại và quay trở lại Tác tử Sinh câu hỏi để được tái tạo.
+
+    \item \textbf{Tác tử Học sinh (Student Agent):} Tác tử này mô phỏng quá trình một học sinh cố gắng giải từng câu hỏi. Tác tử hoạt động với mức độ ngẫu nhiên cao hơn (tham số nhiệt độ được nâng cao) nhằm đưa thêm nhiễu vào quá trình suy luận, giúp phát hiện các câu hỏi mơ hồ hoặc có cấu trúc kém. Nếu học sinh mô phỏng trả lời đúng, câu hỏi được xác nhận đạt chuẩn. Nếu trả lời sai, câu hỏi sẽ được gắn cờ cần sửa chữa. Tác tử này đóng vai trò như một cổng kiểm soát chất lượng thực tiễn, đảm bảo rằng các câu hỏi thực sự có thể giải được từ đoạn văn bản đầu vào.
+
+    \item \textbf{Tác tử Hiệu chỉnh (Fixer Agent):} Tác tử này tiếp nhận các câu hỏi mà Tác tử Học sinh đã trả lời sai, cùng với lý do giải thích và các phương án đã chọn của Tác tử Học sinh. Tác tử Hiệu chỉnh chỉ được phép sửa đổi các phương án trả lời và đáp án đúng, trong khi bắt buộc giữ nguyên thân câu hỏi. Ràng buộc này ngăn chặn hệ thống đơn giản tạo ra các câu hỏi hoàn toàn mới thay vì sửa chữa câu hỏi hiện có. Sau khi sửa chữa, các câu hỏi được đưa trở lại Tác tử Học sinh để tái kiểm định, tạo thành một vòng lặp cải thiện lặp đi lặp lại. Một bộ đếm số lần sửa chữa cho từng câu hỏi được duy trì nhằm ngăn chặn số lần lặp quá mức.
+
+    \item \textbf{Nút Hợp nhất (Merge Node):} Đây là giai đoạn lắp ráp cuối cùng, có nhiệm vụ thu thập tất cả các câu hỏi có trạng thái đạt chuẩn, chọn lọc số lượng câu hỏi mục tiêu cho mỗi cấp độ nhận thức, gán các mã định danh tuần tự cuối cùng và tạo ra bộ câu hỏi hoàn chỉnh. Các câu hỏi đã phải sử dụng cơ chế tiến triển cưỡng bức sẽ được gắn cờ trong kết quả đầu ra nhằm đảm bảo tính minh bạch.
+
+\end{enumerate}
+
+Kiến trúc trên vận hành dựa trên cơ chế hai pha thử lại hoạt động độc lập. Pha thứ nhất đảm bảo chất lượng thân câu hỏi thông qua vòng lặp giữa Tác tử Sinh câu hỏi và Tác tử Phân loại: nếu một câu hỏi không đạt đúng cấp độ nhận thức yêu cầu, nó sẽ được tái tạo với các mẫu tích cực và tiêu cực cập nhật từ các vòng trước. Pha thứ hai đảm bảo chất lượng phương án trả lời thông qua vòng lặp giữa Tác tử Học sinh và Tác tử Hiệu chỉnh: nếu câu hỏi không thể được giải đúng bởi học sinh mô phỏng, các phương án trả lời sẽ được sửa chữa và kiểm định lại. Sự tách biệt giữa hai pha cho phép hệ thống xử lý đồng thời nhiều câu hỏi ở các giai đoạn khác nhau, tối ưu hóa hiệu suất tổng thể của quy trình.
+
+% [MODIFY]: Loai bo DCP v5 khoi figure
+\begin{figure}[htbp]
+    \centering
+    % [Figure Suggestion]: Chen so do kien truc da tac tu dang do thi co huong.
+    % Hien thi: Controller o trung tam, ket noi toi Generator (3 song song), Classifier, Student, Fixer, va Merge.
+    % Hien thi 2 vong lap: (1) Generator-Classifier retry loop, (2) Student-Fixer retry loop.
+    \includegraphics[width=1\linewidth]{figures/architecture.pdf}
+    \caption{Kiến trúc hệ thống đa tác tử}
+    \label{fig:multiagent-architecture}
+\end{figure}
+
+\textbf{Đánh giá tính khả dĩ của phương pháp:}
+
+Kiến trúc đa tác tử theo mô hình Trục-và-Nan hoa giúp tận dụng tối đa khả năng suy luận của các sLLM bằng cách thu hẹp không gian nhiệm vụ cho từng tác tử. Chất lượng câu hỏi sinh ra đạt độ chính xác cao về mặt phân loại nhận thức nhờ cơ chế phân loại chống thiên lệch. Hai vòng lặp thử lại độc lập giúp loại bỏ hiệu quả các lỗi sư phạm và logic ở cả cấp độ thân câu hỏi lẫn phương án trả lời. Cơ chế tiến triển cưỡng bức đảm bảo hệ thống luôn hội tụ trong thời gian hữu hạn, tránh hiện tượng bế tắc. Hạn chế của kiến trúc này là tiêu thụ lượng token lớn hơn và có độ trễ cao hơn so với phương pháp chỉ dẫn đơn do yêu cầu nhiều lần gọi mô hình ngôn ngữ.
+
+\section{Quy trình OCR}
+Trong môi trường giáo dục thực tế, dữ liệu học tập rất hiếm khi tồn tại dưới các định dạng số hóa thuần túy như văn bản mà thường dưới dạng ảnh chụp sách giáo khoa, tài liệu in, đề thi, hoặc ghi chép tay. Nhằm đáp ứng nhu cầu trích xuất thông tin từ các dạng văn bản này, đồng thời triển khai một quy trình thử nghiệm có kiểm soát và đánh giá các VLM, nghiên cứu đã xây dựng một quy trình OCR khép kín.
+
+Thay vì thu thập dữ liệu ảnh chụp văn bản thủ công - phương pháp vốn tồn tại nhược điểm về chi phí gán nhãn và thiếu sự kiểm soát đối với mức độ nhiễu - hệ thống triển khai một quy trình sinh dữ liệu tổng hợp. Quá trình này là đảo ngược thứ tự của bài toàn OCR truyền thống trong giai đoạn chuẩn bị dữ liệu: hệ thống bắt đầu với một đoạn văn bản chuẩn lấy từ bộ dữ liệu nghiên cứu, sau đó chủ động tạo ra các hình ảnh chứa các đoạn văn bản đó và cuối cùng là thêm các tác nhân gây nhiễu trong môi trường thực tế vào ảnh vừa tạo. Nhờ đóm nghiên cứu có thể thực hiện đánh giá độ chính xác và hiệu năng các VLM trong ngữ cảnh thực tế mà không cần tốn tài nguyên thu thập dữ liệu và gán nhãn.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/augmentation-pipeline.png}
+    \caption{Sơ đồ quy trình tăng cường dữ liệu ảnh nhiễu}
+    % [MODIFIED]: Doi nhan figure de tranh trung label voi hinh khac trong cung chuong.
+    \label{fig:augmentation-pipeline}
+\end{figure}
+
+\subsection{Sinh ảnh sạch từ văn bản}
+
+Tác vụ đầu tiên trong quy trình là tạo ra các hình ảnh kỹ thuật số mang độ sắc nét tuyệt đối từ các đoạn văn bản đầu vào. Để đảm bảo tính đa dạng về mặt thị giác và kiểm thử, nghiên cứu không sử dụng các thư viện vẽ chữ trên ảnh như PIL mà tích hợp công cụ trình duyệt không giao diện (headless browser) thông qua thư viện Pyppeteer. Nhờ đó, nghiên cứu có thể tận dụng sức mạnh và độ thuận tiện của CSS và DOM để kiểm soát chính xác cấu trúc của hình ảnh được tạo ra.
+
+Quá trình tạo ảnh sạch được thực hiện thông qua ba bước sau:
+
+\begin{enumerate}
+    \item \textbf{Cài đặt các tham số định dạng không gian và kiểu chữ:} Hệ thống tự động lựa chọn ngẫu nhiên các khung kích thước tiêu chuẩn trong thực tế như giấy in (A4, A5, US Letter), tỷ lệ màn hình điện tử (FHD, HD), hoặc định dạng truyền thông xã hội (Facebook Status, Twitter Post). Phông chữ được lựa chọn ngẫu nhiên từ một danh sách cài đặt sẵn thu thập trực tiếp từ Google Fonts. Danh sách này được phân loại thành hai nhóm chính bao gồm nhóm phông chữ in chuẩn (Roboto, Merriweather) để mô phỏng sách giáo khoa, tài liệu in ấn, và nhóm phông chữ viết tay (như Dancing Script, Caveat, Mali) nhằm tái tạo gần đúng chữ viết tay từ các bản ghi chép của giáo viên hoặc học sinh. Ngoài ra, các tham số hiển thị khác nhau độ đậm, màu chữ và màu nền cũng được khởi tạo ngẫu nhiên để đảm bảo tính đa dạng.
+
+    \item \textbf{Thuật toán tính toán mật độ hiển thị:} Sau khi có các tham số hiển thị cần thiết, hệ thống sẽ đánh giá mật độ chữ trên diện tích của ảnh. Dựa trên tỷ lệ này, thuật toán sẽ quy định số lượng cột văn bản một cách linh hoạt (từ 1 đến 3 cột), khoảng cách lề (padding), độ giãn dòng (line height) và khoảng cách giữa các đoạn (paragraph spacing). Cơ chế này giúp đánh giả khả năng nhận diện các đoạn văn có cấu trúc phức tạp, nhiều cột của các mô hình.
+
+    \item \textbf{Thuật toán tự động khớp khung hình:} Thành phần này giúp giải quyết vấn đề lỗi tràn viền hoặc cắt xén chữ khi hệ thống chỉ chụp ảnh màn hình của trang đầu tiên cho kết quả đầu ra. Quá trình tự động khớp diễn ra sau khi tài liệu HTML/CSS được khởi tạo, khi đó thuật toán được nhúng trong một thẻ Javascript sẽ tự động điều chỉnh cơ chữ sao cho toàn bộ nội dung trang sẽ nằm gọn trong màn hình (không kích hoạt hiển thị thanh cuộn). Cuối cùng, Pyppeteer sẽ tiến hành chụp lại toàn bộ khung hình và lưu trữ dưới dạng tệp hình ảnh.
+
+\end{enumerate}
+
+Việc tự động hóa toàn bộ quy trình cho phép hệ thống Openlet tạo ra hàng loạt hình ảnh mang dữ liệu chính xác tuyệt đối ở tốc độ vào, làm dữ liệu đầu vào cho bước xử lý nhiễu tiếp theo.
+
+\subsection{Tạo dữ liệu ảnh nhiễu trong thực tế}
+
+Trong thực tế, ảnh chụp tài liệu từ thiết bị di động của người dùng rất hiếm khi đạt được chất lượng quang học lý tưởng. Sự tụt giảm chất lượng này có thể đến từ nhiều tác động ngẫu nhiên từ môi trường như: điều kiện chiếu sáng kém, chất lượng giấy không tốt, độ phân giải của camera thấp, hoặc các tác động cơ học như nếp gấp và vết mực nhòe. Để có thể mô phỏng gần đúng các điều kiện nhiễu trong thực tế, hệ thống tiến hành  giả lập nhiễu (Data Augmentation) dựa trên lượng ảnh sạch đã tạo ra từ bước trên.
+
+Nghiên cứu sử dụng thư viện Augraphy được thiết kế đặc thù cho các bài toán mô phỏng nhiễu của các tài liệu vật lý. Hệ thống thiết lập một tổ hợp các cơ chế gây nhiễu sau:
+
+\begin{itemize}
+    \item Về mặt chất liệu in ấn, hệ thống mô phỏng các lỗi cơ học của thiết bị in ấn bằng cách thêm vào hình ảnh các dải nhiễu cấu trúc như nhòe mực, chữ nét đứt hoặc mất chữ do tình trạng cạn mực. Nền ảnh gốc cũng được chỉnh sửa thành các bề mặt chất liệu khác nhau như thêm các họa tiết, vết ố vàng hoặc chèn các dòng chữ chìm. Các cơ chế này sẽ yêu cầu VLM phải sở hữu khả năng phân tách giữa các tín hiệu thông tin và lớp vật liệu nhiễu một cách chính xác.
+
+    \item Về mặt quang học và các yếu tố con người, hệ thống sử dụng các biến đổi như thay đổi sự phân bố của ánh sáng, bóng đổ vật lý, nhiễu hạt do chụp trong điều kiện thiếu sáng, và hiện tượng lóa sáng. Hệ thống tích hợp thêm các lỗi kỹ thuật như lỗi nén ảnh quản học, sự sai lệch kênh màu, viền đen do từ máy photocopy, cùng các biến dạng hình học như giấy bị nhăn nhúm hoặc văn bản bị che khuất bởi gáy sách. Không chỉ thế, hệ thống còn mô phỏng các tác động thủ công từ người học như nét gạch chân, tô bằng bút dạ quang hoặc các nét vẽ nguệch ngoạc, ngẫu nhiên đề trực tiếp lên văn bản gốc.
+
+
+
+\end{itemize}
+
+Mỗi văn bản đầu vào đều được chỉnh sửa thành một phiên bản định dạng vật lý hoàn toàn khác biệt. Nhờ đó, nghiên cứu có thể đánh giá chính xác sức mạnh và hiệu suất của từng mô hình OCR trong môi trường thực tế.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/augmentation-samples.png}
+    \caption{Các mẫu ảnh tài liệu tổng hợp sau khi thêm nhiễu}
+    \label{fig:augmentation-samples}
+\end{figure}
+
+\subsection{Nhận dạng văn bản từ ảnh}
+
+Giai đoạn cuối của quy trình tập trung vào việc trích xuất văn bản từ các tập dữ liệu ảnh (bao gồm cả ảnh sạch và ảnh nhiễu) thông qua API. Thay vì tự triển khai các mô hình OCR đòi hỏi tài nguyên phần cứng máy tính khổng lồ, hệ thống sử dụng các nền tảng trung gian như OpenRouter và Novita AI. Các hệ thống này cho phép thay đổi linh hoạt các mô hình và tiếp cận tới các OCR tiên tiến như PaddleOCR hay DeepSeek OCR.
+
+\section{Phương pháp đánh giá chất lượng câu hỏi}
+
+Bất kỳ một hệ thống sinh tự động nào cũng yêu cầu một cơ chế đánh giá độ tin cậy và mức độ hiệu quả của dữ liệu đầu ra. Đối với bài toán sinh câu hỏi trắc nghiệm tự động (AMCQG), các thang đo truyền thống như BLEU hay ROUGE tỏ ra hoàn toàn kém hiệu quả và không đáng tin cậy, lý do chính là chúng chỉ so sánh và đối chiếu sự trùng lặp từ vựng bề mặt mà bỏ quá tính sư phạm và ý nghĩa thực tế của câu hỏi. Để giải quyết vấn đề này, nghiên cứu phát triển một khung đánh giá tự động dựa trên các tiêu chí sư phạm kết hợp với phương pháp dùng LLM để đánh giá kết quả đầu ra (LLM-as-a-Judge).
+
+\subsection{Các tiêu chí đánh giá}
+
+% [MODIFY]: Sua tu bon thanh ba tieu chi, loai bo Clarity
+Để có thể thẩm định được chất lượng của một câu hỏi trắc nghiệm, hệ thống sử dụng ba tiêu chí độc lập. Mỗi tiêu chí đo lường một khía cạnh sư phạm của câu hỏi, đảm bảo đầu ra thỏa mãn các yêu cầu khắt khe của giáo dục:
+
+\begin{enumerate}
+    \item \textbf{Khả năng giải quyết dựa trên ngữ cảnh (Solvability):} Tiêu chí này kiểm định tính đóng của không gian thông tin. Theo lý thuyết, một câu hỏi đạt chuẩn Solvability bắt buộc phải chứa duy nhất một đáp án đúng, và đáp án này phải được suy luận hoàn toàn ra từ các thông tin nằm bên trong đoạn văn bản được cung cấp. Không chỉ vậy, yêu cầu này còn nghiêm cấm hiện tượng ảo giác của LLM khi sinh ra các câu hỏi mà câu trả lời tạo ra từ kiến thức bên ngoài. Điều này dẫn đến việc nếu người đọc không thể trả lời câu hỏi ngay trên văn bản đầu vào, câu hỏi đó hoàn toàn vi phạm nguyên tắc này.
+
+    \item \textbf{Chất lượng phương án nhiễu (Distractor Quality):} Tiêu chí này đóng vai trò kiểm định độ sắc bén của một câu hỏi. Một phương án sai hợp lệ phải đồng thời thỏa mãn hai điều kiện: Trái ngược hoàn toàn so với đáp án đúng về mặt bản chất, không tạo ra tránh cãi hoặc tính đa nghĩa; Có khả năng đánh lừa đối với những người học không nắm vững kiến thức. Các lựa chọn nhiễu hiển nhiên sai, lệch ngữ cảnh thường sẽ bị loại bỏ.
+
+    \item \textbf{Độ bám sát phân loại nhận thức (Alignment):} Tiêu chí này đo lường mức độ nhận thức hay độ khó của câu hỏi sinh ra có đúng với cấu hình yêu cầu từ trước hay không. Hệ thống sẽ thực hiện đối chiếu và đánh giá các câu hỏi được sinh ra với thang đo Bloom. Nếu LLM được giao nhiệm vụ sinh ra một câu hỏi Cấp 3 mà lại đưa ra một câu hỏi Cấp 1 thì đó là vi phạm tính Alignment do sự lệch pha về độ sâu nhận thức.
+
+
+\end{enumerate}
+
+% [MODIFY]: Viet lai hoan toan Section 3.4.2 de mo ta dung quy trinh danh gia thuc te (khong dung rubric-based scoring ma dung student simulation va classifier)
+\subsection{Phương pháp LLM-as-a-Judge}
+
+Để có thể khắc phục các hạn chế cố hữu của các thang đo truyền thống, nghiên cứu này áp dụng phương pháp sử dụng LLM để đánh giá kết quả đầu ra (LLM-as-a-Judge). Khác với cách tiếp cận truyền thống của G-Eval - nơi LLM giám khảo chấm điểm theo thang rubric - nghiên cứu này triển khai một phương pháp đánh giá dựa trên hành vi thực tế: LLM giám khảo được đặt vào vai trò một học sinh chuyên nghiệp để trực tiếp giải bài và phân loại câu hỏi, từ đó đo lường chất lượng thông qua kết quả hành động thay vì điểm số chủ quan.
+
+Quy trình đánh giá được chia thành hai giai đoạn độc lập:
+
+\textbf{Giai đoạn 1 - Đánh giá Khả năng giải quyết và Độ bám sát:}
+
+Trong giai đoạn này, LLM giám khảo nhận đầu vào gồm đoạn văn bản nguồn và bộ câu hỏi trắc nghiệm cần đánh giá. Điểm quan trọng là đáp án đúng không được cung cấp cho LLM giám khảo - mô hình phải tự mình giải từng câu hỏi và phân loại cấp độ nhận thức. Cụ thể, bài kiểm tra được thiết kế dưới dạng nhiều lựa chọn đúng (Select All That Apply): mỗi câu hỏi có thể có một, nhiều, hoặc không có phương án đúng. Thiết kế này buộc LLM phải đánh giá từng phương án một cách độc lập thay vì chỉ chọn phương án ``có vẻ đúng nhất''. Đối với mỗi câu hỏi, LLM giám khảo phải đưa ra chuỗi lập luận giải thích, sau đó trả về hai kết quả: (1) các phương án lựa chọn mà mô hình cho là đúng, và (2) cấp độ nhận thức mà mô hình dự đoán cho câu hỏi đó.
+
+Từ kết quả trên, hai chỉ số đánh giá được tính toán:
+
+% [NEW]: Them cong thuc tinh Solvability
+\begin{itemize}
+    \item \textbf{Khả năng giải quyết (Solvability):} Một câu hỏi đạt tiêu chí này khi và chỉ khi tập hợp phương án mà LLM giám khảo lựa chọn trùng khớp hoàn toàn với đáp án đúng. Chỉ số này nhận giá trị nhị phân:
+    \[
+    \text{Solvability}(q) =
+    \begin{cases}
+    1, & \text{nếu } C_{\text{judge}}(q) = \{c^*\} \\
+    0, & \text{ngược lại}
+    \end{cases}
+    \]
+    trong đó $C_{\text{judge}}(q)$ là tập hợp các phương án được LLM giám khảo lựa chọn cho câu hỏi $q$, và $c^*$ là đáp án đúng duy nhất. Nếu LLM chọn nhiều hơn một phương án hoặc chọn sai, câu hỏi bị đánh giá là không đạt - cho thấy câu hỏi có thể mơ hồ, chứa nhiều đáp án đúng, hoặc đáp án đúng không suy luận được từ văn bản.
+
+    \item \textbf{Độ bám sát phân loại nhận thức (Alignment):} Chỉ số này đo lường mức độ phù hợp giữa cấp độ nhận thức mà LLM giám khảo dự đoán và cấp độ yêu cầu ban đầu:
+    \[
+    \text{Alignment}(q) =
+    \begin{cases}
+    1, & \text{nếu } l_{\text{judge}}(q) = l_{\text{target}}(q) \\
+    0, & \text{ngược lại}
+    \end{cases}
+    \]
+    trong đó $l_{\text{judge}}(q)$ là cấp độ nhận thức do LLM dự đoán và $l_{\text{target}}(q)$ là cấp độ yêu cầu khi sinh câu hỏi.
+\end{itemize}
+
+% [NEW]: Them cong thuc tinh Acceptance Rate
+Từ hai chỉ số trên, tỷ lệ chấp nhận tổng hợp (Acceptance Rate) được định nghĩa là tỷ lệ câu hỏi đồng thời đạt cả hai tiêu chí:
+
+\[
+\text{Acceptance}(q) = \text{Solvability}(q) \times \text{Alignment}(q)
+\]
+
+\[
+\text{Acceptance Rate} = \frac{1}{N} \sum_{i=1}^{N} \text{Acceptance}(q_i)
+\]
+
+trong đó $N$ là tổng số câu hỏi được đánh giá. Chỉ những câu hỏi có Acceptance bằng 1 (tức vừa giải được đúng, vừa đúng cấp độ) mới được đưa vào giai đoạn đánh giá tiếp theo.
+
+\textbf{Giai đoạn 2 - Đánh giá Chất lượng phương án nhiễu:}
+
+Giai đoạn này chỉ áp dụng cho các câu hỏi đã đạt tiêu chí Acceptance ở giai đoạn 1. Khác với giai đoạn trước, ở đây LLM giám khảo nhận đầy đủ thông tin: câu hỏi, bốn phương án, đáp án đúng và cấp độ nhận thức. Nhiệm vụ của LLM là đánh giá từng phương án nhiễu (ba phương án sai) theo các tiêu chuẩn đặc thù cho từng cấp độ nhận thức:
+
+\begin{itemize}
+    \item \textbf{Cấp 1 (Truy xuất):} Phương án nhiễu hợp lệ phải mâu thuẫn trực tiếp với văn bản hoặc đưa vào thông tin bên ngoài không được đề cập trong đoạn văn.
+    \item \textbf{Cấp 2 (Suy luận):} Phương án nhiễu phải chứa các từ khóa xuất hiện trong văn bản gốc nhưng xây dựng thành mệnh đề sai, hoặc trình bày một sự thật đúng một phần nhưng thiếu hoàn chỉnh.
+    \item \textbf{Cấp 3 (Lập luận phản biện):} Phương án nhiễu phải là các bẫy logic tinh vi: áp dụng sai quy luật của văn bản, đảo ngược quan hệ nhân quả, hoặc đưa ra các giả định hợp lý nhưng không được văn bản hỗ trợ.
+\end{itemize}
+
+% [NEW]: Them cong thuc tinh Distractor Quality
+Chỉ số Chất lượng phương án nhiễu (Distractor Quality) được tính như sau. Đối với mỗi câu hỏi đã được chấp nhận, LLM giám khảo đánh giá từng phương án nhiễu là hợp lệ hoặc không hợp lệ theo tiêu chuẩn cấp độ tương ứng. Gọi $v(q)$ là số phương án nhiễu hợp lệ của câu hỏi $q$, với $v(q) \in \{0, 1, 2, 3\}$. Chỉ số Distractor Quality cho mỗi cấp độ $l$ được chuẩn hóa về khoảng $[0, 1]$:
+
+\[
+\text{DQ}_l = \frac{1}{N_l} \sum_{q \in \mathcal{A}_l} \frac{v(q)}{3}
+\]
+
+trong đó $\mathcal{A}_l$ là tập hợp các câu hỏi đã được chấp nhận ở cấp độ $l$, $N_l = |\mathcal{A}_l|$ là số lượng câu hỏi trong tập này, và phép chia cho 3 chuẩn hóa theo tổng số phương án nhiễu của mỗi câu hỏi.
+
+Chỉ số Distractor Quality tổng thể được tính bằng trung bình cộng trên ba cấp độ:
+
+\[
+\text{DQ}_{\text{overall}} = \frac{1}{3} \sum_{l=1}^{3} \text{DQ}_l
+\]
+
+% [NEW]: Them cong thuc tinh WER va CER cho phan OCR
+Ngoài các chỉ số đánh giá chất lượng câu hỏi, nghiên cứu sử dụng hai thang đo chuẩn để đánh giá hiệu suất nhận dạng ký tự quang học (OCR): Tỷ lệ lỗi ký tự (Character Error Rate - CER) và Tỷ lệ lỗi từ (Word Error Rate - WER). Cả hai chỉ số đều dựa trên khoảng cách chỉnh sửa Levenshtein, đo số phép chèn ($I$), xóa ($D$) và thay thế ($S$) tối thiểu cần thiết để biến đổi chuỗi dự đoán thành chuỗi tham chiếu:
+
+\[
+\text{CER} = \frac{S_c + D_c + I_c}{N_c}, \qquad \text{WER} = \frac{S_w + D_w + I_w}{N_w}
+\]
+
+trong đó $N_c$ và $N_w$ lần lượt là tổng số ký tự và từ trong chuỗi tham chiếu. Giá trị càng thấp thể hiện chất lượng nhận dạng càng tốt, với 0 tương ứng nhận dạng hoàn hảo.

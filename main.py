@@ -1,5 +1,5 @@
 """
-DCP v5 — Multi-Agent Question Generation Pipeline (LangGraph Refactored)
+DCP v5 - Multi-Agent Question Generation Pipeline (LangGraph Refactored)
 
 Architecture:
     Hub-and-Spoke with Dynamic Fan-out (Map-Reduce) and Pre-allocated Sequential IDs.
@@ -973,7 +973,7 @@ def process_item(item: Dict, n: int, workflow, max_loops: int, verbose: bool) ->
 
 def main():
     parser = argparse.ArgumentParser(
-        description="DCP v5 — Optimized LangGraph Pipeline"
+        description="DCP v5 - Optimized LangGraph Pipeline"
     )
     parser.add_argument("--model", type=str, default="google/gemma-3-12b-it")
     parser.add_argument("--n", type=int, default=5)
@@ -1054,7 +1054,7 @@ def main():
         data = grouped.get(source_lower, [])
         console.print(f"\n[bold cyan]{'='*80}[/bold cyan]")
         console.print(
-            f"[bold]Processing source:[/bold] {source.upper()} — {len(data)} items"
+            f"[bold]Processing source:[/bold] {source.upper()} - {len(data)} items"
         )
         console.print(f"[bold cyan]{'='*80}[/bold cyan]")
 

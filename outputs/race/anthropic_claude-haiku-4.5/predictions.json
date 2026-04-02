@@ -42,12 +42,7 @@
       },
       {
         "content": "What percentage of accuracy do trained lie spotters achieve in detecting lies?",
-        "options": [
-          "54%",
-          "70%",
-          "90%",
-          "95%"
-        ],
+        "options": ["54%", "70%", "90%", "95%"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -217,12 +212,7 @@
       },
       {
         "content": "At what time did Alberto Torres wake up on the morning described in the passage?",
-        "options": [
-          "3 a.m.",
-          "5 a.m.",
-          "6 a.m.",
-          "7 a.m."
-        ],
+        "options": ["3 a.m.", "5 a.m.", "6 a.m.", "7 a.m."],
         "correct": 0,
         "type": "General",
         "level": 1
@@ -241,12 +231,7 @@
       },
       {
         "content": "How much money does Alberto Torres earn annually?",
-        "options": [
-          "$15,000",
-          "$20,000",
-          "$25,000",
-          "$30,000"
-        ],
+        "options": ["$15,000", "$20,000", "$25,000", "$30,000"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -416,12 +401,7 @@
       },
       {
         "content": "Which of the following is NOT mentioned as a way to produce music for the game?",
-        "options": [
-          "A piano",
-          "A tape recorder",
-          "A radio",
-          "A drum set"
-        ],
+        "options": ["A piano", "A tape recorder", "A radio", "A drum set"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -547,7 +527,7 @@
         "level": 3
       },
       {
-        "content": "The author's description of the game progression—from many players and chairs to two players and one chair—implicitly supports which conclusion about the game's structure?",
+        "content": "The author's description of the game progression-from many players and chairs to two players and one chair-implicitly supports which conclusion about the game's structure?",
         "options": [
           "The game becomes progressively more difficult and exclusive, with each elimination raising the stakes for remaining players",
           "Players who are eliminated early were inherently less skilled than those who remain",
@@ -591,24 +571,14 @@
       },
       {
         "content": "What did Ben Rogers offer Tom in exchange for the whitewashing brush?",
-        "options": [
-          "A kite",
-          "A dead rat",
-          "The core of his apple",
-          "Money"
-        ],
+        "options": ["A kite", "A dead rat", "The core of his apple", "Money"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "How many times was the fence whitewashed by the end of the afternoon?",
-        "options": [
-          "Once",
-          "Twice",
-          "Three times",
-          "Four times"
-        ],
+        "options": ["Once", "Twice", "Three times", "Four times"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -754,12 +724,7 @@
     "generated_questions": [
       {
         "content": "In which city is Yueyang Tower located?",
-        "options": [
-          "Baling Jun",
-          "Yueyang City",
-          "Dongting Lake",
-          "Zijing"
-        ],
+        "options": ["Baling Jun", "Yueyang City", "Dongting Lake", "Zijing"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -778,36 +743,21 @@
       },
       {
         "content": "What is the height of the main tower of Yueyang Tower?",
-        "options": [
-          "21.35 meters",
-          "3 stories",
-          "716 meters",
-          "1044 meters"
-        ],
+        "options": ["21.35 meters", "3 stories", "716 meters", "1044 meters"],
         "correct": 0,
         "type": "General",
         "level": 1
       },
       {
         "content": "Who wrote the famous poem \"A Panegyric of the Yueyang Tower\"?",
-        "options": [
-          "Lu Su",
-          "Zhang Shuo",
-          "Teng Zijing",
-          "Fan Zhongyan"
-        ],
+        "options": ["Lu Su", "Zhang Shuo", "Teng Zijing", "Fan Zhongyan"],
         "correct": 3,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which general trained soldiers at Yueyang Tower during the Three Kingdoms Period?",
-        "options": [
-          "Zhang Shuo",
-          "Lu Su",
-          "Teng Zijing",
-          "Zhou Yu"
-        ],
+        "options": ["Zhang Shuo", "Lu Su", "Teng Zijing", "Zhou Yu"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -1140,12 +1090,7 @@
       },
       {
         "content": "What animal did Mira discover coming out of the sand?",
-        "options": [
-          "Crabs",
-          "Fish",
-          "Baby turtles",
-          "Seagulls"
-        ],
+        "options": ["Crabs", "Fish", "Baby turtles", "Seagulls"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -1247,7 +1192,7 @@
         "level": 2
       },
       {
-        "content": "Which of the following scenarios would most weaken the argument implied in the story—that artificial lights harm sea turtles?",
+        "content": "Which of the following scenarios would most weaken the argument implied in the story-that artificial lights harm sea turtles?",
         "options": [
           "Evidence showing that baby turtles successfully navigate to the sea even in areas with numerous coastal lights",
           "Documentation that sea turtles have been nesting on beaches for thousands of years",
@@ -1283,7 +1228,7 @@
         "level": 3
       },
       {
-        "content": "The story's narrative structure—moving from Mira's discovery, to her recollection of her grandmother's warning, to her immediate intervention—primarily serves to:",
+        "content": "The story's narrative structure-moving from Mira's discovery, to her recollection of her grandmother's warning, to her immediate intervention-primarily serves to:",
         "options": [
           "Show that Mira was more intelligent than her grandmother",
           "Illustrate how knowledge of a problem's cause can directly enable an individual to take meaningful action",
@@ -1327,12 +1272,7 @@
       },
       {
         "content": "Which country did Lieberman NOT visit during his year abroad before college?",
-        "options": [
-          "Italy",
-          "Germany",
-          "Spain",
-          "Portugal"
-        ],
+        "options": ["Italy", "Germany", "Spain", "Portugal"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -1624,7 +1564,7 @@
         "content": "Which of the following best describes the author's underlying purpose in this communication?",
         "options": [
           "To announce test dates and discourage student participation in test preparation",
-          "To inform parents about test preparation opportunities while emphasizing that strong reading habits—both at school and at home—form the foundation of test success",
+          "To inform parents about test preparation opportunities while emphasizing that strong reading habits-both at school and at home-form the foundation of test success",
           "To criticize students who do not perform well on standardized tests",
           "To explain why the school is eliminating after-school activities"
         ],
@@ -1689,12 +1629,7 @@
     "generated_questions": [
       {
         "content": "How long was the narrator in a coma after the motorbike accident?",
-        "options": [
-          "One month",
-          "Two months",
-          "Three months",
-          "Six months"
-        ],
+        "options": ["One month", "Two months", "Three months", "Six months"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -1737,12 +1672,7 @@
       },
       {
         "content": "How old is the narrator at the time of writing this account?",
-        "options": [
-          "18",
-          "21",
-          "35",
-          "46"
-        ],
+        "options": ["18", "21", "35", "46"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -2384,7 +2314,7 @@
         "content": "If the author of Passage 1 were to respond to the author of Passage 2's claim that present-moment living is \"much overrated,\" which of the following would most strengthen Passage 1's position?",
         "options": [
           "Evidence that people who sacrifice ten years for a diploma are happier than those who live in the present",
-          "Evidence that even small moments of present-moment awareness—such as breathing consciously or eating mindfully—can produce measurable increases in peace and joy without requiring constant vigilance",
+          "Evidence that even small moments of present-moment awareness-such as breathing consciously or eating mindfully-can produce measurable increases in peace and joy without requiring constant vigilance",
           "Evidence that the past and future are more important than the present",
           "Evidence that concerts are not enjoyable"
         ],
@@ -2437,24 +2367,14 @@
     "generated_questions": [
       {
         "content": "How long did Bernard Jackson spend in prison?",
-        "options": [
-          "Two years",
-          "Three years",
-          "Five years",
-          "Seven years"
-        ],
+        "options": ["Two years", "Three years", "Five years", "Seven years"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "What crime was Bernard Jackson wrongly convicted of?",
-        "options": [
-          "Theft",
-          "Raping two women",
-          "Assault",
-          "Fraud"
-        ],
+        "options": ["Theft", "Raping two women", "Assault", "Fraud"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -2559,7 +2479,7 @@
         "content": "The text states that \"people sometimes have difficulty identifying people of other races\" and that \"the questions the police ask witnesses also have an effect on them.\" What does this suggest about the factors affecting eyewitness reliability?",
         "options": [
           "Only biological factors influence witness accuracy",
-          "Multiple independent variables—both perceptual and procedural—can compromise eyewitness testimony",
+          "Multiple independent variables-both perceptual and procedural-can compromise eyewitness testimony",
           "Police questioning is the only significant factor affecting witness memory",
           "Racial differences make all cross-racial identifications impossible"
         ],
@@ -3034,12 +2954,7 @@
       },
       {
         "content": "How often does Matt water his plants?",
-        "options": [
-          "Every day",
-          "Never",
-          "Sometimes",
-          "Only in summer"
-        ],
+        "options": ["Every day", "Never", "Sometimes", "Only in summer"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -3221,12 +3136,7 @@
       },
       {
         "content": "Which city was set on fire during the war against Napoleon?",
-        "options": [
-          "Rome",
-          "London",
-          "Moscow",
-          "Paris"
-        ],
+        "options": ["Rome", "London", "Moscow", "Paris"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -3372,12 +3282,7 @@
     "generated_questions": [
       {
         "content": "In what year was Artie Shaw born?",
-        "options": [
-          "1928",
-          "1910",
-          "1936",
-          "1915"
-        ],
+        "options": ["1928", "1910", "1936", "1915"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -3396,12 +3301,7 @@
       },
       {
         "content": "Which city did Artie Shaw travel to in 1928 to hear Louis Armstrong?",
-        "options": [
-          "New York City",
-          "New Haven",
-          "Chicago",
-          "Columbia"
-        ],
+        "options": ["New York City", "New Haven", "Chicago", "Columbia"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -3559,12 +3459,7 @@
     "generated_questions": [
       {
         "content": "In what year did the author take the teaching job in western New Jersey?",
-        "options": [
-          "1970",
-          "1972",
-          "1974",
-          "1976"
-        ],
+        "options": ["1970", "1972", "1974", "1976"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -3654,7 +3549,7 @@
         "level": 2
       },
       {
-        "content": "The author's reference to Emerson's words—\"The secret to education lies in respecting the pupil\"—suggests that her boss believed:",
+        "content": "The author's reference to Emerson's words-\"The secret to education lies in respecting the pupil\"-suggests that her boss believed:",
         "options": [
           "Respect is earned only after students demonstrate good behavior",
           "Respecting students as individuals is fundamental to effective teaching",
@@ -3945,12 +3840,7 @@
       },
       {
         "content": "What is the name of the Browns' dog?",
-        "options": [
-          "Laura",
-          "Jasper",
-          "Angela",
-          "Daniel"
-        ],
+        "options": ["Laura", "Jasper", "Angela", "Daniel"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -4156,24 +4046,14 @@
       },
       {
         "content": "Which of the following is NOT listed in the \"What you need\" section?",
-        "options": [
-          "Measuring cup",
-          "Paintbrush",
-          "Scissors",
-          "Water"
-        ],
+        "options": ["Measuring cup", "Paintbrush", "Scissors", "Water"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "What color does the baking soda writing turn when exposed to heat?",
-        "options": [
-          "Purple",
-          "Brown",
-          "Black",
-          "Red"
-        ],
+        "options": ["Purple", "Brown", "Black", "Red"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -4319,12 +4199,7 @@
       },
       {
         "content": "What is the name of the earth's pull?",
-        "options": [
-          "Force",
-          "Pressure",
-          "Gravity",
-          "Magnetism"
-        ],
+        "options": ["Force", "Pressure", "Gravity", "Magnetism"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -4494,12 +4369,7 @@
     "generated_questions": [
       {
         "content": "Which city is described as the capital of China?",
-        "options": [
-          "Siem Reap",
-          "Beijing",
-          "Kathmandu",
-          "Kyoto"
-        ],
+        "options": ["Siem Reap", "Beijing", "Kathmandu", "Kyoto"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -4518,12 +4388,7 @@
       },
       {
         "content": "In which mountain range is Kathmandu located?",
-        "options": [
-          "The Alps",
-          "The Rockies",
-          "The Himalayas",
-          "The Andes"
-        ],
+        "options": ["The Alps", "The Rockies", "The Himalayas", "The Andes"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -4836,7 +4701,7 @@
         "level": 3
       },
       {
-        "content": "The article's structure—presenting both Romero's achievement and the controversy surrounding it—suggests that the author views the situation as:",
+        "content": "The article's structure-presenting both Romero's achievement and the controversy surrounding it-suggests that the author views the situation as:",
         "options": [
           "Entirely celebratory with no legitimate concerns about youth mountaineering.",
           "Wholly problematic and irresponsible on the part of Romero's family.",
@@ -4904,12 +4769,7 @@
       },
       {
         "content": "What position did Jenny hold on the Garrett High School Football Team?",
-        "options": [
-          "Player",
-          "Coach",
-          "Manager",
-          "Statistician"
-        ],
+        "options": ["Player", "Coach", "Manager", "Statistician"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -4987,7 +4847,7 @@
         "level": 2
       },
       {
-        "content": "Which of the following best explains why the football coach's initial warning—\"If you miss ONE game, you're out!\"—ultimately became irrelevant to Jenny's tenure as manager?",
+        "content": "Which of the following best explains why the football coach's initial warning-\"If you miss ONE game, you're out!\"-ultimately became irrelevant to Jenny's tenure as manager?",
         "options": [
           "The coach forgot about the warning after the first game",
           "Jenny's demonstrated commitment and the team's success made the condition unnecessary to enforce, as her dedication was already proven",
@@ -5067,24 +4927,14 @@
       },
       {
         "content": "How many UN staff members were kidnapped?",
-        "options": [
-          "Two",
-          "Three",
-          "Four",
-          "Five"
-        ],
+        "options": ["Two", "Three", "Four", "Five"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which of the following was NOT mentioned as a nationality of the kidnapped persons?",
-        "options": [
-          "British",
-          "Irish",
-          "Kosovar",
-          "Afghan"
-        ],
+        "options": ["British", "Irish", "Kosovar", "Afghan"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -5242,36 +5092,21 @@
     "generated_questions": [
       {
         "content": "In what year did Daniel Defoe write Robinson Crusoe?",
-        "options": [
-          "1617",
-          "1719",
-          "1760",
-          "1800"
-        ],
+        "options": ["1617", "1719", "1760", "1800"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What island did Alexander Selkirk ask to be put ashore on?",
-        "options": [
-          "Juan Fernandez",
-          "The South Seas",
-          "Scotland",
-          "England"
-        ],
+        "options": ["Juan Fernandez", "The South Seas", "Scotland", "England"],
         "correct": 0,
         "type": "General",
         "level": 1
       },
       {
         "content": "How long was Alexander Selkirk stranded on the island before being rescued?",
-        "options": [
-          "One year",
-          "Two years",
-          "Over four years",
-          "Seven years"
-        ],
+        "options": ["One year", "Two years", "Over four years", "Seven years"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -5429,12 +5264,7 @@
     "generated_questions": [
       {
         "content": "How many years has The Times been in publication before it changed its size?",
-        "options": [
-          "100 years",
-          "150 years",
-          "221 years",
-          "250 years"
-        ],
+        "options": ["100 years", "150 years", "221 years", "250 years"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -5453,12 +5283,7 @@
       },
       {
         "content": "Which newspaper is described as Britain's best-selling newspaper?",
-        "options": [
-          "The Times",
-          "The Guardian",
-          "The Sun",
-          "The Independent"
-        ],
+        "options": ["The Times", "The Guardian", "The Sun", "The Independent"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -5477,12 +5302,7 @@
       },
       {
         "content": "What term do the papers use instead of \"tabloid\" to describe their new size?",
-        "options": [
-          "Broadsheet",
-          "Compact",
-          "Mini-format",
-          "Portable"
-        ],
+        "options": ["Broadsheet", "Compact", "Mini-format", "Portable"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -5587,7 +5407,7 @@
         "content": "The text implies that the British newspaper market is structured around a specific editorial and physical distinction. Which of the following scenarios would most challenge the traditional broadsheet-tabloid divide described in the passage?",
         "options": [
           "A newspaper that maintains broadsheet size but publishes celebrity gossip and simple language",
-          "A newspaper that adopts compact size, maintains serious political content, and uses formal language—essentially combining tabloid format with broadsheet editorial standards",
+          "A newspaper that adopts compact size, maintains serious political content, and uses formal language-essentially combining tabloid format with broadsheet editorial standards",
           "A newspaper that increases its page size and adds more pictures",
           "A newspaper that publishes only international news"
         ],
@@ -5616,12 +5436,7 @@
     "generated_questions": [
       {
         "content": "According to the Global Humanitarian Forum report, how many deaths annually are caused by global warming?",
-        "options": [
-          "125 million",
-          "300,000",
-          "325 million",
-          "90,000"
-        ],
+        "options": ["125 million", "300,000", "325 million", "90,000"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -5652,24 +5467,14 @@
       },
       {
         "content": "What is the projected number of people affected by climate change by 2030?",
-        "options": [
-          "325 million",
-          "650 million",
-          "125 billion",
-          "300,000"
-        ],
+        "options": ["325 million", "650 million", "125 billion", "300,000"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "Where will world leaders meet in December to negotiate a new international climate treaty?",
-        "options": [
-          "New York",
-          "Copenhagen",
-          "Boulder",
-          "Geneva"
-        ],
+        "options": ["New York", "Copenhagen", "Boulder", "Geneva"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -5818,7 +5623,7 @@
         "options": [
           "One week in Cambridge only",
           "One week in Shanghai only",
-          "Two weeks total—one in Cambridge and one in Shanghai",
+          "Two weeks total-one in Cambridge and one in Shanghai",
           "Four weeks spread across multiple locations"
         ],
         "correct": 2,
@@ -6002,24 +5807,14 @@
       },
       {
         "content": "In what year did Noah Webster complete his dictionary?",
-        "options": [
-          "1758",
-          "1775",
-          "1828",
-          "2008"
-        ],
+        "options": ["1758", "1775", "1828", "2008"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "How many words were included in Webster's dictionary?",
-        "options": [
-          "28,000",
-          "70,000",
-          "250,000",
-          "1,000,000"
-        ],
+        "options": ["28,000", "70,000", "250,000", "1,000,000"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -6225,12 +6020,7 @@
       },
       {
         "content": "How many specific building requirements are listed with bullet points in the passage?",
-        "options": [
-          "Two",
-          "Three",
-          "Four",
-          "Five"
-        ],
+        "options": ["Two", "Three", "Four", "Five"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -6551,36 +6341,21 @@
     "generated_questions": [
       {
         "content": "According to the text, how many levels of government exist in the United States?",
-        "options": [
-          "Two",
-          "Three",
-          "Four",
-          "Five"
-        ],
+        "options": ["Two", "Three", "Four", "Five"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What is the federal income tax cutoff amount mentioned in the passage?",
-        "options": [
-          "$4,000 to $5,000",
-          "$15,000",
-          "$17,850",
-          "$28,000"
-        ],
+        "options": ["$4,000 to $5,000", "$15,000", "$17,850", "$28,000"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which of the following is NOT mentioned as a type of city tax?",
-        "options": [
-          "Property tax",
-          "Excise tax",
-          "Sales tax",
-          "Vehicle tax"
-        ],
+        "options": ["Property tax", "Excise tax", "Sales tax", "Vehicle tax"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -6750,24 +6525,14 @@
       },
       {
         "content": "According to the text, what percentage of women in the United States work outside the home?",
-        "options": [
-          "25%",
-          "50%",
-          "75%",
-          "90%"
-        ],
+        "options": ["25%", "50%", "75%", "90%"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "How much of the housework do working wives in the United States do?",
-        "options": [
-          "About 25%",
-          "About 50%",
-          "About 75%",
-          "Almost 100%"
-        ],
+        "options": ["About 25%", "About 50%", "About 75%", "Almost 100%"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -6925,12 +6690,7 @@
     "generated_questions": [
       {
         "content": "In what year did Albert Einstein publish the equation E = mc²?",
-        "options": [
-          "1929",
-          "1905",
-          "1933",
-          "1939"
-        ],
+        "options": ["1929", "1905", "1933", "1939"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -6949,12 +6709,7 @@
       },
       {
         "content": "In what month and year was the letter to President Roosevelt, signed by Einstein, delivered?",
-        "options": [
-          "July 1939",
-          "August 1939",
-          "October 1939",
-          "April 1940"
-        ],
+        "options": ["July 1939", "August 1939", "October 1939", "April 1940"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -7299,12 +7054,7 @@
     "generated_questions": [
       {
         "content": "In what year did Shane Stedman invent Ugg boots?",
-        "options": [
-          "1983",
-          "1973",
-          "1945",
-          "1991"
-        ],
+        "options": ["1983", "1973", "1945", "1991"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -7486,12 +7236,7 @@
     "generated_questions": [
       {
         "content": "What is the price of the Generic Elementary School-pak for first through fifth graders?",
-        "options": [
-          "$15.99",
-          "$23.28",
-          "$30.50",
-          "$45.00"
-        ],
+        "options": ["$15.99", "$23.28", "$30.50", "$45.00"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -7510,24 +7255,14 @@
       },
       {
         "content": "How many states have Play It Again Sports store locations?",
-        "options": [
-          "30 states",
-          "46 states",
-          "50 states",
-          "320 states"
-        ],
+        "options": ["30 states", "46 states", "50 states", "320 states"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What is the minimum number of kits required to receive free shipping from schoolpak.com?",
-        "options": [
-          "50 kits",
-          "60 kits",
-          "75 kits",
-          "100 kits"
-        ],
+        "options": ["50 kits", "60 kits", "75 kits", "100 kits"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -7884,12 +7619,7 @@
       },
       {
         "content": "How tall is Michael's Triumph, the tree mentioned by Rusel DeMaria?",
-        "options": [
-          "100 feet",
-          "120 feet",
-          "150 feet",
-          "200 feet"
-        ],
+        "options": ["100 feet", "120 feet", "150 feet", "200 feet"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -8083,12 +7813,7 @@
       },
       {
         "content": "What amount of grant did Dr Andrew Olney receive?",
-        "options": [
-          "$1 million",
-          "$1.3 million",
-          "$3 million",
-          "$13 million"
-        ],
+        "options": ["$1 million", "$1.3 million", "$3 million", "$13 million"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -8282,12 +8007,7 @@
       },
       {
         "content": "What is the adult price for The Ambassador Luau Package?",
-        "options": [
-          "$68.00",
-          "$103.00",
-          "$118.00",
-          "$215.00"
-        ],
+        "options": ["$68.00", "$103.00", "$118.00", "$215.00"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -8445,12 +8165,7 @@
       },
       {
         "content": "What snack was available on the cabin table during cabin night?",
-        "options": [
-          "Cookies",
-          "Candy",
-          "Potato chips",
-          "Popcorn"
-        ],
+        "options": ["Cookies", "Candy", "Potato chips", "Popcorn"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -8504,7 +8219,7 @@
         "level": 2
       },
       {
-        "content": "Based on the priest's explanation of death as \"a doorway\" with \"the Lord God\" and \"people waiting to hug you,\" what does David's final statement—\"See you on the other side of the door, Fatha\"—most likely reveal?",
+        "content": "Based on the priest's explanation of death as \"a doorway\" with \"the Lord God\" and \"people waiting to hug you,\" what does David's final statement-\"See you on the other side of the door, Fatha\"-most likely reveal?",
         "options": [
           "David was angry at the priest for discussing death",
           "David had accepted the priest's spiritual perspective and found comfort in it",
@@ -8576,7 +8291,7 @@
         "level": 3
       },
       {
-        "content": "The author's description of the final scene—where David hugs the priest and says \"See you on the other side of the door\"—serves as evidence for which of the following interpretations?",
+        "content": "The author's description of the final scene-where David hugs the priest and says \"See you on the other side of the door\"-serves as evidence for which of the following interpretations?",
         "options": [
           "David was rejecting the priest's spiritual teachings about death",
           "David had regressed to his earlier withdrawn state",
@@ -8608,36 +8323,21 @@
     "generated_questions": [
       {
         "content": "Which South American plant was introduced to Europe by the Spanish during the 1500s?",
-        "options": [
-          "Coffee",
-          "Chocolate",
-          "Potatoes",
-          "Red fruits"
-        ],
+        "options": ["Coffee", "Chocolate", "Potatoes", "Red fruits"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What crop failure in Ireland during 1845-1846 caused thousands of people to starve or emigrate?",
-        "options": [
-          "Chocolate",
-          "Coffee",
-          "Potatoes",
-          "Cacao seeds"
-        ],
+        "options": ["Chocolate", "Coffee", "Potatoes", "Cacao seeds"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "According to the text, in which country is coffee native to?",
-        "options": [
-          "Brazil",
-          "Ethiopia",
-          "Peru",
-          "Spain"
-        ],
+        "options": ["Brazil", "Ethiopia", "Peru", "Spain"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -8994,12 +8694,7 @@
       },
       {
         "content": "How many women did Lance Gerrard-Wright date on the show?",
-        "options": [
-          "Seven",
-          "Ten",
-          "Fifteen",
-          "Twenty"
-        ],
+        "options": ["Seven", "Ten", "Fifteen", "Twenty"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -9368,36 +9063,21 @@
       },
       {
         "content": "In what season do two-thirds of drowning accidents occur?",
-        "options": [
-          "Winter",
-          "Spring",
-          "Summer",
-          "Fall"
-        ],
+        "options": ["Winter", "Spring", "Summer", "Fall"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "How many children under the age of 15 die from falls each year in the United States?",
-        "options": [
-          "100",
-          "140",
-          "300",
-          "1,500"
-        ],
+        "options": ["100", "140", "300", "1,500"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "According to the Seattle study mentioned in the text, by what percentage did helmets reduce the risk of head injury?",
-        "options": [
-          "75 percent",
-          "80 percent",
-          "85 percent",
-          "90 percent"
-        ],
+        "options": ["75 percent", "80 percent", "85 percent", "90 percent"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -9689,7 +9369,7 @@
         "content": "If the author's claim that \"it is almost impossible to measure how much waste water and industrial waste\" enters the oceans is true, what logical problem does this create for assessing the overall severity of ocean pollution?",
         "options": [
           "It proves that ocean pollution is not a serious threat",
-          "The inability to quantify total contamination makes it difficult to fully understand the extent of the problem, yet the author still warns of dead oceans—suggesting the known pollution (like oil) may be only a partial indicator of a larger crisis",
+          "The inability to quantify total contamination makes it difficult to fully understand the extent of the problem, yet the author still warns of dead oceans-suggesting the known pollution (like oil) may be only a partial indicator of a larger crisis",
           "It means that shellfish are definitely safe to eat",
           "It indicates that only oil pollution matters"
         ],
@@ -9730,12 +9410,7 @@
     "generated_questions": [
       {
         "content": "How many people were traveling on the train?",
-        "options": [
-          "Two",
-          "Three",
-          "Four",
-          "Five"
-        ],
+        "options": ["Two", "Three", "Four", "Five"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -9754,36 +9429,21 @@
       },
       {
         "content": "What nationality was the lawyer?",
-        "options": [
-          "Russian",
-          "Cuban",
-          "American",
-          "English"
-        ],
+        "options": ["Russian", "Cuban", "American", "English"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which country does the Cuban say produces the cheapest cigars?",
-        "options": [
-          "Russia",
-          "Cuba",
-          "America",
-          "England"
-        ],
+        "options": ["Russia", "Cuba", "America", "England"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What did the Cuban pass around before throwing something out of the window?",
-        "options": [
-          "Vodka",
-          "Money",
-          "Havana Cigars",
-          "Cigarettes"
-        ],
+        "options": ["Vodka", "Money", "Havana Cigars", "Cigarettes"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -10490,12 +10150,7 @@
       },
       {
         "content": "What is the projected number of smoking deaths per year by 2020 if current smoking rates continue?",
-        "options": [
-          "3 million",
-          "5 million",
-          "10 million",
-          "15 million"
-        ],
+        "options": ["3 million", "5 million", "10 million", "15 million"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -10514,24 +10169,14 @@
       },
       {
         "content": "What percentage of Chinese men smoke more than 15 cigarettes each day?",
-        "options": [
-          "25%",
-          "50%",
-          "70%",
-          "90%"
-        ],
+        "options": ["25%", "50%", "70%", "90%"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which of the following diseases is explicitly mentioned as being caused by smoking?",
-        "options": [
-          "Diabetes",
-          "Lung cancer",
-          "Kidney disease",
-          "Arthritis"
-        ],
+        "options": ["Diabetes", "Lung cancer", "Kidney disease", "Arthritis"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -10665,12 +10310,7 @@
     "generated_questions": [
       {
         "content": "According to the British Heart Foundation, what percentage of 11-to-15-year-old regular smokers in England and Wales obtain cigarettes from vending machines?",
-        "options": [
-          "5 per cent",
-          "11 per cent",
-          "15 per cent",
-          "20 per cent"
-        ],
+        "options": ["5 per cent", "11 per cent", "15 per cent", "20 per cent"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -11039,12 +10679,7 @@
     "generated_questions": [
       {
         "content": "How much does the Healthy Families Program charge per month for each child?",
-        "options": [
-          "$10.00",
-          "$7.00",
-          "$5.00",
-          "Free"
-        ],
+        "options": ["$10.00", "$7.00", "$5.00", "Free"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -11336,7 +10971,7 @@
         "content": "How does the example of Beaver College's name change to Arcadia University illustrate the broader argument about name changes in higher education?",
         "options": [
           "It demonstrates that name changes always fail to achieve their intended goals",
-          "It shows that name changes can address multiple institutional objectives simultaneously—breaking from past identity, signaling growth, and managing public perception",
+          "It shows that name changes can address multiple institutional objectives simultaneously-breaking from past identity, signaling growth, and managing public perception",
           "It proves that marketing consultants are unnecessary for successful rebranding",
           "It indicates that only women's colleges benefit from name changes"
         ],
@@ -11425,24 +11060,14 @@
       },
       {
         "content": "What was the initial weight of the obese patient mentioned in the clinical study?",
-        "options": [
-          "51.4 kg",
-          "123.6 kg",
-          "175 kg",
-          "226.4 kg"
-        ],
+        "options": ["51.4 kg", "123.6 kg", "175 kg", "226.4 kg"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "How much weight did the patient lose after 23 weeks of treatment?",
-        "options": [
-          "35 kg",
-          "51.4 kg",
-          "75 kg",
-          "100 kg"
-        ],
+        "options": ["35 kg", "51.4 kg", "75 kg", "100 kg"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -11461,12 +11086,7 @@
       },
       {
         "content": "In what year did Jeffrey Gordon and his colleagues discover a link between obesity and gut microbiota in mice?",
-        "options": [
-          "2000",
-          "2004",
-          "2008",
-          "2010"
-        ],
+        "options": ["2000", "2004", "2008", "2010"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -11624,24 +11244,14 @@
       },
       {
         "content": "What does the extra \"s\" in \"https://\" stand for?",
-        "options": [
-          "System",
-          "Secure",
-          "Server",
-          "Software"
-        ],
+        "options": ["System", "Secure", "Server", "Software"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which credit-card company is working on plans for a Web-only credit card?",
-        "options": [
-          "Visa",
-          "American Express",
-          "Mastercard",
-          "Discover"
-        ],
+        "options": ["Visa", "American Express", "Mastercard", "Discover"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -11799,12 +11409,7 @@
       },
       {
         "content": "How much did the watermelons cost per kilogram according to Bobby's findings?",
-        "options": [
-          "$1.0 per kg",
-          "$1.2 per kg",
-          "$1.5 per kg",
-          "$2.0 per kg"
-        ],
+        "options": ["$1.0 per kg", "$1.2 per kg", "$1.5 per kg", "$2.0 per kg"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -11823,24 +11428,14 @@
       },
       {
         "content": "How many watermelons were on the table that the boss mentioned?",
-        "options": [
-          "58 melons",
-          "68 melons",
-          "340 melons",
-          "100 melons"
-        ],
+        "options": ["58 melons", "68 melons", "340 melons", "100 melons"],
         "correct": 0,
         "type": "General",
         "level": 1
       },
       {
         "content": "What was the approximate weight of each watermelon?",
-        "options": [
-          "1 kg",
-          "1.5 kg",
-          "2 kg",
-          "3 kg"
-        ],
+        "options": ["1 kg", "1.5 kg", "2 kg", "3 kg"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -11986,12 +11581,7 @@
       },
       {
         "content": "What did the homeless man buy with his money?",
-        "options": [
-          "Food for himself",
-          "Warm drinks",
-          "Dog food",
-          "Clothes"
-        ],
+        "options": ["Food for himself", "Warm drinks", "Dog food", "Clothes"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -12010,12 +11600,7 @@
       },
       {
         "content": "On what day of the week did this incident occur?",
-        "options": [
-          "Friday",
-          "Saturday",
-          "Sunday",
-          "Monday"
-        ],
+        "options": ["Friday", "Saturday", "Sunday", "Monday"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -12161,12 +11746,7 @@
     "generated_questions": [
       {
         "content": "In what year was the European Work Experience Program established?",
-        "options": [
-          "1989",
-          "1991",
-          "1995",
-          "2001"
-        ],
+        "options": ["1989", "1991", "1995", "2001"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -12197,12 +11777,7 @@
       },
       {
         "content": "In which city was the European Work Experience Program originally founded?",
-        "options": [
-          "Hounslow",
-          "Alexandra",
-          "London",
-          "Red Lion"
-        ],
+        "options": ["Hounslow", "Alexandra", "London", "Red Lion"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -12328,7 +11903,7 @@
         "level": 3
       },
       {
-        "content": "Based on the program's structure—combining job placement, accommodation provision, on-site representation, and 24-hour support—what can be inferred about E.W.E.P.'s core business model?",
+        "content": "Based on the program's structure-combining job placement, accommodation provision, on-site representation, and 24-hour support-what can be inferred about E.W.E.P.'s core business model?",
         "options": [
           "E.W.E.P. operates as a low-cost budget service that minimizes participant interaction",
           "E.W.E.P. generates revenue by providing comprehensive managed services that reduce participant risk and uncertainty in a foreign work environment",
@@ -12348,24 +11923,14 @@
     "generated_questions": [
       {
         "content": "In what decade did Marisol Torres arrive in Australia?",
-        "options": [
-          "The 1950s",
-          "The 1960s",
-          "The 1970s",
-          "The 1980s"
-        ],
+        "options": ["The 1950s", "The 1960s", "The 1970s", "The 1980s"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What town did Marisol Torres move to in order to pursue her interest in opals?",
-        "options": [
-          "Sydney",
-          "Melbourne",
-          "Lightning Ridge",
-          "Brisbane"
-        ],
+        "options": ["Sydney", "Melbourne", "Lightning Ridge", "Brisbane"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -12384,12 +11949,7 @@
       },
       {
         "content": "How old is Neil Schellnegger?",
-        "options": [
-          "38",
-          "45",
-          "19",
-          "50"
-        ],
+        "options": ["38", "45", "19", "50"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -12909,12 +12469,7 @@
     "generated_questions": [
       {
         "content": "What martial art is described in the passage as a method of self-defense?",
-        "options": [
-          "Karate",
-          "Judo",
-          "Boxing",
-          "Taekwondo"
-        ],
+        "options": ["Karate", "Judo", "Boxing", "Taekwondo"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -13096,36 +12651,21 @@
     "generated_questions": [
       {
         "content": "How many total errors did referees make during the experimental tournament?",
-        "options": [
-          "23 errors",
-          "45 errors",
-          "61 errors",
-          "90 errors"
-        ],
+        "options": ["23 errors", "45 errors", "61 errors", "90 errors"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "What was the duration of each match in the experimental tournament?",
-        "options": [
-          "20 minutes",
-          "45 minutes",
-          "60 minutes",
-          "90 minutes"
-        ],
+        "options": ["20 minutes", "45 minutes", "60 minutes", "90 minutes"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "At what average distance were referees positioned when they made correct decisions?",
-        "options": [
-          "12 meters",
-          "17 meters",
-          "20 meters",
-          "25 meters"
-        ],
+        "options": ["12 meters", "17 meters", "20 meters", "25 meters"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -13283,12 +12823,7 @@
     "generated_questions": [
       {
         "content": "How many visitors attended the \"Hitler and the Germans\" exhibition on its opening day?",
-        "options": [
-          "More than 10,000",
-          "4,000",
-          "1,500",
-          "7,000"
-        ],
+        "options": ["More than 10,000", "4,000", "1,500", "7,000"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -13637,7 +13172,7 @@
         "level": 3
       },
       {
-        "content": "The author's narrative structure—moving from personal inaction to witnessing the homeless man's action to reflecting on its meaning—primarily serves to establish which of the following?",
+        "content": "The author's narrative structure-moving from personal inaction to witnessing the homeless man's action to reflecting on its meaning-primarily serves to establish which of the following?",
         "options": [
           "That the author is more compassionate than the homeless man",
           "That moral lessons often emerge from observing others' choices rather than from our own initial responses, and that such lessons can reshape our understanding of responsibility",
@@ -13657,24 +13192,14 @@
     "generated_questions": [
       {
         "content": "What type of molecules make up the drugs produced by the engineered chickens?",
-        "options": [
-          "Carbohydrates",
-          "Proteins",
-          "Lipids",
-          "Nucleic acids"
-        ],
+        "options": ["Carbohydrates", "Proteins", "Lipids", "Nucleic acids"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "Which country are the scientists who engineered the drug-producing chickens from?",
-        "options": [
-          "England",
-          "Wales",
-          "Scotland",
-          "Ireland"
-        ],
+        "options": ["England", "Wales", "Scotland", "Ireland"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -13868,24 +13393,14 @@
       },
       {
         "content": "In which suburb of London did the arrest take place?",
-        "options": [
-          "Westminster",
-          "Richmond",
-          "Kensington",
-          "Southwark"
-        ],
+        "options": ["Westminster", "Richmond", "Kensington", "Southwark"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What was the narrator's age at the time of arrest?",
-        "options": [
-          "Seventeen",
-          "Eighteen",
-          "Nineteen",
-          "Twenty"
-        ],
+        "options": ["Seventeen", "Eighteen", "Nineteen", "Twenty"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -13951,7 +13466,7 @@
         "level": 2
       },
       {
-        "content": "What does the policeman's final complaint—that the narrator \"could have been a bit more helpful\"—suggest about his expectations?",
+        "content": "What does the policeman's final complaint-that the narrator \"could have been a bit more helpful\"-suggest about his expectations?",
         "options": [
           "He wanted the narrator to confess to the theft",
           "He expected the narrator to display deference based on his privileged background",
@@ -14254,12 +13769,7 @@
       },
       {
         "content": "In what year did the debate about food photography in restaurants seem to swing towards \"no\"?",
-        "options": [
-          "2012",
-          "2013",
-          "2014",
-          "2015"
-        ],
+        "options": ["2012", "2013", "2014", "2015"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -14417,48 +13927,28 @@
       },
       {
         "content": "What did Farmer John ask the carpenter to build?",
-        "options": [
-          "A stream",
-          "A house",
-          "A fence",
-          "A road"
-        ],
+        "options": ["A stream", "A house", "A fence", "A road"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "What did the carpenter actually build instead of what Farmer John requested?",
-        "options": [
-          "A fence",
-          "A bridge",
-          "A wall",
-          "A gate"
-        ],
+        "options": ["A fence", "A bridge", "A wall", "A gate"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What was Farmer Bob holding when he came across to meet Farmer John?",
-        "options": [
-          "A tool",
-          "A letter",
-          "His hand outstretched",
-          "A gift"
-        ],
+        "options": ["A tool", "A letter", "His hand outstretched", "A gift"],
         "correct": 2,
         "type": "General",
         "level": 1
       },
       {
         "content": "What did the carpenter say he had more of to build after leaving Farmer John's farm?",
-        "options": [
-          "Fences",
-          "Bridges",
-          "Houses",
-          "Roads"
-        ],
+        "options": ["Fences", "Bridges", "Houses", "Roads"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -14572,7 +14062,7 @@
         "level": 3
       },
       {
-        "content": "The carpenter's final statement—\"I have more bridges to build\"—most likely implies which of the following about the carpenter's character and purpose?",
+        "content": "The carpenter's final statement-\"I have more bridges to build\"-most likely implies which of the following about the carpenter's character and purpose?",
         "options": [
           "He is a traveling worker who moves from farm to farm seeking employment.",
           "He possesses insight into human nature and views his work as a metaphorical mission to heal divisions in communities.",
@@ -14803,12 +14293,7 @@
       },
       {
         "content": "How long did John Blanchard and Hollis Maynell correspond before meeting in person?",
-        "options": [
-          "Thirteen months",
-          "One year",
-          "Seven months",
-          "Two years"
-        ],
+        "options": ["Thirteen months", "One year", "Seven months", "Two years"],
         "correct": 0,
         "type": "General",
         "level": 1
@@ -14827,12 +14312,7 @@
       },
       {
         "content": "According to the text, what color was the suit worn by the young woman in the green suit?",
-        "options": [
-          "Blue",
-          "Red",
-          "Pale green",
-          "Gray"
-        ],
+        "options": ["Blue", "Red", "Pale green", "Gray"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -15002,24 +14482,14 @@
       },
       {
         "content": "How long had the husband in Joke 4 been in and out of a coma?",
-        "options": [
-          "A few weeks",
-          "Several months",
-          "A year",
-          "Several years"
-        ],
+        "options": ["A few weeks", "Several months", "A year", "Several years"],
         "correct": 1,
         "type": "General",
         "level": 1
       },
       {
         "content": "What is the name of the wife in Joke 4?",
-        "options": [
-          "Mary",
-          "Susan",
-          "Martha",
-          "Jennifer"
-        ],
+        "options": ["Mary", "Susan", "Martha", "Jennifer"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -15177,12 +14647,7 @@
       },
       {
         "content": "How long can it take to rebuild your credit after damaging it?",
-        "options": [
-          "3-5 years",
-          "5-7 years",
-          "7-10 years",
-          "10-15 years"
-        ],
+        "options": ["3-5 years", "5-7 years", "7-10 years", "10-15 years"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -15658,7 +15123,7 @@
         "level": 3
       },
       {
-        "content": "Based on the text's logic, what is the relationship between the three factors discussed—job variety, worker freedom, and degree of contribution—and their practical feasibility?",
+        "content": "Based on the text's logic, what is the relationship between the three factors discussed-job variety, worker freedom, and degree of contribution-and their practical feasibility?",
         "options": [
           "All three factors are equally important and equally difficult to implement",
           "Job variety is most important but hardest to implement; worker freedom is impossible; contribution is important and achievable",
@@ -16112,12 +15577,7 @@
       },
       {
         "content": "How many different commands does Jeannie understand?",
-        "options": [
-          "More than 72",
-          "72 or more",
-          "Exactly 72",
-          "At least 80"
-        ],
+        "options": ["More than 72", "72 or more", "Exactly 72", "At least 80"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -16358,7 +15818,7 @@
         "level": 2
       },
       {
-        "content": "What does the teacher's final action—putting on one of the \"high hats\"—suggest about his character?",
+        "content": "What does the teacher's final action-putting on one of the \"high hats\"-suggest about his character?",
         "options": [
           "He is hypocritical and secretly enjoys flattery despite his initial criticism",
           "He is willing to acknowledge uncomfortable truths about human nature with humor and grace",
@@ -16510,12 +15970,7 @@
       },
       {
         "content": "Which of the following is explicitly mentioned as a winter physical activity?",
-        "options": [
-          "Mountaineering",
-          "Golf",
-          "Skating",
-          "Tennis"
-        ],
+        "options": ["Mountaineering", "Golf", "Skating", "Tennis"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -16673,12 +16128,7 @@
       },
       {
         "content": "Which of the following is NOT mentioned as part of the \"vocabulary of dress\"?",
-        "options": [
-          "Hairstyles",
-          "Jewelry",
-          "Body decoration",
-          "Footwear"
-        ],
+        "options": ["Hairstyles", "Jewelry", "Body decoration", "Footwear"],
         "correct": 3,
         "type": "General",
         "level": 1
@@ -16804,7 +16254,7 @@
         "level": 3
       },
       {
-        "content": "The author discusses multiple forms of body modification—from clothing to hairstyles to dental braces—as communication tools. What would most weaken the author's implicit argument that these modifications are primarily about social communication?",
+        "content": "The author discusses multiple forms of body modification-from clothing to hairstyles to dental braces-as communication tools. What would most weaken the author's implicit argument that these modifications are primarily about social communication?",
         "options": [
           "Evidence that some body modifications are chosen for purely personal, non-communicative reasons unrelated to social messaging",
           "The fact that different cultures use different clothing styles",
@@ -16820,7 +16270,7 @@
         "options": [
           "Clothing is the only form of human communication that matters in society",
           "All cultures dress identically and share the same interpretation of clothing messages",
-          "Appearance—encompassing clothing, decoration, and physical modification—functions as a multifaceted language system through which individuals and cultures encode and decode complex social information",
+          "Appearance-encompassing clothing, decoration, and physical modification-functions as a multifaceted language system through which individuals and cultures encode and decode complex social information",
           "People should abandon clothing and rely solely on verbal communication"
         ],
         "correct": 2,
@@ -16872,12 +16322,7 @@
       },
       {
         "content": "What is the total weight of the motorized knee device?",
-        "options": [
-          "3kg",
-          "5kg",
-          "7kg",
-          "10kg"
-        ],
+        "options": ["3kg", "5kg", "7kg", "10kg"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -17222,12 +16667,7 @@
       },
       {
         "content": "By what time does the coffee shop close each morning?",
-        "options": [
-          "8:00 a.m.",
-          "8:45 a.m.",
-          "9:20 a.m.",
-          "10:00 a.m."
-        ],
+        "options": ["8:00 a.m.", "8:45 a.m.", "9:20 a.m.", "10:00 a.m."],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -17246,12 +16686,7 @@
       },
       {
         "content": "How many drinks does the shop usually sell by closing time?",
-        "options": [
-          "60 drinks",
-          "75 drinks",
-          "90 drinks",
-          "120 drinks"
-        ],
+        "options": ["60 drinks", "75 drinks", "90 drinks", "120 drinks"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -17320,7 +16755,7 @@
         "content": "Which detail best demonstrates how the broader school community contributed to making the Dixie PIT successful?",
         "options": [
           "Only the special education department was involved in the project",
-          "Multiple groups—art students, business students, and the basketball team—each contributed specific resources and skills",
+          "Multiple groups-art students, business students, and the basketball team-each contributed specific resources and skills",
           "Teachers donated their personal money to fund the operation",
           "The principal mandated that all students participate in the coffee shop"
         ],
@@ -17445,12 +16880,7 @@
       },
       {
         "content": "How many main areas of contribution did Isadora Duncan make to dance?",
-        "options": [
-          "Two",
-          "Four",
-          "Three",
-          "Five"
-        ],
+        "options": ["Two", "Four", "Three", "Five"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -17584,12 +17014,7 @@
     "generated_questions": [
       {
         "content": "On what date did the two-car accident occur?",
-        "options": [
-          "March 20",
-          "March 25",
-          "March 30",
-          "Tuesday morning"
-        ],
+        "options": ["March 20", "March 25", "March 30", "Tuesday morning"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -17783,12 +17208,7 @@
       },
       {
         "content": "On which day did the young man put brushes in the servant's bed?",
-        "options": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday"
-        ],
+        "options": ["Monday", "Tuesday", "Wednesday", "Thursday"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -18006,12 +17426,7 @@
       },
       {
         "content": "How long should a walk be to help burn off extra calories?",
-        "options": [
-          "10 minutes",
-          "15 minutes",
-          "20 minutes",
-          "30 minutes"
-        ],
+        "options": ["10 minutes", "15 minutes", "20 minutes", "30 minutes"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -18145,12 +17560,7 @@
     "generated_questions": [
       {
         "content": "According to Sir John O'Reilly, what percentage of engineering companies in the IET's 2014 survey feared skill shortages?",
-        "options": [
-          "40%",
-          "50%",
-          "59%",
-          "75%"
-        ],
+        "options": ["40%", "50%", "59%", "75%"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -18332,12 +17742,7 @@
     "generated_questions": [
       {
         "content": "How many customers does Jane have on her paper route?",
-        "options": [
-          "45",
-          "50",
-          "55",
-          "60"
-        ],
+        "options": ["45", "50", "55", "60"],
         "correct": 1,
         "type": "General",
         "level": 1
@@ -18380,12 +17785,7 @@
       },
       {
         "content": "How many customers did Jane still need to visit when she encountered Mr. Zimmerman?",
-        "options": [
-          "Three",
-          "Four",
-          "Five",
-          "Ten"
-        ],
+        "options": ["Three", "Four", "Five", "Ten"],
         "correct": 2,
         "type": "General",
         "level": 1
@@ -18487,7 +17887,7 @@
         "level": 3
       },
       {
-        "content": "The passage's structure—moving from Jane's initial time pressure to her encounter with Mr. Zimmerman—primarily serves to:",
+        "content": "The passage's structure-moving from Jane's initial time pressure to her encounter with Mr. Zimmerman-primarily serves to:",
         "options": [
           "Demonstrate that Jane is an irresponsible person who neglects her duties",
           "Establish a moral dilemma where Jane's competing obligations force her to rationalize a potentially selfish choice",
@@ -18543,12 +17943,7 @@
       },
       {
         "content": "How much did the chicken sandwich cost?",
-        "options": [
-          "$4.99",
-          "$5.25",
-          "$4.75",
-          "$6.75"
-        ],
+        "options": ["$4.99", "$5.25", "$4.75", "$6.75"],
         "correct": 2,
         "type": "General",
         "level": 1
