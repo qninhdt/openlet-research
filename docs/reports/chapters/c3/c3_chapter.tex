@@ -2,7 +2,7 @@
 
 \section{Tổng quan hệ thống}
 
-Với mục đích tự động hóa quy trình nhận dạng ký tự quang học (OCR) và sinh câu hỏi trắc nghiệm (MCQ), nghiên cứu này đề xuất và phát triển hệ thống phần mềm Openlet. Nhờ việc các tài liệu học tập được số hóa thành các bài tập trắc nghiệm sinh tự động, đội ngũ giáo viên được giảm bớt gánh nặng công việc và người học có thêm điều kiện thuận tiện để ôn tập. Khảo sát nghiên cứu hiện hành cho thấy một sự đánh đổi rõ rệt về mặt công nghệ: việc triển khai các mô hình ngôn ngữ lớn cỡ nhỏ (sLLM) mã nguồn mở giúp tối ưu hóa chi phí vận hành nhưng thường làm giảm chất lượng câu hỏi sinh ra, khiến câu hỏi chưa đủ độ khó và các đáp án nhiễu chưa đạt yêu cầu sư phạm. Ngược lại, các mô hình ngôn ngữ lớn thương mại (LLM) dù đảm bảo chất lượng đầu ra tốt hơn nhưng lại có chi phí quá cao để ứng dụng đại trà trong môi trường giáo dục. Nhằm giải quyết bài toán trên, hệ thống Openlet được phát triển theo kiến trúc đa tác tử, trong đó nhiều sLLM phối hợp hoạt động. Bằng cách chia nhỏ quy trình suy luận phức tạp thành chuỗi các tác vụ vi mô cho từng sLLM chuyên biệt, hệ thống vừa tận dụng được lợi thế chi phí thấp của các mô hình nhỏ vừa cải thiện được chất lượng đầu ra.
+Với mục đích tự động hóa quy trình nhận dạng ký tự quang học (OCR) và sinh câu hỏi trắc nghiệm (MCQ), nghiên cứu này đề xuất và phát triển hệ thống phần mềm Openlet. Nhờ việc các tài liệu học tập được số hóa thành các bài tập trắc nghiệm sinh tự động, hệ thống giúp đội ngũ giáo viên được giảm bớt gánh nặng công việc và người học có thêm điều kiện thuận tiện để ôn tập. Khảo sát nghiên cứu hiện hành cho thấy một sự đánh đổi rõ rệt về mặt công nghệ: việc triển khai các mô hình ngôn ngữ lớn cỡ nhỏ (sLLM) mã nguồn mở giúp tối ưu hóa chi phí vận hành nhưng thường làm giảm chất lượng câu hỏi sinh ra, khiến câu hỏi chưa đủ độ khó và các đáp án nhiễu chưa đạt yêu cầu sư phạm. Ngược lại, các mô hình ngôn ngữ lớn thương mại (LLM) dù đảm bảo chất lượng đầu ra tốt hơn nhưng lại có chi phí quá cao để ứng dụng đại trà trong môi trường giáo dục. Nhằm giải quyết bài toán trên, hệ thống Openlet được phát triển theo kiến trúc đa tác tử, trong đó nhiều sLLM phối hợp hoạt động. Bằng cách chia nhỏ quy trình suy luận phức tạp thành chuỗi các tác vụ vi mô cho từng sLLM chuyên biệt, hệ thống vừa tận dụng được lợi thế chi phí thấp của các mô hình nhỏ vừa cải thiện được chất lượng đầu ra.
 
 Về mặt tổng quan, ứng dụng Openlet được chia thành 4 mô-đun chính:
 
@@ -34,7 +34,7 @@ Trong đó, Mô-đun Ứng dụng Web tương tác sẽ được trình bày chi
 \end{figure}
 
 \section{Phương pháp sinh câu hỏi trắc nghiệm}
-Trong nghiên cứu này, để có thể hướng dẫn các sLLM và LLM thực hiện các yêu cầu sinh câu hỏi trắc nghiệm, nghiên cứu đã triển khai và so sánh hai phương pháp: Phương pháp chỉ dẫn đơn và phương pháp đa tác tử.
+Trong nghiên cứu này, để có thể hướng dẫn các sLLM và LLM thực hiện các yêu cầu sinh câu hỏi trắc nghiệm, nghiên cứu đã triển khai và so sánh phương pháp chỉ dẫn đơn và phương pháp đa tác tử.
 
 \subsection{Phương pháp chỉ dẫn đơn}
 Phương pháp chỉ dẫn đơn thực hiện cấu trúc hóa toàn bộ các ràng buộc về nghiệp vụ, quy định về định dạng đầu ra trong một chỉ dẫn duy nhất. Chỉ dẫn này bao gồm các thông tin về vai trò của LLM, các định nghĩa chi tiết của ba cấp độ tư duy, các tiêu chuẩn để tạo ra đáp án nhiễu và các quy định về định dạng đầu ra. Cụ thể, dữ liệu đầu ra bắt buộc phải xuất dưới dạng văn bản có cấu trúc cố định, bao gồm mã định danh, nội dung câu hỏi, bốn phương án trả lời và đáp án chính xác. Toàn bộ quy trình này diễn ra trong một lần gọi duy nhất và hệ thống nhận được kết quả là danh sách các câu hỏi của cả ba cấp độ tư duy.
@@ -82,7 +82,7 @@ Kiến trúc trên vận hành dựa trên cơ chế hai pha thử lại hoạt 
 
 \textbf{Đánh giá tính khả dĩ của phương pháp:}
 
-Kiến trúc đa tác tử theo mô hình Trục-và-Nan hoa giúp tận dụng tối đa khả năng suy luận của các sLLM bằng cách thu hẹp không gian nhiệm vụ cho từng tác tử. Chất lượng câu hỏi sinh ra đạt độ chính xác cao về mặt phân loại nhận thức nhờ cơ chế phân loại chống thiên lệch. Hai vòng lặp thử lại độc lập giúp loại bỏ hiệu quả các lỗi sư phạm và logic ở cả cấp độ thân câu hỏi lẫn phương án trả lời. Cơ chế tiến triển cưỡng bức đảm bảo hệ thống luôn hội tụ trong thời gian hữu hạn, tránh hiện tượng bế tắc. Hạn chế của kiến trúc này là tiêu thụ lượng token lớn hơn và có độ trễ cao hơn so với phương pháp chỉ dẫn đơn do yêu cầu nhiều lần gọi mô hình ngôn ngữ.
+Kiến trúc đa tác tử giúp tận dụng tối đa khả năng suy luận của các sLLM bằng cách thu hẹp không gian nhiệm vụ cho từng tác tử. Chất lượng câu hỏi sinh ra đạt độ chính xác cao về mặt phân loại nhận thức nhờ cơ chế phân loại chống thiên lệch. Hai vòng lặp thử lại độc lập giúp loại bỏ hiệu quả các lỗi sư phạm và logic ở cả cấp độ thân câu hỏi lẫn phương án trả lời. Hạn chế của kiến trúc này là tiêu thụ lượng token lớn hơn và có độ trễ cao hơn so với phương pháp chỉ dẫn đơn do yêu cầu nhiều lần gọi mô hình ngôn ngữ.
 
 \section{Quy trình OCR}
 Trong môi trường giáo dục thực tế, dữ liệu học tập rất hiếm khi tồn tại dưới các định dạng số hóa thuần túy như văn bản mà thường ở dạng ảnh chụp sách giáo khoa, tài liệu in, đề thi hoặc ghi chép tay. Nhằm đáp ứng nhu cầu trích xuất thông tin từ các dạng dữ liệu này, đồng thời triển khai một quy trình thử nghiệm có kiểm soát để đánh giá các VLM, nghiên cứu đã xây dựng một quy trình OCR khép kín.
@@ -106,13 +106,13 @@ Quá trình tạo ảnh sạch được thực hiện thông qua ba bước sau:
 \begin{enumerate}
     \item \textbf{Cài đặt các tham số định dạng không gian và kiểu chữ:} Hệ thống tự động lựa chọn ngẫu nhiên các khung kích thước tiêu chuẩn trong thực tế như giấy in (A4, A5, US Letter), tỷ lệ màn hình điện tử (FHD, HD), hoặc định dạng truyền thông xã hội (Facebook Status, Twitter Post). Phông chữ được lựa chọn ngẫu nhiên từ một danh sách cài đặt sẵn thu thập trực tiếp từ Google Fonts. Danh sách này được phân loại thành hai nhóm chính bao gồm nhóm phông chữ in chuẩn (Roboto, Merriweather) để mô phỏng sách giáo khoa, tài liệu in ấn, và nhóm phông chữ viết tay (như Dancing Script, Caveat, Mali) nhằm tái tạo gần đúng chữ viết tay từ các bản ghi chép của giáo viên hoặc học sinh. Ngoài ra, các tham số hiển thị khác nhau độ đậm, màu chữ và màu nền cũng được khởi tạo ngẫu nhiên để đảm bảo tính đa dạng.
 
-    \item \textbf{Thuật toán tính toán mật độ hiển thị:} Sau khi có các tham số hiển thị cần thiết, hệ thống sẽ đánh giá mật độ chữ trên diện tích của ảnh. Dựa trên tỷ lệ này, thuật toán sẽ quy định số lượng cột văn bản một cách linh hoạt (từ 1 đến 3 cột), khoảng cách lề (padding), độ giãn dòng (line height) và khoảng cách giữa các đoạn (paragraph spacing). Cơ chế này giúp đánh giả khả năng nhận diện các đoạn văn có cấu trúc phức tạp, nhiều cột của các mô hình.
+    \item \textbf{Thuật toán tính toán mật độ hiển thị:} Sau khi có các tham số hiển thị cần thiết, hệ thống sẽ đánh giá mật độ chữ trên diện tích của ảnh. Dựa trên tỷ lệ này, thuật toán sẽ quy định số lượng cột văn bản một cách linh hoạt (từ 1 đến 3 cột), khoảng cách lề (padding), độ giãn dòng (line height) và khoảng cách giữa các đoạn (paragraph spacing). Cơ chế này giúp đánh giá khả năng nhận diện các đoạn văn có cấu trúc phức tạp, nhiều cột của các mô hình.
 
-    \item \textbf{Thuật toán tự động khớp khung hình:} Thành phần này giúp giải quyết vấn đề lỗi tràn viền hoặc cắt xén chữ khi hệ thống chỉ chụp ảnh màn hình của trang đầu tiên cho kết quả đầu ra. Quá trình tự động khớp diễn ra sau khi tài liệu HTML/CSS được khởi tạo, khi đó thuật toán được nhúng trong một thẻ Javascript sẽ tự động điều chỉnh cơ chữ sao cho toàn bộ nội dung trang sẽ nằm gọn trong màn hình (không kích hoạt hiển thị thanh cuộn). Cuối cùng, Pyppeteer sẽ tiến hành chụp lại toàn bộ khung hình và lưu trữ dưới dạng tệp hình ảnh.
+    \item \textbf{Thuật toán tự động khớp khung hình:} Thành phần này giúp giải quyết vấn đề lỗi tràn viền hoặc cắt xén chữ khi hệ thống chỉ chụp ảnh màn hình của trang đầu tiên cho kết quả đầu ra. Quá trình tự động khớp diễn ra sau khi tài liệu HTML/CSS được khởi tạo, khi đó thuật toán được nhúng trong một thẻ Javascript sẽ tự động điều chỉnh cỡ chữ sao cho toàn bộ nội dung trang sẽ nằm gọn trong màn hình (không kích hoạt hiển thị thanh cuộn). Cuối cùng, Pyppeteer sẽ tiến hành chụp lại toàn bộ khung hình và lưu trữ dưới dạng tệp hình ảnh.
 
 \end{enumerate}
 
-Việc tự động hóa toàn bộ quy trình cho phép hệ thống Openlet tạo ra hàng loạt hình ảnh mang dữ liệu chính xác tuyệt đối ở tốc độ vào, làm dữ liệu đầu vào cho bước xử lý nhiễu tiếp theo.
+Việc tự động hóa toàn bộ quy trình cho phép hệ thống Openlet tạo ra hàng loạt hình ảnh mang dữ liệu chính xác ở tốc độ cao, làm dữ liệu đầu vào cho bước xử lý nhiễu tiếp theo.
 
 \subsection{Tạo dữ liệu ảnh nhiễu trong thực tế}
 
@@ -123,7 +123,7 @@ Nghiên cứu sử dụng thư viện Augraphy được thiết kế đặc thù
 \begin{itemize}
     \item Về mặt chất liệu in ấn, hệ thống mô phỏng các lỗi cơ học của thiết bị in ấn bằng cách thêm vào hình ảnh các dải nhiễu cấu trúc như nhòe mực, chữ nét đứt hoặc mất chữ do tình trạng cạn mực. Nền ảnh gốc cũng được chỉnh sửa thành các bề mặt chất liệu khác nhau như thêm các họa tiết, vết ố vàng hoặc chèn các dòng chữ chìm. Các cơ chế này sẽ yêu cầu VLM phải sở hữu khả năng phân tách giữa các tín hiệu thông tin và lớp vật liệu nhiễu một cách chính xác.
 
-    \item Về mặt quang học và các yếu tố con người, hệ thống sử dụng các biến đổi như thay đổi sự phân bố của ánh sáng, bóng đổ vật lý, nhiễu hạt do chụp trong điều kiện thiếu sáng, và hiện tượng lóa sáng. Hệ thống tích hợp thêm các lỗi kỹ thuật như lỗi nén ảnh quản học, sự sai lệch kênh màu, viền đen do từ máy photocopy, cùng các biến dạng hình học như giấy bị nhăn nhúm hoặc văn bản bị che khuất bởi gáy sách. Không chỉ thế, hệ thống còn mô phỏng các tác động thủ công từ người học như nét gạch chân, tô bằng bút dạ quang hoặc các nét vẽ nguệch ngoạc, ngẫu nhiên đề trực tiếp lên văn bản gốc.
+    \item Về mặt quang học và các yếu tố con người, hệ thống sử dụng các biến đổi như thay đổi sự phân bố của ánh sáng, bóng đổ vật lý, nhiễu hạt do chụp trong điều kiện thiếu sáng, và hiện tượng lóa sáng. Hệ thống tích hợp thêm các lỗi kỹ thuật như lỗi nén ảnh quang học, sự sai lệch kênh màu, viền đen từ máy photocopy, cùng các biến dạng hình học như giấy bị nhăn nhúm hoặc văn bản bị che khuất bởi gáy sách. Không chỉ thế, hệ thống còn mô phỏng các tác động thủ công từ người học như nét gạch chân, tô bằng bút dạ quang hoặc các nét vẽ nguệch ngoạc, ngẫu nhiên che lấp văn bản gốc.
 
 
 

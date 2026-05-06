@@ -119,7 +119,7 @@ Trong toàn bộ quá trình này, trạng thái xử lý của bài kiểm tra 
 
 Luồng xử lý theo trạng thái được lựa chọn vì nó phù hợp với bản chất bất đồng bộ của bài toán. Nhận dạng văn bản, sinh câu hỏi và sinh giải thích đều là các bước có độ trễ cao, không nên buộc giao diện phải chờ liên tục cho tới khi hoàn tất. Bằng cách chia quy trình thành các giai đoạn rõ ràng, hệ thống dễ theo dõi tiến trình, phát hiện lỗi và tránh kích hoạt lặp cùng một bước xử lý. Thiết kế này cũng cho phép tối ưu thời gian phản hồi: đầu vào văn bản thuần không phải đi qua bước nhận dạng, còn chế độ chỉ dẫn đơn có thể bỏ qua khâu phân tích nội dung để giảm độ trễ.
 
-So với phiên bản nghiên cứu ở Chương 3, phiên bản ứng dụng chỉ giữ lại những vòng kiểm chứng thật sự cần thiết và giới hạn số lần lặp. Lựa chọn này phản ánh ưu tiên của một sản phẩm dùng thực tế: giáo viên cần nhận kết quả đủ nhanh để tiếp tục biên tập, trong khi chất lượng vẫn được giữ ở mức chấp nhận được nhờ các lớp kiểm soát trọng yếu.
+So với phiên bản nghiên cứu ở Chương 3, phiên bản ứng dụng chỉ giữ lại những vòng kiểm chứng thật sự cần thiết và giới hạn số lần lặp. Lựa chọn này phản ánh ưu tiên của một sản phẩm được ứng dụng thực tế: giáo viên cần nhận kết quả đủ nhanh để tiếp tục biên tập, trong khi chất lượng vẫn được giữ ở mức chấp nhận được nhờ các lớp kiểm soát trọng yếu.
 
 \subsection{Luồng truy cập, làm bài và nộp bài}
 

@@ -41,7 +41,7 @@ Nguồn gốc & Đề thi THCS & Đề thi THPT & Lấy mẫu từ RACE-High \\
 Nghiên cứu đánh giá tổng cộng 12 mô hình chia thành ba nhóm: nhóm mô hình ngôn ngữ lớn mã nguồn mở quy mô nhỏ (sLLM) dùng cho sinh câu hỏi, nhóm mô hình thị giác-ngôn ngữ (VLM) quy mô nhỏ dùng chuyên biệt cho nhận dạng ký tự quang học (OCR), và nhóm mô hình ngôn ngữ lớn thương mại (LLM) dùng cho cả hai nhiệm vụ.
 
 % [NEW]
-Bảng~\ref{tab:models_qg} tóm tắt các mô hình sinh câu hỏi được sử dụng trong thực nghiệm. Các mô hình sLLM có kích thước tham số từ 8 đến 12 tỷ, phù hợp với mục tiêu triển khai trên phần cứng phổ thông. Các mô hình thương mại được đưa vào làm đường cơ sở (baseline) để đánh giá mức độ cạnh tranh của giải pháp đa tác tử kết hợp sLLM. Thông tin chi tiết về kiến trúc và đặc điểm của từng mô hình đã được trình bày tại Chương 2.
+Bảng~\ref{tab:models_qg} tóm tắt các mô hình sinh câu hỏi được sử dụng trong thực nghiệm. Các mô hình sLLM có kích thước tham số từ 14 tỷ, phù hợp với mục tiêu triển khai trên phần cứng phổ thông. Các mô hình thương mại được đưa vào làm đường cơ sở (baseline) để đánh giá mức độ cạnh tranh của giải pháp đa tác tử kết hợp sLLM. Thông tin chi tiết về kiến trúc và đặc điểm của từng mô hình đã được trình bày tại Chương 2.
 
 % [NEW]
 \begin{table}[htbp]
@@ -159,7 +159,7 @@ Kết quả này xác nhận giả thuyết rằng các sLLM khi hoạt động 
 \subsection{Kết quả nhóm sLLM kết hợp đa tác tử}
 
 % [NEW]
-Bảng~\ref{tab:sllm_multiagent} trình bày kết quả khi cùng năm mô hình sLLM được tích hợp vào hệ thống đa tác tử, nơi các tác tử Phân loại, Phản biện và Học sinh cùng phối hợp để nâng cao chất lượng câu hỏi.
+Bảng~\ref{tab:sllm_multiagent} trình bày kết quả khi cùng năm mô hình sLLM được tích hợp vào hệ thống đa tác tử, nơi các tác tử Phân loại, Học sinh và Hiệu chỉnh cùng phối hợp để nâng cao chất lượng câu hỏi.
 
 % [NEW]
 \begin{table}[htbp]
@@ -381,7 +381,7 @@ Phân tích chi phí cho thấy ba điểm đáng chú ý. Thứ nhất, nhóm s
 Từ kết quả thực nghiệm được trình bày ở các phần trên, nghiên cứu rút ra sáu nhận định chính.
 
 % [NEW]
-\textbf{Hệ thống đa tác tử đóng vai trò ``bộ khuếch đại chất lượng'' cho sLLM.} Kết quả cho thấy kiến trúc đa tác tử không chỉ cải thiện chất lượng mà còn thể hiện một đặc tính quan trọng: các mô hình có kết quả cơ bản yếu nhất lại hưởng lợi nhiều nhất. Phi-4, với Distractor Quality ở Cấp 1 chỉ đạt 0,4860 khi hoạt động đơn lẻ, đã tăng lên 0,9407 khi kết hợp đa tác tử - mức cải thiện 93,6\%. Llama 3.1 8B Instruct ghi nhận cải thiện Acceptance ở Cấp 3 hơn 21 lần. Điều này gợi ý rằng hệ thống đa tác tử hoạt động hiệu quả nhất khi mô hình nền có năng lực tiềm ẩn chưa được khai thác đầy đủ trong chế độ hoạt động đơn lẻ.
+\textbf{Hệ thống đa tác tử đóng giúp tăng chất lượng cho sLLM.} Kết quả cho thấy kiến trúc đa tác tử không chỉ cải thiện chất lượng mà còn thể hiện một đặc tính quan trọng: các mô hình có kết quả cơ bản yếu nhất lại hưởng lợi nhiều nhất. Phi-4, với Distractor Quality ở Cấp 1 chỉ đạt 0,4860 khi hoạt động đơn lẻ, đã tăng lên 0,9407 khi kết hợp đa tác tử - mức cải thiện 93,6\%. Llama 3.1 8B Instruct ghi nhận cải thiện Acceptance ở Cấp 3 hơn 21 lần. Điều này gợi ý rằng hệ thống đa tác tử hoạt động hiệu quả nhất khi mô hình nền có năng lực tiềm ẩn chưa được khai thác đầy đủ trong chế độ hoạt động đơn lẻ.
 
 % [NEW]
 \textbf{Tác tử Phân loại hoạt động hiệu quả nhờ kỹ thuật ánh xạ mã định danh tạm thời.} Chỉ số Alignment đạt gần hoặc bằng 1,0 ở Cấp 2 và Cấp 3 cho hầu hết các mô hình trong nhóm đa tác tử (Qwen3 8B và Phi-4 đạt 1,0000 ở Cấp 3) chứng tỏ kỹ thuật ánh xạ mã định danh tạm thời - thay thế nhãn cấp độ bằng các ký hiệu trung tính để chống thiên lệch vị trí - hoạt động rất tốt. Đây là một trong những đóng góp kỹ thuật quan trọng của nghiên cứu, giúp đảm bảo tính khách quan trong quá trình phân loại câu hỏi theo thang nhận thức Bloom.
