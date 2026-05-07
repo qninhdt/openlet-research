@@ -1,4 +1,6 @@
 \chapter{Đặt vấn đề}
+% [NEW]: Them label cho chuong
+\label{chap:dat-van-de}
 
 \section{Giới thiệu về bài toán}
 
@@ -12,13 +14,12 @@ Hiện tại, quy trình này vẫn phụ thuộc nhiều vào thao tác thủ c
 nhận dạng ký tự quang học (OCR - Optical Character Recognition) truyền thống như
 Tesseract\cite{smith2007overview}. Tuy nhiên, các công cụ này thường gặp khó khăn
 khi xử lý các tài liệu có cấu trúc phức tạp hoặc chất lượng ảnh thấp. Sự xuất
-hiện của các mô hình thị giác - ngôn ngữ (VLM - Vision Language Models)  như GPT-4o hay Gemini Pro đã mở
+hiện của các mô hình thị giác - ngôn ngữ (VLM - Vision Language Model)  như GPT-4o hay Gemini Pro đã mở
 ra hướng giải quyết mới với độ chính xác vượt trội. Mặc dù vậy, rào cản về chi
 phí vận hành, độ trễ và lo ngại về bảo mật dữ liệu đã ngăn cản việc triển khai rộng
 rãi các mô hình khổng lồ này trong các ứng dụng giáo dục thực tế.
 
-Xuất phát từ thực tiễn đó, việc nghiên cứu ứng dụng các mô hình ngôn ngữ lớn cỡ
-nhỏ (sLLM) với số lượng tham số dưới 10 tỷ, như Qwen-VL,
+Xuất phát từ thực tiễn đó, việc nghiên cứu ứng dụng các sLLM với số lượng tham số dưới 10 tỷ, như Qwen-VL,
 Llama-3-Vision, Nemotron trở thành một hướng đi đầy tiềm năng. Các mô hình này hứa
 hẹn mang lại sự cân bằng tối ưu giữa hiệu năng xử lý, chi phí vận hành và khả
 năng triển khai linh hoạt. Đề tài "Nghiên cứu, đánh giá hiệu năng sLLM trong bài
@@ -41,7 +42,7 @@ Các phương pháp truyền thống có ưu điểm nổi bật là khả năng
 
 \subsection{Sinh câu hỏi trắc nghiệm dựa trên mô hình ngôn ngữ lớn}
 
-Sự ra đời của các mô hình ngôn ngữ lớn (LLM) đã tạo ra một bước chuyển quan trọng trong lĩnh vực sinh câu hỏi tự động, từ các hệ thống dựa trên quy tắc sang các phương pháp dựa trên khả năng sinh ngôn ngữ tự nhiên của mô hình. Thay vì thiết kế thủ công các quy tắc biến đổi cú pháp, các nghiên cứu từ năm 2022 trở đi đã tận dụng khả năng hiểu ngữ cảnh sâu và sinh văn bản mạch lạc của các mô hình ngôn ngữ lớn để tạo ra câu hỏi trắc nghiệm trực tiếp từ đoạn văn bản nguồn.
+Sự ra đời của các mô hình ngôn ngữ lớn (LLM - Large Language Model) đã tạo ra một bước chuyển quan trọng trong lĩnh vực sinh câu hỏi tự động, từ các hệ thống dựa trên quy tắc sang các phương pháp dựa trên khả năng sinh ngôn ngữ tự nhiên của mô hình. Thay vì thiết kế thủ công các quy tắc biến đổi cú pháp, các nghiên cứu từ năm 2022 trở đi đã tận dụng khả năng hiểu ngữ cảnh sâu và sinh văn bản mạch lạc của các mô hình ngôn ngữ lớn để tạo ra câu hỏi trắc nghiệm trực tiếp từ đoạn văn bản nguồn.
 
 Elkins và cộng sự \cite{elkins2024useful} thực hiện đánh giá có hệ thống về chất lượng câu hỏi trong lĩnh vực giáo dục được sinh bởi các mô hình ngôn ngữ lớn. Kết quả nghiên cứu cho thấy các mô hình này có khả năng tạo ra các câu hỏi đạt yêu cầu sử dụng trong thực tế giảng dạy, tuy nhiên vẫn gặp khó khăn đáng kể trong việc sinh các câu hỏi đòi hỏi tư duy bậc cao theo phân loại Bloom. Nghiên cứu này nhấn mạnh rằng khoảng cách giữa câu hỏi ghi nhớ đơn thuần và câu hỏi phân tích, đánh giá vẫn là thách thức lớn đối với phương pháp sinh câu hỏi chỉ dùng một lần gọi mô hình.
 
@@ -63,7 +64,7 @@ Từ góc nhìn ứng dụng trong giáo dục, phương pháp phân rã đa tá
 
 \subsection{Nhận dạng ký tự quang học và mô hình thị giác - ngôn ngữ}
 
-Công nghệ nhận dạng ký tự quang học (OCR) đã trải qua một quá trình phát triển đáng kể, từ các hệ thống truyền thống dựa trên phân đoạn ký tự và mạng nơ-ron tích chập đến các mô hình thị giác - ngôn ngữ (VLM) hiện đại có khả năng xử lý đầu cuối.
+Công nghệ OCR đã trải qua một quá trình phát triển đáng kể, từ các hệ thống truyền thống dựa trên phân đoạn ký tự và mạng nơ-ron tích chập đến các VLM hiện đại có khả năng xử lý đầu cuối.
 
 Các hệ thống OCR truyền thống như Tesseract hay PaddleOCR đã đạt được hiệu năng tốt trên các tài liệu có bố cục đơn giản và chất lượng ảnh cao. Tuy nhiên, khi đối mặt với các tài liệu giáo dục trong thực tế - bao gồm bảng biểu, công thức toán học, hình ảnh minh họa xen kẽ và các cấu trúc đa cột - các hệ thống này bộc lộ nhiều hạn chế về khả năng bảo toàn cấu trúc tài liệu gốc.
 
@@ -137,11 +138,12 @@ Khoá luận được thực hiện trong phạm vi sau:
 Khoá luận được tổ chức thành năm chương với cấu trúc như sau:
 
 \begin{itemize}
-    \item \textbf{Chương 1 - Đặt vấn đề}: Trình bày bối cảnh nghiên cứu, tổng quan các công trình liên quan, xác định khoảng trống nghiên cứu, mục tiêu và phạm vi của khoá luận.
-    \item \textbf{Chương 2 - Cơ sở lý thuyết}: Trình bày các nền tảng lý thuyết bao gồm mô hình ngôn ngữ lớn và mô hình cỡ nhỏ, thang phân loại nhận thức Bloom, kiến trúc hệ thống đa tác tử, công nghệ nhận dạng ký tự quang học và các phương pháp đánh giá tự động.
-    \item \textbf{Chương 3 - Phương pháp đề xuất}: Trình bày chi tiết kiến trúc hệ thống đa tác tử cho bài toán sinh câu hỏi trắc nghiệm, quy trình xử lý ảnh tài liệu bằng OCR, và khung đánh giá chất lượng câu hỏi.
-    \item \textbf{Chương 4 - Thiết kế và hiện thực ứng dụng Openlet}: Trình bày cách các kết quả nghiên cứu được hiện thực hóa thành ứng dụng Web Openlet, bao gồm phân tích chức năng, thiết kế hệ thống, các luồng xử lý cốt lõi và giao diện sử dụng.
-    \item \textbf{Chương 5 - Thực nghiệm và đánh giá}: Trình bày thiết kế thực nghiệm, kết quả đánh giá hiệu năng các mô hình trên từng tác vụ, phân tích so sánh và thảo luận.
+    % [MODIFY]: Them ref cheo cho cac chuong trong bo cuc
+    \item \textbf{Chương~\ref{chap:dat-van-de} - Đặt vấn đề}: Trình bày bối cảnh nghiên cứu, tổng quan các công trình liên quan, xác định khoảng trống nghiên cứu, mục tiêu và phạm vi của khoá luận.
+    \item \textbf{Chương~\ref{chap:co-so-ly-thuyet} - Cơ sở lý thuyết}: Trình bày các nền tảng lý thuyết bao gồm mô hình ngôn ngữ lớn và mô hình cỡ nhỏ, thang phân loại nhận thức Bloom, kiến trúc hệ thống đa tác tử, công nghệ nhận dạng ký tự quang học và các phương pháp đánh giá tự động.
+    \item \textbf{Chương~\ref{chap:phuong-phap} - Phương pháp đề xuất}: Trình bày chi tiết kiến trúc hệ thống đa tác tử cho bài toán sinh câu hỏi trắc nghiệm, quy trình xử lý ảnh tài liệu bằng OCR, và khung đánh giá chất lượng câu hỏi.
+    \item \textbf{Chương~\ref{chap:thiet-ke} - Thiết kế và hiện thực ứng dụng Openlet}: Trình bày cách các kết quả nghiên cứu được hiện thực hóa thành ứng dụng Web Openlet, bao gồm phân tích chức năng, thiết kế hệ thống, các luồng xử lý cốt lõi và giao diện sử dụng.
+    \item \textbf{Chương~\ref{chap:thuc-nghiem} - Thực nghiệm và đánh giá}: Trình bày thiết kế thực nghiệm, kết quả đánh giá hiệu năng các mô hình trên từng tác vụ, phân tích so sánh và thảo luận.
 \end{itemize}
 
 Khoá luận kết thúc với phần \textbf{Kết luận}, tóm tắt các đóng góp chính và đề xuất hướng phát triển trong tương lai.
