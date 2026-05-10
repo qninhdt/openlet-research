@@ -1,0 +1,41 @@
+% Agent: Classifier (Phân loại)
+\begin{tikzpicture}[
+    >=Stealth,
+    node distance=0.8cm,
+    box/.style={draw, rounded corners=2pt, minimum width=2.2cm, minimum height=0.7cm, font=\small, align=center, line width=0.5pt},
+    io/.style={box, fill=gray!8},
+    proc/.style={box, fill=orange!10},
+    decision/.style={diamond, draw, aspect=2, inner sep=1.5pt, font=\small, fill=orange!8, line width=0.5pt},
+    lbl/.style={font=\scriptsize, text=gray!70},
+]
+
+% ── Input ──
+\node[io] (input) {$\{q_1, \ldots, q_m\}$\\[1pt]\scriptsize + $content$};
+\node[lbl, above=0.1cm of input] {Đầu vào};
+
+% ── Shuffle ──
+\node[proc, right=1.4cm of input] (shuffle) {\scriptsize Xáo trộn\\[-1pt]\scriptsize + gán ID tạm};
+
+% ── LLM ──
+\node[proc, right=1.2cm of shuffle, minimum height=1.2cm, minimum width=2.6cm, fill=orange!12] (llm) {\textbf{sLLM}\\[2pt]\scriptsize Phân loại Bloom\\[-1pt]\scriptsize + CoT reasoning};
+
+% ── Decision ──
+\node[decision, right=1.2cm of llm] (dec) {\scriptsize $\hat{l}=l$\,?};
+
+% ── Outputs ──
+\node[io, above right=0.6cm and 1.2cm of dec, fill=green!8] (pass) {$\mathcal{P}_l$\\[1pt]\scriptsize Đạt chuẩn};
+\node[io, below right=0.6cm and 1.2cm of dec, fill=red!8] (fail) {$\mathcal{N}_l$\\[1pt]\scriptsize Sinh lại};
+
+% ── Arrows ──
+\draw[->, thick, gray!70] (input.east) -- (shuffle.west);
+\draw[->, thick, gray!70] (shuffle.east) -- (llm.west);
+\draw[->, thick, orange!60] (llm.east) -- (dec.west);
+\draw[->, thick, green!50!black] (dec.north east) -- node[lbl, above left, font=\scriptsize] {Có} (pass.south west);
+\draw[->, thick, red!60] (dec.south east) -- node[lbl, below left, font=\scriptsize] {Không} (fail.north west);
+
+% ── Surrounding box ──
+\begin{scope}[on background layer]
+    \node[draw, dashed, rounded corners=5pt, inner sep=10pt, fit=(input)(shuffle)(llm)(dec)(pass)(fail), orange!30, fill=orange!2, label={[font=\small\bfseries, orange!70]above:Tác tử Phân loại $(A_{\text{cls}})$}] {};
+\end{scope}
+
+\end{tikzpicture}

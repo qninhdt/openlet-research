@@ -1,0 +1,81 @@
+\begin{tikzpicture}[
+    >=Stealth,
+    node distance=1.2cm and 1.6cm,
+    % Styles
+    input/.style={draw, rounded corners=3pt, fill=gray!10, minimum width=2cm, minimum height=0.9cm, font=\small, align=center},
+    agent/.style={draw, rounded corners=3pt, fill=#1!12, minimum width=2.6cm, minimum height=1cm, font=\small\bfseries, align=center, line width=0.6pt},
+    agent/.default={blue},
+    output/.style={draw, rounded corners=3pt, fill=green!8, minimum width=2cm, minimum height=0.9cm, font=\small, align=center},
+    loop/.style={draw, dashed, rounded corners=6pt, inner sep=6pt, line width=0.5pt, #1},
+    loop/.default={gray!60},
+    arr/.style={->, thick, color=#1},
+    arr/.default={black!70},
+    % Đã xóa fill=white để bỏ nền trắng cho các nhãn chữ
+    lblnode/.style={font=\scriptsize, inner sep=1.5pt},
+]
+
+% ── Input ──
+\node[input] (input) {Đoạn văn};
+
+% ── Generators (3 parallel) ──
+\node[agent=blue, above right=0.6cm and 2.6cm of input] (gen1) {$A_{\text{gen}}^1$\\[-2pt]\scriptsize Cấp 1};
+\node[agent=blue, right=2.6cm of input] (gen2) {$A_{\text{gen}}^2$\\[-2pt]\scriptsize Cấp 2};
+\node[agent=blue, below right=0.6cm and 2.6cm of input] (gen3) {$A_{\text{gen}}^3$\\[-2pt]\scriptsize Cấp 3};
+
+% ── Classifier ──
+\node[agent=orange, right=1.8cm of gen2] (cls) {$A_{\text{cls}}$\\[-2pt]\scriptsize Phân loại};
+
+% ── Student ──
+\node[agent=teal, right=1.8cm of cls] (stu) {$A_{\text{stu}}$\\[-2pt]\scriptsize Học sinh};
+
+% ── Fixer ──
+\node[agent=red, below=1cm of stu] (fix) {$A_{\text{fix}}$\\[-2pt]\scriptsize Hiệu chỉnh};
+
+% ── Output ──
+\node[output, right=1.8cm of stu] (output) {Bộ MCQ\\[-1pt]\scriptsize đạt chuẩn};
+
+% ── Arrows: Input → Generators ──
+\coordinate (bus_center) at ([xshift=1.6cm]input.east);
+\coordinate (feedback_point) at ([xshift=0.8cm]input.east);
+
+% Trục chính từ Input
+\draw[thick, black!70] (input.east) -- (bus_center);
+% Trục phân phối dọc
+\draw[thick, black!70] (bus_center |- gen1.west) -- (bus_center |- gen3.west);
+% Rẽ nhánh vào từng Generator
+\draw[arr] (bus_center |- gen1.west) -- (gen1.west);
+\draw[arr] (bus_center) -- (gen2.west);
+\draw[arr] (bus_center |- gen3.west) -- (gen3.west);
+
+% ── Arrows: Generators → Classifier ──
+\draw[arr] (gen1.east) -| ([xshift=-0.8cm, yshift=6pt]cls.west) -- ([yshift=6pt]cls.west);
+\draw[arr] (gen2.east) -- (cls.west);
+\draw[arr] (gen3.east) -| ([xshift=-0.8cm, yshift=-6pt]cls.west) -- ([yshift=-6pt]cls.west);
+
+% ── Arrow: Classifier → Student ──
+\draw[arr=black!70] (cls.east) -- node[lblnode, above] {\scriptsize $\hat{l}=l$} (stu.west);
+
+% ── Arrow: Student → Output ──
+\draw[arr=black!70] (stu.east) -- node[lblnode, above] {\scriptsize pass} (output.west);
+
+% ── Arrow: Student → Fixer ──
+\draw[arr=red!60] (stu.south) -- node[lblnode, right] {\scriptsize fail} (fix.north);
+
+% ── Arrow: Fixer → Student (loop back) ──
+\draw[arr=red!60] (fix.west) -| ([xshift=-0.6cm, yshift=-4pt]stu.west) -- ([yshift=-4pt]stu.west);
+
+% ── Loop 1: Classifier → Generators (Feedback) ──
+\path (gen1.north) ++(0, 0.7cm) coordinate (loop1_top_level);
+
+% Thay đổi: Đã bỏ tham số "dashed" để mũi tên màu cam thành nét liền
+\draw[arr=orange!60] (cls.north) -- (cls.north |- loop1_top_level) -- node[lblnode, below] {\scriptsize $\hat{l}\neq l$} (feedback_point |- loop1_top_level) -- (feedback_point);
+
+% ── Loop boxes (Background) ──
+\path (feedback_point) ++(-0.2cm, 0) coordinate (loop1_left_bound);
+
+\begin{scope}[on background layer]
+    \node[loop=blue!40, fill=blue!3, fit=(loop1_left_bound)(gen1)(gen2)(gen3)(cls)(loop1_top_level), label={[font=\scriptsize\itshape, blue!60, yshift=2pt]above:Vòng lặp 1: Kiểm soát cấp độ nhận thức}] {};
+    \node[loop=red!40, fill=red!3, fit=(stu)(fix), label={[font=\scriptsize\itshape, red!60]below:Vòng lặp 2: Kiểm định tính giải được}] {};
+\end{scope}
+
+\end{tikzpicture}

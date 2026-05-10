@@ -6,3 +6,35 @@ augraphy_cache
 temp
 images
 fonts
+
+# LaTeX build outputs
+*.aux
+*.bbl
+*.blg
+*.brf
+*.dvi
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.iof
+*.lof
+*.log
+*.lot
+*.out
+*.pdfsync
+*.synctex.gz
+*.toc
+*.glg
+*.glo
+*.gls
+*.ist
+*.bcf
+*.run.xml
+*.lof
+*.lot
+
+# Ignore the build directory
+docs/reports/build/
+docs/reports/thesis.pdf

@@ -7,7 +7,7 @@ Chất lượng của câu hỏi trắc nghiệm được sinh ra phụ thuộc 
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{figures/architecture.pdf}
+    \resizebox{\textwidth}{!}{\input{figures/tikz_architecture}}
     \caption{Kiến trúc hệ thống đa tác tử với hai vòng lặp kiểm soát chất lượng: vòng lặp phân loại cấp độ nhận thức và vòng lặp kiểm định tính giải được của câu hỏi}
     \label{fig:multiagent-architecture}
 \end{figure}
@@ -15,7 +15,7 @@ Chất lượng của câu hỏi trắc nghiệm được sinh ra phụ thuộc 
 Toàn bộ pipeline suy luận được điều phối thông qua một đối tượng trạng thái chia sẻ \texttt{WorkflowState}, sử dụng khung điều phối \textbf{LangGraph} \cite{langgraph2024} để xây dựng đồ thị có hướng. Mỗi trạng thái $s$ gồm hai nhóm trường: trường đầu vào $\mathcal{I}$ được khởi tạo từ dữ liệu bài đọc, và trường trung gian $\mathcal{O}$ được cập nhật bởi các tác tử trong quá trình xử lý:
 
 \begin{equation}
-\mathcal{I} = \{\textit{item\_id}, \textit{content}, \textit{n}, \textit{max\_loops}\}
+\mathcal{I} = \{\textit{content}, \textit{n}, \textit{max\_loops}\}
 \end{equation}
 \begin{equation}
 \mathcal{O} = \{\textit{questions}\}
@@ -40,7 +40,14 @@ q_i = (\textit{id}, \textit{question}, \textit{options} \in \mathbb{S}^4, \texti
 
 Prompt của mỗi tác tử được thiết kế chuyên biệt cho cấp độ nhận thức tương ứng: tác tử \textit{Cấp 1} yêu cầu câu hỏi trích xuất thông tin trực tiếp từ văn bản; tác tử \textit{Cấp 2} đòi hỏi câu hỏi suy luận ngầm, đáp án phải được diễn đạt lại hoàn toàn so với văn bản gốc; tác tử \textit{Cấp 3} yêu cầu câu hỏi lập luận đa bước theo chuẩn LSAT/GMAT, kết nối các thông tin rải rác trong nhiều đoạn văn.
 
-Một kỹ thuật quan trọng trong prompt của tác tử \textit{sinh câu hỏi} là cơ chế học từ mẫu tham chiếu. Trước khi sinh câu hỏi, mô hình nhận được danh sách các mẫu tích cực $\mathcal{P}_l$ (câu hỏi đã đạt chuẩn từ các vòng trước) và các mẫu tiêu cực $\mathcal{N}_l$ (câu hỏi đã bị từ chối vì sai cấp độ). Prompt hướng dẫn mô hình mô phỏng phong cách và độ khó của mẫu tích cực, đồng thời tránh lặp lại các lỗi từ mẫu tiêu cực. Cơ chế này hoạt động như một dạng few-shot learning có phản hồi, trong đó chất lượng câu hỏi được cải thiện dần qua từng vòng lặp.
+Một kỹ thuật quan trọng trong prompt của tác tử \textit{sinh câu hỏi} là cơ chế học từ mẫu tham chiếu. Trước khi sinh câu hỏi, mô hình nhận được danh sách các mẫu tích cực $\mathcal{P}_l$ (câu hỏi đã đạt chuẩn từ các vòng trước) và các mẫu tiêu cực $\mathcal{N}_l$ (câu hỏi đã bị từ chối vì sai cấp độ). Prompt hướng dẫn mô hình mô phỏng phong cách và độ khó của mẫu tích cực, đồng thời tránh lặp lại các lỗi từ mẫu tiêu cực. Cơ chế này hoạt động như một dạng few-shot learning có phản hồi, trong đó chất lượng câu hỏi được cải thiện dần qua từng vòng lặp. Hình~\ref{fig:agent-generator} minh họa luồng xử lý bên trong tác tử.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{0.85\textwidth}{!}{\input{figures/tikz_agent_generator}}
+    \caption{Luồng xử lý bên trong Tác tử Sinh câu hỏi: nhận văn bản nguồn và mẫu tham chiếu, sinh câu hỏi qua sLLM với prompt chuyên biệt theo cấp độ}
+    \label{fig:agent-generator}
+\end{figure}
 
 \subsection{Tác tử \textit{Phân loại}}
 Tác tử \textit{Phân loại} có nhiệm vụ xác minh rằng mỗi câu hỏi được sinh ra phù hợp với cấp độ nhận thức mong muốn:
@@ -62,7 +69,14 @@ Kết quả phân loại trực tiếp cập nhật hai tập mẫu tham chiếu
 \mathcal{N}_l^{(t+1)} = \mathcal{N}_l^{(t)} \cup \{q.\textit{question} \mid \hat{l}(q) \neq l\}
 \end{equation}
 
-\noindent trong đó $\mathcal{P}_l^{(t)}$ và $\mathcal{N}_l^{(t)}$ lần lượt là tập mẫu tích cực và tiêu cực tại vòng lặp $t$. Câu hỏi đạt chuẩn ($\hat{l} = l$) được chuyển sang Tác tử \textit{Học sinh}; câu hỏi bị từ chối ($\hat{l} \neq l$) được đánh dấu thất bại và nút điều phối sẽ yêu cầu tác tử \textit{sinh câu hỏi} tạo lại số lượng thiếu hụt.
+\noindent trong đó $\mathcal{P}_l^{(t)}$ và $\mathcal{N}_l^{(t)}$ lần lượt là tập mẫu tích cực và tiêu cực tại vòng lặp $t$. Câu hỏi đạt chuẩn ($\hat{l} = l$) được chuyển sang Tác tử \textit{Học sinh}; câu hỏi bị từ chối ($\hat{l} \neq l$) được đánh dấu thất bại và nút điều phối sẽ yêu cầu tác tử \textit{sinh câu hỏi} tạo lại số lượng thiếu hụt. Hình~\ref{fig:agent-classifier} minh họa luồng xử lý bên trong tác tử.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{0.9\textwidth}{!}{\input{figures/tikz_agent_classifier}}
+    \caption{Luồng xử lý bên trong Tác tử Phân loại: xáo trộn câu hỏi chống thiên lệch, phân loại cấp độ Bloom, và tách kết quả thành tập đạt chuẩn và tập sinh lại}
+    \label{fig:agent-classifier}
+\end{figure}
 
 \subsection{Tác tử \textit{Học sinh}}
 Tác tử \textit{Học sinh} mô phỏng quá trình một học sinh giải từng câu hỏi, giúp phát hiện các câu hỏi mơ hồ, có nhiều đáp án đúng, hoặc có cấu trúc kém:
@@ -84,7 +98,14 @@ Câu hỏi được xác nhận đạt chuẩn khi và chỉ khi tác tử lựa
 \end{cases}
 \end{equation}
 
-\noindent trong đó $c^*$ là ký hiệu phương án đúng của câu hỏi $q$. Nếu tác tử trả lời sai, câu hỏi được chuyển tới Tác tử \textit{Hiệu chỉnh} cùng với lý do giải thích.
+\noindent trong đó $c^*$ là ký hiệu phương án đúng của câu hỏi $q$. Nếu tác tử trả lời sai, câu hỏi được chuyển tới Tác tử \textit{Hiệu chỉnh} cùng với lý do giải thích. Hình~\ref{fig:agent-student} minh họa luồng xử lý bên trong tác tử.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{0.85\textwidth}{!}{\input{figures/tikz_agent_student}}
+    \caption{Luồng xử lý bên trong Tác tử Học sinh: giải MCQ dạng nhiều lựa chọn đúng, phân luồng câu hỏi đạt chuẩn và câu hỏi cần hiệu chỉnh kèm lý do}
+    \label{fig:agent-student}
+\end{figure}
 
 \subsection{Tác tử \textit{Hiệu chỉnh}}
 Tác tử \textit{Hiệu chỉnh} tiếp nhận các câu hỏi mà Tác tử \textit{Học sinh} đã trả lời sai, cùng với lý do giải thích:
@@ -93,7 +114,14 @@ Tác tử \textit{Hiệu chỉnh} tiếp nhận các câu hỏi mà Tác tử \t
 A_{\text{fix}}: (\textit{content}, \{(q_i, C_i, \textit{reason}_i)\}) \longrightarrow \{(\textit{id}_i, \textit{options}_i', \textit{correct\_idx}_i')\}
 \end{equation}
 
-Ràng buộc thiết kế cốt lõi của tác tử này là chỉ được phép sửa đổi các phương án trả lời và đáp án đúng, trong khi bắt buộc giữ nguyên thân câu hỏi và cấp độ nhận thức. Ràng buộc này ngăn chặn hệ thống tạo ra câu hỏi hoàn toàn mới thay vì sửa chữa câu hỏi hiện có. Tác tử sử dụng lý do giải thích từ Tác tử \textit{Học sinh} để xác định nguyên nhân lỗi, chẳng hạn phương án nhiễu quá hiển nhiên, nhiều phương án cùng đúng, hoặc đáp án chính thức không chính xác, và thực hiện sửa chữa có mục tiêu. Sau khi sửa chữa, câu hỏi được đưa trở lại Tác tử \textit{Học sinh} để tái kiểm định.
+Ràng buộc thiết kế cốt lõi của tác tử này là chỉ được phép sửa đổi các phương án trả lời và đáp án đúng, trong khi bắt buộc giữ nguyên thân câu hỏi và cấp độ nhận thức. Ràng buộc này ngăn chặn hệ thống tạo ra câu hỏi hoàn toàn mới thay vì sửa chữa câu hỏi hiện có. Tác tử sử dụng lý do giải thích từ Tác tử \textit{Học sinh} để xác định nguyên nhân lỗi, chẳng hạn phương án nhiễu quá hiển nhiên, nhiều phương án cùng đúng, hoặc đáp án chính thức không chính xác, và thực hiện sửa chữa có mục tiêu. Sau khi sửa chữa, câu hỏi được đưa trở lại Tác tử \textit{Học sinh} để tái kiểm định. Hình~\ref{fig:agent-fixer} minh họa luồng xử lý bên trong tác tử.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{0.85\textwidth}{!}{\input{figures/tikz_agent_fixer}}
+    \caption{Luồng xử lý bên trong Tác tử Hiệu chỉnh: nhận câu hỏi lỗi kèm lý do từ Tác tử Học sinh, chỉ sửa phương án và đáp án, đưa lại để tái kiểm định}
+    \label{fig:agent-fixer}
+\end{figure}
 
 \section{Một số kỹ thuật mở rộng}
 
@@ -112,9 +140,12 @@ Thiết kế này được thể hiện nhất quán trong prompt của từng t
 Kỹ thuật suy luận chuỗi tư duy đặc biệt quan trọng khi sử dụng các sLLM, vì các mô hình có quy mô nhỏ thường gặp khó khăn trong các tác vụ đòi hỏi suy luận nhiều bước. Bằng cách buộc mô hình trình bày rõ quá trình tư duy trước khi đưa ra kết quả, kỹ thuật này giúp giảm lỗi logic, tăng tính nhất quán của đầu ra, đồng thời cho phép truy vết và gỡ lỗi khi cần thiết.
 
 \subsection{Định dạng đầu ra của tác tử}
-Toàn bộ pipeline sử dụng đầu ra dạng văn bản thuần có cấu trúc thay vì yêu cầu mô hình trả về định dạng JSON. Cụ thể, mỗi tác tử trả về kết quả theo cấu trúc khóa-giá trị cố định, ví dụ:
+Toàn bộ pipeline sử dụng đầu ra dạng văn bản thuần có cấu trúc thay vì yêu cầu mô hình trả về định dạng JSON. Cụ thể, mỗi tác tử trả về kết quả theo cấu trúc khóa-giá trị cố định như được minh họa trong Hình~\ref{fig:agent_output_format}:
 
-\begin{verbatim}
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.5\textwidth}
+\begin{lstlisting}[basicstyle=\ttfamily\small, backgroundcolor=\color{white}, numbers=none, frame=tb, belowskip=0pt]
 ID: [ID]
 Reason: [...]
 Question: [text]
@@ -123,7 +154,12 @@ B: [option B]
 C: [option C]
 D: [option D]
 Answer: [A|B|C|D]
-\end{verbatim}
+\end{lstlisting}
+    \end{minipage}
+    \vspace{-0.3cm}
+    \caption{Cấu trúc định dạng đầu ra chuẩn của tác tử \textit{Sinh câu hỏi}}
+    \label{fig:agent_output_format}
+\end{figure}
 
 Quyết định thiết kế này xuất phát từ thực tế rằng các sLLM tỏ ra kém hiệu quả và không ổn định khi phải tuân thủ định dạng JSON nghiêm ngặt. Các lỗi thường gặp bao gồm: thiếu hoặc thừa dấu ngoặc, thoát ký tự đặc biệt sai (đặc biệt với dấu ngoặc kép trong nội dung câu hỏi), cắt ngắn đầu ra giữa chừng khi chuỗi JSON quá dài, và sinh ra JSON không hợp lệ về mặt cú pháp. Những lỗi này xảy ra với tần suất đáng kể ở các sLLM có quy mô dưới 15 tỷ tham số, khiến toàn bộ đầu ra của một lần gọi mô hình bị mất khi quá trình phân tích cú pháp JSON thất bại.
 

@@ -1,0 +1,41 @@
+% Agent: Generator (Sinh câu hỏi)
+\begin{tikzpicture}[
+    >=Stealth,
+    node distance=0.8cm,
+    box/.style={draw, rounded corners=2pt, minimum width=2.4cm, minimum height=0.7cm, font=\small, align=center, line width=0.5pt},
+    io/.style={box, fill=gray!8},
+    proc/.style={box, fill=blue!10},
+    lbl/.style={font=\scriptsize, text=gray!70},
+]
+
+% ── Inputs ──
+\node[io] (content) {$content$};
+\node[io, below=0.35cm of content] (n) {$n_l$};
+\node[io, below=0.35cm of n] (pos) {$\mathcal{P}_l$\; \scriptsize mẫu tích cực};
+\node[io, below=0.35cm of pos] (neg) {$\mathcal{N}_l$\; \scriptsize mẫu tiêu cực};
+
+% ── Input group label ──
+\node[lbl, above=0.1cm of content] {Đầu vào};
+
+% ── LLM Processing ──
+\node[proc, right=2cm of n, yshift=-0.3cm, minimum height=1.8cm, minimum width=3cm, fill=blue!12] (llm) {\textbf{sLLM}\\[2pt]\scriptsize Prompt chuyên biệt\\[-1pt]\scriptsize cho cấp độ $l$\\[2pt]\scriptsize + CoT reasoning};
+
+% ── Output ──
+\node[io, right=2cm of llm, minimum height=1.2cm] (out) {$\{q_1, \ldots, q_{n_l}\}$\\[1pt]\scriptsize id, question,\\[-1pt]\scriptsize options, answer};
+
+% ── Output label ──
+\node[lbl, above=0.1cm of out] {Đầu ra};
+
+% ── Arrows ──
+\draw[->, thick, gray!70] (content.east) -- ++(0.3,0) |- ([yshift=4pt]llm.west);
+\draw[->, thick, gray!70] (n.east) -- (n.east -| llm.west);
+\draw[->, thick, gray!70] (pos.east) -- ++(0.3,0) |- ([yshift=-4pt]llm.west);
+\draw[->, thick, gray!70] (neg.east) -- ++(0.6,0) |- ([yshift=-10pt]llm.west);
+\draw[->, thick, blue!60] (llm.east) -- (out.west);
+
+% ── Surrounding box ──
+\begin{scope}[on background layer]
+    \node[draw, dashed, rounded corners=5pt, inner sep=10pt, fit=(content)(n)(pos)(neg)(llm)(out), blue!30, fill=blue!2, label={[font=\small\bfseries, blue!70]above:Tác tử Sinh câu hỏi $(A_{\text{gen}}^l)$}] {};
+\end{scope}
+
+\end{tikzpicture}

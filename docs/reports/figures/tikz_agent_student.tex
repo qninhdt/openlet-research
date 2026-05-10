@@ -1,0 +1,37 @@
+% Agent: Student (Học sinh)
+\begin{tikzpicture}[
+    >=Stealth,
+    node distance=0.8cm,
+    box/.style={draw, rounded corners=2pt, minimum width=2.2cm, minimum height=0.7cm, font=\small, align=center, line width=0.5pt},
+    io/.style={box, fill=gray!8},
+    proc/.style={box, fill=teal!10},
+    decision/.style={diamond, draw, aspect=2, inner sep=1.5pt, font=\small, fill=teal!8, line width=0.5pt},
+    lbl/.style={font=\scriptsize, text=gray!70},
+]
+
+% ── Input ──
+\node[io] (input) {$\{q_1, \ldots, q_m\}$\\[1pt]\scriptsize + $content$};
+\node[lbl, above=0.1cm of input] {Đầu vào};
+
+% ── LLM ──
+\node[proc, right=1.5cm of input, minimum height=1.4cm, minimum width=3cm, fill=teal!12] (llm) {\textbf{sLLM}\\[2pt]\scriptsize Giải MCQ dạng\\[-1pt]\scriptsize ``Select All That Apply''\\[-1pt]\scriptsize + CoT reasoning};
+
+% ── Decision ──
+\node[decision, right=1.3cm of llm] (dec) {\scriptsize $C=\{c^*\}$\,?};
+
+% ── Outputs ──
+\node[io, above right=0.6cm and 1cm of dec, fill=green!8] (pass) {\scriptsize Đạt chuẩn\\[-1pt]\scriptsize $\to$ Kết quả};
+\node[io, below right=0.6cm and 1cm of dec, fill=red!8] (fail) {\scriptsize$(C_i, reason_i)$\\[-1pt]\scriptsize $\to A_{\text{fix}}$};
+
+% ── Arrows ──
+\draw[->, thick, gray!70] (input.east) -- (llm.west);
+\draw[->, thick, teal!60] (llm.east) -- (dec.west);
+\draw[->, thick, green!50!black] (dec.north east) -- node[above left, font=\scriptsize] {Đúng} (pass.south west);
+\draw[->, thick, red!60] (dec.south east) -- node[below left, font=\scriptsize] {Sai} (fail.north west);
+
+% ── Surrounding box ──
+\begin{scope}[on background layer]
+    \node[draw, dashed, rounded corners=5pt, inner sep=10pt, fit=(input)(llm)(dec)(pass)(fail), teal!30, fill=teal!2, label={[font=\small\bfseries, teal!70]above:Tác tử Học sinh $(A_{\text{stu}})$}] {};
+\end{scope}
+
+\end{tikzpicture}

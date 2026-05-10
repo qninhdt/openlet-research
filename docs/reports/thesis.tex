@@ -23,9 +23,9 @@
 \usepackage{tocloft, calc}
 \usepackage{listings}
 \usepackage{makecell}
-\usepackage[sort&compress]{natbib}
-\usetikzlibrary{calc}
-\usepackage{algorithm}
+\usepackage[sort&compress,numbers]{natbib}
+\usetikzlibrary{calc, arrows.meta, positioning, shapes.geometric, fit, backgrounds, decorations.pathreplacing}
+% \usepackage{algorithm}
 \usepackage{subcaption}
 % \usepackage{minted}
 % \usepackage[perpage]{footmisc}
@@ -45,7 +45,7 @@
 \makeatletter
 \def\l@figure{\@dottedtocline{1}{1em}{2.2em}}
 \def\l@table{\@dottedtocline{1}{1em}{2.2em}}
-\renewcommand*{\ALG@name}{Thuật toán}
+% \renewcommand*{\ALG@name}{Thuật toán}
 \makeatother
 
 \sectionfont{\fontsize{15}{15}\selectfont}
