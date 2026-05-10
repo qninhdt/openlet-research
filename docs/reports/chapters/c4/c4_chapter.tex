@@ -1,195 +1,234 @@
-\chapter{Thiết kế và hiện thực ứng dụng Openlet}
-% [NEW]: Them label cho chuong
-\label{chap:thiet-ke}
+\chapter{Phương pháp đánh giá}
+\label{chap:phuong-phap-danh-gia}
 
-\section{Giới thiệu ứng dụng và phạm vi sử dụng}
+Chương này trình bày chi tiết về thiết kế thực nghiệm nhằm kiểm chứng hiệu quả của các phương pháp đã đề xuất. Nội dung bao gồm việc giới thiệu bộ dữ liệu được sử dụng, quy trình tổng hợp dữ liệu ảnh nhiễu cho bài toán OCR, các thiết lập kỹ thuật cho mô hình, cũng như các tiêu chí và phương pháp đánh giá tự động (LLM-as-a-Judge) được áp dụng.
 
-% [MODIFY]: Them ref cheo cho chuong
-Chương~\ref{chap:phuong-phap} của khóa luận đã trình bày các thành phần nghiên cứu cốt lõi của hệ thống Openlet, bao gồm quy trình nhận dạng văn bản từ ảnh, cơ chế sinh câu hỏi trắc nghiệm và khung đánh giá chất lượng. Trên cơ sở đó, chương này tập trung trình bày cách các kết quả nghiên cứu được hiện thực hóa thành một ứng dụng Web hoàn chỉnh, có khả năng phục vụ trực tiếp cho hoạt động tạo bài kiểm tra và làm bài trực tuyến trong môi trường giáo dục.
+\section{Bộ dữ liệu}
+\textbf{RACE (Reading Comprehension Dataset From Examinations)} \cite{lai2017race} là một bộ dữ liệu quy mô lớn trong lĩnh vực xử lý ngôn ngữ tự nhiên. Khác với bộ dữ liệu \textbf{SQuAD} \cite{rajpurkar2016squad} (chủ yếu dựa trên Wikipedia), RACE được xây dựng trực tiếp từ đề thi của các kỳ thi tiếng Anh thực tế dành cho học sinh trung học cơ sở và trung học phổ thông tại hệ thống giáo dục Trung Quốc.
 
-Openlet hướng tới hai nhóm người dùng chính. Nhóm thứ nhất là giáo viên hoặc người biên soạn học liệu, những người cần chuyển nhanh tài liệu học tập thành bài kiểm tra có thể chỉnh sửa và công bố. Nhóm thứ hai là người làm bài, những người truy cập bài kiểm tra qua liên kết chia sẻ, thực hiện bài làm và nhận phản hồi theo cấu hình mà giáo viên đã đặt ra.
+Hai lý do chính nghiên cứu sử dụng RACE làm bộ dữ liệu đánh giá mô hình là:
+Độ phức tạp và đa dạng ngữ nghĩa: Văn bản trong RACE thường bao trùm nhiều lĩnh vực trong đời sống: giáo dục, tin tức, văn hóa, chính trị, khoa học và các câu chuyện luân lý. Chính vì thế, đặc điểm dữ liệu và văn phong của văn bản trong RACE vô cùng sát với các tài liệu trong thực tế. Các văn bản trong RACE có độ dài tiêu chuẩn từ 300 đến 500 từ, độ dài này đủ lớn để chứa đựng lượng thông tin cho một bài kiểm tra: các chuỗi sự kiện phức tạp, luận điểm, nhưng vẫn đảm bảo không làm quá tải cửa sổ ngữ cảnh (context window) của các sLLM.
 
-Trong phạm vi khóa luận, Openlet tập trung vào một chu trình nghiệp vụ khép kín gồm tiếp nhận học liệu đầu vào, sinh câu hỏi tự động, biên tập nội dung, công bố bài kiểm tra, tổ chức làm bài và theo dõi kết quả. Ứng dụng hỗ trợ ba dạng đầu vào là ảnh chụp tài liệu, tệp PDF và văn bản thuần. Tuy nhiên, hệ thống không hướng tới thay thế toàn bộ một hệ quản lý học tập hoàn chỉnh, mà tập trung vào bài toán chuyển đổi học liệu thành bài kiểm tra trực tuyến một cách nhanh, linh hoạt và có kiểm soát chất lượng.
+Chiều sâu logic và tính đa nghĩa của văn bản gốc: Không giống các văn bản bách khoa toàn thư chỉ liệt kê dữ liệu bề mặt, các văn bản của RACE được các chuyên gia giáo dục tuyển chọn chuyên biệt nhằm mục đích đánh giá nhận thức của người học. Cấu trúc của văn bản ẩn chứa nhiều tầng nghĩa, tích hợp các chuỗi nhân quả, thái độ ngầm định của tác giả và các mệnh đề gây nhiễu. Nếu nghiên cứu lựa chọn một bộ dữ liệu văn bản thiếu chiều sâu, các nỗ lực đánh giá LLM sinh câu hỏi tư duy cao đều sẽ thất bại.
 
-\section{Công nghệ sử dụng}
+Bộ dữ liệu RACE bao gồm khoảng 28.000 đoạn văn và gần 100.000 câu hỏi trắc nghiệm, được chia thành hai tập con theo cấp độ: RACE-Middle (dành cho học sinh trung học cơ sở) và RACE-High (dành cho học sinh trung học phổ thông). Tập RACE-High chứa các đoạn văn có độ phức tạp cao hơn, đòi hỏi khả năng suy luận sâu hơn, do đó phù hợp hơn với mục tiêu đánh giá khả năng sinh câu hỏi đa cấp độ nhận thức của nghiên cứu này.
 
-\subsection{Nhóm công nghệ giao diện}
+Trong phạm vi thực nghiệm, nghiên cứu lấy mẫu ngẫu nhiên 100 đoạn văn từ tập RACE-High làm dữ liệu đầu vào cho toàn bộ các thí nghiệm sinh câu hỏi. Bảng~\ref{tab:race_stats} trình bày thống kê tổng quan về bộ dữ liệu RACE và mẫu được sử dụng.
 
-% [MODIFY]: Them in nghieng cho ten cong nghe
-Lớp giao diện của Openlet được xây dựng bằng \textbf{Next.js} \cite{nextjs} kết hợp với \textbf{React} \cite{reactjs}. Cách lựa chọn này cho phép hệ thống tổ chức giao diện theo các trang chức năng rõ ràng, đồng thời hỗ trợ tốt việc cập nhật dữ liệu theo thời gian thực khi trạng thái xử lý của bài kiểm tra thay đổi. Bên cạnh đó, hệ thống thành phần giao diện được hoàn thiện bằng các thư viện hỗ trợ tương tác, biểu mẫu và hiển thị, giúp rút ngắn thời gian phát triển mà vẫn đảm bảo tính nhất quán trong trải nghiệm sử dụng.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Đặc điểm} & \textbf{RACE-Middle} & \textbf{RACE-High} & \textbf{Mẫu thực nghiệm} \\
+\midrule
+Số đoạn văn & $\sim$6.400 & $\sim$21.600 & 100 \\
+Số câu hỏi & $\sim$25.400 & $\sim$72.000 & - \\
+Nguồn gốc & Đề thi THCS & Đề thi THPT & Lấy mẫu từ RACE-High \\
+Độ dài trung bình (từ) & 250-350 & 300-500 & 300-500 \\
+\bottomrule
+\end{tabular}
+\caption{Thống kê bộ dữ liệu RACE và mẫu thực nghiệm}
+\label{tab:race_stats}
+\end{table}
 
-\subsection{Nhóm công nghệ dịch vụ và lưu trữ}
+\section{Quy trình tổng hợp bộ dữ liệu OCR}
 
-% [MODIFY]: Them in nghieng cho Firebase
-Phần dịch vụ của Openlet được triển khai trên nền tảng \textbf{Firebase} \cite{firebase}. Hệ thống sử dụng cơ chế xác thực để quản lý danh tính người dùng, nền tảng lưu trữ dữ liệu để quản lý thông tin bài kiểm tra và kết quả làm bài, vùng lưu trữ tệp để tiếp nhận ảnh và tệp PDF, cùng các hàm xử lý phía máy chủ để thực hiện những nghiệp vụ nhạy cảm như nhận dạng văn bản, sinh câu hỏi, truy xuất đề công khai, chấm điểm và cập nhật thống kê.
+Để đánh giá chính xác năng lực nhận dạng văn bản (OCR) của các mô hình thị giác - ngôn ngữ (VLM) trong điều kiện thực tế — nơi tài liệu thường ở dạng ảnh chụp, sách giáo khoa in, hoặc ghi chép tay với chất lượng quang học đa dạng — nghiên cứu tiến hành xây dựng một bộ dữ liệu ảnh giả lập chuyên biệt. 
 
-Việc sử dụng hạ tầng không máy chủ giúp Openlet phù hợp với phạm vi của một khóa luận tốt nghiệp. Hệ thống không cần đầu tư riêng một máy chủ ứng dụng độc lập nhưng vẫn duy trì được khả năng triển khai nhanh, đơn giản hóa khâu vận hành và giữ được sự tách bạch hợp lý giữa giao diện, xử lý nghiệp vụ và lưu trữ dữ liệu.
+Thay vì thu thập và gán nhãn ảnh chụp thủ công (phương pháp tốn kém tài nguyên và khó kiểm soát độc lập các biến số nhiễu), hệ thống triển khai một quy trình sinh dữ liệu tổng hợp (synthetic data generation). Quá trình này đảo ngược trình tự của bài toán OCR truyền thống trong khâu chuẩn bị dữ liệu: bắt đầu từ các đoạn văn bản chuẩn (ground truth) trích xuất từ bộ dữ liệu gốc, hệ thống chủ động kết xuất (render) thành hình ảnh, sau đó áp dụng các phép biến đổi có kiểm soát để mô phỏng tác nhân gây nhiễu thực tế (Hình~\ref{fig:augmentation-pipeline}). Cách tiếp cận này giúp tạo ra nguồn dữ liệu đánh giá dồi dào, đa dạng và có sẵn nhãn chính xác tuyệt đối để đo lường hiệu năng của các VLM.
 
-\subsection{Nhóm công nghệ mô hình trí tuệ nhân tạo}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\linewidth]{figures/augmentation-pipeline.png}
+    \caption{Sơ đồ quy trình tăng cường dữ liệu ảnh nhiễu: từ văn bản gốc qua kết xuất ảnh sạch, áp dụng nhiễu vật lý và quang học, đến ảnh giả lập tài liệu thực tế}
+    \label{fig:augmentation-pipeline}
+\end{figure}
 
-% [MODIFY]: Them in nghieng cho OpenRouter
-Đối với các tác vụ liên quan đến trí tuệ nhân tạo, Openlet sử dụng \textbf{OpenRouter} \cite{openrouter} như một cổng trung gian để truy cập các mô hình nhận dạng văn bản và mô hình ngôn ngữ. Cách triển khai này giúp hệ thống có thể thay đổi mô hình theo từng mục đích sử dụng mà không phải điều chỉnh lại kiến trúc chung của ứng dụng. Trên thực tế, Openlet hỗ trợ cả mô hình thương mại lẫn mô hình mã nguồn mở, qua đó phù hợp với nhiều cấu hình vận hành khác nhau.
+\subsection{Sinh ảnh sạch từ văn bản}
 
-\section{Phân tích chức năng và tác nhân sử dụng}
+Giai đoạn đầu tiên là khởi tạo các hình ảnh kỹ thuật số mang độ sắc nét tuyệt đối từ văn bản gốc. Nhằm đảm bảo tính đa dạng về mặt thị giác và cấu trúc tài liệu, nghiên cứu không sử dụng các thư viện đồ họa 2D cơ bản (như PIL), mà tích hợp công cụ trình duyệt không giao diện (headless browser) thông qua thư viện Pyppeteer \cite{pyppeteer2018}. Phương pháp này tận dụng sức mạnh của CSS và DOM để kiểm soát chính xác và linh hoạt bố cục hình ảnh. Quá trình này gồm ba bước cốt lõi:
 
-\subsection{Các tác nhân chính}
+\begin{enumerate}
+    \item \textbf{Khởi tạo không gian và định dạng kiểu chữ:} Hệ thống chọn ngẫu nhiên các kích thước khung hình tiêu chuẩn (A4, A5, US Letter, FHD, HD, v.v.). Phông chữ được lấy ngẫu nhiên từ kho dữ liệu Google Fonts \cite{googlefonts}, chia làm hai nhóm đặc thù: nhóm in chuẩn (Roboto, Merriweather) để mô phỏng tài liệu in ấn, và nhóm viết tay (Dancing Script, Caveat) để giả lập các bản ghi chép cá nhân. Các tham số về độ đậm (weight), màu chữ và màu nền cũng được cấu hình ngẫu nhiên.
 
-Openlet được tổ chức xoay quanh hai tác nhân sử dụng chính:
+    \item \textbf{Tự động hóa mật độ hiển thị:} Dựa trên tỷ lệ diện tích khung hình và số lượng ký tự, thuật toán linh hoạt chia văn bản thành nhiều cột (từ 1 đến 3 cột), đồng thời tinh chỉnh khoảng cách lề (padding), độ giãn dòng (line height) và khoảng cách đoạn (paragraph spacing). Cơ chế này giúp sinh ra các tài liệu có cấu trúc từ đơn giản đến phức tạp.
+
+    \item \textbf{Khớp khung hình động:} Để khắc phục tình trạng văn bản bị cắt xén hoặc tràn viền khi chụp ảnh toàn trang, một mã JavaScript được nhúng trực tiếp vào tài liệu HTML/CSS. Thuật toán này tự động co giãn cỡ chữ (font-size) sao cho toàn bộ nội dung hiển thị vừa vặn trong một khung hình duy nhất (không xuất hiện thanh cuộn), trước khi Pyppeteer tiến hành chụp và lưu trữ ảnh.
+\end{enumerate}
+
+\subsection{Tạo dữ liệu ảnh nhiễu mô phỏng thực tế}
+
+Trong thực tiễn triển khai, hình ảnh đầu vào từ người dùng hiếm khi đạt chất lượng quang học lý tưởng do hạn chế của thiết bị hoặc điều kiện môi trường. Để thu hẹp khoảng cách giữa dữ liệu phòng thí nghiệm và môi trường thực tế, hình ảnh sạch từ bước trước được đưa qua quy trình giả lập nhiễu.
+
+Nghiên cứu ứng dụng \textbf{Augraphy}~\cite{augraphy2023} — một thư viện chuyên dụng cho bài toán tăng cường dữ liệu tài liệu vật lý — để thiết lập các lớp nhiễu phức tạp:
 
 \begin{itemize}
-    \item \textbf{Giáo viên:} Khởi tạo bài kiểm tra, nhập nội dung từ tài liệu hoặc văn bản, lựa chọn cấu hình sinh câu hỏi, biên tập câu hỏi, công bố bài kiểm tra, thiết lập chính sách làm bài và theo dõi kết quả.
-    \item \textbf{Người làm bài:} Truy cập bài kiểm tra qua liên kết, đăng nhập ẩn danh hoặc bằng tài khoản khi cần thiết, thực hiện bài làm, nộp đáp án và xem kết quả trong phạm vi cho phép.
+    \item \textbf{Nhiễu vật liệu và thiết bị in ấn:} Hệ thống chèn thêm các dải nhiễu cấu trúc như vết nhòe mực, đứt nét hoặc mờ chữ do tình trạng cạn mực máy in. Nền ảnh gốc được phủ thêm các họa tiết bề mặt giấy, vết ố vàng theo thời gian hoặc văn bản in chìm ở mặt sau (bleed-through). Các yếu tố này đòi hỏi VLM phải có khả năng phân tách chính xác giữa tín hiệu văn bản và tín hiệu nhiễu nền.
+
+    \item \textbf{Nhiễu quang học và tác động cơ học:} Hình ảnh chịu các phép biến đổi về độ phơi sáng, bóng đổ vật lý, nhiễu hạt ISO (khi chụp thiếu sáng) và hiện tượng lóa (glare). Ngoài ra, hệ thống mô phỏng các lỗi nén ảnh, biến dạng hình học (giấy nhăn, cong vênh ở gáy sách), cũng như các can thiệp thủ công từ học sinh (nét gạch chân, vết bút dạ quang, hoặc nét vẽ nguệch ngoạc che khuất một phần văn bản).
 \end{itemize}
 
-Để khái quát phạm vi chức năng của ứng dụng, sơ đồ ca sử dụng tổng quát của Openlet được trình bày ở Hình~\ref{fig:openlet-use-case}.
+Qua quy trình này, mỗi đoạn văn bản gốc được biến đổi thành một phiên bản tài liệu vật lý đặc thù (Hình~\ref{fig:augmentation-samples}), tạo ra một môi trường kiểm thử khắc nghiệt để bộc lộ rõ năng lực thực sự của các mô hình OCR.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/demo-use-cases.png}
-    \caption{Biểu đồ ca sử dụng tổng quát của Openlet}
-    \label{fig:openlet-use-case}
+    \includegraphics[width=1\linewidth]{figures/augmentation-samples.png}
+    \caption{Các mẫu ảnh tài liệu tổng hợp minh họa các loại nhiễu được áp dụng: nhiễu vật liệu (vết ố vàng, nhòe mực), nhiễu quang học (bóng đổ, nhiễu hạt), và biến dạng hình học (cong vênh trang)}
+    \label{fig:augmentation-samples}
 \end{figure}
 
-Hình~\ref{fig:openlet-use-case} cho thấy giáo viên là tác nhân khởi tạo gần như toàn bộ vòng đời của một bài kiểm tra. Từ giao diện biên tập, giáo viên có thể nhập tài liệu đầu vào, yêu cầu hệ thống sinh câu hỏi tự động, rà soát và sửa nội dung, công bố bài kiểm tra, cấu hình mức hiển thị kết quả, cho phép hoặc không cho phép làm lại, đồng thời theo dõi số liệu tổng hợp và danh sách lượt làm bài. Ở chiều ngược lại, người làm bài chỉ tương tác với phần chức năng công khai của hệ thống, bao gồm truy cập bài kiểm tra, thực hiện bài làm, nộp bài và xem kết quả theo chính sách công bố.
+\subsection{Kiểm thử nhận dạng văn bản}
 
-Việc rút gọn hệ thống về hai tác nhân chính giúp mô hình phân quyền của Openlet rõ ràng và phù hợp với quy mô của một ứng dụng phục vụ lớp học hoặc nhóm học nhỏ. Thay vì đưa vào nhiều vai trò trung gian như quản trị hệ thống, trợ giảng hoặc người kiểm duyệt nội dung, thiết kế hiện tại tập trung vào đúng hai nhóm người dùng tham gia trực tiếp vào giá trị cốt lõi của sản phẩm. Cách tổ chức này làm giảm độ phức tạp của giao diện, đơn giản hóa luật bảo mật và giúp người sử dụng dễ hình dung trách nhiệm của mình trong quy trình vận hành.
+Sau khi bộ dữ liệu hoàn thiện, các mô hình OCR (cả VLM chuyên dụng cỡ nhỏ lẫn LLM đa phương thức thương mại) được gọi thông qua các cổng giao tiếp trung gian như OpenRouter \cite{openrouter} và Novita AI \cite{novitaai}. Giải pháp này giúp hệ thống linh hoạt thay đổi và đối chiếu chéo hiệu năng giữa các kiến trúc mô hình tiên tiến nhất mà không phụ thuộc vào hạ tầng phần cứng cục bộ.
 
-\section{Thiết kế hệ thống}
+\section{Thiết lập thực nghiệm}
+\subsection{Các mô hình sử dụng}
 
-\subsection{Kiến trúc tổng thể}
+Nghiên cứu đánh giá tổng cộng 12 mô hình chia thành ba nhóm: nhóm mô hình ngôn ngữ lớn mã nguồn mở quy mô nhỏ (sLLM) dùng cho sinh câu hỏi, nhóm VLM quy mô nhỏ dùng chuyên biệt cho OCR, và nhóm mô hình ngôn ngữ lớn thương mại (LLM) dùng cho cả hai nhiệm vụ.
 
-Sơ đồ kiến trúc tổng thể của ứng dụng được trình bày ở Hình~\ref{fig:openlet-architecture} để thể hiện cách Openlet kết nối lớp giao diện, lớp dịch vụ và lớp mô hình trí tuệ nhân tạo.
+Bảng~\ref{tab:models_qg} tóm tắt các mô hình sinh câu hỏi được sử dụng trong thực nghiệm. Các mô hình sLLM có kích thước tham số từ 8 đến 14 tỷ, phù hợp với mục tiêu triển khai trên phần cứng phổ thông. Các mô hình thương mại được đưa vào làm mô hình cơ sở để đánh giá mức độ cạnh tranh của giải pháp MAS kết hợp sLLM. Thông tin chi tiết về kiến trúc và đặc điểm của từng mô hình đã được trình bày tại Chương~\ref{chap:co-so-ly-thuyet}.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.95\linewidth]{figures/demo_architecture.png}
-    \caption{Kiến trúc tổng thể của Openlet}
-    \label{fig:openlet-architecture}
-\end{figure}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{llr}
+\toprule
+\textbf{Nhóm} & \textbf{Mô hình} & \textbf{Số tham số} \\
+\midrule
+\multirow{5}{*}{sLLM mã nguồn mở} & Gemma 3 12B IT & 12B \\
+& Qwen3 8B & 8B \\
+& Phi-4 & 14B \\
+& Nemotron Nano 9B v2 & 9B \\
+& Llama 3.1 8B Instruct & 8B \\
+\midrule
+\multirow{3}{*}{LLM thương mại} & Gemini 3 Flash & - \\
+& GPT-5 Mini & - \\
+& Claude Haiku 4.5 & - \\
+\bottomrule
+\end{tabular}
+\caption{Các mô hình sinh câu hỏi sử dụng trong thực nghiệm}
+\label{tab:models_qg}
+\end{table}
 
-Openlet được triển khai theo kiến trúc ba tầng. Tầng giao diện là ứng dụng web chạy trong trình duyệt. Tầng dịch vụ được đặt trên nền tảng Firebase, bao gồm cơ chế xác thực, nền tảng lưu trữ dữ liệu, vùng lưu trữ tệp và các hàm xử lý phía máy chủ. Tầng trí tuệ nhân tạo nằm ở lớp ngoài cùng, nơi các mô hình nhận dạng văn bản và mô hình ngôn ngữ được gọi thông qua OpenRouter để phục vụ các tác vụ như trích xuất văn bản, phân tích nội dung, sinh câu hỏi và sinh giải thích.
+Bảng~\ref{tab:models_ocr} liệt kê các mô hình được sử dụng cho nhiệm vụ OCR, bao gồm bốn VLM nhỏ gọn chuyên dụng và ba mô hình thương mại đa phương thức. Các mô hình thương mại đã được mô tả tại Bảng~\ref{tab:models_qg}; trong phần này chúng được đánh giá thêm về năng lực OCR.
 
-Trong quá trình vận hành, giao diện Web kết nối trực tiếp với Firebase Authentication để xác thực người dùng, với Cloud Firestore để đọc ghi dữ liệu và đồng bộ trạng thái theo thời gian thực, đồng thời dùng Cloud Storage để tải các tệp đầu vào. Riêng những tác vụ nhạy cảm hoặc cần xử lý nền như truy xuất đề công khai, chấm điểm, nhận dạng văn bản, sinh câu hỏi và cập nhật thống kê được dồn vào Cloud Functions. Khối Cloud Functions vì vậy đóng vai trò đầu mối xử lý phía máy chủ, vừa làm việc với Firestore và Storage, vừa gọi OpenRouter khi cần dùng mô hình trí tuệ nhân tạo. Tầng trí tuệ nhân tạo không giao tiếp trực tiếp với người dùng cuối mà chỉ được gọi từ lớp xử lý này.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Nhóm} & \textbf{Mô hình} & \textbf{Mô tả} \\
+\midrule
+\multirow{4}{*}{VLM nhỏ gọn} & DeepSeek OCR 2 & Mô hình tối ưu cho OCR tài liệu \\
+& DotOCR 1.5 & Mô hình nhẹ chuyên dụng cho văn bản in \\
+& MinerU 2.5 & Mô hình trích xuất văn bản từ tài liệu đa dạng \\
+& PaddleOCR VL 1.5 & Mô hình dựa trên nền tảng PaddlePaddle \\
+\midrule
+\multirow{3}{*}{LLM thương mại} & Gemini 3 Flash & Mô hình đa phương thức của Google \\
+& GPT-5 Mini & Mô hình đa phương thức của OpenAI \\
+& Claude Haiku 4.5 & Mô hình đa phương thức của Anthropic \\
+\bottomrule
+\end{tabular}
+\caption{Các mô hình OCR sử dụng trong thực nghiệm}
+\label{tab:models_ocr}
+\end{table}
 
-% [MODIFY]: Rut gon giai thich ly do khong dung vi dich vu
-Openlet không lựa chọn kiến trúc vi dịch vụ đầy đủ vì phạm vi nghiệp vụ của sản phẩm tập trung vào một chu trình thống nhất. Kiến trúc ba tầng trên nền tảng không máy chủ đảm bảo được sự tách bạch trách nhiệm giữa giao diện, xử lý nghiệp vụ và mô hình trí tuệ nhân tạo, đồng thời giúp rút ngắn thời gian triển khai và giảm chi phí vận hành.
+\subsection{Cấu hình thực nghiệm}
 
-\subsection{Mô hình dữ liệu}
+Toàn bộ thực nghiệm được triển khai trên nền tảng Python 3.12, sử dụng thư viện \textbf{LangGraph} \cite{langgraph2024} để điều phối luồng hoạt động của hệ thống đa tác tử. Các mô hình được gọi thông qua OpenRouter API, cho phép truy cập thống nhất đến cả mô hình mã nguồn mở và thương mại.
 
-Về mặt hiện thực, dữ liệu của Openlet được lưu trên Cloud Firestore. Trong sơ đồ DBML ở phần này, tên bảng và tên trường được giữ theo cách đặt tên đang dùng trong hệ thống, chẳng hạn \textbf{users}, \textbf{quizzes}, \textbf{attempts}, \textbf{allowAnonymous} hay \textbf{timerDurationMinutes}. Cách trình bày này giúp việc đối chiếu giữa thiết kế dữ liệu và phần hiện thực trở nên trực tiếp hơn. Để tránh sơ đồ trở nên rườm rà, chỉ các trường quan trọng nhất mới được đưa vào hình minh họa.
+Các siêu tham số chính được thiết lập như sau:
+\begin{itemize}
+    \item Nhiệt độ (temperature): 0,0 cho các tác tử chính (tác tử \textit{Sinh câu hỏi}, tác tử \textit{Phân loại}, tác tử \textit{Hiệu chỉnh}) nhằm đảm bảo tính nhất quán và tái lập được của kết quả; 0,3 cho tác tử \textit{Học sinh} nhằm tạo sự đa dạng trong cách trả lời.
+    \item Số token tối đa (max\_tokens): 8.192 token cho mỗi lần gọi mô hình.
+    \item Số vòng lặp tối đa (max\_loops): 8 vòng cho chu trình phản hồi giữa các tác tử.
+\end{itemize}
 
-Sơ đồ dữ liệu chính của ứng dụng được trình bày ở Hình~\ref{fig:openlet-data-model}.
+Về quy mô thực nghiệm, mỗi đoạn văn đầu vào được yêu cầu sinh $N = 5$ câu hỏi cho mỗi cấp độ nhận thức (Nhớ, Hiểu, Phân tích), tổng cộng 15 câu hỏi trên mỗi đoạn văn. Với 100 đoạn văn mẫu, mỗi cấu hình mô hình tạo ra tối đa 1.500 câu hỏi. Chi phí sử dụng API được theo dõi tự động thông qua trường metadata của phản hồi từ OpenRouter API.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.82\linewidth]{figures/database.png}
-    \caption{Mô hình dữ liệu chính của Openlet}
-    \label{fig:openlet-data-model}
-\end{figure}
+Đối với quy trình đánh giá chất lượng bằng phương pháp LLM giám khảo (đã trình bày tại Chương~\ref{chap:co-so-ly-thuyet}), nghiên cứu sử dụng Gemini 3 Flash làm mô hình giám khảo cho toàn bộ các thí nghiệm. Lựa chọn này dựa trên ba tiêu chí: (i) hiệu suất suy luận cao và ổn định trên các tác vụ đánh giá ngôn ngữ, (ii) cửa sổ ngữ cảnh đủ lớn để xử lý đồng thời đoạn văn nguồn và toàn bộ bộ câu hỏi, và (iii) chi phí hợp lý cho việc đánh giá quy mô lớn (1.500 câu hỏi mỗi cấu hình).
 
-Mô hình dữ liệu của Openlet được tổ chức quanh ba bảng thông tin quan trọng. Bảng \textbf{users} lưu hồ sơ của người đăng nhập bằng tài khoản Google, bao gồm định danh người dùng, tên hiển thị, thư điện tử, ảnh đại diện và thời điểm đăng nhập gần nhất. Bảng \textbf{quizzes} là trung tâm của toàn bộ nghiệp vụ, lưu trạng thái xử lý, tiêu đề, mô tả, đoạn văn nguồn, danh sách câu hỏi, chế độ sinh câu hỏi, cấu hình mô hình, thiết lập công bố, cấu hình bộ đếm thời gian, số liệu thống kê tổng hợp, bảng xếp hạng người làm bài và các mốc thời gian tạo, cập nhật. Bảng \textbf{attempts} gắn với từng bài kiểm tra để lưu thông tin người tham gia, tên hiển thị, trạng thái ẩn danh, điểm số, số câu đúng, tổng số câu hỏi, đáp án đã chọn và thời điểm nộp bài.
+\section{Phương pháp và Tiêu chí Đánh giá}
 
-Ngoài những dữ liệu phục vụ hiển thị, bảng \textbf{quizzes} còn lưu các thông tin phục vụ xử lý nền như văn bản đã nhận dạng từ tài liệu, lựa chọn mô hình nhận dạng văn bản, lựa chọn mô hình sinh câu hỏi và các chỉ số tổng hợp. Những trường này giúp hệ thống có thể theo dõi và tái hiện đúng ngữ cảnh xử lý khi cần, đồng thời hỗ trợ giáo viên quan sát tình trạng xử lý và kết quả sử dụng trên cùng một bản ghi chính.
+Bất kỳ hệ thống sinh tự động nào cũng yêu cầu một cơ chế đánh giá độ tin cậy và mức độ hiệu quả của dữ liệu đầu ra. Trong nghiên cứu này, hệ thống trải qua hai khâu đánh giá độc lập tương ứng với hai luồng tác vụ chính: đánh giá chất lượng câu hỏi trắc nghiệm được sinh ra và đánh giá độ chính xác của quy trình nhận diện văn bản.
 
-Cloud Firestore được lựa chọn vì cấu trúc dữ liệu của Openlet có tính lồng nhau rõ rệt. Một bài kiểm tra không chỉ có thông tin mô tả đơn giản mà còn chứa danh sách câu hỏi, cấu hình hiển thị kết quả, thiết lập bộ đếm thời gian và các chỉ số tổng hợp. Với kiểu dữ liệu này, mô hình cơ sở dữ liệu dạng tài liệu phù hợp tự nhiên hơn so với cơ sở dữ liệu quan hệ vốn cần tách ra nhiều bảng và nhiều phép nối. Bên cạnh đó, nền tảng này hỗ trợ đồng bộ dữ liệu theo thời gian thực, rất phù hợp cho giao diện theo dõi tiến trình xử lý và giao diện xem kết quả.
+\subsection{Đánh giá chất lượng câu hỏi trắc nghiệm}
 
-Thiết kế tách \textbf{attempts} thành một bảng riêng gắn với từng bài kiểm tra giúp giới hạn kích thước của bản ghi chính và giữ cho thao tác đọc bài kiểm tra luôn nhẹ. Song song với đó, các số liệu tổng hợp như tổng số lượt làm, điểm trung bình, điểm cao nhất, điểm thấp nhất, phân bố điểm và danh sách người đạt thành tích cao nhất được lưu sẵn trong bản ghi \textbf{quizzes}. Cách làm này giúp giao diện của giáo viên có thể truy xuất nhanh các số liệu tổng quan mà không phải quét lại toàn bộ lịch sử nộp bài ở mỗi lần hiển thị.
+Đối với bài toán sinh câu hỏi trắc nghiệm tự động, các thang đo truyền thống như BLEU hay ROUGE tỏ ra kém hiệu quả và thiếu tin cậy vì chỉ so sánh sự trùng lặp từ vựng bề mặt mà bỏ qua tính sư phạm và ý nghĩa thực tế của câu hỏi. Để giải quyết vấn đề này, nghiên cứu phát triển một khung đánh giá tự động dựa trên ba tiêu chí sư phạm độc lập, kết hợp với phương pháp LLM-as-a-Judge.
 
-\subsection{Bảo mật và kiểm soát truy cập}
+\subsubsection{Các tiêu chí sư phạm}
 
-Mô hình truy cập của Openlet được xây dựng xoay quanh hai nguyên tắc. Thứ nhất, giáo viên là chủ sở hữu toàn bộ dữ liệu gốc của bài kiểm tra, bao gồm đáp án đúng, giải thích và lịch sử làm bài. Thứ hai, người làm bài chỉ được tiếp cận phần dữ liệu tối thiểu cần thiết để thực hiện bài làm và nhận kết quả theo phạm vi mà giáo viên đã cấu hình.
+Mỗi tiêu chí dưới đây đo lường một khía cạnh sư phạm của câu hỏi, đảm bảo đầu ra thỏa mãn các yêu cầu khắt khe của giáo dục:
 
-Đối với giáo viên, ứng dụng sử dụng đăng nhập bằng tài khoản Google để tạo hồ sơ người dùng và gắn quyền sở hữu cho từng bài kiểm tra. Đối với người làm bài, hệ thống hỗ trợ hai hình thức truy cập. Nếu giáo viên cho phép làm bài ẩn danh, người dùng chỉ cần nhập tên hiển thị để bắt đầu. Nếu giáo viên tắt chế độ ẩn danh, người dùng phải xác thực bằng tài khoản trước khi truy cập. Chính sách cho phép làm lại chỉ được áp dụng trong trường hợp người làm bài có tài khoản xác thực.
+\begin{enumerate}
+    \item \textbf{Khả năng giải quyết dựa trên ngữ cảnh (Solvability):} Tiêu chí này kiểm định tính đóng của không gian thông tin. Theo lý thuyết, một câu hỏi đạt chuẩn bắt buộc phải chứa duy nhất một đáp án đúng, và đáp án này phải được suy luận hoàn toàn ra từ các thông tin nằm bên trong đoạn văn bản được cung cấp. Yêu cầu này nghiêm cấm hiện tượng ảo giác của LLM khi sinh ra các câu trả lời dựa trên kiến thức bên ngoài. Nếu người đọc không thể trả lời câu hỏi ngay trên văn bản đầu vào, câu hỏi đó bị đánh giá là vi phạm.
 
-Một yêu cầu bảo mật quan trọng của Openlet là đáp án đúng không được gửi trực tiếp về giao diện công khai. Người làm bài không đọc dữ liệu bài kiểm tra từ nền tảng lưu trữ dữ liệu theo cách trực tiếp, mà phải đi qua hàm xử lý phía máy chủ. Tại đây, hệ thống chỉ trả về nội dung câu hỏi và các phương án lựa chọn, đồng thời loại bỏ đáp án đúng và phần giải thích. Sau khi nộp bài, phản hồi trả về tiếp tục được lọc theo năm mức hiển thị kết quả, từ mức chỉ xác nhận đã nộp bài cho tới mức hiển thị đầy đủ điểm số, đúng sai, đáp án đúng và lời giải thích.
+    \item \textbf{Độ bám sát phân loại nhận thức (Alignment):} Tiêu chí này đo lường xem mức độ nhận thức (độ khó) của câu hỏi sinh ra có đúng với cấu hình yêu cầu từ trước hay không. Hệ thống sẽ đối chiếu câu hỏi sinh ra với thang đo Bloom. Ví dụ, nếu LLM được giao nhiệm vụ sinh ra một câu hỏi Cấp 3 mà lại đưa ra một câu hỏi Cấp 1, đó là vi phạm do lệch pha về độ sâu nhận thức.
 
-Thiết kế này giúp Openlet giải quyết đồng thời hai yêu cầu tưởng như mâu thuẫn: bài kiểm tra phải có thể chia sẻ công khai qua liên kết, nhưng đáp án đúng vẫn phải được bảo vệ. Nếu lưu toàn bộ dữ liệu bài kiểm tra ở phía giao diện và cho phép người làm bài tải trực tiếp, việc công bố liên kết sẽ kéo theo nguy cơ lộ đáp án. Bởi vậy, đáp án đúng được giữ lại ở tầng máy chủ, còn giao diện chỉ nhận phần dữ liệu đã được rút gọn theo đúng ngữ cảnh sử dụng.
+    \item \textbf{Chất lượng phương án nhiễu (Distractor Quality ):} Tiêu chí này kiểm định độ sắc bén của câu hỏi. Một phương án sai hợp lệ phải đồng thời thỏa mãn hai điều kiện: trái ngược hoàn toàn so với đáp án đúng về mặt bản chất (không tạo ra tranh cãi hoặc tính đa nghĩa); và có khả năng đánh lừa những người học không nắm vững kiến thức. Các lựa chọn nhiễu hiển nhiên sai hoặc lệch ngữ cảnh sẽ bị loại bỏ.
 
-\section{Hiện thực các luồng chức năng cốt lõi}
+\end{enumerate}
 
-\subsection{Luồng tạo bài kiểm tra tự động}
+\subsubsection{Phương pháp LLM-as-a-Judge}
 
-Sơ đồ tuần tự cho chức năng tạo bài kiểm tra tự động được trình bày ở Hình~\ref{fig:sequence-create-quiz} để minh họa cách giao diện, nền tảng lưu trữ dữ liệu, vùng lưu trữ tệp, hàm xử lý nền và lớp mô hình trí tuệ nhân tạo phối hợp với nhau.
+Khác với cách tiếp cận truyền thống của G-Eval (nơi LLM giám khảo chấm điểm theo bộ tiêu chí tĩnh), nghiên cứu này triển khai phương pháp đánh giá dựa trên hành vi thực tế. LLM giám khảo được đặt vào vai trò một học sinh chuyên nghiệp để trực tiếp giải bài và phân loại câu hỏi, từ đó đo lường chất lượng thông qua kết quả hành động. Quy trình này gồm hai giai đoạn:
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.95\linewidth]{figures/sequence_quiz_creation.png}
-    \caption{Biểu đồ tuần tự của luồng tạo bài kiểm tra tự động}
-    \label{fig:sequence-create-quiz}
-\end{figure}
+\textbf{Giai đoạn 1 - Đánh giá Khả năng giải quyết và Độ bám sát:}
 
-Khi giáo viên nhập nội dung bằng trí tuệ nhân tạo, quy trình bắt đầu từ giao diện biên tập bài kiểm tra. Giáo viên có thể chọn một trong ba dạng đầu vào là ảnh, tệp PDF hoặc văn bản thuần; đồng thời xác định mô hình nhận dạng văn bản, mô hình sinh câu hỏi, số lượng câu hỏi mong muốn và chế độ sinh câu hỏi.
+LLM giám khảo nhận đầu vào gồm đoạn văn bản nguồn và bộ câu hỏi cần đánh giá (không kèm đáp án đúng). Mô hình phải tự giải từng câu hỏi. Bài kiểm tra được thiết kế dưới dạng nhiều lựa chọn đúng (mỗi câu hỏi có thể có một, nhiều, hoặc không có phương án đúng) nhằm buộc LLM đánh giá từng phương án độc lập. Với mỗi câu hỏi, LLM giám khảo đưa ra chuỗi lập luận, sau đó trả về: (1) các phương án cho là đúng, và (2) cấp độ nhận thức dự đoán.
 
-Sau khi tiếp nhận yêu cầu, hệ thống khởi tạo một bản ghi xử lý để theo dõi tiến trình. Nếu đầu vào là ảnh hoặc tệp PDF, dữ liệu được tải tạm thời lên vùng lưu trữ, sau đó một hàm xử lý nền được kích hoạt để thực hiện nhận dạng văn bản. Riêng với đầu vào là văn bản thuần, hệ thống bỏ qua bước nhận dạng và chuyển thẳng sang giai đoạn sinh câu hỏi. Ở chế độ cơ bản, văn bản nguồn được đưa trực tiếp vào một lần sinh duy nhất. Ở chế độ đa tác tử, hệ thống bổ sung thêm bước phân tích nội dung trước khi sinh câu hỏi, kiểm chứng, hiệu chỉnh phương án và sinh giải thích.
+Từ đó, hai chỉ số được tính toán:
 
-Trong toàn bộ quá trình này, trạng thái xử lý của bài kiểm tra được cập nhật liên tục trong nền tảng lưu trữ dữ liệu. Giao diện của giáo viên theo dõi các thay đổi đó để hiển thị tiến trình theo thời gian thực. Khi hoàn tất, hệ thống lưu bộ câu hỏi và các siêu dữ liệu được rút trích vào bản ghi bài kiểm tra, sau đó đưa dữ liệu về môi trường biên tập để giáo viên rà soát, chỉnh sửa và quyết định có công bố bài kiểm tra hay không.
+\begin{itemize}
+    \item \textbf{Khả năng giải quyết:} Câu hỏi đạt tiêu chí khi tập hợp phương án LLM chọn trùng khớp hoàn toàn với đáp án đúng.
+    $$\text{Solvability}(q) = \begin{cases} 1, & \text{nếu } C_{\text{judge}}(q) = \{c^*\} \\ 0, & \text{ngược lại} \end{cases}$$
+    trong đó $C_{\text{judge}}(q)$ là tập hợp các phương án được LLM giám khảo chọn cho câu hỏi $q$, và $c^*$ là đáp án đúng duy nhất. Nếu chọn sai hoặc chọn nhiều phương án, câu hỏi bị đánh giá 0 (có thể do mơ hồ hoặc chứa nhiều đáp án đúng).
 
-Luồng xử lý theo trạng thái được lựa chọn vì nó phù hợp với bản chất bất đồng bộ của bài toán. Nhận dạng văn bản, sinh câu hỏi và sinh giải thích đều là các bước có độ trễ cao, không nên buộc giao diện phải chờ liên tục cho tới khi hoàn tất. Bằng cách chia quy trình thành các giai đoạn rõ ràng, hệ thống dễ theo dõi tiến trình, phát hiện lỗi và tránh kích hoạt lặp cùng một bước xử lý. Thiết kế này cũng cho phép tối ưu thời gian phản hồi: đầu vào văn bản thuần không phải đi qua bước nhận dạng, còn chế độ cơ bản có thể bỏ qua khâu phân tích nội dung để giảm độ trễ.
+    \item \textbf{Độ bám sát phân loại nhận thức:} Đo lường mức độ phù hợp giữa cấp độ nhận thức LLM dự đoán và cấp độ yêu cầu:
+    $$\text{Alignment}(q) = \begin{cases} 1, & \text{nếu } l_{\text{judge}}(q) = l_{\text{target}}(q) \\ 0, & \text{ngược lại} \end{cases}$$
+    trong đó $l_{\text{judge}}(q)$ là cấp độ do LLM dự đoán và $l_{\text{target}}(q)$ là cấp độ yêu cầu.
+\end{itemize}
 
-% [MODIFY]: Them ref cheo va rut gon
-So với phiên bản nghiên cứu ở Chương~\ref{chap:phuong-phap}, phiên bản ứng dụng chỉ giữ lại những vòng kiểm chứng thật sự cần thiết và giới hạn số lần lặp, phản ánh ưu tiên của một sản phẩm ứng dụng thực tế: giáo viên cần nhận kết quả đủ nhanh để tiếp tục biên tập, trong khi chất lượng vẫn được giữ ở mức chấp nhận được nhờ các lớp kiểm soát trọng yếu.
+Tỷ lệ chấp nhận tổng hợp (Acceptance Rate) là tỷ lệ câu hỏi đồng thời đạt cả hai tiêu chí:
+$$\text{Acceptance}(q) = \text{Solvability}(q) \times \text{Alignment}(q)$$
+$$\text{Acceptance Rate} = \frac{1}{N} \sum_{i=1}^{N} \text{Acceptance}(q_i)$$
+trong đó $N$ là tổng số câu hỏi được đánh giá. Chỉ những câu hỏi có Acceptance bằng 1 mới được đưa vào Giai đoạn 2.
 
-\subsection{Luồng truy cập, làm bài và nộp bài}
+\textbf{Giai đoạn 2 - Đánh giá Chất lượng phương án nhiễu:}
 
-Sơ đồ tuần tự cho chức năng truy cập bài kiểm tra, làm bài và nộp bài được trình bày ở Hình~\ref{fig:sequence-play-submit} để làm rõ cách hệ thống bảo vệ đáp án đúng trong khi vẫn hỗ trợ chia sẻ công khai qua liên kết.
+LLM giám khảo nhận đầy đủ câu hỏi, bốn phương án, đáp án đúng và cấp độ nhận thức. Nhiệm vụ là đánh giá ba phương án sai theo tiêu chuẩn từng cấp độ:
+\begin{itemize}
+    \item \textbf{Cấp 1 (Truy xuất):} Mâu thuẫn trực tiếp với văn bản hoặc đưa thông tin bên ngoài vào.
+    \item \textbf{Cấp 2 (Suy luận):} Chứa từ khóa từ văn bản nhưng mệnh đề sai, hoặc trình bày sự thật thiếu hoàn chỉnh.
+    \item \textbf{Cấp 3 (Lập luận phản biện):} Chứa bẫy logic tinh vi (áp dụng sai quy luật, đảo ngược nhân quả, giả định không được hỗ trợ).
+\end{itemize}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.95\linewidth]{figures/sequence_quiz_play_and_submit.png}
-    \caption{Biểu đồ tuần tự của luồng truy cập, làm bài và nộp bài}
-    \label{fig:sequence-play-submit}
-\end{figure}
+Gọi $v(q)$ là số phương án nhiễu hợp lệ của câu hỏi $q$ (với $v(q) \in \{0, 1, 2, 3\}$). Chỉ số chất lượng cho mỗi cấp độ $l$ được chuẩn hóa về khoảng $[0, 1]$:
+$$\text{DQ}_l = \frac{1}{N_l} \sum_{q \in \mathcal{A}_l} \frac{v(q)}{3}$$
+trong đó $\mathcal{A}_l$ là tập hợp các câu hỏi đã được chấp nhận ở cấp độ $l$, và $N_l = |\mathcal{A}_l|$.
 
-Khi người làm bài mở liên kết công khai, giao diện trước hết kiểm tra chính sách truy cập của bài kiểm tra. Nếu giáo viên cho phép làm bài ẩn danh, người dùng có thể nhập tên hiển thị để tiếp tục. Nếu không cho phép ẩn danh, hệ thống yêu cầu người dùng xác thực bằng tài khoản Google. Trong trường hợp giáo viên không cho phép làm lại, hệ thống còn kiểm tra xem người dùng đã có lượt làm bài trước đó hay chưa.
+Chỉ số Distractor Quality tổng thể là trung bình cộng trên ba cấp độ:
+$$\text{DQ}_{\text{overall}} = \frac{1}{3} \sum_{l=1}^{3} \text{DQ}_l$$
 
-Sau bước kiểm tra truy cập, giao diện gửi yêu cầu lấy đề tới hàm xử lý phía máy chủ. Hàm này đọc dữ liệu gốc của bài kiểm tra, xác minh trạng thái công bố và chỉ trả về phần dữ liệu đã được làm sạch, bao gồm nội dung câu hỏi và các phương án trả lời. Nhờ vậy, người làm bài có thể xem đề và thao tác làm bài nhưng không thể truy cập đáp án đúng thông qua dữ liệu được tải về.
+\subsection{Đánh giá hiệu năng nhận dạng văn bản}
 
-Khi người làm bài nộp đáp án, hàm xử lý phía máy chủ đọc bộ câu hỏi gốc, thực hiện chấm điểm, ghi lại lượt làm bài vào bảng tương ứng, đồng thời cập nhật các số liệu tổng hợp và bảng xếp hạng trong bản ghi bài kiểm tra. Phản hồi cuối cùng gửi về giao diện không phải là toàn bộ dữ liệu chấm điểm, mà là phiên bản đã được lọc theo mức hiển thị kết quả mà giáo viên cấu hình trước đó.
+Để đánh giá chất lượng của quy trình trích xuất văn bản từ hình ảnh giả lập nhiễu, nghiên cứu sử dụng hai thang đo chuẩn công nghiệp: tỷ lệ lỗi ký tự (CER - Character Error Rate) và tỷ lệ lỗi từ (WER - Word Error Rate). Cả hai chỉ số đều dựa trên khoảng cách chỉnh sửa Levenshtein, đo lường số phép chèn ($I$), xóa ($D$) và thay thế ($S$) tối thiểu cần thiết để biến đổi chuỗi dự đoán thành chuỗi tham chiếu gốc:
 
-Đây là luồng thể hiện rõ nhất quyết định giữ đáp án đúng ở phía máy chủ. Nếu giao diện được phép nhận trực tiếp toàn bộ nội dung bài kiểm tra, việc công bố liên kết sẽ khiến người làm bài có thể khai thác dữ liệu để suy ra đáp án. Bởi vậy, hệ thống buộc phải tách thao tác truy xuất đề, thao tác chấm điểm và thao tác xem kết quả thành các bước có kiểm soát, trong đó mọi dữ liệu nhạy cảm chỉ tồn tại ở tầng dịch vụ.
+$$\text{CER} = \frac{S_c + D_c + I_c}{N_c}$$
+$$\text{WER} = \frac{S_w + D_w + I_w}{N_w}$$
 
-Việc ghi lượt làm bài vào một bảng riêng cho từng bài kiểm tra giúp truy vết lịch sử làm bài rõ ràng và hỗ trợ quản lý từng lần nộp. Trong khi đó, việc cập nhật sẵn số liệu tổng hợp trong bản ghi bài kiểm tra giúp giao diện tổng quan của giáo viên hiển thị ngay các thống kê quan trọng như số lượt làm, phân bố điểm và nhóm người đạt kết quả cao mà không cần xử lý lại toàn bộ dữ liệu lịch sử ở mỗi lần mở trang.
+trong đó $N_c$ và $N_w$ lần lượt là tổng số ký tự và tổng số từ trong chuỗi tham chiếu. Giá trị CER và WER càng thấp thể hiện chất lượng nhận dạng OCR càng tốt, với giá trị 0 tương ứng với việc nhận dạng hoàn hảo không có sai sót.
 
-\section{Giao diện tiêu biểu của ứng dụng}
+\subsection{Các mô hình cơ sở}
 
-\subsection{Giao diện dành cho giáo viên}
+Nhằm kiểm chứng khách quan hiệu năng của phương pháp đề xuất, nghiên cứu thiết lập các mô hình cơ sở tương ứng với hai bài toán cốt lõi: sinh câu hỏi trắc nghiệm và nhận dạng văn bản.
 
-Giao diện dành cho giáo viên được xây dựng theo đúng tiến trình nghiệp vụ của sản phẩm. Ở lớp ngoài cùng là trang danh sách bài kiểm tra, nơi hiển thị các bài đã tạo dưới dạng thẻ, kèm theo tiêu đề, mô tả ngắn, trạng thái xử lý, trạng thái công bố và số lượt làm bài. Từ đây, giáo viên có thể khởi tạo bài kiểm tra mới hoặc tiếp tục làm việc với một bài đang có.
+\textbf{Trong bài toán sinh câu hỏi trắc nghiệm}, nghiên cứu sử dụng hai nhóm đối chứng để phục vụ các mục tiêu so sánh đa chiều:
+\begin{itemize}
+    \item \textbf{Phương pháp sinh trực tiếp :} Sử dụng chính các mô hình sLLM (Gemma 3 12B, Qwen3 8B, Phi-4, Nemotron Nano 9B, Llama 3.1 8B) vận hành độc lập, không thông qua kiến trúc đa tác tử. Việc đối chiếu với nhóm cơ sở này nhằm kiểm định giả thuyết rằng sự phối hợp đa tác tử mang lại mức độ cải thiện đáng kể và mang tính hệ thống so với giới hạn nội tại của các mô hình đơn lẻ.
+    \item \textbf{Nhóm mô hình thương mại:} Sử dụng các mô hình ngôn ngữ lớn tiên tiến (Gemini 3 Flash, GPT-5 Mini, Claude Haiku 4.5) làm hệ quy chiếu. So sánh này nhằm đánh giá tính khả thi và khả năng cạnh tranh về chất lượng của giải pháp dùng sLLM kết hợp đa tác tử so với các nền tảng có chi phí vận hành đắt đỏ.
+\end{itemize}
 
-Trong môi trường biên tập, giáo viên có thể nhập nội dung bằng trí tuệ nhân tạo, rà soát lại đoạn văn nguồn, chỉnh sửa từng câu hỏi, thay đổi phương án trả lời, đáp án đúng và phần giải thích. Bên cạnh đó, hệ thống còn cung cấp trang thiết lập công bố để giáo viên sao chép liên kết, cho phép hay không cho phép làm bài ẩn danh, thiết lập chính sách làm lại, chọn mức phản hồi kết quả và cấu hình bộ đếm thời gian. Phần theo dõi kết quả được tách thành các màn hình tổng quan và danh sách lượt làm, hiển thị số liệu tổng hợp, phân bố điểm, nhóm người đạt thành tích cao và chi tiết từng lượt nộp bài.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.95\linewidth]{figures/ui-edit.png}
-    \caption{Giao diện biên tập bài kiểm tra dành cho giáo viên}
-    \label{fig:ui-teacher-editor}
-\end{figure}
-
-Hình~\ref{fig:ui-teacher-editor} minh họa màn hình biên tập trung tâm của giáo viên. Thiết kế giao diện ưu tiên việc giữ cho vòng lặp chỉnh sửa ngắn và trực tiếp: giáo viên nhìn thấy ngay kết quả sinh tự động, có thể sửa từng câu hỏi tại chỗ và không phải chuyển qua nhiều màn hình trung gian. Cách tổ chức này phù hợp với mục tiêu của ứng dụng là hỗ trợ giáo viên hoàn thiện nhanh một bài kiểm tra trước khi công bố.
-
-\subsection{Giao diện dành cho người làm bài}
-
-Giao diện dành cho người làm bài được tối giản hơn đáng kể so với giao diện của giáo viên. Người dùng truy cập trực tiếp từ liên kết công khai, nhập tên hiển thị hoặc đăng nhập bằng tài khoản nếu cấu hình yêu cầu, sau đó đi vào màn hình làm bài. Trong quá trình làm bài, giao diện hiển thị rõ nội dung câu hỏi, các phương án lựa chọn, tiến độ làm bài và bộ đếm thời gian nếu giáo viên đã bật tính năng này.
-
-Sau khi nộp bài, người dùng được chuyển tới trang kết quả. Nội dung của trang này không cố định mà thay đổi theo chính sách hiển thị đã cấu hình trước. Ở mức thấp nhất, hệ thống chỉ xác nhận đã ghi nhận bài làm. Ở các mức cao hơn, người làm bài có thể thấy điểm số, trạng thái đúng sai của từng câu, đáp án đúng và giải thích chi tiết. Cơ chế này giúp cùng một ứng dụng có thể phục vụ cả tình huống kiểm tra nghiêm ngặt lẫn tình huống tự học có phản hồi đầy đủ.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/ui-student-play.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/ui-student-result.png}
-    \end{minipage}
-    \vspace{10pt}
-    \caption{Giao diện làm bài (trái) và trang kết quả theo cấu hình phản hồi (phải)}
-    \label{fig:ui-player-flow}
-\end{figure}
-
-Hình~\ref{fig:ui-player-flow} cho thấy cách Openlet tổ chức trải nghiệm của người làm bài theo hướng liền mạch. Màn hình làm bài ưu tiên khả năng tập trung và thao tác nhanh, trong khi màn hình kết quả ưu tiên tính rõ ràng của thông tin phản hồi. Sự phân tách này giúp người dùng không bị quá tải thông tin trong lúc làm bài, đồng thời vẫn nhận được mức hỗ trợ phù hợp sau khi hoàn thành.
-
-% [MODIFY]: Them ref cheo cho chuong
-Nhìn chung, lớp giao diện của Openlet phản ánh đúng triết lý thiết kế của toàn hệ thống: giáo viên được cung cấp một không gian biên soạn và kiểm soát linh hoạt, còn người làm bài tiếp cận một trải nghiệm gọn, rõ và an toàn. Đây là điều kiện cần để các kết quả nghiên cứu ở Chương~\ref{chap:phuong-phap} có thể được đưa vào sử dụng trong một ngữ cảnh nghiệp vụ thực tế.
+\textbf{Trong bài toán nhận dạng văn bản}, các mô hình đối chứng được lựa chọn bao gồm:
+\begin{itemize}
+    \item \textbf{Nhóm VLM chuyên dụng:} Sử dụng các mô hình thị giác - ngôn ngữ quy mô nhỏ được tinh chỉnh chuyên biệt cho tác vụ trích xuất tài liệu (DeepSeek OCR 2, DotOCR 1.5, MinerU 2.5, PaddleOCR VL 1.5). Đây là mốc cơ sở tiêu chuẩn để đánh giá năng lực trích xuất văn bản.
+    \item \textbf{Nhóm mô hình đa phương thức lớn:} Khai thác các mô hình LLM thương mại có năng lực thị giác (Gemini 3 Flash, GPT-5 Mini, Claude Haiku 4.5) để thiết lập giới hạn trên về khả năng nhận dạng và kiểm chứng mức độ duy trì độ chính xác (kháng nhiễu) trong điều kiện dữ liệu ảnh phức tạp.
+\end{itemize}

@@ -1,0 +1,193 @@
+\chapter{Thiết kế và hiện thực ứng dụng Openlet}
+% [NEW]: Them label cho chuong
+\label{chap:thiet-ke}
+
+Chương này trình bày cách thức hiện thực hóa mô hình lý thuyết từ Chương 3 vào ứng dụng web Openlet thực tế. Nội dung bao gồm phân tích các ca sử dụng, thiết kế kiến trúc toàn diện và trình bày các luồng hoạt động chính để đáp ứng nhu cầu tương tác của người dùng cuối.
+
+\section{Giới thiệu ứng dụng và phạm vi sử dụng}
+
+% [MODIFY]: Them ref cheo cho chuong
+Chương~\ref{chap:phuong-phap} của khóa luận đã trình bày các thành phần nghiên cứu cốt lõi của hệ thống Openlet, bao gồm quy trình nhận dạng văn bản từ ảnh, cơ chế sinh câu hỏi trắc nghiệm và khung đánh giá chất lượng. Trên cơ sở đó, chương này tập trung trình bày cách các kết quả nghiên cứu được hiện thực hóa thành một ứng dụng Web hoàn chỉnh, có khả năng phục vụ trực tiếp cho hoạt động tạo bài kiểm tra và làm bài trực tuyến trong môi trường giáo dục.
+
+Openlet hướng tới hai nhóm người dùng chính. Nhóm thứ nhất là giáo viên hoặc người biên soạn học liệu, những người cần chuyển nhanh tài liệu học tập thành bài kiểm tra có thể chỉnh sửa và công bố. Nhóm thứ hai là người làm bài, những người truy cập bài kiểm tra qua liên kết chia sẻ, thực hiện bài làm và nhận phản hồi theo cấu hình mà giáo viên đã đặt ra.
+
+Trong phạm vi khóa luận, Openlet tập trung vào một chu trình nghiệp vụ khép kín gồm tiếp nhận học liệu đầu vào, sinh câu hỏi tự động, biên tập nội dung, công bố bài kiểm tra, tổ chức làm bài và theo dõi kết quả. Ứng dụng hỗ trợ ba dạng đầu vào là ảnh chụp tài liệu, tệp PDF và văn bản thuần. Tuy nhiên, hệ thống không hướng tới thay thế toàn bộ một hệ quản lý học tập hoàn chỉnh, mà tập trung vào bài toán chuyển đổi học liệu thành bài kiểm tra trực tuyến một cách nhanh, linh hoạt và có kiểm soát chất lượng.
+
+\section{Công nghệ sử dụng}
+
+\subsection{Nhóm công nghệ giao diện}
+
+% [MODIFY]: Them in nghieng cho ten cong nghe
+Lớp giao diện của Openlet được xây dựng bằng \textbf{Next.js} \cite{nextjs} kết hợp với \textbf{React} \cite{reactjs}. Cách lựa chọn này cho phép hệ thống tổ chức giao diện theo các trang chức năng rõ ràng, đồng thời hỗ trợ tốt việc cập nhật dữ liệu theo thời gian thực khi trạng thái xử lý của bài kiểm tra thay đổi. Bên cạnh đó, hệ thống thành phần giao diện được hoàn thiện bằng các thư viện hỗ trợ tương tác, biểu mẫu và hiển thị, giúp rút ngắn thời gian phát triển mà vẫn đảm bảo tính nhất quán trong trải nghiệm sử dụng.
+
+\subsection{Nhóm công nghệ dịch vụ và lưu trữ}
+
+% [MODIFY]: Them in nghieng cho Firebase
+Phần dịch vụ của Openlet được triển khai trên nền tảng \textbf{Firebase} \cite{firebase}. Hệ thống sử dụng cơ chế xác thực để quản lý danh tính người dùng, nền tảng lưu trữ dữ liệu để quản lý thông tin bài kiểm tra và kết quả làm bài, vùng lưu trữ tệp để tiếp nhận ảnh và tệp PDF, cùng các hàm xử lý phía máy chủ để thực hiện những nghiệp vụ nhạy cảm như nhận dạng văn bản, sinh câu hỏi, truy xuất đề công khai, chấm điểm và cập nhật thống kê.
+
+Việc sử dụng hạ tầng không máy chủ giúp Openlet phù hợp với phạm vi của một khóa luận tốt nghiệp. Hệ thống không cần đầu tư riêng một máy chủ ứng dụng độc lập nhưng vẫn duy trì được khả năng triển khai nhanh, đơn giản hóa khâu vận hành và giữ được sự tách bạch hợp lý giữa giao diện, xử lý nghiệp vụ và lưu trữ dữ liệu.
+
+\subsection{Nhóm công nghệ mô hình trí tuệ nhân tạo}
+
+% [MODIFY]: Them in nghieng cho OpenRouter
+Đối với các tác vụ liên quan đến trí tuệ nhân tạo, Openlet sử dụng \textbf{OpenRouter} \cite{openrouter} như một cổng trung gian để truy cập các mô hình nhận dạng văn bản và mô hình ngôn ngữ. Cách triển khai này giúp hệ thống có thể thay đổi mô hình theo từng mục đích sử dụng mà không phải điều chỉnh lại kiến trúc chung của ứng dụng. Trên thực tế, Openlet hỗ trợ cả mô hình thương mại lẫn mô hình mã nguồn mở, qua đó phù hợp với nhiều cấu hình vận hành khác nhau.
+
+\section{Phân tích chức năng và tác nhân sử dụng}
+
+\subsection{Các tác nhân chính}
+
+Openlet được tổ chức xoay quanh hai tác nhân sử dụng chính:
+
+\begin{itemize}
+    \item \textbf{Giáo viên:} Khởi tạo bài kiểm tra, nhập nội dung từ tài liệu hoặc văn bản, lựa chọn cấu hình sinh câu hỏi, biên tập câu hỏi, công bố bài kiểm tra, thiết lập chính sách làm bài và theo dõi kết quả.
+    \item \textbf{Người làm bài:} Truy cập bài kiểm tra qua liên kết, đăng nhập ẩn danh hoặc bằng tài khoản khi cần thiết, thực hiện bài làm, nộp đáp án và xem kết quả trong phạm vi cho phép.
+\end{itemize}
+
+Để khái quát phạm vi chức năng của ứng dụng, sơ đồ ca sử dụng tổng quát của Openlet được trình bày ở Hình~\ref{fig:openlet-use-case}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/demo-use-cases.png}
+    \caption{Biểu đồ ca sử dụng tổng quát của Openlet với hai tác nhân chính: giáo viên (quản lý vòng đời bài kiểm tra) và người làm bài (truy cập và nộp bài)}
+    \label{fig:openlet-use-case}
+\end{figure}
+
+Hình~\ref{fig:openlet-use-case} cho thấy giáo viên là tác nhân khởi tạo gần như toàn bộ vòng đời của một bài kiểm tra. Từ giao diện biên tập, giáo viên có thể nhập tài liệu đầu vào, yêu cầu hệ thống sinh câu hỏi tự động, rà soát và sửa nội dung, công bố bài kiểm tra, cấu hình mức hiển thị kết quả, cho phép hoặc không cho phép làm lại, đồng thời theo dõi số liệu tổng hợp và danh sách lượt làm bài. Ở chiều ngược lại, người làm bài chỉ tương tác với phần chức năng công khai của hệ thống, bao gồm truy cập bài kiểm tra, thực hiện bài làm, nộp bài và xem kết quả theo chính sách công bố.
+
+Việc rút gọn hệ thống về hai tác nhân chính giúp mô hình phân quyền của Openlet rõ ràng và phù hợp với quy mô của một ứng dụng phục vụ lớp học hoặc nhóm học nhỏ. Thay vì đưa vào nhiều vai trò trung gian như quản trị hệ thống, trợ giảng hoặc người kiểm duyệt nội dung, thiết kế hiện tại tập trung vào đúng hai nhóm người dùng tham gia trực tiếp vào giá trị cốt lõi của sản phẩm. Cách tổ chức này làm giảm độ phức tạp của giao diện, đơn giản hóa luật bảo mật và giúp người sử dụng dễ hình dung trách nhiệm của mình trong quy trình vận hành.
+
+\section{Thiết kế hệ thống}
+
+\subsection{Kiến trúc tổng thể}
+
+Sơ đồ kiến trúc tổng thể của ứng dụng được trình bày ở Hình~\ref{fig:openlet-architecture} để thể hiện cách Openlet kết nối lớp giao diện, lớp dịch vụ và lớp mô hình trí tuệ nhân tạo.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/demo_architecture.png}
+    \caption{Kiến trúc ba tầng của Openlet: tầng giao diện (Next.js/React), tầng dịch vụ (Firebase), và tầng AI (OpenRouter kết nối các mô hình OCR/LLM)}
+    \label{fig:openlet-architecture}
+\end{figure}
+
+Openlet được triển khai theo kiến trúc ba tầng. Tầng giao diện là ứng dụng web chạy trong trình duyệt. Tầng dịch vụ được đặt trên nền tảng Firebase, bao gồm cơ chế xác thực, nền tảng lưu trữ dữ liệu, vùng lưu trữ tệp và các hàm xử lý phía máy chủ. Tầng trí tuệ nhân tạo nằm ở lớp ngoài cùng, nơi các mô hình nhận dạng văn bản và mô hình ngôn ngữ được gọi thông qua OpenRouter để phục vụ các tác vụ như trích xuất văn bản, phân tích nội dung, sinh câu hỏi và sinh giải thích.
+
+Trong quá trình vận hành, giao diện Web kết nối trực tiếp với Firebase Authentication để xác thực người dùng, với Cloud Firestore để đọc ghi dữ liệu và đồng bộ trạng thái theo thời gian thực, đồng thời dùng Cloud Storage để tải các tệp đầu vào. Riêng những tác vụ nhạy cảm hoặc cần xử lý nền như truy xuất đề công khai, chấm điểm, nhận dạng văn bản, sinh câu hỏi và cập nhật thống kê được dồn vào Cloud Functions. Khối Cloud Functions vì vậy đóng vai trò đầu mối xử lý phía máy chủ, vừa làm việc với Firestore và Storage, vừa gọi OpenRouter khi cần dùng mô hình trí tuệ nhân tạo. Tầng trí tuệ nhân tạo không giao tiếp trực tiếp với người dùng cuối mà chỉ được gọi từ lớp xử lý này.
+
+% [MODIFY]: Rut gon giai thich ly do khong dung vi dich vu
+Openlet không lựa chọn kiến trúc vi dịch vụ đầy đủ vì phạm vi nghiệp vụ của sản phẩm tập trung vào một chu trình thống nhất. Kiến trúc ba tầng trên nền tảng không máy chủ đảm bảo được sự tách bạch trách nhiệm giữa giao diện, xử lý nghiệp vụ và mô hình trí tuệ nhân tạo, đồng thời giúp rút ngắn thời gian triển khai và giảm chi phí vận hành.
+
+\subsection{Mô hình dữ liệu}
+
+Mô hình dữ liệu của Openlet được tổ chức quanh ba bảng thông tin quan trọng. Bảng \textbf{users} lưu hồ sơ của người đăng nhập bằng tài khoản Google, bao gồm định danh người dùng, tên hiển thị, thư điện tử, ảnh đại diện và thời điểm đăng nhập gần nhất. Bảng \textbf{quizzes} là trung tâm của toàn bộ nghiệp vụ, lưu trạng thái xử lý, tiêu đề, mô tả, đoạn văn nguồn, danh sách câu hỏi, chế độ sinh câu hỏi, cấu hình mô hình, thiết lập công bố, cấu hình bộ đếm thời gian, số liệu thống kê tổng hợp, bảng xếp hạng người làm bài và các mốc thời gian tạo, cập nhật. Bảng \textbf{attempts} gắn với từng bài kiểm tra để lưu thông tin người tham gia, tên hiển thị, trạng thái ẩn danh, điểm số, số câu đúng, tổng số câu hỏi, đáp án đã chọn và thời điểm nộp bài. Sơ đồ dữ liệu chính của ứng dụng được trình bày ở Hình~\ref{fig:openlet-data-model}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.82\linewidth]{figures/database.png}
+    \caption{Mô hình dữ liệu chính của Openlet gồm ba bảng: \textbf{users} (hồ sơ người dùng), \textbf{quizzes} (bài kiểm tra và câu hỏi), và \textbf{attempts} (lượt làm bài và kết quả)}
+    \label{fig:openlet-data-model}
+\end{figure}
+
+Ngoài những dữ liệu phục vụ hiển thị, bảng \textbf{quizzes} còn lưu các thông tin phục vụ xử lý nền như văn bản đã nhận dạng từ tài liệu, lựa chọn mô hình nhận dạng văn bản, lựa chọn mô hình sinh câu hỏi và các chỉ số tổng hợp. Những trường này giúp hệ thống có thể theo dõi và tái hiện đúng ngữ cảnh xử lý khi cần, đồng thời hỗ trợ giáo viên quan sát tình trạng xử lý và kết quả sử dụng trên cùng một bản ghi chính.
+
+Cloud Firestore được lựa chọn vì cấu trúc dữ liệu của Openlet có tính lồng nhau rõ rệt. Một bài kiểm tra không chỉ có thông tin mô tả đơn giản mà còn chứa danh sách câu hỏi, cấu hình hiển thị kết quả, thiết lập bộ đếm thời gian và các chỉ số tổng hợp. Với kiểu dữ liệu này, mô hình cơ sở dữ liệu dạng tài liệu phù hợp tự nhiên hơn so với cơ sở dữ liệu quan hệ vốn cần tách ra nhiều bảng và nhiều phép nối. Bên cạnh đó, nền tảng này hỗ trợ đồng bộ dữ liệu theo thời gian thực, rất phù hợp cho giao diện theo dõi tiến trình xử lý và giao diện xem kết quả.
+
+Thiết kế tách \textbf{attempts} thành một bảng riêng gắn với từng bài kiểm tra giúp giới hạn kích thước của bản ghi chính và giữ cho thao tác đọc bài kiểm tra luôn nhẹ. Song song với đó, các số liệu tổng hợp như tổng số lượt làm, điểm trung bình, điểm cao nhất, điểm thấp nhất, phân bố điểm và danh sách người đạt thành tích cao nhất được lưu sẵn trong bản ghi \textbf{quizzes}. Cách làm này giúp giao diện của giáo viên có thể truy xuất nhanh các số liệu tổng quan mà không phải quét lại toàn bộ lịch sử nộp bài ở mỗi lần hiển thị.
+
+\subsection{Bảo mật và kiểm soát truy cập}
+
+Mô hình truy cập của Openlet được xây dựng xoay quanh hai nguyên tắc. Thứ nhất, giáo viên là chủ sở hữu toàn bộ dữ liệu gốc của bài kiểm tra, bao gồm đáp án đúng, giải thích và lịch sử làm bài. Thứ hai, người làm bài chỉ được tiếp cận phần dữ liệu tối thiểu cần thiết để thực hiện bài làm và nhận kết quả theo phạm vi mà giáo viên đã cấu hình.
+
+Đối với giáo viên, ứng dụng sử dụng đăng nhập bằng tài khoản Google để tạo hồ sơ người dùng và gắn quyền sở hữu cho từng bài kiểm tra. Đối với người làm bài, hệ thống hỗ trợ hai hình thức truy cập. Nếu giáo viên cho phép làm bài ẩn danh, người dùng chỉ cần nhập tên hiển thị để bắt đầu. Nếu giáo viên tắt chế độ ẩn danh, người dùng phải xác thực bằng tài khoản trước khi truy cập. Chính sách cho phép làm lại chỉ được áp dụng trong trường hợp người làm bài có tài khoản xác thực.
+
+Một yêu cầu bảo mật quan trọng của Openlet là đáp án đúng không được gửi trực tiếp về giao diện công khai. Người làm bài không đọc dữ liệu bài kiểm tra từ nền tảng lưu trữ dữ liệu theo cách trực tiếp, mà phải đi qua hàm xử lý phía máy chủ. Tại đây, hệ thống chỉ trả về nội dung câu hỏi và các phương án lựa chọn, đồng thời loại bỏ đáp án đúng và phần giải thích. Sau khi nộp bài, phản hồi trả về tiếp tục được lọc theo năm mức hiển thị kết quả, từ mức chỉ xác nhận đã nộp bài cho tới mức hiển thị đầy đủ điểm số, đúng sai, đáp án đúng và lời giải thích.
+
+Thiết kế này giúp Openlet giải quyết đồng thời hai yêu cầu tưởng như mâu thuẫn: bài kiểm tra phải có thể chia sẻ công khai qua liên kết, nhưng đáp án đúng vẫn phải được bảo vệ. Nếu lưu toàn bộ dữ liệu bài kiểm tra ở phía giao diện và cho phép người làm bài tải trực tiếp, việc công bố liên kết sẽ kéo theo nguy cơ lộ đáp án. Bởi vậy, đáp án đúng được giữ lại ở tầng máy chủ, còn giao diện chỉ nhận phần dữ liệu đã được rút gọn theo đúng ngữ cảnh sử dụng.
+
+\section{Hiện thực các luồng chức năng cốt lõi}
+
+\subsection{Luồng tạo bài kiểm tra tự động}
+
+Sơ đồ tuần tự cho chức năng tạo bài kiểm tra tự động được trình bày ở Hình~\ref{fig:sequence-create-quiz} để minh họa cách giao diện, nền tảng lưu trữ dữ liệu, vùng lưu trữ tệp, hàm xử lý nền và lớp mô hình trí tuệ nhân tạo phối hợp với nhau.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/sequence_quiz_creation.png}
+    \caption{Biểu đồ tuần tự của luồng tạo bài kiểm tra tự động: từ tiếp nhận tài liệu đầu vào, qua OCR và MAS sinh câu hỏi, đến cập nhật trạng thái theo thời gian thực}
+    \label{fig:sequence-create-quiz}
+\end{figure}
+
+Khi giáo viên nhập nội dung bằng trí tuệ nhân tạo, quy trình bắt đầu từ giao diện biên tập bài kiểm tra. Giáo viên có thể chọn một trong ba dạng đầu vào là ảnh, tệp PDF hoặc văn bản thuần; đồng thời xác định mô hình nhận dạng văn bản, mô hình sinh câu hỏi, số lượng câu hỏi mong muốn và chế độ sinh câu hỏi.
+
+Sau khi tiếp nhận yêu cầu, hệ thống khởi tạo một bản ghi xử lý để theo dõi tiến trình. Nếu đầu vào là ảnh hoặc tệp PDF, dữ liệu được tải tạm thời lên vùng lưu trữ, sau đó một hàm xử lý nền được kích hoạt để thực hiện nhận dạng văn bản. Riêng với đầu vào là văn bản thuần, hệ thống bỏ qua bước nhận dạng và chuyển thẳng sang giai đoạn sinh câu hỏi. Ở chế độ cơ bản, văn bản nguồn được đưa trực tiếp vào một lần sinh duy nhất. Ở chế độ đa tác tử, hệ thống bổ sung thêm bước phân tích nội dung trước khi sinh câu hỏi, kiểm chứng, hiệu chỉnh phương án và sinh giải thích.
+
+Trong toàn bộ quá trình này, trạng thái xử lý của bài kiểm tra được cập nhật liên tục trong nền tảng lưu trữ dữ liệu. Giao diện của giáo viên theo dõi các thay đổi đó để hiển thị tiến trình theo thời gian thực. Khi hoàn tất, hệ thống lưu bộ câu hỏi và các siêu dữ liệu được rút trích vào bản ghi bài kiểm tra, sau đó đưa dữ liệu về môi trường biên tập để giáo viên rà soát, chỉnh sửa và quyết định có công bố bài kiểm tra hay không.
+
+Luồng xử lý theo trạng thái được lựa chọn vì nó phù hợp với bản chất bất đồng bộ của bài toán. Nhận dạng văn bản, sinh câu hỏi và sinh giải thích đều là các bước có độ trễ cao, không nên buộc giao diện phải chờ liên tục cho tới khi hoàn tất. Bằng cách chia quy trình thành các giai đoạn rõ ràng, hệ thống dễ theo dõi tiến trình, phát hiện lỗi và tránh kích hoạt lặp cùng một bước xử lý. Thiết kế này cũng cho phép tối ưu thời gian phản hồi: đầu vào văn bản thuần không phải đi qua bước nhận dạng, còn chế độ cơ bản có thể bỏ qua khâu phân tích nội dung để giảm độ trễ.
+
+% [MODIFY]: Them ref cheo va rut gon
+So với phiên bản nghiên cứu ở Chương~\ref{chap:phuong-phap}, phiên bản ứng dụng chỉ giữ lại những vòng kiểm chứng thật sự cần thiết và giới hạn số lần lặp, phản ánh ưu tiên của một sản phẩm ứng dụng thực tế: giáo viên cần nhận kết quả đủ nhanh để tiếp tục biên tập, trong khi chất lượng vẫn được giữ ở mức chấp nhận được nhờ các lớp kiểm soát trọng yếu.
+
+\subsection{Luồng truy cập, làm bài và nộp bài}
+
+Sơ đồ tuần tự cho chức năng truy cập bài kiểm tra, làm bài và nộp bài được trình bày ở Hình~\ref{fig:sequence-play-submit} để làm rõ cách hệ thống bảo vệ đáp án đúng trong khi vẫn hỗ trợ chia sẻ công khai qua liên kết.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/sequence_quiz_play_and_submit.png}
+    \caption{Biểu đồ tuần tự của luồng truy cập, làm bài và nộp bài: người làm bài nhận đề đã lọc đáp án, chấm điểm phía máy chủ, và nhận phản hồi theo mức cấu hình}
+    \label{fig:sequence-play-submit}
+\end{figure}
+
+Khi người làm bài mở liên kết công khai, giao diện trước hết kiểm tra chính sách truy cập của bài kiểm tra. Nếu giáo viên cho phép làm bài ẩn danh, người dùng có thể nhập tên hiển thị để tiếp tục. Nếu không cho phép ẩn danh, hệ thống yêu cầu người dùng xác thực bằng tài khoản Google. Trong trường hợp giáo viên không cho phép làm lại, hệ thống còn kiểm tra xem người dùng đã có lượt làm bài trước đó hay chưa.
+
+Sau bước kiểm tra truy cập, giao diện gửi yêu cầu lấy đề tới hàm xử lý phía máy chủ. Hàm này đọc dữ liệu gốc của bài kiểm tra, xác minh trạng thái công bố và chỉ trả về phần dữ liệu đã được làm sạch, bao gồm nội dung câu hỏi và các phương án trả lời. Nhờ vậy, người làm bài có thể xem đề và thao tác làm bài nhưng không thể truy cập đáp án đúng thông qua dữ liệu được tải về.
+
+Khi người làm bài nộp đáp án, hàm xử lý phía máy chủ đọc bộ câu hỏi gốc, thực hiện chấm điểm, ghi lại lượt làm bài vào bảng tương ứng, đồng thời cập nhật các số liệu tổng hợp và bảng xếp hạng trong bản ghi bài kiểm tra. Phản hồi cuối cùng gửi về giao diện không phải là toàn bộ dữ liệu chấm điểm, mà là phiên bản đã được lọc theo mức hiển thị kết quả mà giáo viên cấu hình trước đó.
+
+Đây là luồng thể hiện rõ nhất quyết định giữ đáp án đúng ở phía máy chủ. Nếu giao diện được phép nhận trực tiếp toàn bộ nội dung bài kiểm tra, việc công bố liên kết sẽ khiến người làm bài có thể khai thác dữ liệu để suy ra đáp án. Bởi vậy, hệ thống buộc phải tách thao tác truy xuất đề, thao tác chấm điểm và thao tác xem kết quả thành các bước có kiểm soát, trong đó mọi dữ liệu nhạy cảm chỉ tồn tại ở tầng dịch vụ.
+
+Việc ghi lượt làm bài vào một bảng riêng cho từng bài kiểm tra giúp truy vết lịch sử làm bài rõ ràng và hỗ trợ quản lý từng lần nộp. Trong khi đó, việc cập nhật sẵn số liệu tổng hợp trong bản ghi bài kiểm tra giúp giao diện tổng quan của giáo viên hiển thị ngay các thống kê quan trọng như số lượt làm, phân bố điểm và nhóm người đạt kết quả cao mà không cần xử lý lại toàn bộ dữ liệu lịch sử ở mỗi lần mở trang.
+
+\section{Giao diện tiêu biểu của ứng dụng}
+
+\subsection{Giao diện dành cho giáo viên}
+
+Giao diện dành cho giáo viên được xây dựng theo đúng tiến trình nghiệp vụ của sản phẩm. Ở lớp ngoài cùng là trang danh sách bài kiểm tra, nơi hiển thị các bài đã tạo dưới dạng thẻ, kèm theo tiêu đề, mô tả ngắn, trạng thái xử lý, trạng thái công bố và số lượt làm bài. Từ đây, giáo viên có thể khởi tạo bài kiểm tra mới hoặc tiếp tục làm việc với một bài đang có.
+
+Trong môi trường biên tập, giáo viên có thể nhập nội dung bằng trí tuệ nhân tạo, rà soát lại đoạn văn nguồn, chỉnh sửa từng câu hỏi, thay đổi phương án trả lời, đáp án đúng và phần giải thích. Bên cạnh đó, hệ thống còn cung cấp trang thiết lập công bố để giáo viên sao chép liên kết, cho phép hay không cho phép làm bài ẩn danh, thiết lập chính sách làm lại, chọn mức phản hồi kết quả và cấu hình bộ đếm thời gian. Phần theo dõi kết quả được tách thành các màn hình tổng quan và danh sách lượt làm, hiển thị số liệu tổng hợp, phân bố điểm, nhóm người đạt thành tích cao và chi tiết từng lượt nộp bài.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/ui-edit.png}
+    \caption{Giao diện biên tập bài kiểm tra dành cho giáo viên: hiển thị câu hỏi đã sinh tự động với các công cụ chỉnh sửa nội dung, phương án và cấp độ nhận thức}
+    \label{fig:ui-teacher-editor}
+\end{figure}
+
+Hình~\ref{fig:ui-teacher-editor} minh họa màn hình biên tập trung tâm của giáo viên. Thiết kế giao diện ưu tiên việc giữ cho vòng lặp chỉnh sửa ngắn và trực tiếp: giáo viên nhìn thấy ngay kết quả sinh tự động, có thể sửa từng câu hỏi tại chỗ và không phải chuyển qua nhiều màn hình trung gian. Cách tổ chức này phù hợp với mục tiêu của ứng dụng là hỗ trợ giáo viên hoàn thiện nhanh một bài kiểm tra trước khi công bố.
+
+\subsection{Giao diện dành cho người làm bài}
+
+Giao diện dành cho người làm bài được tối giản hơn đáng kể so với giao diện của giáo viên. Người dùng truy cập trực tiếp từ liên kết công khai, nhập tên hiển thị hoặc đăng nhập bằng tài khoản nếu cấu hình yêu cầu, sau đó đi vào màn hình làm bài. Trong quá trình làm bài, giao diện hiển thị rõ nội dung câu hỏi, các phương án lựa chọn, tiến độ làm bài và bộ đếm thời gian nếu giáo viên đã bật tính năng này.
+
+Sau khi nộp bài, người dùng được chuyển tới trang kết quả. Nội dung của trang này không cố định mà thay đổi theo chính sách hiển thị đã cấu hình trước. Ở mức thấp nhất, hệ thống chỉ xác nhận đã ghi nhận bài làm. Ở các mức cao hơn, người làm bài có thể thấy điểm số, trạng thái đúng sai của từng câu, đáp án đúng và giải thích chi tiết. Cơ chế này giúp cùng một ứng dụng có thể phục vụ cả tình huống kiểm tra nghiêm ngặt lẫn tình huống tự học có phản hồi đầy đủ.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/ui-student-play.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/ui-student-result.png}
+    \end{minipage}
+    \vspace{10pt}
+    \caption{Giao diện làm bài (trái) và trang kết quả (phải): người làm bài chọn đáp án với bộ đếm thời gian, sau đó nhận phản hồi theo mức hiển thị cấu hình bởi giáo viên}
+    \label{fig:ui-player-flow}
+\end{figure}
+
+Hình~\ref{fig:ui-player-flow} cho thấy cách Openlet tổ chức trải nghiệm của người làm bài theo hướng liền mạch. Màn hình làm bài ưu tiên khả năng tập trung và thao tác nhanh, trong khi màn hình kết quả ưu tiên tính rõ ràng của thông tin phản hồi. Sự phân tách này giúp người dùng không bị quá tải thông tin trong lúc làm bài, đồng thời vẫn nhận được mức hỗ trợ phù hợp sau khi hoàn thành.
+
+% [MODIFY]: Them ref cheo cho chuong
+Nhìn chung, lớp giao diện của Openlet phản ánh đúng triết lý thiết kế của toàn hệ thống: giáo viên được cung cấp một không gian biên soạn và kiểm soát linh hoạt, còn người làm bài tiếp cận một trải nghiệm gọn, rõ và an toàn. Đây là điều kiện cần để các kết quả nghiên cứu ở Chương~\ref{chap:phuong-phap} có thể được đưa vào sử dụng trong một ngữ cảnh nghiệp vụ thực tế.

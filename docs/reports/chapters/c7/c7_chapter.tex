@@ -1,0 +1,20 @@
+\chapter{Kết luận và Hướng phát triển}
+\label{chap:ket-luan}
+
+\section{Tổng kết}
+
+Nghiên cứu này đã đề xuất và phát triển thành công một hệ thống tự động sinh câu hỏi trắc nghiệm đa cấp độ nhận thức từ dữ liệu ảnh tài liệu, giải quyết hai bài toán cốt lõi trong quy trình số hóa giáo dục: (1) OCR chính xác từ ảnh chụp chất lượng kém và (2) sinh MCQ theo thang nhận thức Bloom với độ khó và chất lượng sư phạm được kiểm soát chặt chẽ. Đóng góp nổi bật nhất của nghiên cứu là việc thiết kế một kiến trúc MAS sáng tạo, kết hợp sLLM với các cơ chế tự kiểm duyệt (tác tử Học sinh, tác tử Phân loại, và tác tử Hiệu chỉnh). Kết quả thực nghiệm cho thấy giải pháp này không chỉ khắc phục được hạn chế của sLLM khi hoạt động độc lập mà còn đạt được hiệu năng ngang ngửa với các LLM thương mại lớn ở cấp độ câu hỏi Nhớ và Hiểu, mở ra tiềm năng ứng dụng mạnh mẽ, tối ưu chi phí cho các môi trường tài nguyên hạn chế.
+
+\section{Hạn chế}
+
+Mặc dù đạt được những kết quả khả quan, nghiên cứu vẫn tồn tại một số hạn chế nhất định. Thứ nhất, hệ thống vẫn gặp khó khăn trong việc sinh các câu hỏi ở cấp độ Phân tích (Cấp 3), ngay cả khi có sự hỗ trợ của MAS, do giới hạn về năng lực suy luận nội tại của các sLLM hiện tại. Thứ hai, thực nghiệm hiện tại mới chỉ được tiến hành trên một tập dữ liệu tiếng Anh duy nhất (RACE), chưa được kiểm chứng đầy đủ trên các miền tri thức khác (như toán học, khoa học tự nhiên) hoặc các ngôn ngữ khác, đặc biệt là tiếng Việt. Thứ ba, phương pháp đánh giá hoàn toàn dựa trên cơ chế đánh giá tự động bằng mô hình (LLM-as-a-Judge), thiếu sự đối chiếu độc lập với đánh giá từ các chuyên gia sư phạm thực tế, điều này có thể tiềm ẩn các sai lệch chưa được nhận diện đầy đủ.
+
+\section{Hướng phát triển}
+
+Dựa trên các kết quả và hạn chế đã phân tích, nghiên cứu định hướng một số hướng phát triển cốt lõi trong tương lai:
+\begin{itemize}
+    \item \textbf{Mở rộng đa ngôn ngữ và tiếng Việt:} Tích hợp và đánh giá hệ thống trên dữ liệu tiếng Việt, xây dựng các bộ lọc và tác tử chuyên biệt để xử lý đặc thù ngữ pháp và ngữ nghĩa, hướng tới triển khai thực tiễn trong nước.
+    \item \textbf{Đánh giá bởi chuyên gia:} Tổ chức các đợt đánh giá độc lập với sự tham gia của giáo viên và chuyên gia giáo dục để thu thập phản hồi thực tế, từ đó tinh chỉnh bộ tiêu chí đánh giá tự động và cải thiện tính sư phạm của các phương án nhiễu.
+    \item \textbf{Tinh chỉnh mô hình:} Sử dụng tập dữ liệu MCQ chất lượng cao do MAS sinh ra để tinh chỉnh trực tiếp các sLLM. Hướng đi này kỳ vọng sẽ giúp sLLM nội tại hóa khả năng sinh câu hỏi khó, giảm sự phụ thuộc vào kiến trúc MAS tốn kém trong giai đoạn triển khai.
+    \item \textbf{Tích hợp hệ thống học tập thích ứng:} Đưa mô-đun sinh câu hỏi vào một hệ thống quản lý học tập, cho phép tự động điều chỉnh độ khó của câu hỏi tiếp theo dựa trên năng lực và phản hồi tức thời của người học.
+\end{itemize}
