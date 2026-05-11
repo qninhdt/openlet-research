@@ -6,23 +6,19 @@
     io/.style={box, fill=gray!8},
     proc/.style={box, fill=red!10},
     lbl/.style={font=\scriptsize, text=gray!70},
-    constraint/.style={draw, rounded corners=2pt, fill=yellow!8, font=\scriptsize, align=center, minimum width=2.4cm, line width=0.4pt},
 ]
 
 % ── Inputs ──
-\node[io] (q) {$q_i$\; \scriptsize câu hỏi lỗi};
-\node[io, below=0.35cm of q] (reason) {$reason_i$\\[-1pt]\scriptsize Lý do từ $A_{\text{stu}}$};
-\node[io, below=0.35cm of reason] (choices) {$C_i$\\[-1pt]\scriptsize Đáp án đã chọn};
+\node[io] (q) {\scriptsize $q_i$\; câu hỏi lỗi};
+\node[io, below=0.35cm of q] (reason) {\scriptsize $reason_i$\\[-1pt] Lý do từ $A_{\text{stu}}$};
+\node[io, below=0.35cm of reason] (choices) {\scriptsize $C_i$\\[-1pt] Đáp án đã chọn};
 \node[lbl, above=0.1cm of q] {Đầu vào};
 
 % ── LLM ──
 \node[proc, right=1.8cm of reason, minimum height=1.4cm, minimum width=3cm, fill=red!12] (llm) {\textbf{sLLM}\\[2pt]\scriptsize Phân tích lỗi\\[-1pt]\scriptsize + Sửa phương án\\[-1pt]\scriptsize + CoT reasoning};
 
-% ── Constraint box ──
-\node[constraint, above=0.5cm of llm] (cst) {\textbf{Ràng buộc:}\\[-1pt] Giữ nguyên thân câu hỏi\\[-1pt] Chỉ sửa options \& answer};
-
 % ── Output ──
-\node[io, right=1.8cm of llm, minimum height=1cm] (out) {$options'_i$\\[1pt]$correct\_idx'_i$\\[-1pt]\scriptsize $\to A_{\text{stu}}$};
+\node[io, right=1.8cm of llm, minimum height=1cm] (out) {\scriptsize $options'_i$\\[1pt] $correct\_idx'_i$\\[-1pt] $\to A_{\text{stu}}$};
 \node[lbl, above=0.1cm of out] {Đầu ra};
 
 % ── Arrows ──
@@ -30,11 +26,10 @@
 \draw[->, thick, gray!70] (reason.east) -- (llm.west);
 \draw[->, thick, gray!70] (choices.east) -- ++(0.3,0) |- ([yshift=-4pt]llm.west);
 \draw[->, thick, red!60] (llm.east) -- (out.west);
-\draw[->, dashed, gray!50] (cst.south) -- (llm.north);
 
 % ── Surrounding box ──
 \begin{scope}[on background layer]
-    \node[draw, dashed, rounded corners=5pt, inner sep=10pt, fit=(q)(reason)(choices)(llm)(out)(cst), red!30, fill=red!2, label={[font=\small\bfseries, red!70]above:Tác tử Hiệu chỉnh $(A_{\text{fix}})$}] {};
+    \node[draw, dashed, rounded corners=5pt, inner sep=10pt, fit=(q)(reason)(choices)(llm)(out), red!30, fill=red!2, label={[font=\small\bfseries, red!70]above:Tác tử Hiệu chỉnh $(A_{\text{fix}})$}] {};
 \end{scope}
 
 \end{tikzpicture}

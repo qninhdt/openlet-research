@@ -25,7 +25,7 @@ Lớp giao diện của Openlet được xây dựng bằng \textbf{Next.js} \ci
 % [MODIFY]: Them in nghieng cho Firebase
 Phần dịch vụ của Openlet được triển khai trên nền tảng \textbf{Firebase} \cite{firebase}. Hệ thống sử dụng cơ chế xác thực để quản lý danh tính người dùng, nền tảng lưu trữ dữ liệu để quản lý thông tin bài kiểm tra và kết quả làm bài, vùng lưu trữ tệp để tiếp nhận ảnh và tệp PDF, cùng các hàm xử lý phía máy chủ để thực hiện những nghiệp vụ nhạy cảm như nhận dạng văn bản, sinh câu hỏi, truy xuất đề công khai, chấm điểm và cập nhật thống kê.
 
-Việc sử dụng hạ tầng không máy chủ giúp Openlet phù hợp với phạm vi của một khóa luận tốt nghiệp. Hệ thống không cần đầu tư riêng một máy chủ ứng dụng độc lập nhưng vẫn duy trì được khả năng triển khai nhanh, đơn giản hóa khâu vận hành và giữ được sự tách bạch hợp lý giữa giao diện, xử lý nghiệp vụ và lưu trữ dữ liệu.
+Việc sử dụng hạ tầng không máy chủ giúp Openlet phù hợp với phạm vi của một khóa luận tốt nghiệp. Hệ thống không cần đầu tư riêng một máy chủ ứng dụng độc lập nhưng vẫn duy trì được khả năng triển khai nhanh, đơn giản hóa khâu vận hành và giữ được sự tách bạch hợp lý giữa mặt giao diện, xử lý nghiệp vụ và lưu trữ dữ liệu.
 
 \subsection{Nhóm công nghệ mô hình trí tuệ nhân tạo}
 
@@ -45,7 +45,7 @@ Openlet được tổ chức xoay quanh hai tác nhân sử dụng chính:
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/demo-use-cases.png}
+    \includegraphics[width=0.9\linewidth]{figures/demo-use-cases.pdf}
     \caption{Biểu đồ ca sử dụng tổng quát của Openlet với hai tác nhân chính: giáo viên (quản lý vòng đời bài kiểm tra) và người làm bài (truy cập và nộp bài)}
     \label{fig:openlet-use-case}
 \end{figure}
@@ -62,7 +62,7 @@ Sơ đồ kiến trúc tổng thể của ứng dụng được trình bày ở 
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\linewidth]{figures/demo_architecture.png}
+    \includegraphics[width=0.95\linewidth]{figures/demo-architecture.pdf}
     \caption{Kiến trúc ba tầng của Openlet: tầng giao diện (Next.js/React), tầng dịch vụ (Firebase), và tầng AI (OpenRouter kết nối các mô hình OCR/LLM)}
     \label{fig:openlet-architecture}
 \end{figure}

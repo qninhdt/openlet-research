@@ -67,7 +67,6 @@
 % ── Loop 1: Classifier → Generators (Feedback) ──
 \path (gen1.north) ++(0, 0.7cm) coordinate (loop1_top_level);
 
-% Thay đổi: Đã bỏ tham số "dashed" để mũi tên màu cam thành nét liền
 \draw[arr=orange!60] (cls.north) -- (cls.north |- loop1_top_level) -- node[lblnode, below] {\scriptsize $\hat{l}\neq l$} (feedback_point |- loop1_top_level) -- (feedback_point);
 
 % ── Loop boxes (Background) ──

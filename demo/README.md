@@ -1,4 +1,4 @@
-# Openlet — AI Quiz Generator
+# Openlet - AI Quiz Generator
 
 > Full-stack web application that converts document images into multi-level multiple-choice quizzes using a multi-agent LLM pipeline, with a real-time quiz-taking interface for students.
 
@@ -12,7 +12,7 @@
 
 ## Table of Contents
 
-- [Openlet — AI Quiz Generator](#openlet--ai-quiz-generator)
+- [Openlet - AI Quiz Generator](#openlet--ai-quiz-generator)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Architecture](#architecture)
@@ -47,15 +47,15 @@
 
 **Highlights:**
 
-- 📷 **Multi-format upload** — JPEG/PNG photos or multi-page PDFs (auto-converted to images)
-- 🤖 **Two AI modes** — Single Prompt (fast) or Multi-Agent pipeline (high quality)
-- 🧠 **Three cognitive levels** — Retrieval, Inference, Critical Reasoning (Bloom's Taxonomy)
-- ✏️ **Full question editor** — Edit stem, options, correct answer, and explanation
-- ⏱️ **Configurable timer** — Optional countdown with auto-submit on expiry
-- 🔒 **Server-side grading** — Correct answers never sent to the client
-- 📊 **5 feedback levels** — From "score only" to "full explanation"
-- 📈 **Analytics dashboard** — Score distribution, leaderboard, per-attempt records
-- 👤 **Anonymous access** — Students can take quizzes without registering
+- 📷 **Multi-format upload** - JPEG/PNG photos or multi-page PDFs (auto-converted to images)
+- 🤖 **Two AI modes** - Single Prompt (fast) or Multi-Agent pipeline (high quality)
+- 🧠 **Three cognitive levels** - Retrieval, Inference, Critical Reasoning (Bloom's Taxonomy)
+- ✏️ **Full question editor** - Edit stem, options, correct answer, and explanation
+- ⏱️ **Configurable timer** - Optional countdown with auto-submit on expiry
+- 🔒 **Server-side grading** - Correct answers never sent to the client
+- 📊 **5 feedback levels** - From "score only" to "full explanation"
+- 📈 **Analytics dashboard** - Score distribution, leaderboard, per-attempt records
+- 👤 **Anonymous access** - Students can take quizzes without registering
 
 ---
 
@@ -79,7 +79,7 @@
 └───────────────────────────────────────────────────────────┘
 ```
 
-**Event-driven quiz creation:** Each quiz document in Firestore has a `status` field that drives a server-side state machine. Cloud Functions listen for status changes and automatically trigger the next processing stage — enabling async, resumable workflows.
+**Event-driven quiz creation:** Each quiz document in Firestore has a `status` field that drives a server-side state machine. Cloud Functions listen for status changes and automatically trigger the next processing stage - enabling async, resumable workflows.
 
 ---
 
@@ -315,7 +315,7 @@ demo/
 
 | Route | Access | Description |
 |---|---|---|
-| `/` | Owner | Dashboard — list of created quizzes |
+| `/` | Owner | Dashboard - list of created quizzes |
 | `/quiz/[id]` | Owner | Quiz overview redirect |
 | `/quiz/[id]/content` | Owner | Read-only question list |
 | `/quiz/[id]/edit` | Owner | Edit quiz metadata |
@@ -359,7 +359,7 @@ Upload → OCR → Analyzer → Generator (L1 ∥ L2 ∥ L3)
 | **Analyzer** | Extracts key entities, causal chains, and confusable terms from the passage |
 | **Generator L1/L2/L3** | Three parallel agents, each focused on one cognitive level |
 | **Classifier** | Verifies cognitive level; triggers one regeneration round for rejected questions |
-| **Student** | Simulates solving — flags questions with ambiguous or unsolvable answers |
+| **Student** | Simulates solving - flags questions with ambiguous or unsolvable answers |
 | **Fixer** | Repairs answer options (stem is never changed) for questions the Student failed |
 | **Explainer** | Generates per-question explanations for the results page |
 
@@ -373,7 +373,7 @@ Upload → OCR → Analyzer → Generator (L1 ∥ L2 ∥ L3)
 
 | Level | What the student sees after submission |
 |---|---|
-| 0 | Nothing — submission acknowledged only |
+| 0 | Nothing - submission acknowledged only |
 | 1 | Total score (correct / total, percentage) |
 | 2 | Score + per-question correct/incorrect status |
 | 3 | Score + correct/incorrect + correct answer |
