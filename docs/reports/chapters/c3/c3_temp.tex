@@ -1,0 +1,85 @@
+\chapter{Phương pháp sinh câu hỏi trắc nghiệm bằng luồng đa tác tử}
+\label{chap:phuong-phap}
+
+Trong chương này, báo cáo sẽ trình bày chi tiết về hệ thống đa tác tử đề xuất. Mục đầu tiên bao gồm danh sách các tác tử, luồng di chuyển của dữ liệu, các biến trạng thái chung. Trong mỗi mục tiếp theo, báo cáo sẽ đi sâu vào từng tác từ, mô tả dữ liệu đầu vào và đầu ra, kèm theo những quyết định thiết kế nổi bật. Mục cuối sẽ trình bày một số kỹ thuật khác mà nghiên cứu sử dụng để cải thiện chất lượng hệ thống.
+
+\section{Kiến trúc hệ thống}
+\label{sec:da-tac-tu}
+
+Chất lượng của các câu hỏi trắc nghiệm được sinh ra phụ thuộc trực tiếp vào cách mà văn bản đầu vào được xử lý và di chuyển giữa các tác tử. Trong phần này, báo cáo sẽ trình bày thiết kế của các biến trạng thái được chia sẻ và luồng giao tiếp giữa các tác tử.
+
+Toàn bộ luồng suy luận được cài đặt bằng thư viện LangGraph \cite và được điều phối thông qua đối tượng WorkflowSate. Mỗi trạng thái s sẽ gồm hai nhóm  biến trạng thái: các  biến đầu vào I được khởi tạo từ dữ liệu bài đọc và các biến trạng thái trung gian O được cập nhật liên tục bởi các tác tử trong quá trình xử lý.
+
+Như trong Hình~ref, hệ thống tác tử hoạt động theo hai vòng lặp kiểm soát chất lượng. Hai vòng lặp này được sắp xếp tuần tự và chuyên biệt cho một phần của câu hỏi: Vòng thứ nhất sẽ cải thiện chất lượng phần thân câu hỏi và Vòng lặp 2 sẽ tập trung cải thiện chất lượng đáp án nhiễu.
+
+\bold{Vòng lặp 1.}  Đảm bảo tất cả câu hỏi sinh ra đều có cấp độ nhận thức đúng như yêu cầu đầu vào theo thang đo Bloom\cite{}. Để làm được việc này, dữ liệu tạo ra từ tác tử {SInh câu hỏi} sẽ được chuyển cho tác tử {Phân loại} nhằm đánh giá và dự đoán cấp độ từng câu. Nếu tác tử {Phân loại} dự đoán cấp độ khác so với cấp độ được yêu cầu, tác tử {sINH câu hỏi} sẽ được yêu cầu để tạo loại câu hỏi đó. Ngoài ra, hệ thống được thiết kế với ba tác tử, mỗi tác tử sẽ phụ trách một cấp độ riêng biệt, điều này đảm bảo mỗi tác tử sinh sẽ chuyên biệt hóa cho một cấp độ, từ đó tăng chất lượng đầu ra. 
+
+\bold{Vòng lặp 2.} Tác tử {Học sinh} sẽ được yêu cầu giải các câu hỏi đã qua Vòng lặp 1 mà chỉ mà không được nhìn đáp án. Nếu đáp án từ tác tử {Học sinh} khác so với đáp án được tạo, câu hỏi sẽ bị gán nhãn ``mơ hồ’’ và được chuyển giao cho tác tử {Hiệu chỉnh} nhằm sửa lại đáp án đúng và đáp án gây nhiễu.
+
+\section{Luồng xử lý đa tác tử}
+
+\subsection{Tác tử \textit{Sinh câu hỏi}}
+Hệ thống triển khai ba tác tử {SInh câu hỏi} hoạt động song song và độc lập. Mỗi tác tử sẽ chịu trách nhiệm sinh các câu hỏi trắc nghiệm cho một cấp độ nhận thức I in {1,2,3} theo thang đo Bloom. Đầu vào của mỗi tác tử là một đoạn văn bản nguồn, số lượng câu hỏi cần sinh và hai tập các câu hỏi mẫu tham chiếu từ các vòng lặp trước.
+
+Mỗi tác tử được thiết kế với một bộ các chỉ dẫn chuyên biệt cho từng cấp độ nhận thức tương ứng. Tác tử \italic{Cấp 1} sẽ được yêu cầu tạo ra các câu hỏi trích xuất thông tin đơn giản, trực tiếp từ văn bản đầu vào. Tác tử \italic{Cấp 2} được yêu cầu sinh ra các câu hỏi suy luận ngầm và đáp án phải được diễn đạt lại hoàn toàn so với văn bản gốc. Cuối cùng, các câu hỏi sinh ra bởi tác tử {Cấp 3} sẽ phải đòi hỏi học sinh thực hiện nhiều bước suy luận và kết nối các thông tin rải rác trong nhiều đoạn văn bản theo chuẩn LSAT/GMAT.
+
+Bên cạnh đó, một kỹ thuật quan trọng được sử dụng trong tác tử {SInh câu hỏi} là cơ chế học từ các mẫu tham chiếu. Cụ thể, trước khi sinh câu hỏi kể từ vòng lặp thứ hai, tác tử sẽ nhận được hai tập các câu hỏi:
+\item {Tập các mẫu tích cực:} Đây là danh sách các câu hỏi cùng level đã vượt qua đánh giá của tác tử {Phân loại}. Các câu hỏi này được đảm bảo đã đạt chuẩn về cấp độ nhận thức đúng theo yêu cầu từ hệ thống. Tác tử {Sinh câu hỏi} sẽ học hỏi được phong cách, cấu trúc và độ khó của các mẫu tích cực.
+
+\item {Tập các mẫu tiêu cực:} Danh sách này sẽ chứa các câu hỏi có cấp độ khác so với yêu cầu. Các mẫu được lựa chọn chủ yếu là các câu hỏi được tạo lỗi từ các vòng lặp trước. Nếu số mẫu quá ít, hệ thống sẽ lựa chọn các mẫu đã vượt qua đánh giá từ hai cấp độ còn lại. Sử dụng mẫu tiêu cực giúp tác tử tránh lặp lại việc sinh ra các câu hỏi không đạt yêu cầu và phân rõ ranh giới giữa hai cấp độ dễ nhầm lẫn như cấp độ 2 và 3.
+
+Tóm lại, cơ chế của kỹ thuật này hoạt động như một dạng học từ ví dụ (few-shot learning) có phản hồi. Trong đó, chất lượng câu hỏi được cải thiện dần qua các vòng lặp. Không chỉ thế, điều này còn giúp dữ liệu đầu ra dần dần hội tụ về một kết quả, tránh phải chạy quá nhiều vòng lặp không cần thiết.
+
+\subsection{Tác tử \textit{Phân loại}}
+
+Tác tử {Phân loại} có nhiệm vụ xác định chính xác cấp độ theo thang Bloom\cite của từng câu hỏi sinh ra bởi bộ ba tác tử {Sinh câu hỏi}. Sau đó, tác tử sẽ tiến hành kiểm tra xem kết quả dự đoán của bản thân giống hay khác so với cấp độ được yêu cầu thực tế. Tiếp theo, tác tử {Phân loại} sẽ chuẩn bị danh sách các câu hỏi lỗi cần được sinh lại của từng cấp độ, đồng thời cập nhật các tập tích cực và tiêu cực:
+
+\noindent trong đó $\hat{l}_i$ là cấp độ nhận thức do tác tử dự đoán cho câu hỏi $q_i$.
+
+\noindent trong đó $\mathcal{P}_l^{(t)}$ và $\mathcal{N}_l^{(t)}$ lần lượt là tập mẫu tích cực và tiêu cực tại vòng lặp $t$. Câu hỏi đạt chuẩn ($\hat{l} = l$) được chuyển sang Tác tử \textit{Học sinh}; câu hỏi bị từ chối ($\hat{l} \neq l$) được đánh dấu thất bại và nút điều phối sẽ yêu cầu tác tử \textit{sinh câu hỏi} tạo lại số lượng thiếu hụt. Hình~\ref{fig:agent-classifier} minh họa luồng xử lý bên trong tác tử.
+
+
+
+Nhằm tiết kiệm chi phí tính toán và tăng tốc độ xử lý, hệ thống sẽ gom toàn bộ câu hỏi sinh ra từ ba tác tử {Sinh câu hỏi} và đưa qua phân loại trong một lần gọi LLM duy nhất. Tuy nhiên, một vấn đề được đặt ra là khả năng thiên kiến theo vị trí của LLM (position bias). Các bằng chứng thực nghiệm đã chứng minh rằng các LLM, kể cả ở quy mô lớn, đều mang một khiếm khuyết tất yếu là dễ dàng bị đánh lừa và ưu ái thông tin dựa trên thứ tự vật lý trong nội dung đầu vào thay vì thực sử hiểu nội dung của dữ liệu\cite{wang2024large}. Ví dụ: LLM thường sẽ phân loại các câu hỏi nằm ở đầu là câu hỏi cấp độ 1 và các câu hỏi ở cuối là cấp độ 3 trong khi cấp độ thực tế có thể là 2. Để giải quyết văn đề này, hệ thống sẽ xáo trộn thứ tự của tất cả câu hỏi đầu vào và loại bỏ thông tin về thứ tự câu. Điều này buộc mô hình không thể dựa vào vị trí hay thứ tự để tự suy đoán hay gian lận, mà phải thực sự hiểu, phân tích được nội dung của câu hỏi để phân loại đúng cấp độ nhận thức.
+
+
+\subsection{Tác tử \textit{Học sinh}}
+Trong vòng lặp tiếp theo, các lựa chọn của các câu hỏi sẽ được kiểm tra và hiệu chỉnh. Để có thể đánh giá chính xác được chất lượng của đáp án đúng và ba đáp án nhiễu, nghiên cứu sẽ mô phỏng lại quá trình một học sinh làm một bài kiểm tra trắc nghiệm trọng thực tế bằng cách yêu cầu tác tử giải và đưa ra đáp án.
+
+\noindent trong đó $C_i \subseteq \{A, B, C, D\} \cup \{\texttt{NONE}\}$ là tập hợp các phương án được tác tử lựa chọn cho câu hỏi $q_i$.
+
+Một quyết định thiết kế cốt lõi là việc tác tử \italic{Học sinh} được yêu cầu giải bài kiểm tra theo định dạng trắc nghiệm nhiều lựa chọn đúng (Select All That Apply - SATA). Các nghiên cứu đánh giá đã chỉ ra rằng khi yêu cầu LLM giải một câu hỏi trắc nghiệm một đáp án đúng đơn thuần, mô hình thường sẽ tìm cách loại trừ và chọn ra đáp án có vẻ hợp lý nhất thay vì thực sự hiểu nội dung của các lựa choni\cite{xu2025satabench}. Bằng cách ``đánh lừa’’ LLM rằng bài kiểm tra yêu cầu lựa chọn các đáp án đúng, mô hình bị ép buộc phải thẩm định từng phương án một cách độc lập so với các phương án còn lại. Nhờ cơ chế khắt khe này, hệ thống có thể vô hiệu hóa khả năng suy luận đoán mò của tác tử, từ đó giúp pháp hiện ra các câu hỏi có các lựa chọn mơ hồ, không chính xác. Nếu tác tử {Học sinh} chọn hai đáp án đúng, hệ thống sẽ đánh dấu câu hỏi đó là mơ hồ, còn nếu tác tử không lựa chọn phương án nào thì câu hỏi sẽ được đánh dấu là không có đáp án đúng. Hay nói cách khác, câu hỏi được xác nhận đạt chuẩn khi và chỉ khi tác tử lựa chọn đúng một phương án duy nhất trùng với đáp án đã sinh từ vòng lặp trước.
+
+\noindent trong đó $c^*$ là ký hiệu phương án đúng của câu hỏi $q$. Nếu tác tử trả lời sai, câu hỏi được chuyển tới Tác tử \textit{Hiệu chỉnh} cùng với lý do giải thích. Hình~\ref{fig:agent-student} minh họa luồng xử lý bên trong tác tử.
+
+
+\subsection{Tác tử \textit{Hiệu chỉnh}}
+Tác tử {Hiệu chỉnh} có nhiệm vụ tiếp nhận và sửa lỗi các câu hỏi lỗi từ mà tác tử {Học sinh} trả lời sai. Tác tử này sẽ được thiết kế để chỉ được phép chỉnh sửa nội dung của phần lựa chọn mà không được chỉnh sửa phần thân câu hỏi, trong khi bắt buộc giữ nguyên phần thân câu hỏi và cấp độ nhận thức.
+
+{math formula}
+
+Bên cạnh đó, để tác tử {Hiệu chỉnh} có thể xác định chính xác nguyên nhân và tìm cách sửa lỗi, tác tử  sẽ nhận được trường `Reason` từ đầu ra của tác tử {Học sinh}. Trường này mô tả quá trình suy luận của tác tử {Học sinh} bao gồm lý do mà các phương án hoặc không phương án nào được lựa chọn. Không chỉ vậy, tác tử {Hiệu chỉnh} có thể dựa vào đoạn suy luận này để xác định ra các đáp án nhiễu quá hiển nhiên nếu nó nhận thấy tác tử {Học sinh} đã loại trừ chúng một cách đơn giản. Sau khi sửa chữa, câu hỏi được đưa trở lại Tác tử \textit{Học sinh} để tái kiểm định. Hình~\ref{fig:agent-fixer} minh họa luồng xử lý bên trong tác tử.
+
+\section{Một số kỹ thuật cải thiện chất lượng sLLM}
+Các sLLM có một nhược điểm cố hữu là khả năng suy luận kém, kèm theo khả năng tuân thủ chỉ thị hạn chế .Điều này có thể ảnh hưởng lớn đến chất lượng của kết quả, đặc biệt là trong kiến trúc đa tác tử, nơi mà dữ liệu của tác tử này tiếp tục được tác tử khác xử lý, từ đó dẫn đến rủi ro tích tụ lỗi.
+
+\subsection{Suy luận chuỗi tư duy}
+Trước tiên, để cải thiện chất lượng suy luận của các tác tử trong luồng xử lý, nghiên cứu áp dụng kỹ thuật suy luận chuỗi tư duy (CoT - Chain-of-Thought \cite{wei2022chain}). Cụ thể, mỗi LLM được yêu cầu sinh ra một đoạn suy luận ngắn trước khi tạo ra bất kỳ dữ liệu nào. Đoạn suy luận này sẽ nêu dẫn chứng và lý do mô hình tạo ra các dữ liệu tiếp theo:
+
+\begin{itemize}
+    \item \textbf{Tác tử \textit{Sinh câu hỏi}:} Trường \texttt{Reason} yêu cầu mô hình giải thích chiến lược tạo câu hỏi và các phương án trước khi sinh nội dung.
+    \item \textbf{Tác tử \textit{Phân loại}:} Trường \texttt{Reason} yêu cầu mô hình phân tích nội dung câu hỏi dựa trên đặc điểm của cấp độ nhận thức Bloom trước khi đưa ra dự đoán.
+    \item \textbf{Tác tử \textit{Học sinh}:} Trường \texttt{Reason} yêu cầu mô hình trình bày chứng minh từng bước trong ba câu, giải thích lý do chọn hoặc loại từng phương án. Trường này sẽ được sử dụng bởi tác tử {Hiệu chỉnh} trong pha tiếp theo.
+    \item \textbf{Tác tử \textit{Hiệu chỉnh}:} Trường \texttt{Reason} yêu cầu mô hình phân tích nguyên nhân lỗi từ phần suy luận của tác tử {Học sinh} trước khi chỉnh sửa các phương án.
+\end{itemize}
+
+Kỹ thuật CoT đặc biệt quan trọng đối với các sLLM bởi các mô hình này thường gặp khó khăn trong các tác vụ đòi hỏi suy luận đa bước (tác tử {Học sinh} trả lời câu hỏi cấp độ 3). Bằng cách yêu cầu mô hình trình bày rõ ràng quá trình tư duy trước khi đưa ra một kết quả cụ thể, kỹ thuật này giúp giảm thiểu đáng kể lỗi logic, tăng tính nhất quán và độ ổn định của đầu ra, đồng thời cho phép truy vết và sửa lỗi khi cần tthiết.
+
+\subsection{Định dạng đầu ra của tác tử}
+
+Một vấn đề khác xuất hiện khi làm việc với các sLLM là khả năng tuân thủ theo chỉ dẫn kém. Điều này dẫn đến việc các mô hình thường xuyên đưa ra đầu ra với định dạng không đúng như yêu cầu. Đặc biệt đối với định dạng JSON, mô hình thường xuyên gặp các lỗi cũ pháp như thiếu dấu ngoặc, ký tự thoát, dẫn đến việc phải tiến hành quy trình sửa lỗi phức tạp hoặc phải chạy lại LLM nếu gặp lỗi nghiêm trọng\cite{galeone2026correct}.
+
+Để giải quyết vấn đề này, nghiên cứu sử dụng định dạng văn bản thuần tuần tự đơn giản với cấu trúc \italic{khóa-giá ttrị}. Quyết định này giúp mô hình dễ dàng hơn trong việc xác định định dạng đầu ra, từ đó giải phóng tài nguyên nhận thức để tập trung suy luận logic thay vì phải đảm bảo đầu ra là JSON hợp lệ. Việc sử dụng định dạng  \italic{khóa-giá ttrị} còn giúp hệ thống có khả năng chống chịu lỗi tốt hơn khi gặp các lỗi như thừa thiếu khoảng cách hoặc chứa các kí tự đặc biệt. Không chỉ vậy, việc yêu cầu sLLM sinh ra thứ tự của câu hỏi còn giúp mô hình kiểm soát số lượng câu hỏi hiện tại, tránh việc sinh thừa hay thiếu.
+
+
+
