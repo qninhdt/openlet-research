@@ -1,19 +1,15 @@
 \chapter{Phương pháp đánh giá}
 \label{chap:phuong-phap-danh-gia}
 
-Chương này trình bày chi tiết về thiết kế thực nghiệm nhằm kiểm chứng hiệu quả của các phương pháp đã đề xuất. Nội dung bao gồm việc giới thiệu bộ dữ liệu được sử dụng, quy trình tổng hợp dữ liệu ảnh nhiễu cho bài toán OCR, các thiết lập kỹ thuật cho mô hình, cũng như các tiêu chí và phương pháp đánh giá tự động (LLM-as-a-Judge) được áp dụng.
+Trong chương này, báo cáo sẽ trình bày chi tiết về thiết kế thực nghiệm nhằm kiểm chứng sự hiệu quả của phương pháp đã đề xuất. Nội dung của chương sẽ bao gồm giới thiệu về bộ dữ liệu được sử dụng trong thực nghiệm, quy trình tạo dữ liệu ảnh nhiễu tổng hợp cho bài toán OCR, cấu hình chi tiết của hệ thống và mô tả về các độ đo được sử dụng.
 
 \section{Bộ dữ liệu}
-\textbf{RACE (Reading Comprehension Dataset From Examinations)} \cite{lai2017race} là một bộ dữ liệu quy mô lớn trong lĩnh vực xử lý ngôn ngữ tự nhiên. Khác với bộ dữ liệu \textbf{SQuAD} \cite{rajpurkar2016squad} (chủ yếu dựa trên Wikipedia), RACE được xây dựng trực tiếp từ đề thi của các kỳ thi tiếng Anh thực tế dành cho học sinh trung học cơ sở và trung học phổ thông tại hệ thống giáo dục Trung Quốc.
 
-Hai lý do chính nghiên cứu sử dụng RACE làm bộ dữ liệu đánh giá mô hình là:
-Độ phức tạp và đa dạng ngữ nghĩa: Văn bản trong RACE thường bao trùm nhiều lĩnh vực trong đời sống: giáo dục, tin tức, văn hóa, chính trị, khoa học và các câu chuyện luân lý. Chính vì thế, đặc điểm dữ liệu và văn phong của văn bản trong RACE vô cùng sát với các tài liệu trong thực tế. Các văn bản trong RACE có độ dài tiêu chuẩn từ 300 đến 500 từ, độ dài này đủ lớn để chứa đựng lượng thông tin cho một bài kiểm tra: các chuỗi sự kiện phức tạp, luận điểm, nhưng vẫn đảm bảo không làm quá tải cửa sổ ngữ cảnh (context window) của các sLLM.
+\textbf{RACE (ReAding Comprehension Dataset From Examinations)} \cite{lai2017race} là một bộ dữ liệu hỏi đáp có quy mô lớn trong lĩnh vực xử lý ngôn ngữ tự nhiên. Khác với các bộ dữ liệu hỏi đáp khác như \textbf{SQuAD} \cite{rajpurkar2016squad} được trích xuất chủ yếu từ Wikipedia, RACE được xây dựng trực tiếp từ bộ đề thi của các kỳ thi tiếng Anh thực tế dành cho học sinh trung học cơ sở và trung học phổ thông tại Trung Quốc.
 
-Chiều sâu logic và tính đa nghĩa của văn bản gốc: Không giống các văn bản bách khoa toàn thư chỉ liệt kê dữ liệu bề mặt, các văn bản của RACE được các chuyên gia giáo dục tuyển chọn chuyên biệt nhằm mục đích đánh giá nhận thức của người học. Cấu trúc của văn bản ẩn chứa nhiều tầng nghĩa, tích hợp các chuỗi nhân quả, thái độ ngầm định của tác giả và các mệnh đề gây nhiễu. Nếu nghiên cứu lựa chọn một bộ dữ liệu văn bản thiếu chiều sâu, các nỗ lực đánh giá LLM sinh câu hỏi tư duy cao đều sẽ thất bại.
+Nghiên cứu sử dụng RACE để làm bộ dữ liệu đánh giá bởi hai lý do chính. Thứ nhất, các văn bản trong RACE bao trùm nhiều lĩnh vực trong đời sống như giáo dục, văn hóa, chính trị và khoa học. Nhờ đó, văn phong và đặc điểm dữ liệu của RACE rất giống với dữ liệu thực tế. Theo thống kê, các văn bản trong bộ dữ liệu này có độ dài từ 300 đến 500 từ. Số lượng này đủ lớn để chứa được lượng thông tin phục vụ cho một bài kiểm tra như các chuỗi sự kiện phức tạp, luận điểm trong khi vẫn đảm bảo không gây tràn cửa sổ ngữ cảnh (context window) của các sLLM.
 
-Bộ dữ liệu RACE bao gồm khoảng 28.000 đoạn văn và gần 100.000 câu hỏi trắc nghiệm, được chia thành hai tập con theo cấp độ: RACE-Middle (dành cho học sinh trung học cơ sở) và RACE-High (dành cho học sinh trung học phổ thông). Tập RACE-High chứa các đoạn văn có độ phức tạp cao hơn, đòi hỏi khả năng suy luận sâu hơn, do đó phù hợp hơn với mục tiêu đánh giá khả năng sinh câu hỏi đa cấp độ nhận thức của nghiên cứu này.
-
-Trong phạm vi thực nghiệm, nghiên cứu lấy mẫu ngẫu nhiên 100 đoạn văn từ tập RACE-High làm dữ liệu đầu vào cho toàn bộ các thí nghiệm sinh câu hỏi. Bảng~\ref{tab:race_stats} trình bày thống kê tổng quan về bộ dữ liệu RACE và mẫu được sử dụng.
+Trong phạm vi thực nghiệm, nghiên cứu lấy mẫu ngẫu nhiên 100 đoạn văn có độ dài lớn nhất từ tập con RACE-High làm dữ liệu đầu vào cho toàn bộ các thí nghiệm sinh câu hỏi. Bảng~\ref{tab:race_stats} trình bày thống kê tổng quan về bộ dữ liệu RACE và mẫu được sử dụng.
 
 \begin{table}[htbp]
 \centering
@@ -33,9 +29,7 @@ Nguồn gốc & Đề thi THCS & Đề thi THPT & Lấy mẫu từ RACE-High \\
 
 \section{Quy trình tổng hợp bộ dữ liệu OCR}
 
-Để đánh giá chính xác năng lực nhận dạng văn bản (OCR) của các mô hình thị giác - ngôn ngữ (VLM) trong điều kiện thực tế - nơi tài liệu thường ở dạng ảnh chụp, sách giáo khoa in, hoặc ghi chép tay với chất lượng quang học đa dạng - nghiên cứu tiến hành xây dựng một bộ dữ liệu ảnh giả lập chuyên biệt. 
-
-Thay vì thu thập và gán nhãn ảnh chụp thủ công (phương pháp tốn kém tài nguyên và khó kiểm soát độc lập các biến số nhiễu), hệ thống triển khai một quy trình sinh dữ liệu tổng hợp (synthetic data generation). Quá trình này đảo ngược trình tự của bài toán OCR truyền thống trong khâu chuẩn bị dữ liệu: bắt đầu từ các đoạn văn bản chuẩn (ground truth) trích xuất từ bộ dữ liệu gốc, hệ thống chủ động kết xuất (render) thành hình ảnh, sau đó áp dụng các phép biến đổi có kiểm soát để mô phỏng tác nhân gây nhiễu thực tế (Hình~\ref{fig:augmentation-pipeline}). Cách tiếp cận này giúp tạo ra nguồn dữ liệu đánh giá dồi dào, đa dạng và có sẵn nhãn chính xác tuyệt đối để đo lường hiệu năng của các VLM.
+Bên cạnh bài toán sinh câu hỏi trắc nghiệm từ văn bản, nghiên cứu cần xây dựng một bộ dữ liệu nhằm đánh giá chất lượng của các VLM trong tác vụ OCR. Một thách thức lớn được đặt ra là các bộ dữ liệu OCR hiện tại không chuyên biệt cho các văn bản dài. Bên cạnh đó, việc thu thập và gán nhãn thủ công các ảnh chụp văn bản học liệu vô cùng tốn kém về chi phí và thời gian. Để giải quyết vấn đề, nghiên cứu triển khai một quy trình sinh dữ liệu tổng hợp dành riêng cho các ảnh chụp văn bản dài trong lĩnh vực giáo dục. Cụ thể, quy trình này sẽ sử dụng các văn bản từ bộ RACE để kết xuất thành các hình ảnh tương tự ảnh chụp màn hình. Sau đó các ảnh chụp này sẽ được thêm các nhiễu bằng cách mô phỏng tác nhân từ môi trường thực tế. Quy trình hai giai đoạn này được biểu diễn trong Hình~\ref{fig:augmentation-pipeline}.
 
 \begin{figure}[htbp]
     \centering
@@ -44,31 +38,9 @@ Thay vì thu thập và gán nhãn ảnh chụp thủ công (phương pháp tố
     \label{fig:augmentation-pipeline}
 \end{figure}
 
-\subsection{Sinh ảnh sạch từ văn bản}
+\textbf{Giai đoạn sinh ảnh sạch.} Hệ thống tạo ra các hình ảnh kỹ thuật số sắc nét từ văn bản đầu vào bằng cách sử dụng trình duyệt không giao diện (headless browser) từ thư viện Pyppeteer \cite{pyppeteer2018} để tận dụng sự linh hoạt của HTML và CSS. Quy trình này gồm 3 bước cốt lõi: Lựa chọn ngẫu nhiên một bộ cài đặt gồm kích thước ảnh, màu sắc, phông chữ (kết hợp cả phông chữ in chuẩn và viết tay từ Google Fonts \cite{googlefonts}); tự động phân bổ mật độ hiển thị của văn bản như số cột, căn lề, khoảng cách giữa các dòng; và cuối cùng là nhúng mã JavaScript để tự động co giãn cỡ chữ để toàn bộ văn bản nằm trọn trong khung hình.
 
-Giai đoạn đầu tiên là khởi tạo các hình ảnh kỹ thuật số mang độ sắc nét tuyệt đối từ văn bản gốc. Nhằm đảm bảo tính đa dạng về mặt thị giác và cấu trúc tài liệu, nghiên cứu không sử dụng các thư viện đồ họa 2D cơ bản (như PIL), mà tích hợp công cụ trình duyệt không giao diện (headless browser) thông qua thư viện Pyppeteer \cite{pyppeteer2018}. Phương pháp này tận dụng sức mạnh của CSS và DOM để kiểm soát chính xác và linh hoạt bố cục hình ảnh. Quá trình này gồm ba bước cốt lõi:
-
-\begin{enumerate}
-    \item \textbf{Khởi tạo không gian và định dạng kiểu chữ:} Hệ thống chọn ngẫu nhiên các kích thước khung hình tiêu chuẩn (A4, A5, US Letter, FHD, HD, v.v.). Phông chữ được lấy ngẫu nhiên từ kho dữ liệu Google Fonts \cite{googlefonts}, chia làm hai nhóm đặc thù: nhóm in chuẩn (Roboto, Merriweather) để mô phỏng tài liệu in ấn, và nhóm viết tay (Dancing Script, Caveat) để giả lập các bản ghi chép cá nhân. Các tham số về độ đậm (weight), màu chữ và màu nền cũng được cấu hình ngẫu nhiên.
-
-    \item \textbf{Tự động hóa mật độ hiển thị:} Dựa trên tỷ lệ diện tích khung hình và số lượng ký tự, thuật toán linh hoạt chia văn bản thành nhiều cột (từ 1 đến 3 cột), đồng thời tinh chỉnh khoảng cách lề (padding), độ giãn dòng (line height) và khoảng cách đoạn (paragraph spacing). Cơ chế này giúp sinh ra các tài liệu có cấu trúc từ đơn giản đến phức tạp.
-
-    \item \textbf{Khớp khung hình động:} Để khắc phục tình trạng văn bản bị cắt xén hoặc tràn viền khi chụp ảnh toàn trang, một mã JavaScript được nhúng trực tiếp vào tài liệu HTML/CSS. Thuật toán này tự động co giãn cỡ chữ (font-size) sao cho toàn bộ nội dung hiển thị vừa vặn trong một khung hình duy nhất (không làm xuất hiện thanh cuộn), trước khi công cụ Pyppeteer tiến hành chụp và lưu trữ ảnh.
-\end{enumerate}
-
-\subsection{Tạo dữ liệu ảnh nhiễu mô phỏng thực tế}
-
-Trong thực tiễn triển khai, hình ảnh đầu vào từ người dùng hiếm khi đạt chất lượng quang học lý tưởng do hạn chế của thiết bị hoặc điều kiện môi trường. Để thu hẹp khoảng cách giữa dữ liệu phòng thí nghiệm và môi trường thực tế, hình ảnh sạch từ bước trước được đưa qua quy trình giả lập nhiễu.
-
-Nghiên cứu ứng dụng \textbf{Augraphy}~\cite{augraphy2023} - một thư viện chuyên dụng cho bài toán tăng cường dữ liệu tài liệu vật lý - để thiết lập các lớp nhiễu phức tạp:
-
-\begin{itemize}
-    \item \textbf{Nhiễu vật liệu và thiết bị in ấn:} Hệ thống chèn thêm các dải nhiễu cấu trúc như vết nhòe mực, đứt nét hoặc mờ chữ do tình trạng cạn mực máy in. Nền ảnh gốc được phủ thêm các họa tiết bề mặt giấy, vết ố vàng theo thời gian hoặc văn bản in chìm ở mặt sau (bleed-through). Những yếu tố này đòi hỏi mô hình VLM phải có khả năng phân tách chính xác giữa tín hiệu văn bản và tín hiệu nhiễu nền.
-
-    \item \textbf{Nhiễu quang học và tác động cơ học:} Hình ảnh chịu các phép biến đổi về độ phơi sáng, bóng đổ vật lý, nhiễu hạt ISO (khi chụp thiếu sáng) và hiện tượng lóa (glare). Ngoài ra, hệ thống mô phỏng các lỗi nén ảnh, biến dạng hình học (giấy nhăn, cong vênh ở gáy sách), cũng như các can thiệp thủ công từ học sinh (nét gạch chân, vết bút dạ quang, hoặc nét vẽ nguệch ngoạc che khuất một phần văn bản).
-\end{itemize}
-
-Qua quy trình này, mỗi đoạn văn bản gốc được biến đổi thành một phiên bản tài liệu vật lý đặc thù (Hình~\ref{fig:augmentation-samples}), tạo ra một môi trường kiểm thử khắc nghiệt để bộc lộ rõ năng lực thực sự của các mô hình OCR.
+\textbf{Giai đoạn mô phỏng ảnh nhiễu.} Nghiên cứu sử dụng thư viện Augraphy \cite{augraphy2023} để triển khai quy trình tăng cường dữ liệu trên các hình ảnh sạch. Quá trình này tích hợp đa dạng các lớp biến đổi phức tạp bao gồm nhiễu do vật liệu giấy và thiết bị in ấn (vết mực nhòe, đứt nét, giấy ố vàng, chữ in chìm mặt sau), các nhiễu quang học phổ biến trong thực tế (phơi sáng, bóng đổ, lóa sáng) cũng như các nhiễu cơ học (giấy nhăn, gạch chân thủ công, lỗi nén ảnh). Bằng cách mô phỏng rất nhiều biến thể của nhiễu, nghiên cứu có thể đánh giá được khả năng trích xuất văn bản của các VLM trong các điều kiện thực tế khác nhau. Hình~\ref{fig:augmentation-samples} trình bày một số ảnh được làm nhiễu điển hình được sử dụng thực nghiệm.
 
 \begin{figure}[htbp]
     \centering
@@ -77,63 +49,39 @@ Qua quy trình này, mỗi đoạn văn bản gốc được biến đổi thàn
     \label{fig:augmentation-samples}
 \end{figure}
 
-\subsection{Kiểm thử nhận dạng văn bản}
-
-Sau khi bộ dữ liệu hoàn thiện, các mô hình OCR (cả VLM chuyên dụng cỡ nhỏ lẫn LLM đa phương thức thương mại) được gọi thông qua các cổng giao tiếp trung gian như OpenRouter \cite{openrouter} và Novita AI \cite{novitaai}. Giải pháp này giúp hệ thống linh hoạt thay đổi và đối chiếu chéo hiệu năng giữa các kiến trúc mô hình tiên tiến nhất mà không phụ thuộc vào hạ tầng phần cứng cục bộ.
-
 \section{Thiết lập thực nghiệm}
-\subsection{Các mô hình sử dụng}
 
-Nghiên cứu đánh giá tổng cộng 12 mô hình chia thành ba nhóm: nhóm mô hình ngôn ngữ lớn mã nguồn mở quy mô nhỏ (sLLM) dùng cho sinh câu hỏi, nhóm VLM quy mô nhỏ dùng chuyên biệt cho OCR, và nhóm mô hình ngôn ngữ lớn thương mại (LLM) dùng cho cả hai nhiệm vụ.
+Nghiên cứu đánh giá tổng cộng 12 mô hình được chia thành ba nhóm: nhóm các sLLM mã nguồn mở dùng để sinh câu hỏi trắc nghiệm, nhóm VLM quy mô nhỏ dùng cho tác vụ OCR và nhóm các LLM thương mại dành cho cả hai tác vụ.
 
-Bảng~\ref{tab:models_qg} tóm tắt các mô hình sinh câu hỏi được sử dụng trong thực nghiệm. Các mô hình sLLM có kích thước tham số từ 8 đến 14 tỷ, phù hợp với mục tiêu triển khai trên phần cứng phổ thông. Các mô hình thương mại được đưa vào làm mô hình cơ sở để đánh giá mức độ cạnh tranh của giải pháp MAS kết hợp sLLM.
-
-\begin{table}[htbp]
-\centering
-\begin{tabular}{llr}
-\toprule
-\textbf{Nhóm} & \textbf{Mô hình} & \textbf{Số tham số} \\
-\midrule
-\multirow{5}{*}{sLLM mã nguồn mở} & Gemma 3 12B IT \cite{gemma2025} & 12B \\
-& Qwen3 8B \cite{qwen2025} & 8B \\
-& Phi-4 \cite{phi4_2024} & 14B \\
-& Nemotron Nano 9B v2 \cite{nemotron2025} & 9B \\
-& Llama 3.1 8B Instruct \cite{llama2024} & 8B \\
-\midrule
-\multirow{3}{*}{LLM thương mại} & Gemini 3 Flash \cite{gemini2025} & - \\
-& GPT-5 Mini \cite{gpt5_2025} & - \\
-& Claude Haiku 4.5 \cite{claude2025} & - \\
-\bottomrule
-\end{tabular}
-\caption{Các mô hình sinh câu hỏi sử dụng trong thực nghiệm}
-\label{tab:models_qg}
-\end{table}
-
-Bảng~\ref{tab:models_ocr} liệt kê các mô hình được sử dụng cho nhiệm vụ OCR, bao gồm bốn VLM nhỏ gọn chuyên dụng và ba mô hình thương mại đa phương thức. Các mô hình thương mại đã được mô tả tại Bảng~\ref{tab:models_qg}; trong phần này chúng được đánh giá thêm về năng lực OCR.
+Bảng~\ref{tab:models_qg} tóm tắt các mô hình được sử dụng trong thực nghiệm. Các mô hình sLLM có kích thước tham số từ 8 đến 14 tỷ, phù hợp với mục tiêu triển khai trên phần cứng phổ thông. Các mô hình thương mại được đưa vào làm mô hình cơ sở để đánh giá mức độ cạnh tranh của giải pháp MAS kết hợp sLLM.
 
 \begin{table}[htbp]
 \centering
 \begin{tabular}{lll}
 \toprule
-\textbf{Nhóm} & \textbf{Mô hình} & \textbf{Mô tả} \\
+\textbf{Nhóm} & \textbf{Mô hình} & \textbf{Tác vụ} \\
 \midrule
-\multirow{4}{*}{VLM nhỏ gọn} & DeepSeek OCR 2 \cite{deepseekocr2025} & Mô hình tối ưu cho OCR tài liệu \\
-& DotOCR 1.5 \cite{dotsocr2025} & Mô hình nhẹ chuyên dụng cho văn bản in \\
-& MinerU 2.5 \cite{mineru2025} & Mô hình trích xuất văn bản từ tài liệu đa dạng \\
-& PaddleOCR VL 1.5 \cite{paddleocr2025} & Mô hình dựa trên nền tảng PaddlePaddle \\
+\multirow{5}{*}{sLLM mã nguồn mở} & Gemma 3 12B IT \cite{gemma2025} & Sinh câu hỏi \\
+& Qwen3 8B \cite{qwen2025} & Sinh câu hỏi \\
+& Phi-4 \cite{phi4_2024} & Sinh câu hỏi \\
+& Nemotron Nano 9B v2 \cite{nemotron2025} & Sinh câu hỏi \\
+& Llama 3.1 8B Instruct \cite{llama2024} & Sinh câu hỏi \\
 \midrule
-\multirow{3}{*}{LLM thương mại} & Gemini 3 Flash \cite{gemini2025} & Mô hình đa phương thức của Google \\
-& GPT-5 Mini \cite{gpt5_2025} & Mô hình đa phương thức của OpenAI \\
-& Claude Haiku 4.5 \cite{claude2025} & Mô hình đa phương thức của Anthropic \\
+\multirow{4}{*}{VLM nhỏ gọn} & DeepSeek OCR 2 \cite{deepseekocr2025} & OCR \\
+& DotOCR 1.5 \cite{dotsocr2025} & OCR \\
+& MinerU 2.5 \cite{mineru2025} & OCR \\
+& PaddleOCR VL 1.5 \cite{paddleocr2025} & OCR \\
+\midrule
+\multirow{3}{*}{LLM thương mại} & Gemini 3 Flash \cite{gemini2025} & Sinh câu hỏi, OCR, đánh giá \\
+& GPT-5 Mini \cite{gpt5_2025} & Sinh câu hỏi, OCR \\
+& Claude Haiku 4.5 \cite{claude2025} & Sinh câu hỏi, OCR \\
 \bottomrule
 \end{tabular}
-\caption{Các mô hình OCR sử dụng trong thực nghiệm}
-\label{tab:models_ocr}
+\caption{Danh sách 12 mô hình sử dụng trong thực nghiệm}
+\label{tab:models_qg}
 \end{table}
 
-\subsection{Cấu hình thực nghiệm}
-
-Toàn bộ thực nghiệm được triển khai trên nền tảng Python 3.12, sử dụng thư viện \textbf{LangGraph} \cite{langgraph2024} để điều phối luồng hoạt động của hệ thống đa tác tử. Các mô hình được gọi thông qua OpenRouter API, cho phép truy cập thống nhất đến cả mô hình mã nguồn mở và thương mại.
+Toàn bộ mã nguồn được viết bằng ngôn ngữ Python phiên bản 3.12. Thư viện \textbf{LangGraph} \cite{langgraph2024} được sử dụng để cài đặt và triển khai kiến trúc đa tác tử một cách hiệu quả. Bên cạnh đó, để thuận tiện cho quá trình chạy thực nghiệm và chuyển đổi giữa các mô hình, nghiên cứu sử dụng dịch vụ API từ OpenRouter \cite{openrouter} và NovitaAI \cite{novitaai} để truy cập đến các mô hình sLLM, VLM và LLM thương mại.
 
 Các siêu tham số chính được thiết lập như sau:
 \begin{itemize}
@@ -142,64 +90,29 @@ Các siêu tham số chính được thiết lập như sau:
     \item Số vòng lặp tối đa (max\_loops): Giới hạn ở 8 vòng cho mỗi chu trình phản hồi giữa các tác tử.
 \end{itemize}
 
-Về quy mô thực nghiệm, mỗi đoạn văn đầu vào được yêu cầu sinh $N = 5$ câu hỏi cho mỗi cấp độ nhận thức (Nhớ, Hiểu, Phân tích), tổng cộng 15 câu hỏi trên mỗi đoạn văn. Với 100 đoạn văn mẫu, mỗi cấu hình mô hình tạo ra tối đa 1.500 câu hỏi. Chi phí sử dụng API được theo dõi tự động thông qua trường metadata của phản hồi từ OpenRouter API.
+Về quy mô của thực nghiệm, hệ thống được yêu cầu sinh $5$ câu hỏi cho mỗi cấp độ nhận thức, tổng cộng là $15$ câu hỏi cho mỗi đoạn văn đầu vào. Với 100 đoạn văn mẫu lấy ngẫu nhiên từ bộ RACE, mỗi mô hình cần sinh ra $1.500$ câu hỏi.
 
-Đối với quy trình đánh giá chất lượng bằng phương pháp LLM giám khảo (đã trình bày tại Chương~\ref{chap:co-so-ly-thuyet}), nghiên cứu sử dụng Gemini 3 Flash làm mô hình giám khảo cho toàn bộ các thí nghiệm. Lựa chọn này dựa trên ba tiêu chí: (i) hiệu suất suy luận cao và ổn định trên các tác vụ đánh giá ngôn ngữ, (ii) cửa sổ ngữ cảnh đủ lớn để xử lý đồng thời đoạn văn nguồn và toàn bộ bộ câu hỏi, và (iii) chi phí hợp lý cho việc đánh giá quy mô lớn (1.500 câu hỏi mỗi cấu hình).
+Để đánh giá hiệu quả của kiến trúc đa tác tử được đề xuất trong bài toán sinh câu hỏi trắc nghiệm, nghiên cứu tiến hành thiết lập hai kịch bản thử nghiệm trên mỗi mô hình sLLM: phương pháp cơ sở, yêu cầu mô hình tạo toàn bộ bài kiểm tra trong một lần gọi duy nhất (single prompt), và phương pháp tích hợp đa tác tử. Riêng đối với các LLM thương mại, nhằm đảm bảo tính công bằng về mặt tài nguyên đánh giá, nghiên cứu chỉ áp dụng cơ chế gọi mô hình một lần. Quyết định này được đưa ra dựa trên thực tế rằng chi phí vận hành cho một lượt truy vấn đối với các LLM thương mại thường tương đương, hoặc thậm chí vượt trội hơn so với tổng chi phí triển khai hệ thống sLLM đa tác tử.
+
+Đối với quy trình LLM-as-a-Judge, nghiên cứu sử dụng Gemini 3 Flash làm mô hình giám khảo cho tất cả thí nghiệm. Lý do nghiên cứu chọn mô hình này dựa vào ba tiêu chí chính: chất lượng suy luận cao cho các tác vụ đánh giá, tốc độ xử lý nhanh và chi phí hợp lý cho việc đánh giá quy mô lớn.
 
 \section{Phương pháp và Tiêu chí Đánh giá}
 
-Bất kỳ hệ thống sinh tự động nào cũng yêu cầu một cơ chế đánh giá độ tin cậy và mức độ hiệu quả của dữ liệu đầu ra. Trong nghiên cứu này, hệ thống trải qua hai khâu đánh giá độc lập tương ứng với hai luồng tác vụ chính: đánh giá chất lượng câu hỏi trắc nghiệm được sinh ra và đánh giá độ chính xác của quy trình nhận diện văn bản.
+Mục này sẽ trình bày chi tiết các độ đo được sử dụng trong nghiên cứu. Hệ thống triển khai hai khâu đánh giá độc lập cho hai bài toán tương ứng: đánh giá chất lượng câu hỏi trắc nghiệm và đánh giá độ chính xác của tác vụ OCR.
 
 \subsection{Đánh giá chất lượng câu hỏi trắc nghiệm}
 
-Đối với bài toán sinh câu hỏi trắc nghiệm tự động, các thang đo truyền thống như BLEU hay ROUGE tỏ ra kém hiệu quả và thiếu tin cậy vì chỉ so sánh sự trùng lặp từ vựng bề mặt mà bỏ qua tính sư phạm và ý nghĩa thực tế của câu hỏi. Để giải quyết vấn đề này, nghiên cứu phát triển một khung đánh giá tự động dựa trên ba tiêu chí sư phạm độc lập, kết hợp với phương pháp LLM-as-a-Judge.
+Đối với bài toán sinh câu hỏi trắc nghiệm, các thang đo NLP truyền thống như BLEU hay ROUGE tỏ ra kém hiệu quả và thiếu tin cậy do điểm yếu cốt lõi là chỉ so sánh sự trùng lặp bề mặt mà thiếu sự thấu hiểu về ngôn ngữ và ngữ cảnh. Bằng cách áp dụng kỹ thuật LLM-as-a-Judge, hệ thống có thể đánh giá một cách chính xác và khách quan các tiêu chí sư phạm. Cụ thể, nghiên cứu sử dụng ba tiêu chí sư phạm sau:
 
-\subsubsection{Các tiêu chí sư phạm}
+\textbf{Khả năng giải quyết dựa trên ngữ cảnh (Solvability).} Tiêu chí này kiểm định khả năng câu hỏi có thể được giải quyết với văn bản đầu vào. Một câu hỏi đạt chuẩn tiêu chí này buộc phải được trả lời dựa vào nội dung của văn bản thay vì thông tin bên ngoài. Không chỉ vậy, câu hỏi phải có đúng một đáp án đúng duy nhất. Để tự động đánh giá độ đo này, nghiên cứu sử dụng LLM thương mại với chất lượng cao để trực tiếp giải quyết câu hỏi. Nếu kết quả của giám khảo giống như kết quả đã sinh, câu hỏi sẽ được đánh dấu đạt chuẩn và ngược lại.
+$$\text{Solvability}(q) = \begin{cases} 1, & \text{nếu } C_{\text{judge}}(q) = \{c^*\} \\ 0, & \text{ngược lại} \end{cases}$$
+trong đó $C_{\text{judge}}(q)$ là tập hợp các phương án được LLM giám khảo chọn cho câu hỏi $q$, và $c^*$ là đáp án đúng duy nhất. Nếu chọn sai hoặc chọn nhiều phương án, câu hỏi bị đánh giá 0 (có thể do mơ hồ hoặc chứa nhiều đáp án đúng).
 
-Mỗi tiêu chí dưới đây đo lường một khía cạnh sư phạm của câu hỏi, đảm bảo đầu ra thỏa mãn các yêu cầu khắt khe của giáo dục:
+\textbf{Độ bám sát phân loại nhận thức (Alignment):} Tiêu chí này kiểm tra mức độ nhận thức hay độ khó của câu hỏi sinh ra có đúng với yêu cầu của hệ thống từ trước hay không. LLM giám khảo sẽ đối chiếu câu hỏi sinh ra với các tiêu chí của thang đo Bloom, từ đó đưa ra cấp độ thực tế của câu hỏi. Tương tự như tác tử \textit{Phân loại}, câu hỏi đạt tiêu chí này nếu cấp độ giám khảo dự đoán trùng với cấp độ đã tạo.
+$$\text{Alignment}(q) = \begin{cases} 1, & \text{nếu } l_{\text{judge}}(q) = l_{\text{target}}(q) \\ 0, & \text{ngược lại} \end{cases}$$
+trong đó $l_{\text{judge}}(q)$ là cấp độ do LLM dự đoán và $l_{\text{target}}(q)$ là cấp độ yêu cầu.
 
-\begin{enumerate}
-    \item \textbf{Khả năng giải quyết dựa trên ngữ cảnh (Solvability):} Tiêu chí này kiểm định tính đóng của không gian thông tin. Theo lý thuyết, một câu hỏi đạt chuẩn bắt buộc phải chứa duy nhất một đáp án đúng, và đáp án này phải được suy luận hoàn toàn ra từ các thông tin nằm bên trong đoạn văn bản được cung cấp. Yêu cầu này nghiêm cấm hiện tượng ảo giác của LLM khi sinh ra các câu trả lời dựa trên kiến thức bên ngoài. Nếu người đọc không thể trả lời câu hỏi ngay trên văn bản đầu vào, câu hỏi đó bị đánh giá là vi phạm.
-
-    \item \textbf{Độ bám sát phân loại nhận thức (Alignment):} Tiêu chí này đo lường xem mức độ nhận thức (độ khó) của câu hỏi sinh ra có đúng với cấu hình yêu cầu từ trước hay không. Hệ thống sẽ đối chiếu câu hỏi sinh ra với thang đo Bloom. Ví dụ, nếu LLM được giao nhiệm vụ sinh ra một câu hỏi Cấp 3 mà lại đưa ra một câu hỏi Cấp 1, đó là vi phạm do lệch pha về độ sâu nhận thức.
-
-    \item \textbf{Chất lượng phương án nhiễu (Distractor Quality ):} Tiêu chí này kiểm định độ sắc bén của câu hỏi. Một phương án sai hợp lệ phải đồng thời thỏa mãn hai điều kiện: trái ngược hoàn toàn so với đáp án đúng về mặt bản chất (không tạo ra tranh cãi hoặc tính đa nghĩa); và có khả năng đánh lừa những người học không nắm vững kiến thức. Các lựa chọn nhiễu hiển nhiên sai hoặc lệch ngữ cảnh sẽ bị loại bỏ.
-
-\end{enumerate}
-
-\subsubsection{Phương pháp LLM-as-a-Judge}
-
-Khác với cách tiếp cận truyền thống của G-Eval (nơi LLM giám khảo chấm điểm theo bộ tiêu chí tĩnh), nghiên cứu này triển khai phương pháp đánh giá dựa trên hành vi thực tế. LLM giám khảo được đặt vào vai trò một học sinh chuyên nghiệp để trực tiếp giải bài và phân loại câu hỏi, từ đó đo lường chất lượng thông qua kết quả hành động. Quy trình này gồm hai giai đoạn:
-
-\textbf{Giai đoạn 1 - Đánh giá Khả năng giải quyết và Độ bám sát:}
-
-LLM giám khảo nhận đầu vào gồm đoạn văn bản nguồn và bộ câu hỏi cần đánh giá (không kèm đáp án đúng). Mô hình phải tự giải từng câu hỏi. Bài kiểm tra được thiết kế dưới dạng nhiều lựa chọn đúng (mỗi câu hỏi có thể có một, nhiều, hoặc không có phương án đúng) nhằm buộc LLM đánh giá từng phương án độc lập. Với mỗi câu hỏi, LLM giám khảo đưa ra chuỗi lập luận, sau đó trả về: (1) các phương án cho là đúng, và (2) cấp độ nhận thức dự đoán.
-
-Từ đó, hai chỉ số được tính toán:
-
-\begin{itemize}
-    \item \textbf{Khả năng giải quyết:} Câu hỏi đạt tiêu chí khi tập hợp phương án LLM chọn trùng khớp hoàn toàn với đáp án đúng.
-    $$\text{Solvability}(q) = \begin{cases} 1, & \text{nếu } C_{\text{judge}}(q) = \{c^*\} \\ 0, & \text{ngược lại} \end{cases}$$
-    trong đó $C_{\text{judge}}(q)$ là tập hợp các phương án được LLM giám khảo chọn cho câu hỏi $q$, và $c^*$ là đáp án đúng duy nhất. Nếu chọn sai hoặc chọn nhiều phương án, câu hỏi bị đánh giá 0 (có thể do mơ hồ hoặc chứa nhiều đáp án đúng).
-
-    \item \textbf{Độ bám sát phân loại nhận thức:} Đo lường mức độ phù hợp giữa cấp độ nhận thức LLM dự đoán và cấp độ yêu cầu:
-    $$\text{Alignment}(q) = \begin{cases} 1, & \text{nếu } l_{\text{judge}}(q) = l_{\text{target}}(q) \\ 0, & \text{ngược lại} \end{cases}$$
-    trong đó $l_{\text{judge}}(q)$ là cấp độ do LLM dự đoán và $l_{\text{target}}(q)$ là cấp độ yêu cầu.
-\end{itemize}
-
-Tỷ lệ chấp nhận tổng hợp (Acceptance Rate) là tỷ lệ câu hỏi đồng thời đạt cả hai tiêu chí:
-$$\text{Acceptance}(q) = \text{Solvability}(q) \times \text{Alignment}(q)$$
-$$\text{Acceptance Rate} = \frac{1}{N} \sum_{i=1}^{N} \text{Acceptance}(q_i)$$
-trong đó $N$ là tổng số câu hỏi được đánh giá. Chỉ những câu hỏi có Acceptance bằng 1 mới được đưa vào Giai đoạn 2.
-
-\textbf{Giai đoạn 2 - Đánh giá Chất lượng phương án nhiễu:}
-
-LLM giám khảo nhận đầy đủ câu hỏi, bốn phương án, đáp án đúng và cấp độ nhận thức. Nhiệm vụ là đánh giá ba phương án sai theo tiêu chuẩn từng cấp độ:
-\begin{itemize}
-    \item \textbf{Cấp 1 (Truy xuất):} Mâu thuẫn trực tiếp với văn bản hoặc đưa thông tin bên ngoài vào.
-    \item \textbf{Cấp 2 (Suy luận):} Chứa từ khóa từ văn bản nhưng mệnh đề sai, hoặc trình bày sự thật thiếu hoàn chỉnh.
-    \item \textbf{Cấp 3 (Lập luận phản biện):} Chứa bẫy logic tinh vi (áp dụng sai quy luật, đảo ngược nhân quả, giả định không được hỗ trợ).
-\end{itemize}
+\textbf{Chất lượng phương án nhiễu (Distractor Quality):} Tiêu chí này đánh giá chất lượng của ba phương án nhiễu trong mỗi câu hỏi. Một phương án sai hợp lệ phải thỏa mãn đồng thời hai tiêu chí: trái ngược hoàn toàn so với đáp án đúng (không tạo ra sự mơ hồ hay đa nghĩa cho người học) và có khả năng đánh lừa những học sinh không nắm vững kiến thức. LLM giám khảo sẽ đánh dấu các phương án nhiễu hợp lệ, giá trị của độ đo sẽ là tổng số phương án nhiễu hợp lệ trung bình đã được chuẩn hóa.
 
 Gọi $v(q)$ là số phương án nhiễu hợp lệ của câu hỏi $q$ (với $v(q) \in \{0, 1, 2, 3\}$). Chỉ số chất lượng cho mỗi cấp độ $l$ được chuẩn hóa về khoảng $[0, 1]$:
 $$\text{DQ}_l = \frac{1}{N_l} \sum_{q \in \mathcal{A}_l} \frac{v(q)}{3}$$
@@ -208,27 +121,16 @@ trong đó $\mathcal{A}_l$ là tập hợp các câu hỏi đã được chấp 
 Chỉ số Distractor Quality tổng thể là trung bình cộng trên ba cấp độ:
 $$\text{DQ}_{\text{overall}} = \frac{1}{3} \sum_{l=1}^{3} \text{DQ}_l$$
 
+Trong quá trình thực nghiệm, nghiên cứu phát hiện ra rằng một số mô hình yếu có xu hướng tạo ra các câu hỏi dễ (thường là cấp độ 1 và 2), dẫn đến việc kết quả \textit{Alignment} thấp trong khi \textit{Solvability} lại cao. Hay nói cách khác, các mô hình này sinh ra các câu hỏi có chất lượng tốt về hình thức (đúng một đáp án, không mơ hồ, đúng ngữ cảnh) nhưng không đúng cấp độ nhận thức yêu cầu. Để các đánh giá được công bằng và hiệu quả, nghiên cứu đề xuất độ đo Tỷ lệ chấp nhận (Acceptance Rate) là tỷ lệ các câu hỏi đồng thời thỏa mãn cả hai tiêu chí \textit{Solvability} và \textit{Alignment}. Đây cũng là độ đo chính được sử dụng trong báo cáo này.
+$$\text{Acceptance}(q) = \text{Solvability}(q) \times \text{Alignment}(q)$$
+$$\text{Acceptance Rate} = \frac{1}{N} \sum_{i=1}^{N} \text{Acceptance}(q_i)$$
+trong đó $N$ là tổng số câu hỏi được đánh giá. Chỉ những câu hỏi có Acceptance bằng 1 mới được đưa vào Giai đoạn 2.
+
 \subsection{Đánh giá hiệu năng nhận dạng văn bản}
 
-Để đánh giá chất lượng của quy trình trích xuất văn bản từ hình ảnh giả lập nhiễu, nghiên cứu sử dụng hai thang đo chuẩn công nghiệp: tỷ lệ lỗi ký tự (CER - Character Error Rate) và tỷ lệ lỗi từ (WER - Word Error Rate). Cả hai chỉ số đều dựa trên khoảng cách chỉnh sửa Levenshtein, đo lường số phép chèn ($I$), xóa ($D$) và thay thế ($S$) tối thiểu cần thiết để biến đổi chuỗi dự đoán thành chuỗi tham chiếu gốc:
+Bài toán thứ hai cần được đánh giá của khóa luận là tác vụ OCR. Nghiên cứu sử dụng hai thang đo tiêu chuẩn là tỷ lệ lỗi ký tự (CER - Character Error Rate) và tỷ lệ lỗi từ (WER - Word Error Rate). Nguyên lý của hai độ đo này là dựa trên khoảng cách chỉnh sửa Levenshtein. Cụ thể, giá trị của độ đo là số các bước sửa đổi tối thiểu để biến đổi chuỗi dự đoán thành chuỗi tham chiếu gốc với ba thao tác chèn ($I$), xóa ($D$) và thay thế ($S$).
 
 $$\text{CER} = \frac{S_c + D_c + I_c}{N_c}$$
 $$\text{WER} = \frac{S_w + D_w + I_w}{N_w}$$
 
-trong đó $N_c$ và $N_w$ lần lượt là tổng số ký tự và tổng số từ trong chuỗi tham chiếu. Giá trị CER và WER càng thấp thể hiện chất lượng nhận dạng OCR càng tốt, với giá trị 0 tương ứng với việc nhận dạng hoàn hảo không có sai sót.
-
-\subsection{Các mô hình cơ sở}
-
-Nhằm kiểm chứng khách quan hiệu năng của phương pháp đề xuất, nghiên cứu thiết lập các mô hình cơ sở tương ứng với hai bài toán cốt lõi: sinh câu hỏi trắc nghiệm và nhận dạng văn bản.
-
-\textbf{Trong bài toán sinh câu hỏi trắc nghiệm}, nghiên cứu sử dụng hai nhóm đối chứng để phục vụ các mục tiêu so sánh đa chiều:
-\begin{itemize}
-    \item \textbf{Phương pháp sinh trực tiếp :} Sử dụng chính các mô hình sLLM (Gemma 3 12B, Qwen3 8B, Phi-4, Nemotron Nano 9B, Llama 3.1 8B) vận hành độc lập, không thông qua kiến trúc đa tác tử. Việc đối chiếu với nhóm cơ sở này nhằm kiểm định giả thuyết rằng sự phối hợp đa tác tử mang lại mức độ cải thiện đáng kể và mang tính hệ thống so với giới hạn nội tại của các mô hình đơn lẻ.
-    \item \textbf{Nhóm mô hình thương mại:} Sử dụng các mô hình ngôn ngữ lớn tiên tiến (Gemini 3 Flash, GPT-5 Mini, Claude Haiku 4.5) làm hệ quy chiếu. So sánh này nhằm đánh giá tính khả thi và khả năng cạnh tranh về chất lượng của giải pháp dùng sLLM kết hợp đa tác tử so với các nền tảng có chi phí vận hành đắt đỏ.
-\end{itemize}
-
-\textbf{Trong bài toán trích xuất văn bản}, các mô hình đối chứng được lựa chọn bao gồm:
-\begin{itemize}
-    \item \textbf{Nhóm VLM chuyên dụng:} Sử dụng các mô hình thị giác - ngôn ngữ quy mô nhỏ được tinh chỉnh chuyên biệt cho tác vụ trích xuất tài liệu (DeepSeek OCR 2, DotOCR 1.5, MinerU 2.5, PaddleOCR VL 1.5). Đây là mốc cơ sở tiêu chuẩn để đánh giá năng lực trích xuất văn bản.
-    \item \textbf{Nhóm mô hình đa phương thức lớn:} Khai thác các mô hình LLM thương mại có năng lực thị giác (Gemini 3 Flash, GPT-5 Mini, Claude Haiku 4.5) để thiết lập giới hạn trên về khả năng nhận dạng và kiểm chứng mức độ duy trì độ chính xác (kháng nhiễu) trong điều kiện dữ liệu ảnh phức tạp.
-\end{itemize}
+trong đó $N_c$ và $N_w$ lần lượt là tổng số ký tự và tổng số từ trong chuỗi tham chiếu. Giá trị CER và WER càng thấp thể hiện chất lượng nhận dạng OCR càng tốt.

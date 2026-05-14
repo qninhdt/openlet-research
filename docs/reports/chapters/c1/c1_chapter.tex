@@ -1,69 +1,70 @@
 \chapter{Mở đầu}
 \label{chap:mo-dau}
 
-Chương này trình bày về bối cảnh, lý do chọn đề tài nghiên cứu cũng như phân tích các thách thức hiện tại trong bài toán số hóa học liệu và tự động sinh câu hỏi trắc nghiệm. Từ đó, chương đưa ra giải pháp đề xuất dựa trên các mô hình ngôn ngữ lớn cỡ nhỏ và kiến trúc đa tác tử, đồng thời xác định rõ mục tiêu, phạm vi nghiên cứu và cấu trúc tổng thể của khóa luận.
+Chương đầu tiên của khóa luận trình bày bối cảnh và lý do chọn đề tài, cùng với các nội dung liên quan. Mục đầu tiên mô tả vấn đề đang hiện hữu của bài toán số hóa trong lĩnh vực học tập. Hai mục tiếp theo, báo cáo sẽ trình bày tổng quan giải pháp đề xuất và các đóng góp của khóa luận. Mục cuối cùng trình bày sơ bộ về cấu trúc của báo cáo và nội dung chính của từng chương.
 
 \section{Đặt vấn đề}
 
-Trong bối cảnh kỷ nguyên số đang định hình lại mọi lĩnh vực của đời sống, giáo dục cũng đang trải qua một cuộc chuyển đổi số mạnh mẽ. Một trong những yêu cầu cấp thiết đối với các cơ sở giáo dục hiện nay là việc số hóa các tài liệu giảng dạy, kho đề thi, và học liệu từ dạng tài liệu giấy hoặc ảnh chụp sang các định dạng dữ liệu có cấu trúc. Việc này không chỉ giúp lưu trữ và chia sẻ dễ dàng trên các hệ thống quản lý học tập mà còn mở ra cơ hội cá nhân hóa lộ trình học tập cho từng học sinh. Đồng thời, công tác kiểm tra và đánh giá là một trụ cột không thể thiếu trong giáo dục, trong đó bài thi trắc nghiệm nhiều lựa chọn đóng vai trò đặc biệt quan trọng nhờ tính khách quan, khả năng bao quát kiến thức rộng và dễ dàng chấm điểm tự động. Tuy nhiên, việc thiết kế một bộ câu hỏi trắc nghiệm chất lượng cao, đặc biệt là các câu hỏi đòi hỏi tư duy bậc cao theo thang phân loại \textbf{Bloom} \cite{bloom1956taxonomy}, tiêu tốn rất nhiều thời gian và chất xám của giáo viên.
+Tác vụ số hóa tài liệu học tập là một công việc quan trọng trong lĩnh vực giáo dục, đặc biệt trong thời đại công nghệ xuất hiện trong mọi lĩnh vực của đời sống. Đặc điểm của lĩnh vực này là có lượng dữ liệu dồi dào và vô cùng đa dạng như: sách giáo khoa, đề thi và bài giảng. Bên cạnh việc chuyển đổi tài liệu giáo dục từ dạng vật lý sang dữ liệu số, việc sử dụng chúng một cách hữu ích cũng là một bài toán thiết yếu. Bằng cách tạo ra các bài kiểm tra, đặc biệt là bài kiểm tra trắc nghiệm, giáo viên vừa có thể đánh giá học sinh một cách khách quan và tự động, vừa có thể tận dụng nguồn tài nguyên số này.
 
-Quá trình tự động hóa việc chuyển đổi học liệu thành câu hỏi trắc nghiệm hiện nay đang vấp phải hai rào cản lớn về mặt kỹ thuật:
+Tuy nhiên, một vấn đề lớn được đặt ra là: quá trình thiết kế ra một bộ câu hỏi trắc nghiệm, vừa đảm bảo cả chất lượng và số lượng, yêu cầu lượng thời gian và tài nguyên đáng kể từ giáo viên. Chưa kể, bài kiểm tra trắc nghiệm sau đó cần được kiểm tra và rà soát để đảm bảo các tiêu chuẩn giáo dục, như thang đo Bloom \cite{bloom1956taxonomy}. Hai vấn đề kỹ thuật chính mà giáo viên phải đối mặt khi cần chuyển đổi học liệu sang một bài kiểm tra trắc nghiệm là:
+
 \begin{itemize}
-    \item \textbf{Thách thức trong việc số hóa tài liệu từ ảnh chụp:} Các học liệu thực tế thường ở dạng sách in, giấy tờ hoặc ảnh chụp bởi điện thoại với chất lượng quang học thấp (mờ, nhòe, nhiễu hạt, ánh sáng không đều). Các công cụ nhận dạng ký tự quang học (OCR - Optical Character Recognition) truyền thống như Tesseract \cite{smith2007overview} mặc dù phổ biến nhưng thường gặp khó khăn nghiêm trọng trong việc xử lý các tài liệu chứa cấu trúc phức tạp (bảng biểu, công thức toán học, biểu đồ) hoặc bị nhiễu. Hậu quả là văn bản được trích xuất thường xuyên bị vỡ cấu trúc đoạn văn, sai lệch ngữ nghĩa, khiến cho đầu vào của giai đoạn sinh câu hỏi tiếp theo trở nên vô nghĩa.
-    
-    \item \textbf{Thách thức trong việc kiểm soát chất lượng sinh câu hỏi:} Các phương pháp sinh câu hỏi truyền thống thường dựa trên các bộ quy tắc cú pháp ngữ pháp học (rule-based NLP) \cite{heilman2010good}, dẫn đến việc hệ thống chỉ có thể sinh ra các câu hỏi ở mức độ nhận thức thấp, chủ yếu là ghi nhớ sự kiện, rất rập khuôn và thiếu tự nhiên. Gần đây, sự xuất hiện của các mô hình ngôn ngữ lớn (LLM - Large Language Model) và mô hình thị giác - ngôn ngữ (VLM - Vision-Language Model) khổng lồ như GPT \cite{gpt5_2025}, Gemini \cite{gemini2025} hay Claude \cite{claude2025} đã giải quyết được cả hai bài toán trên với độ chính xác rất cao. Tuy nhiên, việc ứng dụng các mô hình này trong môi trường giáo dục vấp phải rào cản chí mạng: chi phí gọi giao diện lập trình ứng dụng (API - Application Programming Interface) vô cùng đắt đỏ, phụ thuộc hoàn toàn vào kết nối internet ổn định và tiềm ẩn rủi ro lớn về bảo mật dữ liệu. Thêm vào đó, ngay cả với LLM lớn, việc sinh ra các câu hỏi tư duy sâu (Suy luận, Phân tích) với phương án nhiễu có tính chẩn đoán cao chỉ qua một lần yêu cầu vẫn thường dẫn đến lỗi logic hoặc ``ảo giác'' (hallucination).
+    \item \textbf{Khó khăn trong việc số hóa tài liệu từ ảnh chụp:} Các tài liệu giáo dục thực tế thường ở dạng bản in, trang sách, hoặc ảnh chụp từ điện thoại với chất lượng thấp (ảnh nhòe, mờ, độ phân giải thấp). Không chỉ thế, nội dung của chúng còn bao gồm các dạng dữ liệu phức tạp như bảng biểu, đồ thị và công thức toán, gây khó khăn cho các công cụ truyền thống phổ biến như Tesseract \cite{smith2007overview}. Hậu quả là văn bản được trích xuất ra có độ chính xác kém, thiếu nội dung và phá vỡ cấu trúc của văn bản; dẫn tới ảnh hưởng nghiêm trọng đến tác vụ sinh bài kiểm tra.
+
+    \item \textbf{Khó khăn trong việc kiểm soát chất lượng câu hỏi:} Các hướng tiếp cận truyền thống đối với bài toán này thường sử dụng các quy tắc lập trình sẵn (rule-based) \cite{heilman2010good} để tạo ra các câu hỏi trắc nghiệm có mức độ nhận thức đơn giản. Chủ yếu là các câu hỏi về thông tin bề mặt, không yêu cầu suy luận và phân tích sâu, rất rập khuôn và thiếu tự nhiên. Một hướng đi mới là ứng dụng khả năng hiểu văn bản của các mô hình ngôn ngữ lớn, để từ văn bản đầu vào có thể tạo ra các câu hỏi liên quan với chất lượng sư phạm cao. Tuy nhiên, chi phí để sử dụng các mô hình này là rất lớn, đòi hỏi tài nguyên tính toán cao, đặc biệt đối với lượng học liệu khổng lồ của ngành giáo dục. Không chỉ vậy, ngay cả các LLM cũng khó tránh được việc sinh ra các câu hỏi kém chất lượng hoặc ảo giác, nếu không có một quy trình kiểm tra chặt chẽ.
 \end{itemize}
 
-Từ những rào cản đó, một bài toán cấp thiết được đặt ra: Làm thế nào để xây dựng một quy trình số hóa và sinh câu hỏi tự động, đảm bảo chất lượng sư phạm cao, có khả năng xử lý hình ảnh nhiễu, nhưng vẫn tối ưu hóa được chi phí và có thể triển khai trên các hạ tầng phần cứng nội bộ, đảm bảo tính bảo mật?
+Từ những thách thức trên, một vấn đề lớn được đặt ra là: Làm thế nào có thể phát triển một hệ thống tự động số hóa tài liệu, tạo ra các bài kiểm tra trắc nghiệm có chất lượng cao với chi phí thấp, có thể triển khai trên hạ tầng có sẵn và bảo mật?
 
 \section{Giải pháp đề xuất}
 
-Để giải quyết bài toán trên, khóa luận này đề xuất một giải pháp đột phá và toàn diện: Xây dựng một luồng xử lý khép kín ứng dụng các mô hình ngôn ngữ lớn cỡ nhỏ mã nguồn mở (sLLM - Small Large Language Model, với quy mô tham số dưới 15 tỷ, có thể chạy trên máy tính cá nhân hoặc máy chủ nội bộ vừa phải) kết hợp với kiến trúc hệ thống đa tác tử (MAS - Multi-Agent System).
+Nhằm giải quyết bài toán trên, khóa luận đề xuất giải pháp kết hợp các mô hình ngôn ngữ cỡ nhỏ mã nguồn mở (sLLM - Small Large Language Model) với kiến trúc đa tác tử (MAS). Các mô hình được sử dụng có số lượng tham số dưới 15 tỷ, điều này giúp chúng có thể chạy trên hạ tầng sẵn có với chi phí thấp. Bên cạnh đó, kiến trúc đa tác tử thiết lập một quy trình tạo bài kiểm tra chặt chẽ từ bước thiết kế câu hỏi đến bước đánh giá và rà soát câu hỏi vừa sinh. Quy trình đề xuất gồm hai giai đoạn chính:
 
-Quy trình giải pháp được chia thành hai giai đoạn cốt lõi:
 \begin{enumerate}
-    \item \textbf{Giai đoạn trích xuất văn bản bằng VLM nhỏ gọn:} Thay vì sử dụng OCR truyền thống, hệ thống tích hợp các VLM chuyên dụng cỡ nhỏ (như DeepSeek OCR-2, MinerU, PaddleOCR-VL). Các mô hình này nhận đầu vào là ảnh chụp tài liệu chứa yếu tố nhiễu, sau đó tận dụng khả năng hiểu cấu trúc tài liệu thông minh để trích xuất văn bản chuẩn xác, bảo toàn định dạng đoạn văn, giúp tạo ra văn bản chính xác cho giai đoạn sinh câu hỏi.
-    
-    \item \textbf{Giai đoạn sinh câu hỏi trắc nghiệm bằng kiến trúc đa tác tử:} Thay vì dùng một câu lệnh duy nhất ép mô hình sLLM (như Gemma 3, Qwen 3, Phi-4) phải làm tất cả mọi việc, nghiên cứu đề xuất phân rã quy trình tư duy của giáo viên thành các vai trò riêng biệt. Hệ thống \textbf{LangGraph} \cite{langgraph2024} được sử dụng để điều phối một mạng lưới các tác tử:
+    \item \textbf{Giai đoạn trích xuất văn bản bằng VLM nhỏ gọn:} Nhận thấy được những hạn chế cố hữu của các công cụ truyền thống như Tesseract, giải pháp sử dụng các mô hình VLM chuyên dụng cỡ nhỏ như DeepSeek OCR v2 \cite{deepseekocr2025}, PaddleOCR-VL \cite{paddleocr2025}. Các mô hình này đã chứng minh được khả năng trích xuất văn bản một cách chính xác từ ảnh đầu vào, giúp đảm bảo chất lượng của giai đoạn tạo bài kiểm tra.
+
+    \item \textbf{Giai đoạn sinh câu hỏi trắc nghiệm bằng kiến trúc đa tác tử:} Kiến trúc này tách bài toán thành nhiều bài toán nhỏ hơn được xử lý bởi một tác tử chuyên biệt. Hệ thống LangGraph \cite{langgraph2024} được sử dụng để điều phối tác tử:
     \begin{itemize}
-        \item \textbf{Tác tử Phân loại:} Định hướng và đảm bảo câu hỏi chuẩn bị sinh ra tuân thủ đúng mức độ nhận thức trong thang Bloom (Nhớ, Hiểu, Phân tích).
-        \item \textbf{Tác tử Sinh câu hỏi:} Dựa trên ngữ cảnh và phân loại đã định, tạo ra câu hỏi thô cùng bộ đáp án (bao gồm đáp án đúng và các phương án nhiễu).
-        \item \textbf{Tác tử Học sinh:} Đóng vai trò phản biện. Tác tử này cố gắng ``giải'' câu hỏi vừa được sinh ra mà không xem đáp án trước. Quá trình này giúp phát hiện ra các câu hỏi bị đa nghĩa, bẫy logic bất hợp lý, hoặc phương án nhiễu quá dễ nhận biết.
-        \item \textbf{Tác tử Hiệu chỉnh:} Dựa trên phản hồi từ Tác tử Học sinh, tác tử này tiến hành sửa đổi, tinh chỉnh ngôn từ và logic để câu hỏi đạt chuẩn sư phạm cao nhất.
+        \item \textbf{Tác tử \textit{Sinh câu hỏi}:} Tạo mới hoặc tạo lại các câu hỏi trắc nghiệm với đầu vào là tài liệu và mức độ nhận thức hệ thống yêu cầu.
+        \item \textbf{Tác tử \textit{Phân loại}:} Phân loại và kiểm tra các câu hỏi được sinh ra có đảm bảo đúng mức độ nhận thức theo thang đo Bloom hay không.
+        \item \textbf{Tác tử \textit{Học sinh}:} Tác tử này đóng vai là học sinh và sẽ giải các câu hỏi vừa được sinh ra mà không xem đáp án. Quá trình này giúp phát hiện ra các câu hỏi bị đa nghĩa, bẫy logic bất hợp lý, hoặc phương án nhiễu quá dễ nhận biết.
+        \item \textbf{Tác tử \textit{Hiệu chỉnh}:} Dựa trên phản hồi từ Tác tử Học sinh, tác tử này tiến hành sửa đổi, tinh chỉnh ngôn từ và logic để câu hỏi đạt chuẩn sư phạm cao nhất.
     \end{itemize}
 \end{enumerate}
 
-Nhờ sự giám sát chéo và quy trình tinh chỉnh lặp đi lặp lại của MAS, các sLLM tuy có lượng tham số nhỏ nhưng lại có thể sản sinh ra chất lượng nội dung tiệm cận với các LLM khổng lồ thương mại, đồng thời giải quyết triệt để bài toán bảo mật và chi phí vận hành.
+Văn bản đầu vào được xử lý bởi bốn tác tử với hai vòng lặp kiểm tra và sửa. Nhờ đó, bài toán có thể được giải quyết với chất lượng tiệm cận các LLM với chi phí thấp và có thể triển khai hoàn toàn trên hạ tầng có sẵn và bảo mật nhờ các ưu điểm của sLLM.
 
 \section{Đóng góp của khóa luận}
 
-Thông qua việc thiết kế, triển khai và đánh giá giải pháp, khóa luận mang đến 4 đóng góp chính mang ý nghĩa cả về mặt học thuật lẫn ứng dụng thực tiễn:
+Qua quá trình thiết kế, thực nghiệm và đánh giá giải pháp, khóa luận này đề xuất bốn đóng góp mang ý nghĩa cả về mặt học thuật lẫn ứng dụng thực tiễn:
 
 \begin{itemize}
-    \item \textbf{Đề xuất và thiết kế kiến trúc hệ thống đa tác tử chuyên biệt cho giáo dục:} Khóa luận lần đầu tiên hệ thống hóa và áp dụng thành công kiến trúc MAS dựa trên sLLM cho bài toán sinh câu hỏi trắc nghiệm đa cấp độ nhận thức theo thang Bloom. Cơ chế tự kiểm duyệt qua vai trò ``Giáo viên - Học sinh'' đã bù đắp xuất sắc giới hạn suy luận nội tại của các mô hình ngôn ngữ cỡ nhỏ.
-    
-    \item \textbf{Đánh giá thực nghiệm quy mô và toàn diện:} Khóa luận thiết kế một quy trình sinh ảnh tài liệu giả lập (từ tập dữ liệu RACE \cite{lai2017race}) để mô phỏng chính xác các điều kiện nhiễu trong thực tế. Dựa trên đó, nghiên cứu tiến hành đánh giá và so sánh chi tiết hiệu năng của 12 mô hình khác nhau (cả VLM, sLLM mã nguồn mở và LLM thương mại) trên 2 bài toán OCR và sinh câu hỏi, cung cấp những minh chứng thực nghiệm rõ ràng về tiềm năng thay thế của sLLM.
-    
-    \item \textbf{Phát triển khung đánh giá chất lượng sư phạm:} Khắc phục điểm yếu của các độ đo n-gram truyền thống (như BLEU, ROUGE), nghiên cứu thiết lập một quy trình đánh giá tự động đa chiều dựa trên 3 tiêu chí sư phạm thiết yếu: Tính giải được (Solvability), Độ bám sát phân loại nhận thức (Alignment), và Chất lượng phương án nhiễu (Distractor Quality).
-    \item \textbf{Hiện thực hóa giải pháp qua ứng dụng Web Openlet:} Khóa luận không dừng lại ở mức độ lý thuyết mà tiến hành xây dựng Openlet, một nền tảng ứng dụng Web trực quan, cho phép người dùng cuối (giáo viên, học sinh) tải ảnh tài liệu lên, hệ thống sẽ tự động trích xuất và sinh ra bài kiểm tra trực tuyến. Điều này chứng minh rõ ràng tính khả thi trong việc triển khai giải pháp vào môi trường giáo dục số thực tế.
+    \item \textbf{Đề xuất kiến trúc hệ thống đa tác tử chuyên biệt cho giáo dục:} Khóa luận đã thiết kế và áp dụng thành công kiến trúc đa tác tử vào các sLLM cho bài toán sinh câu hỏi trắc nghiệm. Hệ thống này có thể tự động tạo và đánh giá câu hỏi trắc nghiệm theo thang đo Bloom. Cơ chế vòng lặp kiểm tra được đề xuất để bù đắp giới hạn suy luận của sLLM.
+
+    \item \textbf{Đánh giá thực nghiệm quy mô và toàn diện:} Khóa luận chạy các thực nghiệm trên 12 mô hình khác nhau bao gồm VLM, sLLM mã nguồn mở và các LLM thương mại cho hai bài toán sinh câu hỏi trắc nghiệm và OCR. Bên cạnh đó, dữ liệu đánh giá của tác vụ OCR được sinh tự động nhờ kỹ thuật mô phỏng nhiễu.
+
+    \item \textbf{Phát triển khung đánh giá chất lượng sư phạm:} Thay vì sử dụng các độ đo truyền thống như BLEU, ROUGE vốn dĩ không phù hợp để đánh giá các bài toán sinh dữ liệu, nghiên cứu đã thiết lập một quy trình đánh giá tự động dựa vào cơ chế LLM-as-a-Judge \cite{liu2023geval}. Ba tiêu chí sư phạm được sử dụng là Tính giải được (Solvability), Độ bám sát phân loại nhận thức (Alignment), và Chất lượng phương án nhiễu (Distractor Quality).
+
+    \item \textbf{Hiện thực hóa giải pháp qua ứng dụng Web Openlet:} Khóa luận đã xây dựng và triển khai ứng dụng Web nhằm ứng dụng kiến trúc đề xuất vào trong thực tế. Giáo viên có thể tải tài liệu lên để tạo bài kiểm tra và học sinh có thể tham gia bài kiểm tra đã tạo của giáo viên. Nhờ đó, nghiên cứu đã chứng minh tính khả thi của giải pháp đề xuất.
 \end{itemize}
 
 \section{Cấu trúc khóa luận}
 
-Bên cạnh nội dung báo cáo, toàn bộ mã nguồn và kêt quả thực nghiệm cũng được công bố dưới dạng mã nguồn mở\footnote{\url{https://github.com/qninhdt/openlet-research}}. Để trình bày một cách có hệ thống quá trình nghiên cứu, thiết kế và đánh giá, nội dung khóa luận được tổ chức thành 7 chương với bố cục như sau:
+Báo cáo sẽ trình bày một cách có hệ thống về giải pháp đề xuất, quy trình đánh giá, kết quả và xây dựng ứng dụng Web Openlet nhằm hiện thực hóa nghiên cứu. Toàn bộ nội dung khóa luận được chia thành 7 chương với bố cục như sau:
 
 \begin{itemize}
     \item \textbf{Chương \ref{chap:mo-dau} - Mở đầu:} Đặt vấn đề, phân tích các rào cản trong các phương pháp hiện tại, từ đó đề xuất giải pháp ứng dụng sLLM kết hợp MAS, đồng thời tóm tắt các đóng góp chính của nghiên cứu.
-    
-    \item \textbf{Chương \ref{chap:co-so-ly-thuyet} - Cơ sở lý thuyết \& Các công trình liên quan:} Cung cấp nền tảng kiến thức về thang phân loại nhận thức Bloom và nền tảng của MAS. Phần cuối chương tập hợp các nghiên cứu liên quan để chỉ ra khoảng trống nghiên cứu hiện tại.
-    
-    \item \textbf{Chương \ref{chap:phuong-phap} - Phương pháp đề xuất:} Trình bày chuyên sâu về kiến trúc MAS đề xuất và thiết kế của từng tác tử trong quy trình sinh câu hỏi.
-    
-    \item \textbf{Chương \ref{chap:phuong-phap-danh-gia} - Phương pháp đánh giá:} Thiết lập môi trường thực nghiệm, mô tả bộ dữ liệu đầu vào, chiến lược tạo dữ liệu ảnh nhiễu, các tham số cấu hình mô hình, và thiết lập các mô hình cơ sở để đối chứng kết quả.
-    
-    \item \textbf{Chương \ref{chap:ket-qua} - Kết quả:} Phân tích số liệu thực nghiệm. So sánh chất lượng OCR, năng lực sinh câu hỏi đa cấp độ của sLLM so với LLM thương mại, và phân tích bài toán hiệu quả chi phí.
-    
-    \item \textbf{Chương \ref{chap:thiet-ke} - Thiết kế và hiện thực ứng dụng Openlet:} Mô tả quá trình kỹ thuật hóa từ lý thuyết thành sản phẩm thực tế, bao gồm sơ đồ ca sử dụng, kiến trúc phần mềm, cũng như giới thiệu các tính năng cốt lõi của nền tảng web Openlet.
-    
-    \item \textbf{Chương \ref{chap:ket-luan} - Kết luận và Hướng phát triển:} Tổng kết các kết quả quan trọng nhất mà nghiên cứu đạt được, thành thật nhìn nhận những hạn chế còn tồn tại và đề xuất các định hướng phát triển cho hệ thống trong tương lai.
+
+    \item \textbf{Chương \ref{chap:co-so-ly-thuyet} - Cơ sở lý thuyết \& Các công trình liên quan:} Phần này cung cấp các lý thuyết nền tảng về thang đo Bloom, hệ thống đa tác tử và phương pháp LLM-as-a-Judge được sử dụng. Ngoài ra, các nghiên cứu liên quan cũng sẽ được trình bày để chỉ ra khoảng trống nghiên cứu hiện tại.
+
+    \item \textbf{Chương \ref{chap:phuong-phap} - Phương pháp đề xuất:} Chương này sẽ trình bày chi tiết về kiến trúc MAS đề xuất kèm theo thiết kế của từng tác tử cũng như một số kỹ thuật mở rộng liên quan.
+
+    \item \textbf{Chương \ref{chap:phuong-phap-danh-gia} - Phương pháp đánh giá:} Mục tiêu của chương này là trình bày cách khóa luận thiết lập môi trường đánh giá, mô tả bộ dữ liệu đầu vào, chiến lược tạo ảnh nhiễu và thiết lập các mô hình cơ sở dùng để đánh giá kết quả của kiến trúc đề xuất.
+
+    \item \textbf{Chương \ref{chap:ket-qua} - Kết quả:} Các kết quả của thực nghiệm sẽ được đánh giá và phân tích trong chương này. Báo cáo sẽ so sánh năng lực sinh câu hỏi đa cấp độ, chất lượng OCR và chi phí giữa sLLM và LLM thương mại.
+
+    \item \textbf{Chương \ref{chap:thiet-ke} - Thiết kế và hiện thực ứng dụng Openlet:} Chương này mô tả quy trình xây dựng ứng dụng Web Openlet thực tế. Nội dung sẽ bao gồm sơ đồ ca sử dụng, kiến trúc của phần mềm kèm theo giới thiệu các tính năng cốt lõi của ứng dụng.
+
+    \item \textbf{Chương \ref{chap:ket-luan} - Kết luận và Hướng phát triển:} Chương cuối của khóa luận sẽ tập trung vào tổng kết các kết quả quan trọng nhất mà nghiên cứu đạt được cũng như là các hạn chế đang tồn tại và một số định hướng phát triển trong tương lai.
 \end{itemize}
