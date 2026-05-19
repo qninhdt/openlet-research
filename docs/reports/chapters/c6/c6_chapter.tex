@@ -9,7 +9,7 @@ Chương~\ref{chap:phuong-phap} của khóa luận đã trình bày chi tiết c
 
 Openlet hướng tới hai nhóm người dùng chính. Nhóm thứ nhất là giáo viên hoặc người biên soạn tài liệu học tập. Đây là nhóm người có nhu cầu lớn trong việc chuyển đổi các tài liệu học tập sang bài kiểm tra trắc nghiệm trực tuyến. Nhóm thứ hai là học sinh hoặc người làm bài. Những người này sẽ truy cập bài kiểm tra qua liên kết chia sẻ, thực hiện làm bài và nhận kết quả phản hồi.
 
-Trong phạm vi của khóa luận này, Openlet được thiết kế là một chu trình nghiệp vụ khép kín gồm tiếp nhận tài liệu đầu vào, trích xuất nội dung từ tài liệu, sinh câu hỏi trắc nghiệm, tổ chức làm bài và theo dõi kết quả. Ứng dụng hỗ trợ ba định dạng tài liệu phổ biến là ảnh chụp tài liệu, tệp PDF và văn bản thuần.
+\textbf{Trong phạm vi của khóa luận này, Openlet được thiết kế là một chu trình nghiệp vụ khép kín gồm tiếp nhận tài liệu đầu vào, trích xuất nội dung từ tài liệu, sinh câu hỏi trắc nghiệm, tổ chức làm bài và theo dõi kết quả.} Ứng dụng hỗ trợ ba định dạng tài liệu phổ biến là ảnh chụp tài liệu, tệp PDF và văn bản thuần.
 
 Để hiện thực hóa kiến trúc hệ thống đã đề xuất thành một sản phẩm hoàn chỉnh, việc lựa chọn và kết hợp các nền tảng phát triển phù hợp là yếu tố tiên quyết. Công nghệ được sử dụng để phát triển mã nguồn và triển khai ứng dụng được chia thành ba nhóm chính tương ứng với ba lớp kỹ thuật của hệ thống gồm: Công nghệ phía giao diện người dùng, công nghệ máy chủ và công nghệ trí tuệ nhân tạo.
 
@@ -24,7 +24,7 @@ Trong phạm vi của khóa luận này, Openlet được thiết kế là một
 Trong phần này, khóa luận sẽ tập trung vào các yêu cầu chức năng và phi chức năng mà nền tảng Openlet tập trung phát triển. Trong khi các yêu cầu chức năng tập trung vào các chức năng cốt lõi mà hệ thống phải có để người dùng cuối có thể sử dụng thì yêu cầu phi chức năng tập trung hơn vào trải nghiệm của người dùng và khả năng mở rộng.
 
 \subsection{Yêu cầu chức năng}
-Hệ thống Openlet được thiết kế và xây dựng xoay quanh hai tác nhân chính là \textit{Giáo viên} và \textit{Học sinh}. Các yêu cầu chức năng được chia làm hai nhóm tương ứng với hai tác nhân này; Hình~\ref{fig:openlet-use-case} biểu diễn các ca sử dụng của mỗi tác nhân.
+\textbf{Hệ thống Openlet được thiết kế và xây dựng xoay quanh hai tác nhân chính là \textit{Giáo viên} và \textit{Học sinh}.} Các yêu cầu chức năng được chia làm hai nhóm tương ứng với hai tác nhân này; Hình~\ref{fig:openlet-use-case} biểu diễn các ca sử dụng của mỗi tác nhân.
 
 \textbf{Giáo viên (Người quản trị bài kiểm tra).} Đây là tác nhân có nhiệm vụ khởi tạo và quản lý toàn bộ quy trình và vòng đời của bài kiểm tra. Các chức năng cốt lõi cần có bao gồm:
 
@@ -45,7 +45,7 @@ Hệ thống Openlet được thiết kế và xây dựng xoay quanh hai tác n
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/demo-use-cases.pdf}
+    \includegraphics[width=0.8\linewidth]{figures/demo-use-cases.pdf}
     \caption{Biểu đồ ca sử dụng tổng quát của Openlet với hai tác nhân chính: giáo viên (quản lý vòng đời bài kiểm tra) và người làm bài (truy cập và nộp bài)}
     \label{fig:openlet-use-case}
 \end{figure}
@@ -58,7 +58,7 @@ Các yêu cầu phi chức năng quyết định trực tiếp cách kiến trú
 
 \textbf{Tính mở rộng và linh hoạt.} Máy chủ của hệ thống phải có khả năng hỗ trợ số lượng người dùng đột biến, tự động mở rộng năng lực tính toán của máy chủ. Điều này xuất phát từ đặc điểm cốt lõi của các ứng dụng giáo dục là phải xử lý lượng lớn người dùng cùng lúc khi bắt đầu một bài kiểm tra.
 
-\textbf{Hiệu năng và xử lý bất đồng bộ.} Các tác vụ nặng phụ thuộc vào mô hình trí tuệ nhân tạo như OCR và LLM phải được xử lý dưới nền một cách bất đồng bộ mà không gây ảnh hưởng đến các chức năng khác của hệ thống. Bên cạnh đó, giao diện của người dùng phải được cập nhật trạng thái của tác vụ theo thời gian thực để đảm bảo trải nghiệm người dùng.
+\textbf{Hiệu năng và xử lý bất đồng bộ.} \textbf{Các tác vụ nặng phụ thuộc vào mô hình trí tuệ nhân tạo như OCR và LLM phải được xử lý dưới nền một cách bất đồng bộ mà không gây ảnh hưởng đến các chức năng khác của hệ thống.} Bên cạnh đó, giao diện của người dùng phải được cập nhật trạng thái của tác vụ theo thời gian thực để đảm bảo trải nghiệm người dùng.
 
 \section{Thiết kế hệ thống}
 \label{sec:thiet-ke-he-thong}
@@ -66,7 +66,7 @@ Các yêu cầu phi chức năng quyết định trực tiếp cách kiến trú
 \subsection{Kiến trúc tổng thể}
 Quá trình lựa chọn và thiết kế kiến trúc hệ thống đóng vai trò quan trọng trong việc xác định xem một hệ thống có đáp ứng được các yêu cầu về cả chức năng và phi chức năng hay không. Việc áp dụng một kiến trúc cụ thể không chỉ cần đảm bảo sự thích hợp với yêu cầu hiện tại của hệ thống mà còn phải đề cao khả năng mở rộng và phát triển trong tương lai.
 
-Hệ thống Openlet được triển khai theo kiến trúc ba tầng. Tầng thứ nhất là giao diện Web được cài đặt bằng thư viện \textbf{Next.js} và sử dụng Firebase Authentication để xác thực tài khoản thông qua Google. Tầng tiếp theo là các khối Cloud Functions đóng vai trò xử lý từng công việc nghiệp vụ như chấm điểm, truy xuất đề thi, OCR. Tầng thứ ba là dịch vụ trung gian OpenRouter cung cấp API của các mô hình trí tuệ nhân tạo. Kiến trúc của hệ thống được biểu diễn trong Hình~\ref{fig:openlet-architecture}.
+\textbf{Hệ thống Openlet được triển khai theo kiến trúc ba tầng.} Tầng thứ nhất là giao diện Web được cài đặt bằng thư viện \textbf{Next.js} và sử dụng Firebase Authentication để xác thực tài khoản thông qua Google. Tầng tiếp theo là các khối Cloud Functions đóng vai trò xử lý từng công việc nghiệp vụ như chấm điểm, truy xuất đề thi, OCR. Tầng thứ ba là dịch vụ trung gian OpenRouter cung cấp API của các mô hình trí tuệ nhân tạo. Kiến trúc của hệ thống được biểu diễn trong Hình~\ref{fig:openlet-architecture}.
 
 \begin{figure}[htbp]
     \centering
@@ -105,7 +105,7 @@ Từ những yêu cầu chức năng cơ bản đã được phân tích trong p
     \label{fig:openlet-data-model}
 \end{figure}
 
-Cloud Firestore được lựa chọn để lưu trữ vì bản chất dữ liệu của hệ thống Openlet có tính chất lồng nhau rõ rệt. Cụ thể, một bài kiểm tra không chỉ có các thông tin mô tả đơn giản mà còn chứa danh sách các câu hỏi, mỗi câu hỏi lại chứa nhiều lựa chọn khác nhau. Với đặc điểm dữ liệu như này, nếu sử dụng mô hình cơ sở dữ liệu quan hệ, hệ thống sẽ cần thực hiện nhiều lần kết hợp bảng thay vì chỉ cần một lần truy vấn như Firestore. Bên cạnh đó, nền tảng còn hỗ trợ đồng bộ dữ liệu theo thời gian thực, rất phù hợp đối với những ứng dụng yêu cầu theo dõi tiến trình xử lý như Openlet.
+Cloud Firestore được lựa chọn để lưu trữ vì bản chất dữ liệu của hệ thống Openlet có tính chất lồng nhau rõ rệt. Cụ thể, một bài kiểm tra không chỉ có các thông tin mô tả đơn giản mà còn chứa danh sách các câu hỏi, mỗi câu hỏi lại chứa nhiều lựa chọn khác nhau. Với đặc điểm dữ liệu như này, nếu sử dụng mô hình cơ sở dữ liệu quan hệ, hệ thống sẽ cần thực hiện nhiều lần kết hợp bảng thay vì chỉ cần một lần truy vấn như Firestore. \textbf{Bên cạnh đó, nền tảng còn hỗ trợ đồng bộ dữ liệu theo thời gian thực, rất phù hợp đối với những ứng dụng yêu cầu theo dõi tiến trình xử lý như Openlet.}
 
 \section{Hiện thực các luồng chức năng cốt lõi}
 
@@ -113,7 +113,7 @@ Phần~\ref{sec:phan_tich_yeu_cau} đã phân tích và đưa ra các yêu cầu
 
 \subsection{Luồng tạo bài kiểm tra tự động}
 
-Sơ đồ tuần tự cho chức năng tạo bài kiểm tra tự động được trình bày ở Hình~\ref{fig:sequence-create-quiz} để minh họa cách giao diện, nền tảng lưu trữ dữ liệu, nền tảng lưu trữ tệp, các hàm xử lý phía máy chủ và lớp mô hình trí tuệ nhân tạo phối hợp với nhau.
+Sơ đồ tuần tự cho chức năng tạo bài kiểm tra tự động được trình bày ở Hình~\ref{fig:sequence-create-quiz} để minh họa cách giao diện, nền tảng lưu trữ dữ liệu, nền tảng lưu trữ tệp, các hàm xử lý phía máy chủ và lớp mô hình trí tuệ nhân tạo phối hợp với nhau. Sơ đồ này làm rõ thứ tự xử lý từ lúc giáo viên tải tài liệu lên đến khi bài kiểm tra được cập nhật hoàn tất trên hệ thống..
 
 \begin{figure}[htbp]
     \centering
@@ -126,7 +126,7 @@ Sau khi giáo viên tải tệp tài liệu văn bản lên, hệ thống sẽ k
 
 \subsection{Luồng truy cập, làm bài và nộp bài}
 
-Sơ đồ tuần tự cho chức năng truy cập bài kiểm tra, làm bài và nộp bài được trình bày ở Hình~\ref{fig:sequence-play-submit} để làm rõ cách hệ thống bảo vệ đáp án đúng trong khi vẫn hỗ trợ chia sẻ công khai qua liên kết.
+Sơ đồ tuần tự cho chức năng truy cập bài kiểm tra, làm bài và nộp bài được trình bày ở Hình~\ref{fig:sequence-play-submit} để làm rõ cách hệ thống bảo vệ đáp án đúng trong khi vẫn hỗ trợ chia sẻ công khai qua liên kết. Luồng này cũng cho thấy trách nhiệm chấm điểm được đặt ở phía máy chủ thay vì giao diện người dùng.
 
 \begin{figure}[htbp]
     \centering
@@ -135,7 +135,7 @@ Sơ đồ tuần tự cho chức năng truy cập bài kiểm tra, làm bài và
     \label{fig:sequence-play-submit}
 \end{figure}
 
-Học sinh tham gia bài kiểm tra bằng cách truy cập liên kết mà giáo viên chia sẻ. Sau đó, hệ thống yêu cầu người làm bài nhập thông tin cá nhân hoặc đăng nhập với Google. Khi người dùng nộp bài, máy chủ đảm nhiệm việc chấm điểm, lưu lịch sử bài làm vào cơ sở dữ liệu. Cuối cùng hệ thống trả về điểm số kèm theo đáp án nếu giáo viên cấu hình cho phép.
+Học sinh tham gia bài kiểm tra bằng cách truy cập liên kết giáo viên chia sẻ. Sau đó, hệ thống yêu cầu nhập thông tin cá nhân hoặc đăng nhập với Google. Khi người dùng nộp bài, máy chủ chấm điểm, lưu lịch sử bài làm vào cơ sở dữ liệu. Cuối cùng hệ thống trả về điểm số kèm đáp án nếu giáo viên cấu hình cho phép.
 
 \section{Giao diện tiêu biểu của ứng dụng}
 \subsection{Giao diện dành cho giáo viên}
@@ -173,4 +173,4 @@ Giao diện dành cho người làm bài được tối giản hơn đáng kể 
 
 Hình~\ref{fig:ui-player-flow} cho thấy cách Openlet tổ chức trải nghiệm của người làm bài theo hướng liền mạch. Màn hình làm bài ưu tiên khả năng tập trung và thao tác nhanh, trong khi màn hình kết quả ưu tiên tính rõ ràng của thông tin phản hồi. Sự phân tách này giúp người dùng không bị quá tải thông tin trong lúc làm bài, đồng thời vẫn nhận được mức hỗ trợ phù hợp sau khi hoàn thành.
 
-Nhìn chung, lớp giao diện của Openlet phản ánh đúng triết lý thiết kế của toàn hệ thống: giáo viên được cung cấp một không gian biên soạn và kiểm soát linh hoạt, còn người làm bài tiếp cận một trải nghiệm gọn, rõ và an toàn. Đây là điều kiện cần để các kết quả nghiên cứu ở Chương~\ref{chap:phuong-phap} có thể được đưa vào sử dụng trong một ngữ cảnh nghiệp vụ thực tế.
+\textbf{Nhìn chung, lớp giao diện của Openlet phản ánh đúng triết lý thiết kế của toàn hệ thống: giáo viên được cung cấp một không gian biên soạn và kiểm soát linh hoạt, còn người làm bài tiếp cận một trải nghiệm gọn, rõ và an toàn.} Đây là điều kiện cần để các kết quả nghiên cứu ở Chương~\ref{chap:phuong-phap} có thể được đưa vào sử dụng trong một ngữ cảnh nghiệp vụ thực tế.
